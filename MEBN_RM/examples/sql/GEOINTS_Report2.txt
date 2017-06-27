@@ -1,0 +1,25 @@
+SELECT 
+
+
+DistanceToSensor,
+
+RegionTypeReport,
+
+RegionType
+
+
+
+FROM  geoints_report as mr 
+
+join reportedtarget_geointsrpt as rm 
+
+join sensortemporalproperty as st 
+
+join targettemporalproperty as tt 
+
+
+
+on tt.tr = st.tr and tt.t = st.t 
+
+and tt.t = mr.t and rm.geointsreportedtargetid = mr.rt_geoints 
+and rm.actualtarget_geointsrpt = tt.tr	

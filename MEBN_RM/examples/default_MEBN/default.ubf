@@ -1,0 +1,15 @@
+% UBF file header
+Version=0.04
+PrOwl="default.owl"
+
+% UBF MTheory declaration
+MTheory=MEBN
+NextMFrag=1
+NextResident=1
+NextInput=1
+NextContext=1
+NextEntity=1
+
+% UBF MFrags and Nodes declaration
+
+% Object Entity Instances

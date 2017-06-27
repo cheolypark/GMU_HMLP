@@ -1,0 +1,21 @@
+SELECT 
+
+ImageReport, 
+TemperatureReport, 
+SizeReport, 
+DistanceToSensor, 
+TargetImage,
+Temperature,
+TargetSize, 
+TargetType
+
+FROM  IMINTS_report as mr 
+join  reportedtarget_IMINTSrpt as rm 
+join sensortemporalproperty as st  
+join  targettemporalproperty as tt  
+join  target as tg 
+
+on tg.tr = st.tr and tt.tr = st.tr 
+and tt.t = st.t and tt.t = mr.t 
+and rm.IMINTSreportedtargetid = mr.rt_IMINTS 
+and rm.actualtarget_IMINTSrpt = tt.tr  WHERE targettype IS NOT NULL

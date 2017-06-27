@@ -1,0 +1,15 @@
+% UBF file header
+Version=0.04
+PrOwl="Prognos_NewWorldModel.owl"
+
+% UBF MTheory declaration
+MTheory=Prognos_NewWorldModel
+NextMFrag=1
+NextResident=1
+NextInput=1
+NextContext=1
+NextEntity=1
+
+% UBF MFrags and Nodes declaration
+
+% Object Entity Instances
