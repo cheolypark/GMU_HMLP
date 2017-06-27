@@ -100,8 +100,7 @@ implements Comparable<CLD> {
             this.arrayCategories.add(c);
         }
     }
-
-    @Override
+ 
     public Integer sizeOf(ArrayList<String> ps, String cmp) {
         Integer i = 0;
         for (String s : ps) {
@@ -114,8 +113,7 @@ implements Comparable<CLD> {
     public Double calculateSimilarity() {
         return null;
     }
-
-    @Override
+ 
     public int compareTo(CLD o) {
         return 0;
     }

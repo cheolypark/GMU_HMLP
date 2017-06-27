@@ -56,8 +56,7 @@ extends LPD_Continuous {
         }
         return parents;
     }
-
-    @Override
+ 
     public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
         System.out.println("////////////////////////////////" + this.mNode.name);
         System.out.println((Object)continuousGraph);
@@ -81,8 +80,7 @@ extends LPD_Continuous {
             this.ipcScorers.put(ipc, scorer);
         }
     }
-
-    @Override
+ 
     public String getCPS_op(Object ob) {
         Scorer sc = (Scorer)ob;
         List<MNode> cp = this.mNode.getContinuousParents();

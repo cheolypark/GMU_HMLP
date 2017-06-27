@@ -371,8 +371,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     public void setDataSet(ConditionalDataSet d) {
         this.CDs = d;
     }
-
-    @Override
+ 
     public int compareTo(MNode o) {
         return 0;
     }

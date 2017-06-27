@@ -56,9 +56,8 @@ implements Comparable<RV> {
             this.parents.add(rv);
             ++n2;
         }
-    }
-
-    @Override
+    } 
+    
     public int compareTo(RV o) {
         return 0;
     }

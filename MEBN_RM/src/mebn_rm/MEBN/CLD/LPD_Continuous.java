@@ -36,8 +36,7 @@ extends CLD {
     public LPD_Continuous(String name, String type) {
         super(name, type);
     }
-
-    @Override
+ 
     public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
         EdgeListGraph hybridGraph = new EdgeListGraph();
         this.IPCs = this.initIPCs((Graph)hybridGraph);
@@ -65,8 +64,7 @@ extends CLD {
         }
         return null;
     }
-
-    @Override
+ 
     public String getCPS() {
         List<MNode> dp = this.mNode.getDiscreteParents();
         List<MNode> cp = this.mNode.getContinuousParents();
@@ -102,8 +100,7 @@ extends CLD {
         }
         return s;
     }
-
-    @Override
+ 
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("CLD")) {

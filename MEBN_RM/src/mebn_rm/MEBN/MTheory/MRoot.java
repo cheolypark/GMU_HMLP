@@ -53,8 +53,7 @@ implements Comparable<MRoot> {
         }
         return logSCs;
     }
-
-    @Override
+ 
     public int compareTo(MRoot o) {
         return 0;
     }

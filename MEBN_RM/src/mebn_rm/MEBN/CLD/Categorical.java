@@ -87,8 +87,7 @@ extends LPD_Discrete {
         }
         return "null";
     }
-
-    @Override
+ 
     public List<String> getCategories() {
         if (this.arrayCategories == null) {
             this.arrayCategories = new ArrayList();
@@ -111,8 +110,7 @@ extends LPD_Discrete {
         }
         return this.arrayCategories;
     }
-
-    @Override
+ 
     public String getCPS() {
         List<MNode> discreteParents = this.mNode.getDiscreteParents();
         String s = "{ defineState(Discrete, ";
@@ -158,8 +156,7 @@ extends LPD_Discrete {
         s = String.valueOf(s) + "\n";
         return s;
     }
-
-    @Override
+ 
     public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
         if (this.mNode.name.equalsIgnoreCase("Activity")) {
             System.out.println();

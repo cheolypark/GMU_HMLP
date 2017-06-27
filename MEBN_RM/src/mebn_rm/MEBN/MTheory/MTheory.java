@@ -256,8 +256,7 @@ public class MTheory implements Comparable<MTheory> {
         }
         return logSC;
     }
-
-    @Override
+ 
     public int compareTo(MTheory o) {
         return 0;
     }
