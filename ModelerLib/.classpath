@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/JavaMI.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/mysql-connector-java-3.0.17-ga-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/opencsv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/tetrad-development.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
