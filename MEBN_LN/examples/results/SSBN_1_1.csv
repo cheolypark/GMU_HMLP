@@ -1,0 +1,2198 @@
+"TargetType","Mission","Activity","Latitude","Longitude","Altitude","Time","MEM","Iter","Evidences","groundTruth"
+"TargetType","Mission","Activity","Latitude","Longitude","Altitude","Time","MEM","Iter","Evidences","groundTruth"
+"0.44559924624926783","0.4596826168794579","0.5067624989134116","0.014004840725918807","0.018824924641034312","9.333838887194844E-4","11086","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.74823797660283); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.49184196754459); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9933472658334); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1287.8376762659639); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.112825863284026); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93402211601698); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9050964301362765); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.74403342286792
+Longitude_g1_t2: 68.48800519163784
+Altitude_g1_t2: 924.9944884781796
+"
+"0.47049606722212844","0.4862215007518379","0.5362512849180117","0.014241999383820002","0.01906428062464521","0.001262800174648026","9163","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.742285304337383); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4879821223133); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9959399472676); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1285.2568368783254); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.13905326652969); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93226013114594); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9033621825495202); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.73817615983568
+Longitude_g1_t2: 68.48403105866285
+Altitude_g1_t2: 924.9979540827551
+"
+"0.4167971974675644","0.429099478961119","0.4729932328838141","0.011730617928421097","0.01926015037489683","0.003825829495088947","8892","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.73718658979423); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48373366247381); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0019574508242); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1281.8821020536259); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.1840631408361); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93503173126996); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.907201682375618); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.738136384221587
+Longitude_g1_t2: 68.48400407104444
+Altitude_g1_t2: 924.9963080188776
+"
+"0.4521563406087781","0.4666487882987218","0.5146336799678854","0.014464812704922328","0.018812262792871185","0.004738260090170644","8913","26","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.735627922003218); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48315495423462); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9947107748643); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1281.8584166157991); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.25416555678535); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9373643547643); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9046488289630346); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.73056467667825
+Longitude_g1_t2: 68.47886669332053
+Altitude_g1_t2: 925.0012638144216
+"
+"0.011642921260090377","0.011678164981228352","0.018312797472249457","0.004334394517974207","0.007638858649189851","8.747931572645537E-4","6122","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.780449709245726); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48624187245096); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9982287925798); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1299.7840404099884); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.941428913327368); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81597018662849); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0260958354511382); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.78106134694211
+Longitude_g1_t2: 68.4860802462474
+Altitude_g1_t2: 924.9991663101243
+"
+"0.011944006240204575","0.011980311551327968","0.018665707994578246","0.00604712629635718","0.0075014259660797","8.23776028983019E-4","6207","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.781293792447293); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48476681217694); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9985253173069); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1299.7309701612353); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.060923889606546); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8109574921738); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0246522958180746); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.77232746132753
+Longitude_g1_t2: 68.4808861193016
+Altitude_g1_t2: 924.9991627245447
+"
+"0.43479037661131426","0.4481699240827526","0.4942484087257357","0.014874742681638303","0.018643054965298486","8.781428792487447E-4","8791","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.728343787776236); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47724561684124); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0052711421638); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1277.0334049328956); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.339787666638646); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94381099890279); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.905899005457728); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.72194434427051
+Longitude_g1_t2: 68.47301782720534
+Altitude_g1_t2: 925.0043907626704
+"
+"0.011692698090517113","0.011728091954632749","0.01840138801607272","0.004339029777841913","0.007518293955458311","8.078716000844585E-4","6036","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.772088548146638); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48649900227008); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9978580621581); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1294.8607087111245); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.06721571800322); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81241632697733); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0259189719629336); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.77148182288427
+Longitude_g1_t2: 68.48038320987293
+Altitude_g1_t2: 924.997428501084
+"
+"0.011045133323385008","0.011078252119725759","0.0177109824939964","0.0042772473797481675","0.007412162502664086","9.364802506896081E-4","6169","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.771036244148856); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48177492480747); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9983450039773); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1294.3891892341255); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.165723929520993); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81526556753175); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029441060031261); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.770530562691828
+Longitude_g1_t2: 68.47981748616002
+Altitude_g1_t2: 924.9972087339803
+"
+"0.01152240918793514","0.011557181558345564","0.01823775774174205","0.00461158314608776","0.007563195853515168","0.004023022265006368","6255","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.771688958308722); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47908268172122); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9953053334177); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1293.8598473615023); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.17772872888787); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82133229314263); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026844664868431); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.767946842492105
+Longitude_g1_t2: 68.47828092256141
+Altitude_g1_t2: 925.0011206015798
+"
+"0.42283782001348735","0.43547763574794957","0.4803048474038069","0.013383612536759243","0.018685020590359452","0.001549211965886286","8869","26","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.72183295884875); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47084155200896); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0126925296256); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1272.157277099643); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.443556602603007); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9451483940183); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9067844282192328); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.71755992374507
+Longitude_g1_t2: 68.470043012844
+Altitude_g1_t2: 925.0100180398864
+"
+"0.41829405687072885","0.43066132349738917","0.47499114876586923","0.014211293349691905","0.018659380983633525","0.0016482021895084058","8821","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.717315112053225); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46923035893505); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0097032928747); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1270.0164640306095); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.441796952070636); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95022576468612); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9071225647821175); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.711914966368642
+Longitude_g1_t2: 68.46621292853183
+Altitude_g1_t2: 925.0124828444456
+"
+"0.19162020994299167","0.19418090719547376","0.21577750108712107","0.00924040207243231","0.01627778356917265","0.0024328890199610408","7677","27","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.76619963648206); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47442497118199); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0027256716869); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1292.2620767390622); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.216548483314313); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82622191982902); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0281061522968455); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.76643150776241
+Longitude_g1_t2: 68.47737973822048
+Altitude_g1_t2: 925.0066247902532
+"
+"1.2068084325236077","1.3514574755722193","1.5196999224309593","0.020602731594745377","0.02307890269270189","0.0015499096483981719","11624","24","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.7118768931342); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46759891370314); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0090032715485); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1266.769165530785); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.483168936857446); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithoutWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95025182737935); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9032388238059808); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.70497042288906
+Longitude_g1_t2: 68.46150107948448
+Altitude_g1_t2: 925.0115764427355
+"
+"0.011120155825467059","0.011153520148310453","0.017809096819867573","0.004287973376667781","0.007373059626759131","0.006264345225517011","6432","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.765627093562202); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48055430818108); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0098459211678); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1291.5718327205168); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.219559685615724); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82786685527282); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0290531484217134); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.764926100382713
+Longitude_g1_t2: 68.47648445777139
+Altitude_g1_t2: 925.0017917704083
+"
+"0.4701880802577969","0.48584261797196104","0.5363317849725476","0.011948837249541632","0.018560457812942972","0.0014905314215485723","8994","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.70359159361694); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46551394164317); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0108009036401); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1262.7818383066774); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.548895190161904); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95542267646825); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9034367736011686); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.704241024983187
+Longitude_g1_t2: 68.46100618549498
+Altitude_g1_t2: 925.0132889991094
+"
+"0.4822965814171678","0.4987818350828772","0.5507788365705653","0.016621537667851446","0.018518435958957778","0.002823830305730135","8739","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.702917835608922); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46276352419014); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0138005998855); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1262.3606626535968); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.62599203084008); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95430671844314); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9026177605211523); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.694093784671136
+Longitude_g1_t2: 68.45412131757845
+Altitude_g1_t2: 925.009300975314
+"
+"0.01118010665477764","0.011213670884147594","1.8049234090972726","0.004291158072558329","0.007751596678439976","0.0019500386359558345","5996","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.763948037834716); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47470072665433); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0014567067905); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.4048174993075); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.24846657219313); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82019444753371); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.028737484006236); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: Staying
+Latitude_g1_t2: 23.7643337317633
+Longitude_g1_t2: 68.47613217037679
+Altitude_g1_t2: 925.00471709324
+"
+"1.7152191529296146","1.7210243238217577","1.7727765752911238","0.024219925065702967","0.02989213706085929","9.155056477307201E-4","7679","28","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6938426995344); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45458727075207); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0115292461455); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1256.5353968648549); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.63613085449562); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9551236395733); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9047852281936943); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.69318036233249
+Longitude_g1_t2: 68.45350156363943
+Altitude_g1_t2: 925.0103720774596
+"
+"0.1939255676899587","0.19439963201312152","2.0477256699922166","0.005777116175194768","0.01810571810875015","0.0011033013914181467","6464","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.766187897959); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47630998981549); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0067144837735); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.4036620767629); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 89.99793051234592); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8198137984207); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0270897634493785); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.764035104593372
+Longitude_g1_t2: 68.47595457388668
+Altitude_g1_t2: 925.0083247316826
+"
+"1.214239077244151","1.3469808575851674","1.5094532029453784","0.018122949665735088","0.024663117068379974","0.0017069828116566647","12224","27","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69371058428554); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45209944708574); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0061747700609); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1255.7495654643337); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.763046363372627); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95774912404994); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9080787789593074); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.691744423644113
+Longitude_g1_t2: 68.45252728414061
+Altitude_g1_t2: 925.0032159643397
+"
+"0.01167573132501062","0.011711027148139912","0.01843036398620747","0.004888121103075391","0.007462040732211355","0.002042014951758046","6302","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.76687030935697); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47834103160793); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0101212702928); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.0343293394144); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.26154195069378); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82882565204218); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026110061177692); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.761796876402254
+Longitude_g1_t2: 68.47462347775475
+Altitude_g1_t2: 925.0135121953915
+"
+"0.4269129499109519","0.4397641985268054","0.4854385278840051","0.014614157514286132","0.018646412002685884","0.0036330933589750606","9280","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69451003158586); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45390053956113); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0007056302634); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1255.184018316158); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.767639071121494); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9501751381363); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9065301856278627); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.68841747802082
+Longitude_g1_t2: 68.45026996289094
+Altitude_g1_t2: 925.0060347752888
+"
+"0.228171607854264","0.27571270981881985","0.35887777574726193","0.008700710391677318","0.01447893476695531","0.0022751082748894923","8225","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.761982755113962); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4735978055392); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0143206588335); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1288.9918795010253); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.26377834730331); 
+defineEvidence( ImageReport_g1_s1_t1 , Others); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82113903375183); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029058465213727); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.760136381265816
+Longitude_g1_t2: 68.47363596510435
+Altitude_g1_t2: 925.0180299762972
+"
+"0.011856498394226315","0.011892432601084971","0.018637715040183217","0.005090018669204683","0.007501969196294156","7.837636094433157E-4","5670","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.761949456791324); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47625109878047); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0193369669416); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1288.0650210368042); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.284783234316492); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82742793668531); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0252259135707247); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.756013476787047
+Longitude_g1_t2: 68.47118403360523
+Altitude_g1_t2: 925.0193673341366
+"
+"0.010542448330731612","0.010573854006020721","0.01720410887171156","0.004239985643890662","0.007329870349684526","0.002314038219905298","5682","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.755168449118184); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47201136149363); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0193724567977); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1285.770647938125); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.30657724635991); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.83313722322521); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0325831266473497); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.75427849926202
+Longitude_g1_t2: 68.470152225552
+Altitude_g1_t2: 925.0156761244338
+"
+"0.4394442046738992","0.4530552469224276","0.5003045070595347","0.014136687675429915","0.018608588728201408","0.001588504911121329","8332","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.680550569840296); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.44651024565644); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0038437277343); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1248.763626702668); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.85759160156045); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94412840453025); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9056365393770256); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.67589327907033
+Longitude_g1_t2: 68.44177233665143
+Altitude_g1_t2: 925.0011064394151
+"
+"0.011551597250722837","0.01158643116277562","0.018323519153425172","0.004666137013485999","0.00730084519080299","9.289519152256303E-4","5642","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.75587487458931); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47190909058494); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0163776079384); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1284.8044278570326); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.353022513400763); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.83550472530571); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0268131934614266); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.75125575625639
+Longitude_g1_t2: 68.46835457080948
+Altitude_g1_t2: 925.0152681781021
+"
+"0.45546312891263374","0.4700925754703512","0.519280163974047","0.016683741840721227","0.018627316821683712","8.522142298549824E-4","8260","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.67684732784791); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4416242724628); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9996132663446); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1246.0948814272688); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.907111086873698); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94180106704293); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9045069628995843); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.66720732987945
+Longitude_g1_t2: 68.43587894977284
+Altitude_g1_t2: 925.0003127456253
+"
+"0.011215924149566847","0.011249581865467557","0.017964178428281102","0.004289698721482997","0.007472595501338225","0.003536041761331752","5640","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.75022728096542); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4692377678315); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.015866695881); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1283.1253265796904); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.378784987360092); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82630267405013); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.028635433679062); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.750379073802037
+Longitude_g1_t2: 68.46783319920468
+Altitude_g1_t2: 925.0106726512907
+"
+"1.1410398781409903","1.28068385671632","1.4465414634774258","0.01841969086164671","0.023438330179522647","8.27063308422414E-4","11000","24","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.665673125594346); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.43420341797702); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0015101795138); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1241.1172434981222); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.962985122131983); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94583300257237); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9047319427117602); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.661672756539197
+Longitude_g1_t2: 68.43212376065244
+Altitude_g1_t2: 925.0008223618789
+"
+"0.1266492862555833","0.1278874833861559","0.1441430310564464","0.010655862026602271","0.013407543167280695","8.009907879743369E-4","6932","24","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.74937500679499); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46844595545349); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.006925231518); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1282.1720180050045); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.42024443426227); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82088299378144); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0296692646899155); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.7413865974142
+Longitude_g1_t2: 68.4624852858043
+Altitude_g1_t2: 925.0065072231585
+"
+"0.4188593319680115","0.4311893270375978","0.47638996039464965","0.015076474219068754","0.018791670884101642","7.937416331604E-4","8303","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.661221389466338); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42912416125786); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0066754718853); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1237.2499613775085); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.129594174299825); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94568930169515); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.907176748094839); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.653921091129114
+Longitude_g1_t2: 68.42686428213017
+Altitude_g1_t2: 925.00690759358
+"
+"0.13677467259455756","0.13916679382387512","0.15922220096618062","0.008930231363144487","0.0139216763489451","0.003964211611626226","6954","26","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.741075742477545); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46327471805719); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0093773642333); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1277.6300986392125); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.430087347144287); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.820104102641); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.024692391199554); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.73843366511522
+Longitude_g1_t2: 68.46072914816979
+Altitude_g1_t2: 925.0036804432337
+"
+"0.4290419230622904","0.4419774459272141","0.4883974183401683","0.015075393956385316","0.01917979553014755","0.003154916256179076","8248","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.657574237711618); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42536001833352); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0070547774494); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1233.5159955504043); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.14516883988892); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94588242918272); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9064328779986852); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.65054986453162
+Longitude_g1_t2: 68.42457691639066
+Altitude_g1_t2: 925.0118440612281
+"
+"0.011287591866611196","0.011321462754587477","0.01809014857010856","0.004294704482313675","0.0075368726356653155","0.0024743414304429965","5702","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.738333268449225); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46133614169618); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0042862374345); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1275.9905609810821); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.528064373251837); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81665159734574); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0283499236405804); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.7382996423149
+Longitude_g1_t2: 68.46064944350348
+Altitude_g1_t2: 925.0003080413485
+"
+"0.4186304994324598","0.43093569508016594","0.47624007746895036","0.015453499746226436","0.01858027051953477","7.831920443272531E-4","8272","28","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.651411416980853); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42315061004487); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0109949064909); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1231.5886977491446); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.221727965102634); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94203272079237); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9072091396584985); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.643357359263927
+Longitude_g1_t2: 68.41969682611645
+Altitude_g1_t2: 925.0109248819482
+"
+"0.011703845078978765","0.011739166999464534","0.018555524206846318","0.004339654897083167","0.007479959368389857","0.004821317527028138","5834","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.73841293993089); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46332585733231); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0026607260626); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1275.9173586251534); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.563102397517383); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.816383630212); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0261743339733327); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.737715130832612
+Longitude_g1_t2: 68.46030182882495
+Altitude_g1_t2: 924.9960711307496
+"
+"1.2450637635094768","1.4336811958745692","1.6254332081880556","0.01642820004576938","0.023086011521622252","7.918363235960969E-4","12190","27","17.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.64101120949006); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42273061396232); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0130230826603); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1227.4784966444668); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.265673458037604); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialTracked); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93438808383839); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9037744132592251); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.641182344175043
+Longitude_g1_t2: 68.41822108580254
+Altitude_g1_t2: 925.0132905033828
+"
+"0.13242862400911914","0.1337438225764488","0.15052695882984013","0.008999849891754785","0.014258256686481044","0.0019682360343880405","6988","25","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.73779790531292); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45876687538005); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9986182481026); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1275.5933493133327); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.563880849708216); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81065068326792); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026396436410952); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.734981976806523
+Longitude_g1_t2: 68.45867639547257
+Altitude_g1_t2: 924.9953352976958
+"
+"1.158235889069518","1.3043930297018842","1.474915703302226","0.018721877985055146","0.02389149785671717","7.836452003871674E-4","11025","25","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.64222092512288); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4160023317996); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0104819010243); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1226.2394699023507); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.34838504503014); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93744816856746); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9031418405375027); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.637638828556263
+Longitude_g1_t2: 68.41581682255014
+Altitude_g1_t2: 925.0103901696748
+"
+"0.011081156381459456","0.011114310136841075","0.01787623389297388","0.00437867994165837","0.007643365675618672","7.904797160841792E-4","5724","28","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.737024329814382); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45782442570955); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9929666037309); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1274.0745984574482); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.568126537858394); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81169292722744); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0295339191736206); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.734706609473214
+Longitude_g1_t2: 68.45851263183413
+Altitude_g1_t2: 924.9932489671894
+"
+"0.5066186724116157","0.524750865507461","0.5807628836676894","0.012665575269004907","0.019771930637641127","0.002098708666229526","8197","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.636316594241993); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.41726808583039); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0143471547386); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1224.212612405903); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.377140789708545); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94034805585686); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.901102381562792); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.63685144190358
+Longitude_g1_t2: 68.41528258339386
+Altitude_g1_t2: 925.010858973364
+"
+"0.011336476435999807","0.011370500827318608","0.01816536803641291","0.004387781440979146","0.007454182423749391","0.005070134730179035","5650","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.73434243293985); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45912894424356); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9908923803329); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1273.9209583753247); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.603812806310422); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8063395663908); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.028132527702141); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.732215566836945
+Longitude_g1_t2: 68.45703118448627
+Altitude_g1_t2: 924.9978476283752
+"
+"0.42289922690493664","0.43543631285085727","0.48147450587269214","0.0135308268986198","0.019340032797242765","9.001910515059786E-4","8464","26","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.63920516373152); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.41400171016865); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0100695885195); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1223.76331799745); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.4177551957812); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93343766605564); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9069218124456702); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.635446016892
+Longitude_g1_t2: 68.41432900732059
+Altitude_g1_t2: 925.0090570180616
+"
+"0.011478544230737579","0.011513060105816366","0.018325128762832068","0.005160221639384491","0.007288399871954211","0.0011765309320006388","5702","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.735096827701703); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45889023719454); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9987994863596); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1272.5402543965042); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.60643294148874); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80773119917508); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.027379333908363); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.728316918932165
+Longitude_g1_t2: 68.4547126205586
+Altitude_g1_t2: 925.0006639190485
+"
+"0.011456817309345859","0.011491248809482204","0.018312756624132082","0.0043769452051949905","0.0074763592967142505","0.0014504210593358016","5601","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.728567924548837); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45578123157266); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0007243240548); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1270.3733455995416); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.636757117960418); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80682756072125); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0275202964946746); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.72674545783005
+Longitude_g1_t2: 68.45377805731665
+Altitude_g1_t2: 924.9983435696076
+"
+"1.2588366284920713","1.2791648636351747","2.8835300085102817","0.009855434208489734","0.028447122232720633","0.0016424518946017792","12040","24","17.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.635547623825225); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.41024712660891); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0087694602371); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1222.9616558439689); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 90.00167173353697); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9415218153717); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9017232360741063); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.633442237324484
+Longitude_g1_t2: 68.41296944972346
+Altitude_g1_t2: 925.0115760318142
+"
+"0.011675978110983481","0.011711169378848562","0.018566429063623494","0.004699210493329269","0.007588745418706831","0.002884787547944659","5802","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.728222045308694); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45299562376258); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.996509465627); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1269.5008510815624); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.684797929248624); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80957602060452); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.02640686362697); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.7240191397898
+Longitude_g1_t2: 68.4521566893917
+Altitude_g1_t2: 925.001029758548
+"
+"0.012128792265755983","0.012165598866003642","0.01907165221863692","0.00487443865822975","0.007553717962388466","7.860777843459116E-4","5745","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.72708343659354); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45379779627343); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0024501541321); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1267.9884588909706); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.70238071737478); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81613221033265); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.024197894657067); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.722219463944594
+Longitude_g1_t2: 68.45108640461655
+Altitude_g1_t2: 925.0023741921763
+"
+"1.1413293171796517","1.3233719175376688","1.511498975312004","0.016717836978754598","0.02287399163896324","0.001604295272048164","12247","27","17.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.623868965151928); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.40701543372357); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0126879157112); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1217.0678824114018); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.51185213233599); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9343011454871); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.904030424225881); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.62173093300344
+Longitude_g1_t2: 68.4050233697154
+Altitude_g1_t2: 925.0099010707557
+"
+"0.011139693044139014","0.011173004300303007","0.018001180608554018","0.0059034114270217816","0.0073777083578042075","0.0014139903126285651","5605","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.720561446795593); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.44884087952877); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0018544266125); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1266.0237954550835); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.760206299428475); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80871616146261); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029343309317891); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.711779039186293
+Longitude_g1_t2: 68.4448773822002
+Altitude_g1_t2: 924.9995461553453
+"
+"0.45044436250680575","0.4646647230649043","0.5141489888739701","0.013413287033382376","0.019275046915375495","0.0033845878360257288","8314","28","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.623437014721034); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.40582098575406); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.010563267845); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1215.1396378714244); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.571470537971482); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93547533882794); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9049585418427768); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.62062085646872
+Longitude_g1_t2: 68.40427018657557
+Altitude_g1_t2: 925.0054709557236
+"
+"0.011615979294451824","0.011650929272987331","0.018539755024184378","0.004368422627594708","0.007557618079080793","8.613494799167698E-4","5692","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.710209594985923); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4458808228315); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0013964912253); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1261.194554722566); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.776335826788955); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81324519782137); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0268012185721145); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.711617277398847
+Longitude_g1_t2: 68.44478118088774
+Altitude_g1_t2: 925.0022058058706
+"
+"0.45347077488416854","0.4678815581290986","0.5177724682967645","0.012350081781902153","0.019786831329684333","8.549967986640085E-4","8257","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6187872269736); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.40222157148807); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0061554932647); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1214.5056141870805); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.61563081755489); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93830210890249); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9047501830293245); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.618848492763956
+Longitude_g1_t2: 68.40306764385143
+Altitude_g1_t2: 925.0053748870059
+"
+"0.12952542318705704","0.13079702589935724","0.1476343991388379","0.009314455020986503","0.013626328323544793","8.094943008626021E-4","7084","25","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.711874759953382); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.44687231037202); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0043100020096); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1261.1116216311277); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.88499645970501); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81611810506004); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0282718361890684); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.707713049635014
+Longitude_g1_t2: 68.44245929856348
+Altitude_g1_t2: 925.0038889869948
+"
+"0.4649451611226223","0.48010649010789735","0.5313945859402146","0.015101891819163459","0.01947857204724725","0.0022641132254315574","8388","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.620329935928844); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.40117072969407); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0038792702609); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1213.4970366895031); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.63120562383364); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93584093623478); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9039514849405668); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.61405191779811
+Longitude_g1_t2: 68.39981318410908
+Altitude_g1_t2: 925.0075175493964
+"
+"1.1089939787090406","1.2370304626071758","1.3976855129784975","0.01872152394571531","0.02286770424961358","8.097266276394348E-4","11423","24","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.614132859046393); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4010149565799); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0071243840117); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1210.7599778048468); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.647958516450064); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94135159608072); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.907747247346539); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.60926566045288
+Longitude_g1_t2: 68.3965657248371
+Altitude_g1_t2: 925.0075514593813
+"
+"0.011101051492407716","0.011134191232024101","0.0180172291366535","0.004285346102739137","0.00737488844022496","0.0030647862687146177","5674","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.702958105350934); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.44262481439446); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0066923430309); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1257.6161638655408); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.93118883393625); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8127752366023); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029699478408645); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.702215962782386
+Longitude_g1_t2: 68.43919012740592
+Altitude_g1_t2: 925.0114090988295
+"
+"0.4595718849767245","0.4743652071485235","0.5251413026150881","0.014994895877449059","0.018923881492227384","0.0016844801785859593","8256","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.61113455669116); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39780343888032); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0083084784939); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1208.0365743549332); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.708527376865018); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94403012883254); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9043394926132837); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.60492870837575
+Longitude_g1_t2: 68.39362311765592
+Altitude_g1_t2: 925.0054564169664
+"
+"0.11778415113103066","0.12040672282726222","0.14104345271425728","0.00788820316410754","0.013493402619631575","0.0020780945207747167","6973","24","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.699410655910675); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.43847102079823); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0101742724564); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1255.896721276719); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.965176158371772); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryTracked); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81051244010806); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.024621928793215); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.6991233662967
+Longitude_g1_t2: 68.43735093011762
+Altitude_g1_t2: 925.0067779426448
+"
+"0.444676115135785","0.4585027111269996","0.5075954353787044","0.012810691249914068","0.01927298554694269","0.0012825513945501344","8269","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.60327775650315); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39279977228443); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0053952596948); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1205.5662190210858); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.772855289188435); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.944797801019); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9054005524264077); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.601878389649073
+Longitude_g1_t2: 68.39155348681142
+Altitude_g1_t2: 925.0074198151333
+"
+"0.19115694509277467","0.19369082473498497","0.2160590715669835","0.009375939470375344","0.016077299489600558","0.003151858464858873","6920","26","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.699107523693524); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4351672644271); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.003834206724); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1254.1868674449893); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.00384716043137); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8093589101357); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0288509848778795); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.698746165882582
+Longitude_g1_t2: 68.43712660535297
+Altitude_g1_t2: 925.0086166083087
+"
+"0.011649584586816534","0.011684592333205976","1.802444787622719","0.004357266245103999","0.007544209876881456","8.73332703051763E-4","5723","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69999752922148); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.43856581157492); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0048359764664); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1253.9769105152493); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.03959188618241); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.79962983318674); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.02680313405597); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: Staying
+Latitude_g1_t2: 23.698746165882582
+Longitude_g1_t2: 68.43712660535297
+Altitude_g1_t2: 925.0057685667086
+"
+"1.2229839848263153","1.2402575570729746","2.865665762442377","0.008198180582886834","0.028380724232823524","8.048556371364546E-4","11012","25","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.603084258923463); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39141887204245); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0143019466302); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1203.8296606688468); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 90.0014346403258); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94663307394448); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9052728417530034); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.596198895533636
+Longitude_g1_t2: 68.3876999694397
+Altitude_g1_t2: 925.0147491253744
+"
+"0.4957223757266932","0.5129790448807755","0.5683917156703459","0.01211206737256794","0.01995606163269241","0.004645177033655178","8327","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.59304894757661); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.38726759583244); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.012912232304); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1200.6010671995316); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.859942095112032); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95083438199083); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9018989566368505); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.594802423697207
+Longitude_g1_t2: 68.38675246806521
+Altitude_g1_t2: 925.0193605469833
+"
+"0.4273787190587677","0.44012110018163997","0.48739785081465614","0.012342469595550416","0.018920279037535886","0.001350617563553768","8391","26","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.59369330688632); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.38766838965267); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0191518968969); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1199.810812342732); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.932330796350076); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94681622173125); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9066758156990273); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.593052449513834
+Longitude_g1_t2: 68.38556511655491
+Altitude_g1_t2: 925.0213394911167
+"
+"0.011683973433247096","0.011719084885342462","0.018718042986839448","0.0046201949638357475","0.007614626665493979","0.002420266423827491","5709","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69045515579862); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4306132626676); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0090155033375); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1250.5218015181547); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.099335901017678); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80219074571538); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0266757819166847); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.686793401753828
+Longitude_g1_t2: 68.43001817996505
+Altitude_g1_t2: 925.005190357794
+"
+"0.12961919280531975","0.13299285893050017","0.15603488518661662","0.007946633226488588","0.01327998346514084","0.004650389481100171","6989","24","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.686902235139794); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.432853522847); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0028055796499); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1247.3660841339165); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.12290704388361); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80570274508551); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.025728846009216); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.686367596869857
+Longitude_g1_t2: 68.4297649496482
+Altitude_g1_t2: 925.0092300151068
+"
+"0.12280894198567802","0.12594578419856428","0.1482631696643869","0.009249750024355494","0.013203388945508682","0.002390451501195458","6958","24","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6852980130612); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.43086757269268); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0109063348636); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1247.1307453856382); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.19525777014266); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.79845205613306); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0297513777663667); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.68026197868834
+Longitude_g1_t2: 68.4261338789751
+Altitude_g1_t2: 925.0070205663212
+"
+"0.42855169002893323","0.4413414743979809","0.48902088801506977","0.013194091845798117","0.01947055663415683","0.001376075904897592","8466","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.582503861612455); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.37579140830924); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0253487190839); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1191.5517638168383); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.105232364661425); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93688634547192); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.906620353776018); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.57966337684292
+Longitude_g1_t2: 68.37648067644812
+Altitude_g1_t2: 925.023093747529
+"
+"0.1347785732090314","0.13611727177819175","0.15371183479091957","0.008734883955006325","0.01440428482707934","0.0012245208891050977","7033","25","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.676092122231125); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42229445324728); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.008289923003); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1241.094056056999); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.281063871876427); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80375183890943); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0256216981004567); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.674321686484994
+Longitude_g1_t2: 68.42260112927343
+Altitude_g1_t2: 925.0102031817205
+"
+"1.2568406432531414","1.4521177075919247","1.6493201069090222","0.017187090545315763","0.02347788303723026","0.0022008979242732507","12394","26","17.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.579458354586063); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.37771203183247); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.022686828652); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1191.2064108547286); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.133885815869874); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialTracked); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9395560850438); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9023865974085536); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.577887733698518
+Longitude_g1_t2: 68.37527590863539
+Altitude_g1_t2: 925.0262744405902
+"
+"0.011774312491516404","0.01180967795457946","0.018903227119495658","0.004374096145365392","0.00756547444421013","0.0013845520729096736","5688","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.672507095207276); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.42206397029287); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0102164539276); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1240.4803280591238); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.335624060008424); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80342948835066); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026398116986006); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.671108892253514
+Longitude_g1_t2: 68.42069044921355
+Altitude_g1_t2: 925.0125495146476
+"
+"0.4420573850710083","0.45566985634550206","0.5050010889998375","0.014559694102351708","0.01878373649358897","8.055102983065875E-4","8411","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.576348210802884); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3742342131671); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0276100109428); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1190.1949531823234); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.146705757974253); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93921348313594); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9056488598824073); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.570610841869733
+Longitude_g1_t2: 68.37033856236751
+Altitude_g1_t2: 925.0271141117812
+"
+"1.2269598739775027","1.364268962646201","2.5778951741635923","0.018501673633588123","0.02546046843124682","0.0010439189534236458","11050","27","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.569788786870586); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3641044003919); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0309127662207); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1183.9318737287274); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.25857455766775); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93297245066067); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9068490580337707); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: Staying
+Latitude_g1_t2: 23.566841655468046
+Longitude_g1_t2: 68.3677811822592
+Altitude_g1_t2: 925.0323866007717
+"
+"1.2061866679429922","1.2222776332407208","2.8564797547468843","0.008595535951343831","0.029214354227678842","0.0030670465789828447","11012","24","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.566488124381525); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.36929824739772); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0294166563331); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1183.9294632604783); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 90.00171087106031); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93543420537415); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9068555974888393); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.5603610597731
+Longitude_g1_t2: 68.36338412020015
+Altitude_g1_t2: 925.0341596485268
+"
+"0.011588078674136373","0.011622762571533003","0.01873851923800457","0.004915590759583967","0.007452561298820862","0.0014632612811921277","5716","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.66435845937662); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.41790007926862); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0009487734245); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1234.6616036479004); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.43483015794959); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80516229735267); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0274459683791983); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.659059898647737
+Longitude_g1_t2: 68.41352479521723
+Altitude_g1_t2: 924.9985420071006
+"
+"0.011182821785290162","0.011216101968864987","0.01831110060837065","0.004303496806311521","0.007394030478181997","0.001048670533820737","5724","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.65951105235067); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4163714461386); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9994014650819); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1232.0562222945891); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.48578770247431); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8018063479566); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0297022649935568); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.658442511831975
+Longitude_g1_t2: 68.41315762925728
+Altitude_g1_t2: 925.0009333990575
+"
+"1.1290807051632075","1.22212578236419","1.3632451292163437","0.020344933002637636","0.02256583915470392","0.0015724161672204455","9517","24","13.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.552865188054582); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.35989130051983); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0355487122927); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1175.1482260415548); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.438092601322854); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.938736884992); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9059254187091101); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.545259175298767
+Longitude_g1_t2: 68.35313754313103
+Altitude_g1_t2: 925.032897532739
+"
+"0.01126737740495985","0.011300928709924505","0.01842779539556662","0.004992544040673424","0.007413296841557706","0.0015065775889689895","5765","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.65614204395105); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.41132765011689); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9997845585585); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1230.298996364578); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.552355794742127); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.797980692757); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0292784859756585); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.650341711569958
+Longitude_g1_t2: 68.40834000434437
+Altitude_g1_t2: 925.0023428089776
+"
+"0.47095151641334787","0.48636721924808324","0.5399185069882299","0.013566395696451154","0.020402439053538973","8.771056840580452E-4","8450","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.54591634033915); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.34890184259619); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0339693264598); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1170.9772715411143); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.5892934284665); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.92594601558814); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9036986870003132); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.54312464347733
+Longitude_g1_t2: 68.3516892705759
+Altitude_g1_t2: 925.033073646987
+"
+"0.011724081666778135","0.011759195980393761","0.018949509667022607","0.004553671008053636","0.007524076873904235","9.02069422825172E-4","5683","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.651390486780173); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.40905365885146); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0024085047295); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1227.2546999347512); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.584093196011636); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80084555761589); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0268698796853784); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.648124269210044
+Longitude_g1_t2: 68.40702126974895
+Altitude_g1_t2: 925.0014429498877
+"
+"0.42571130274498026","0.4382635671463254","0.48639423187722064","0.014486204465697412","0.018659634600508547","0.004358342252809616","8393","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.544632058449256); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.35220926053185); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.031312167079); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1170.5030980549352); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.607247126527646); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93130653199178); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.906918550295087); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.538649605861597
+Longitude_g1_t2: 68.3486529728281
+Altitude_g1_t2: 925.0374197810195
+"
+"0.45341271617371987","0.46767125369531953","0.5191575772736989","0.012431662099608113","0.019878267295449843","8.494131611133416E-4","8338","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.538819958215594); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.34729253257882); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0351286490616); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1167.9733224298911); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.620136462554115); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9320694599525); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.904928429254071); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.538512317721548
+Longitude_g1_t2: 68.34855982329368
+Altitude_g1_t2: 925.0358486072943
+"
+"0.41694386548675166","0.4289720381227635","0.47618306872894794","0.013379058492640199","0.01885968878203449","0.0021720014537964954","8450","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.538417110069553); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.34776090247108); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0381445016159); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1167.897700754547); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.677041932949503); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.92435037254059); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9075812932289882); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.53470831107415
+Longitude_g1_t2: 68.3459788177675
+Altitude_g1_t2: 925.0345072831564
+"
+"0.011111345160658695","0.011144307087535818","0.01835181630371517","0.004279230157161699","0.007864153892200135","7.915597858914732E-4","5701","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6377293706598); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39827127267255); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9969479573285); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1220.064630678216); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.798459795712837); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80771867111983); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.030384356265046); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.63724261684483
+Longitude_g1_t2: 68.40054984497203
+Altitude_g1_t2: 924.9972755202449
+"
+"0.46503990273798435","0.4800313252532141","0.5331835612949344","0.013679717190196271","0.01913765991076359","0.00259872327937559","8506","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.53175201212165); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.34499990076436); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0290375929303); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1163.36629017625); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.775751758788928); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.92789811827511); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9041414775620622); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.528543295469365
+Longitude_g1_t2: 68.34179587572248
+Altitude_g1_t2: 925.033100338819
+"
+"0.01155702462262871","0.011591486203543075","0.018867300229549484","0.004545572906802083","0.007631299848675312","9.280294737350921E-4","5702","26","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.630062862912304); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3945239958306); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9939000905833); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1215.9804821593257); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.83377537386597); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80061984898653); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.027961059847252); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.626792119867964
+Longitude_g1_t2: 68.3943348325091
+Altitude_g1_t2: 924.9950958470769
+"
+"0.011709149647786457","0.011744115006090959","0.019068368019772117","0.005558105432706087","0.007472674103632155","0.0032114984329494347","5736","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.629177140938744); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3950265330286); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0003940566705); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1214.309748972856); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 26.923505893354495); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.79759488289558); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0272322871331188); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.62154473307957
+Longitude_g1_t2: 68.39121416041475
+Altitude_g1_t2: 924.9955010306932
+"
+"1.930126680629522","1.9306335791624156","3.80466703041944","0.013442670011439749","0.032989687391033064","0.004062745907574378","8432","25","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.527071197940273); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3413676135727); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0309530185169); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1162.2660807548677); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 89.99519581690971); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.92691424912255); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9063690420660233); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.52822044061466
+Longitude_g1_t2: 68.34157681980555
+Altitude_g1_t2: 925.0368173573435
+"
+"0.0","3.6734532571599478E-9","0.03656129343032391","0.0013863414914202805","0.011500669457979765","0.0035474710681151584","3695","25","4.0","defineEvidence( LatitudeReport_g1_s1_t1 , 19.906862050142138); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 63.13604310962014); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 8.999546289146705); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1655.7215471112308); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 50.16162188632598); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialTracked); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 71.63775846697472); 
+defineEvidence( SizeReport_g1_s1_t1 , 6.586724392891531); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: Others
+Mission_g1_t2: Others
+Activity_g1_t2: HeadingToOthers
+Latitude_g1_t2: 19.90799744327968
+Longitude_g1_t2: 63.14969983365301
+Altitude_g1_t2: 8.994283536240227
+"
+"0.0","3.6666358955456485E-9","0.03630735865359006","0.0012848788222331595","0.013849120105774852","0.001689091310796584","3802","26","4.0","defineEvidence( LatitudeReport_g1_s1_t1 , 19.9091106538005); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 63.14999817928118); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 8.994944637961193); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1652.15156435484); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 50.44997959863775); 
+defineEvidence( ImageReport_g1_s1_t1 , Others); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 71.64206335137713); 
+defineEvidence( SizeReport_g1_s1_t1 , 6.588235410306214); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: Others
+Mission_g1_t2: Others
+Activity_g1_t2: HeadingToOthers
+Latitude_g1_t2: 19.908646858347176
+Longitude_g1_t2: 63.17195583067922
+Altitude_g1_t2: 8.99779632573288
+"
+"0.01165329250409122","0.011688031282404227","0.01905358167977548","0.004395605094494906","0.007464752844837302","0.0037971992621063794","5682","25","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.61921861464131); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39305460968517); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9914542760761); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1209.7501572943738); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 27.03397524169215); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.79777268659626); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0276222794656853); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.61735907064412
+Longitude_g1_t2: 68.38872490614679
+Altitude_g1_t2: 924.9970712167602
+"
+"0.4192269565392297","0.4313676815306291","0.47908939364197406","0.018067381519580195","0.01858514002786062","0.0028833185137710016","8311","27","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.529563013005745); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.3372278127264); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0379793493817); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1161.3716928141364); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.819608565527222); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9332913167668); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9074391553506136); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.51649229287848
+Longitude_g1_t2: 68.33361931159781
+Altitude_g1_t2: 925.0424897404228
+"
+"0.0","3.6631781580286113E-9","0.0361795298968406","0.001493638662465513","0.01746960389544639","0.0020148848581348936","3788","26","4.0","defineEvidence( LatitudeReport_g1_s1_t1 , 19.908967849391278); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 63.1685381207936); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 8.998147371726734); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1647.1010438298042); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 50.5977706917548); 
+defineEvidence( ImageReport_g1_s1_t1 , Others); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 71.6438046873993); 
+defineEvidence( SizeReport_g1_s1_t1 , 6.582980349461359); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: Others
+Mission_g1_t2: Others
+Activity_g1_t2: HeadingToOthers
+Latitude_g1_t2: 19.90935124750051
+Longitude_g1_t2: 63.19609583556436
+Altitude_g1_t2: 8.994760262269935
+"
+"0.011776784150170022","0.011811942206187776","0.019203622905441718","0.0043330518452637905","0.007577337223417984","0.002761331066785712","5451","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.61725431417477); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.38992946283318); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9960618555419); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1209.1267259844644); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 27.06900292590827); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.79936642734748); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0270097664950875); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.617314308348078
+Longitude_g1_t2: 68.38869828557283
+Altitude_g1_t2: 925.0004056503075
+"
+"0.8046631034074779","0.8049089666956396","0.8318274786170717","0.01778559905983324","0.023376485004582507","0.0010616879871294099","5671","24","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.617347028782113); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.39082125449777); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9987749243586); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1209.1064161289676); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 27.090006387265213); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80307134377314); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029266274141278); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.614781409745
+Longitude_g1_t2: 68.38719194607334
+Altitude_g1_t2: 925.0002771960854
+"
+"0.45812311274894196","0.472628853883535","0.525300080341976","0.01385691510196461","0.018824825653586886","0.0029396962833559484","8343","24","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.51436141120347); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.33430188361942); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.044440218424); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1154.858939315119); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.97627721420594); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9291244157922); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.904662648801052); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.510561354286658
+Longitude_g1_t2: 68.32959519000711
+Altitude_g1_t2: 925.0398865631907
+"
+"0.011798542342548424","0.011833768427842025","0.019238731626965825","0.0044568462722241724","0.007666675461592404","7.877957424076602E-4","5767","27","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.615039438256883); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.38617864557642); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0005951249839); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1207.7190379042192); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 27.091904965473898); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.80454047913338); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026921172054846); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.612632015482685
+Longitude_g1_t2: 68.38591368034515
+Altitude_g1_t2: 925.0004378099219
+"
+"0.36922876442121255","0.39002854670154496","0.5625379648887132","0.010040264678009123","0.015241907444629044","0.001977829430295332","7594.47","25.33","9.63","",""
+"0.19300740050542942","0.22121636696619712","0.5857392283176317","2.938412333506489E-5","4.571678095425313E-5","1.5672089090332764E-6","4171360.352626262","1.6576767676767679","8.962727272727273","",""
+"TargetType","Mission","Activity","Latitude","Longitude","Altitude","Time","MEM","Iter","Evidences","groundTruth"
+"0.4041753223687521","0.41575382843846853","0.45812616292609415","0.012914174165238997","0.018394812957761124","8.193630139591649E-4","15796","304","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.751188636458878); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.49462812687995); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9972247180762); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1289.311172863753); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.11169314586097); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94030731434353); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9081373593584328); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.748509322292396
+Longitude_g1_t2: 68.49104207411992
+Altitude_g1_t2: 924.996639759508
+"
+"0.011452814802110068","0.01148740407452048","0.018081183351508923","0.004315832836137399","0.007693216870504061","8.384243248937156E-4","9705","311","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.791484168502105); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.49192718174778); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.998386004931); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1305.9729633985792); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 24.881502821630978); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81061754966774); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0270271096078503); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.791956322432064
+Longitude_g1_t2: 68.49255959441652
+Altitude_g1_t2: 924.9977239911234
+"
+"0.4167971974675644","0.429099478961119","0.4729932328838141","0.011730617928421097","0.01926015037489683","0.003825829495088947","14367","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.73718658979423); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48373366247381); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0019574508242); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1281.8821020536259); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.1840631408361); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93503173126996); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.907201682375618); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.738136384221587
+Longitude_g1_t2: 68.48400407104444
+Altitude_g1_t2: 924.9963080188776
+"
+"0.4521563406087781","0.4666487882987218","0.5146336799678854","0.014464812704922328","0.018812262792871185","0.004738260090170644","14341","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.735627922003218); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48315495423462); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9947107748643); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1281.8584166157991); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.25416555678535); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9373643547643); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9046488289630346); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.73056467667825
+Longitude_g1_t2: 68.47886669332053
+Altitude_g1_t2: 925.0012638144216
+"
+"1.1576254573296887","1.2596675779935738","1.4015027495119539","0.01798612681279113","0.02412121247872296","8.722086203288184E-4","16821","313","13.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.731274053046075); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48042230689055); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0000399729925); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1277.5002734213258); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.254760446397675); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.93759597044172); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9030189766814607); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.729757822608363
+Longitude_g1_t2: 68.47831924558811
+Altitude_g1_t2: 925.0008600913336
+"
+"0.011944006240204575","0.011980311551327968","0.018665707994578246","0.00604712629635718","0.0075014259660797","8.23776028983019E-4","9553","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.781293792447293); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48476681217694); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9985253173069); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1299.7309701612353); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.060923889606546); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8109574921738); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0246522958180746); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.77232746132753
+Longitude_g1_t2: 68.4808861193016
+Altitude_g1_t2: 924.9991627245447
+"
+"0.43479037661131426","0.4481699240827526","0.4942484087257357","0.014874742681638303","0.018643054965298486","8.781428792487447E-4","14106","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.728343787776236); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47724561684124); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0052711421638); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1277.0334049328956); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.339787666638646); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94381099890279); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.905899005457728); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.72194434427051
+Longitude_g1_t2: 68.47301782720534
+Altitude_g1_t2: 925.0043907626704
+"
+"0.43438696594012016","0.4477371032540065","0.4938169317540535","0.01240704167887437","0.019746545564958706","0.003186496218571364","14248","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.72184792796501); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47091041373046); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0037180289894); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1272.5346963088377); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.349249951189698); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94721802011581); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.905933691488235); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.721300233390203
+Longitude_g1_t2: 68.47258080017157
+Altitude_g1_t2: 925.0085584993909
+"
+"0.011045133323385008","0.011078252119725759","0.0177109824939964","0.0042772473797481675","0.007412162502664086","9.364802506896081E-4","9513","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.771036244148856); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.48177492480747); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9983450039773); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1294.3891892341255); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.165723929520993); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.81526556753175); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029441060031261); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.770530562691828
+Longitude_g1_t2: 68.47981748616002
+Altitude_g1_t2: 924.9972087339803
+"
+"0.01152240918793514","0.011557181558345564","0.01823775774174205","0.00461158314608776","0.007563195853515168","0.004023022265006368","9558","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.771688958308722); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47908268172122); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9953053334177); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1293.8598473615023); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.17772872888787); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82133229314263); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026844664868431); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.767946842492105
+Longitude_g1_t2: 68.47828092256141
+Altitude_g1_t2: 925.0011206015798
+"
+"0.01110158279823267","0.011134888858538496","0.01778112952373035","0.004332914161561594","0.007489547657354686","8.907396253500274E-4","9486","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.766180184346762); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47902352607296); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0031542729516); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1292.4169072426498); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.18798682507986); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8196705305393); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0291399395593475); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.76767012454498
+Longitude_g1_t2: 68.47811635569977
+Altitude_g1_t2: 925.0041221090529
+"
+"0.19162020994299167","0.19418090719547376","0.21577750108712107","0.00924040207243231","0.01627778356917265","0.0024328890199610408","11910","313","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.76619963648206); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47442497118199); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0027256716869); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1292.2620767390622); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.216548483314313); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryWheeled); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82622191982902); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0281061522968455); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.76643150776241
+Longitude_g1_t2: 68.47737973822048
+Altitude_g1_t2: 925.0066247902532
+"
+"1.2068084325236077","1.3514574755722193","1.5196999224309593","0.020602731594745377","0.02307890269270189","0.0015499096483981719","19232","313","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.7118768931342); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46759891370314); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0090032715485); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1266.769165530785); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.483168936857446); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithoutWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95025182737935); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9032388238059808); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.70497042288906
+Longitude_g1_t2: 68.46150107948448
+Altitude_g1_t2: 925.0115764427355
+"
+"0.4701880802577969","0.48584261797196104","0.5363317849725476","0.011948837249541632","0.018560457812942972","0.0014905314215485723","14323","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.70359159361694); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46551394164317); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0108009036401); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1262.7818383066774); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.548895190161904); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95542267646825); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9034367736011686); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.704241024983187
+Longitude_g1_t2: 68.46100618549498
+Altitude_g1_t2: 925.0132889991094
+"
+"0.4822965814171678","0.4987818350828772","0.5507788365705653","0.016621537667851446","0.018518435958957778","0.002823830305730135","14776","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.702917835608922); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46276352419014); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0138005998855); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1262.3606626535968); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.62599203084008); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95430671844314); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9026177605211523); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.694093784671136
+Longitude_g1_t2: 68.45412131757845
+Altitude_g1_t2: 925.009300975314
+"
+"0.01118010665477764","0.011213670884147594","1.8049234090972726","0.004291158072558329","0.007751596678439976","0.0019500386359558345","9766","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.763948037834716); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47470072665433); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0014567067905); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.4048174993075); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.24846657219313); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82019444753371); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.028737484006236); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: Staying
+Latitude_g1_t2: 23.7643337317633
+Longitude_g1_t2: 68.47613217037679
+Altitude_g1_t2: 925.00471709324
+"
+"1.7152191529296146","1.7210243238217577","1.7727765752911238","0.024219925065702967","0.02989213706085929","9.155056477307201E-4","11947","313","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6938426995344); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45458727075207); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0115292461455); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1256.5353968648549); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.63613085449562); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9551236395733); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9047852281936943); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.69318036233249
+Longitude_g1_t2: 68.45350156363943
+Altitude_g1_t2: 925.0103720774596
+"
+"0.1939255676899587","0.19439963201312152","2.0477256699922166","0.005777116175194768","0.01810571810875015","0.0011033013914181467","9669","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.766187897959); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47630998981549); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0067144837735); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.4036620767629); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 89.99793051234592); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.8198137984207); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0270897634493785); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.764035104593372
+Longitude_g1_t2: 68.47595457388668
+Altitude_g1_t2: 925.0083247316826
+"
+"0.01167115236607643","0.011706433279056573","0.018423616061521826","0.004373149609230123","0.007548215984120218","9.165761421333851E-4","9901","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.762213194781864); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47712439437744); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0086451565323); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.2367742088013); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.25419979931582); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82480026734368); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026129517929221); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.763669818302297
+Longitude_g1_t2: 68.4757373345672
+Altitude_g1_t2: 925.0097706199144
+"
+"1.214239077244151","1.3469808575851674","1.5094532029453784","0.018122949665735088","0.024663117068379974","0.0017069828116566647","19343","313","15.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69371058428554); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45209944708574); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0061747700609); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1255.7495654643337); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.763046363372627); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialRWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.95774912404994); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9080787789593074); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.691744423644113
+Longitude_g1_t2: 68.45252728414061
+Altitude_g1_t2: 925.0032159643397
+"
+"0.01167573132501062","0.011711027148139912","0.01843036398620747","0.004888121103075391","0.007462040732211355","0.002042014951758046","9722","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.76687030935697); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47834103160793); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0101212702928); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1290.0343293394144); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.26154195069378); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82882565204218); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.026110061177692); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.761796876402254
+Longitude_g1_t2: 68.47462347775475
+Altitude_g1_t2: 925.0135121953915
+"
+"0.4269129499109519","0.4397641985268054","0.4854385278840051","0.014614157514286132","0.018646412002685884","0.0036330933589750606","15783","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.69451003158586); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.45390053956113); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0007056302634); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1255.184018316158); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.767639071121494); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9501751381363); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9065301856278627); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.68841747802082
+Longitude_g1_t2: 68.45026996289094
+Altitude_g1_t2: 925.0060347752888
+"
+"0.228171607854264","0.27571270981881985","0.35887777574726193","0.008700710391677318","0.01447893476695531","0.0022751082748894923","15466","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.761982755113962); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4735978055392); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0143206588335); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1288.9918795010253); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.26377834730331); 
+defineEvidence( ImageReport_g1_s1_t1 , Others); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82113903375183); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.029058465213727); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.760136381265816
+Longitude_g1_t2: 68.47363596510435
+Altitude_g1_t2: 925.0180299762972
+"
+"0.4218169349292955","0.43435920666904393","0.4794799382590249","0.013770088498769598","0.01898265192259518","0.001978214338795507","15062","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.6893446304017); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4493549606273); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0029828347025); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1253.277750955807); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.78121925219207); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.9456543829989); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9069082959480441); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.685037030578023
+Longitude_g1_t2: 68.44797634083936
+Altitude_g1_t2: 925.0062408497298
+"
+"0.4394442046738992","0.4530552469224276","0.5003045070595347","0.014136687675429915","0.018608588728201408","0.001588504911121329","14825","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.680550569840296); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.44651024565644); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0038437277343); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1248.763626702668); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.85759160156045); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94412840453025); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9056365393770256); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.67589327907033
+Longitude_g1_t2: 68.44177233665143
+Altitude_g1_t2: 925.0011064394151
+"
+"0.011551597250722837","0.01158643116277562","0.018323519153425172","0.004666137013485999","0.00730084519080299","9.289519152256303E-4","9957","313","7.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.75587487458931); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.47190909058494); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0163776079384); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1284.8044278570326); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.353022513400763); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.83550472530571); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0268131934614266); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , road); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.75125575625639
+Longitude_g1_t2: 68.46835457080948
+Altitude_g1_t2: 925.0152681781021
+"
+"0.45546312891263374","0.4700925754703512","0.519280163974047","0.016683741840721227","0.018627316821683712","8.522142298549824E-4","15703","313","11.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.67684732784791); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.4416242724628); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 924.9996132663446); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1246.0948814272688); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 23.907111086873698); 
+defineEvidence( ImageReport_g1_s1_t1 , HumanWithWeapon); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.94180106704293); 
+defineEvidence( SizeReport_g1_s1_t1 , 1.9045069628995843); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.66720732987945
+Longitude_g1_t2: 68.43587894977284
+Altitude_g1_t2: 925.0003127456253
+"
+"0.11969956320043443","0.12239341659847372","0.14275858807159209","0.008944162791137729","0.01336797036299135","0.0017696424570176825","12294","313","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.753723661831533); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46987140333471); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.0081667846808); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1282.6341365401888); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.40896277181471); 
+defineEvidence( ImageReport_g1_s1_t1 , MilitaryTracked); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82444735329223); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0231747912676727); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.749545889098957
+Longitude_g1_t2: 68.46733769613672
+Altitude_g1_t2: 925.0111992346376
+"
+"0.1266492862555833","0.1278874833861559","0.1441430310564464","0.010655862026602271","0.013407543167280695","8.009907879743369E-4","12195","313","9.0","defineEvidence( LatitudeReport_g1_s1_t1 , 23.74937500679499); 
+defineEvidence( LongitudeReport_g1_s1_t1 , 68.46844595545349); 
+defineEvidence( AltitudeReport_g1_s1_t1 , 925.006925231518); 
+defineEvidence( DistanceToCIReport_g1_s1_t1 , 1282.1720180050045); 
+defineEvidence( DirectionToCIReport_g1_s1_t1 , 25.42024443426227); 
+defineEvidence( ImageReport_g1_s1_t1 , CommercialFWA); 
+defineEvidence( TemperatureReport_g1_s1_t1 , 96.82088299378144); 
+defineEvidence( SizeReport_g1_s1_t1 , 2.0296692646899155); 
+defineEvidence( RegionTypeReport_g1_s1_t1 , offroad); 
+defineEvidence( DistanceToSensor_g1_s1_t1 , Mid); 
+","TargetType_g1: ThreateningGroundTarget
+Mission_g1_t2: Attack
+Activity_g1_t2: HeadingToCI
+Latitude_g1_t2: 23.7413865974142
+Longitude_g1_t2: 68.4624852858043
+Altitude_g1_t2: 925.0065072231585
+"

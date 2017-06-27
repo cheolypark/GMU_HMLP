@@ -1,0 +1,300 @@
+defineNode(Slab_Temperature , Desc); 
+{ defineState(Continuous); 
+p( Slab_Temperature ) = 
+NormalDist( 1305.0274839571682, 8.41592016871737);}
+defineNode(Type_of_Process , Desc); 
+{ defineState(Discrete, P200, P600 ); 
+p( Type_of_Process ) = 
+{ P200 : .9925; P600 : .0075;  }
+}
+defineNode(TypeOfSteel , Desc); 
+{ defineState(Discrete, A300, A400 ); 
+p( TypeOfSteel ) = 
+{ A300 : .4055; A400 : .5945;  }
+}
+defineNode(Cost , Desc); 
+{ defineState(Continuous); 
+p( Cost | Type_of_Process , TypeOfSteel  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {NormalDist( 3610164.2681094534, 7658641864761.506);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {NormalDist( 7485728.600000001, 107892408822578);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {NormalDist( 3076715.655457632, 13895302742729.732);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {NormalDist( 4253305.226666667, 1526386830695.706);
+}}
+defineNode(Time , Desc); 
+{ defineState(Continuous); 
+p( Time | Type_of_Process , TypeOfSteel , Cost  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0499138724847955 * Cost + NormalDist( 156530.1800224665, 34833386958.394005);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0502521601861888 * Cost + NormalDist( 183991.39053157144, 19610665639.879646);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0448394966268848 * Cost + NormalDist( 211778.94717329834, 3081622690.54107);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {.0500004150129535 * Cost + NormalDist( 376954.82499999995, 269735499797.6891);
+}}
+defineNode(Slab_Y , Desc); 
+{ defineState(Continuous); 
+p( Slab_Y | Cost  ) = 
+.2034699367208176 * Cost + NormalDist( 671800.0525135451, 501923293638.6467);}
+defineNode(Sum_of_Luminosity , Desc); 
+{ defineState(Continuous); 
+p( Sum_of_Luminosity | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {1148.8551724878112 * Slab_Temperature + .0491818750501732 * Cost + -.7915971879404066 * Time + NormalDist( 324480, 537535188031.3552);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-1799.5246362740832 * Slab_Temperature + -.0369485825581119 * Cost + .8263730586948486 * Time + NormalDist( 56458.08208955224, 42090604578.067726);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0261439527932377 * Slab_Temperature + 1.7337373229334716 * Cost + -42.04219242407045 * Time + NormalDist( 180343.66666666666, 10034992070337.625);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {33086.00881592659 * Slab_Temperature + -2207.960167314801 * Cost + 44158.77483954582 * Time + NormalDist( 189479.75, 1051968520417528000000);
+}}
+defineNode(Square_Index , Desc); 
+{ defineState(Continuous); 
+p( Square_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0034460348164215 * Slab_Temperature + .0000000049068292 * Cost + -.000000226463389 * Time + NormalDist( .6136147408182208, .0780367306920603);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.2771609052502031 * Slab_Temperature + .0017818843701225 * Cost + -.035636192781381 * Time + NormalDist( .62405, 685117897.1810338);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.0013326656247955 * Slab_Temperature + -.000000016617252 * Cost + .0000003669733545 * Time + NormalDist( .5317149938210708, .0790771589322872);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000000612832026 * Slab_Temperature + -.0000042511626139 * Cost + .0000985418778322 * Time + NormalDist( .454691986715651, 57.5095506140691);
+}}
+defineNode(Outside_X_Index , Desc); 
+{ defineState(Continuous); 
+p( Outside_X_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {-.0012823860127511 * Slab_Temperature + .0000000033725316 * Cost + -.0000000099810543 * Time + NormalDist( .0177378357008398, .0013815216868576);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.0081947323529579 * Slab_Temperature + -.0003764723876382 * Cost + .0075293834249092 * Time + NormalDist( .04095, 30583489.521823287);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.0004410977054474 * Slab_Temperature + -.0000000037734999 * Cost + .0000000905244382 * Time + NormalDist( .0459366976167397, .0051131551650898);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000000041562853 * Slab_Temperature + .0000003319878124 * Cost + -.0000066813657486 * Time + NormalDist( .0363804336637519, .3057977445130024);
+}}
+defineNode(Outside_Global_Index , Desc); 
+{ defineState(Continuous); 
+p( Outside_Global_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0029444331362932 * Slab_Temperature + .0000000019522748 * Cost + -.0000003729957616 * Time + NormalDist( .60773631840796, .2261634380068884);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.2088479139347799 * Slab_Temperature + .0016355716819522 * Cost + -.0327123619864677 * Time + NormalDist( .375, 577266001.9923058);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.0099307021165097 * Slab_Temperature + .0000000692247804 * Cost + -.0000014011906 * Time + NormalDist( .5758305084745763, .3711533457991049);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000000741469701 * Slab_Temperature + .0000051319078978 * Cost + -.000119226987096 * Time + NormalDist( .4866666666666666, 84.00515018940953);
+}}
+defineNode(Dirtiness , Desc); 
+{ defineState(Continuous); 
+p( Dirtiness | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.0026961050484744 * Slab_Temperature + -.0000000008411646 * Cost + .0000000381077447 * Time + NormalDist( .0406780161241465, .039136476080507);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0018275925408562 * Slab_Temperature + .0000000159775124 * Cost + -.0000001016945019 * Time + NormalDist( .0099502992913492, .0111148253171998);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000000000000036 * Slab_Temperature + -.0000000000002513 * Cost + .0000000000057361 * Time + NormalDist( .0000000434306967, .0000000000001978);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0000000140881296 * Slab_Temperature + -.0000000000321418 * Cost + .0000000006427526 * Time + NormalDist( .0000000517264336, .0000002228990985);
+}}
+defineNode(Y_Minimum , Desc); 
+{ defineState(Continuous); 
+p( Y_Minimum | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Slab_Y  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {28.504286988114472 * Slab_Temperature + 1.0001136612603005 * Cost + -10.005985710528421 * Time + .000532303717776 * Slab_Y + NormalDist( 1798879.1442786069, 9623806453806.926);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-142.8922119140625 * Slab_Temperature + -6.914958953857422 * Cost + 148.24169921875 * Time + .0127648860216141 * Slab_Y + NormalDist( 3741854.75, 11086655084512236);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-34.34275543066906 * Slab_Temperature + 1.00016259438965 * Cost + -10.005139764646856 * Time + .0001665834764353 * Slab_Y + NormalDist( 1538241.5288135593, 17386746721270.967);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000565897257181 * Slab_Temperature + .7439121949260112 * Cost + -.0598430823609668 * Time + -.8587499367683051 * Slab_Y + NormalDist( 2164425.6666666665, 902244276183.3497);
+}}
+defineNode(Y_Maximum , Desc); 
+{ defineState(Continuous); 
+p( Y_Maximum | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Slab_Y  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {52.36141781444894 * Slab_Temperature + -.0000832374497435 * Cost + 10.003672329630263 * Time + -.0001543152023302 * Slab_Y + NormalDist( 1536388.1847457627, 3485903598951.693);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-40.12644384268788 * Slab_Temperature + -.00017526931736 * Cost + 10.007734546215488 * Time + -.0008331623411078 * Slab_Y + NormalDist( 1808821.9751243782, 1964113540300.4883);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000446287104027 * Slab_Temperature + .2597262205284814 * Cost + .082826093579353 * Time + .8411554820591931 * Slab_Y + NormalDist( 2085137.6666666667, 158177345336.5496);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-150.423095703125 * Slab_Temperature + -7.304634094238281 * Cost + 156.0328369140625 * Time + .0133036822080612 * Slab_Y + NormalDist( 3741896, 12323936213485896);
+}}
+defineNode(Orientation_Index , Desc); 
+{ defineState(Continuous); 
+p( Orientation_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Square_Index , Outside_Global_Index  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0074840819372587 * Slab_Temperature + -.0000001504382598 * Cost + .0000029556352663 * Time + -.2809319846717095 * Square_Index + .9367510469671735 * Outside_Global_Index + NormalDist( .0993592652927625, .8963917223174327);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0054721837084409 * Slab_Temperature + -.0000000521964454 * Cost + .0000007577607459 * Time + -.1472062427303487 * Square_Index + .7752691573219103 * Outside_Global_Index + NormalDist( .1214233544473182, .237849611065771);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000983038724 * Slab_Temperature + .0000069898080887 * Cost + -.0001580630215481 * Time + -.0000000156055478 * Square_Index + .0000000188812562 * Outside_Global_Index + NormalDist( .505679775304105, 151.56632908282762);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.2985634834599296 * Slab_Temperature + .0021206744748099 * Cost + -.0424142797266995 * Time + -.0812354417249708 * Square_Index + .0637450131241621 * Outside_Global_Index + NormalDist( .022325, 970466614.9222392);
+}}
+defineNode(X_Perimeter , Desc); 
+{ defineState(Continuous); 
+p( X_Perimeter | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Sum_of_Luminosity , Y_Maximum  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.3089967269517016 * Slab_Temperature + -.0000425633033456 * Cost + .0767217433591098 * Time + .0006430813976906 * Sum_of_Luminosity + -.0075834967015181 * Y_Maximum + NormalDist( 168.17796610169492, 405676423.3557801);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-.2303658253820979 * Slab_Temperature + .000020656332998 * Cost + -.0163789830916701 * Time + .0006006154196687 * Sum_of_Luminosity + .0016002076437254 * Y_Maximum + NormalDist( 54.40547263681592, 10296980.075677743);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000165664153 * Slab_Temperature + .0002806939489143 * Cost + -.0000148701711864 * Time + .0011118246070632 * Sum_of_Luminosity + -.0001295418531723 * Y_Maximum + NormalDist( 215.33333333333334, 196513.3902930034);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {.0002645725700166 * Slab_Temperature + .0316667475594264 * Cost + .0013851383940156 * Time + .0003927141319664 * Sum_of_Luminosity + -.0634779676307236 * Y_Maximum + NormalDist( 91.25, 216862461390.0225);
+}}
+defineNode(Edges_Y_Index , Desc); 
+{ defineState(Continuous); 
+p( Edges_Y_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Orientation_Index  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0011277222512348 * Slab_Temperature + .0000000070763579 * Cost + -.000000122920275 * Time + .3282458643690513 * Orientation_Index + NormalDist( .7761275039520869, .0633464535353242);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0018195967560285 * Slab_Temperature + -.000000002629337 * Cost + -.0000001501502621 * Time + .2342053799771055 * Orientation_Index + NormalDist( .8820979149240677, .0355446279523078);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000000113306844 * Slab_Temperature + -.0000009085554145 * Cost + .0000182143016115 * Time + -.0000000028853594 * Orientation_Index + NormalDist( .9233850404186618, 2.2823525839324956);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.1740416362436616 * Slab_Temperature + -.0000117471540638 * Cost + .0002346295682179 * Time + .0581876420574538 * Orientation_Index + NormalDist( .74705, 29738.020993381342);
+}}
+defineNode(Pastry , Desc); 
+{ defineState(Continuous); 
+p( Pastry | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Orientation_Index  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {-.0029226697567478 * Slab_Temperature + .000000010539544 * Cost + -.0000001370982238 * Time + .1273242736231041 * Orientation_Index + NormalDist( .0572139788192124, .0554192760948875);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.0000000035132999 * Slab_Temperature + -.0000000000907614 * Cost + .0000000018152591 * Time + -.0000000012505349 * Orientation_Index + NormalDist( .00000003843229, .0000017776009466);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.0019167986981945 * Slab_Temperature + .0000000123651175 * Cost + -.0000000952799465 * Time + .196509639434963 * Orientation_Index + NormalDist( .0932203904508876, .0864919616426025);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000000514804528 * Slab_Temperature + .0000033105836612 * Cost + -.0000827902673846 * Time + .0000000131092255 * Orientation_Index + NormalDist( .3333333905081928, 37.851290668624564);
+}}
+defineNode(Pixels_Areas , Desc); 
+{ defineState(Continuous); 
+p( Pixels_Areas | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Sum_of_Luminosity , Y_Maximum , X_Perimeter  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {13.380280166196174 * Slab_Temperature + -.000301386960612 * Cost + .0122539497589084 * Time + .0052959530524109 * Sum_of_Luminosity + -.0006019506525208 * Y_Maximum + 5.721747493679068 * X_Perimeter + NormalDist( 566.7885572139304, 5634243.37239915);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.0004739023813764 * Slab_Temperature + -.0567276821735796 * Cost + -.0024811348970547 * Time + .0096717114399946 * Sum_of_Luminosity + .1137090591257366 * Y_Maximum + -.0090141648333609 * X_Perimeter + NormalDist( 1837.75, 695912070281.841);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-3.982452984730095 * Slab_Temperature + -.0001324775395582 * Cost + -.1290775195308136 * Time + .0050814608656903 * Sum_of_Luminosity + .0131914468971671 * Y_Maximum + 8.731031918493244 * X_Perimeter + NormalDist( 2995.5457627118644, 1217638238.3063788);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.000000222469569 * Slab_Temperature + .0028066975874305 * Cost + -.0002402194901744 * Time + .0149654362076753 * Sum_of_Luminosity + -.0021498399330102 * Y_Maximum + .0000177088296179 * X_Perimeter + NormalDist( 2779.3333333333335, 26333508.642715175);
+}}
+defineNode(Log_X_Index , Desc); 
+{ defineState(Continuous); 
+p( Log_X_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Edges_Y_Index  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {-.0032049020255372 * Slab_Temperature + -.0000000096177306 * Cost + .0000002745967359 * Time + -1.201264228405695 * Edges_Y_Index + NormalDist( 1.1933528061657623, .1039642176192399);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.1304390665732171 * Slab_Temperature + -.0031690881041158 * Cost + .0633814373722998 * Time + -.0253788005007891 * Edges_Y_Index + NormalDist( 1.462175, 2167159576.4363613);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.002299418897485 * Slab_Temperature + .0000000954969807 * Cost + -.0000016539930531 * Time + -1.954816396859783 * Edges_Y_Index + NormalDist( 1.4316432150210077, .5271802238135292);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000000431207646 * Slab_Temperature + .0000033746834853 * Cost + -.0000693209839648 * Time + -.0000000012656999 * Edges_Y_Index + NormalDist( 1.4361721087693267, 32.191665094539005);
+}}
+defineNode(Y_Perimeter , Desc); 
+{ defineState(Continuous); 
+p( Y_Perimeter | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Sum_of_Luminosity , Y_Maximum , X_Perimeter , Pixels_Areas  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {1.226265689773113 * Slab_Temperature + .0000938834687159 * Cost + .047554837324141 * Time + -.0012571216014555 * Sum_of_Luminosity + -.0049437277596201 * Y_Maximum + 1.6113462189438543 * X_Perimeter + .1011205427495661 * Pixels_Areas + NormalDist( 135.3, 166025850.62101597);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-.1866308128807994 * Slab_Temperature + -.0000286758170113 * Cost + -.0044386814738046 * Time + .0001730797201741 * Sum_of_Luminosity + .0004986924745366 * Y_Maximum + .2689113829653654 * X_Perimeter + .0072184942172141 * Pixels_Areas + NormalDist( 42.42537313432836, 884040.7742872108);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000189763102 * Slab_Temperature + .0002225539910118 * Cost + -.0000211998238996 * Time + .0012771377324432 * Sum_of_Luminosity + -.000190559259221 * Y_Maximum + .000001507423361 * X_Perimeter + .0000201523562278 * Pixels_Areas + NormalDist( 239.33333333333334, 180643.2266336449);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0000960800153518 * Slab_Temperature + -.0115013617927218 * Cost + -.0005030865651047 * Time + .0000859959738211 * Sum_of_Luminosity + .0230516080647257 * Y_Maximum + -.0018281684643553 * X_Perimeter + .0032922272725303 * Pixels_Areas + NormalDist( 61.5, 28602779497.487938);
+}}
+defineNode(Empty_Index , Desc); 
+{ defineState(Continuous); 
+p( Empty_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Log_X_Index  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0016733919145758 * Slab_Temperature + .0000000020661302 * Cost + -.0000000657272015 * Time + .1925743009878961 * Log_X_Index + NormalDist( .397694599536072, .0186972748731381);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.0037258389688759 * Slab_Temperature + .0002684350220079 * Cost + -.0053688894017796 * Time + -.0008456943963324 * Log_X_Index + NormalDist( .469075, 15549560.865109771);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.002039244439296 * Slab_Temperature + -.0000000248835797 * Cost + .0000003908378714 * Time + .1268469681328546 * Log_X_Index + NormalDist( .4239934231532716, .0334431163676662);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {-.0000000095712922 * Slab_Temperature + .0000007084522028 * Cost + -.0000153885284106 * Time + .0000000010691391 * Log_X_Index + NormalDist( .3791523501691743, 1.4958496838171536);
+}}
+defineNode(LogOfAreas , Desc); 
+{ defineState(Continuous); 
+p( LogOfAreas | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Log_X_Index  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0032164511241727 * Slab_Temperature + .0000000034559058 * Cost + .0000000219539601 * Time + 1.430763181811044 * Log_X_Index + NormalDist( 2.693448066205667, .7725709131129881);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-.002302018793804 * Slab_Temperature + -.0000001303245668 * Cost + .0000024445900933 * Time + 1.0454619364209035 * Log_X_Index + NormalDist( 2.214727808055388, .4979649911218583);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000811594658 * Slab_Temperature + .0000051914232839 * Cost + -.0001305208801737 * Time + .0000000090653588 * Log_X_Index + NormalDist( 2.5857022540544237, 93.63506192952265);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0104708295886875 * Slab_Temperature + -.0051716045071942 * Cost + .1034307256903378 * Time + .005160653569863 * Log_X_Index + NormalDist( 2.704, 5771243138.070248);
+}}
+defineNode(K_Scatch , Desc); 
+{ defineState(Continuous); 
+p( K_Scatch | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Log_X_Index  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0000000005384561 * Slab_Temperature + .0000000000000031 * Cost + -.0000000000000419 * Time + .0000000073516308 * Log_X_Index + NormalDist( .0000000492475946, .000000000000001);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.0507942347803692 * Slab_Temperature + -.0032875057956119 * Cost + .0657494877120826 * Time + .0110602510504236 * Log_X_Index + NormalDist( .2500000173309264, 2332133431.1176434);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.003896599444491 * Slab_Temperature + -.0000000852545495 * Cost + .0000016301980613 * Time + .6631072654130238 * Log_X_Index + NormalDist( .3288136110631652, .4158882981685716);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000000000000026 * Slab_Temperature + -.0000000000001688 * Cost + .0000000000041937 * Time + -.0000000000000003 * Log_X_Index + NormalDist( .0000000582155945, .0000000000000977);
+}}
+defineNode(Minimum_of_Luminosity , Desc); 
+{ defineState(Continuous); 
+p( Minimum_of_Luminosity | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , LogOfAreas  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.1081368084494507 * Slab_Temperature + .0000031163121792 * Cost + -.0000751238538861 * Time + -33.224230373576624 * LogOfAreas + NormalDist( 83.97796610169492, 1734.7317270852316);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.291741108587514 * Slab_Temperature + .0000048599289124 * Cost + -.0000876792667058 * Time + -12.844945570669143 * LogOfAreas + NormalDist( 85.09950248756219, 808.7659800424501);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000013627516683 * Slab_Temperature + -.0000789382152485 * Cost + .0021919275634377 * Time + -.0000002865022285 * LogOfAreas + NormalDist( 58.333333333333336, 24317.084800640954);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {28.12495489232242 * Slab_Temperature + .255623863566143 * Cost + -5.112309423304396 * Time + -.8056035314912151 * LogOfAreas + NormalDist( 74.25, 14099802214819.129);
+}}
+defineNode(SigmoidOfAreas , Desc); 
+{ defineState(Continuous); 
+p( SigmoidOfAreas | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , LogOfAreas  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.001314649428845 * Slab_Temperature + -.0000000401169287 * Cost + .0000007799625165 * Time + .3344242900495342 * LogOfAreas + NormalDist( .6660034850262192, .1598096739469959);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0046241650792469 * Slab_Temperature + .0000000498900125 * Cost + -.0000010210510654 * Time + .5458517474317887 * LogOfAreas + NormalDist( .4807737129438503, .1358212403546566);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000431589558 * Slab_Temperature + .0000028815567762 * Cost + -.0000694032655598 * Time + .0000000090735382 * LogOfAreas + NormalDist( .5714684976103267, 27.517754855469505);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0852046927581313 * Slab_Temperature + -.0011258073381294 * Cost + .0225152797667833 * Time + .0031746583947554 * LogOfAreas + NormalDist( .75415, 273486515.0406014);
+}}
+defineNode(Stains , Desc); 
+{ defineState(Continuous); 
+p( Stains | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , LogOfAreas  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0003374997703662 * Slab_Temperature + -.0000000013772429 * Cost + .0000000069842784 * Time + -.0036006892435589 * LogOfAreas + NormalDist( .0024876125005698, .0024940848620101);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.0000000340745698 * Slab_Temperature + -.0000000000060564 * Cost + .0000000001209801 * Time + .0000000003455963 * LogOfAreas + NormalDist( .0000000310312173, .0000000079053607);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.0016557020790949 * Slab_Temperature + .0000000201818746 * Cost + -.0000004338278532 * Time + -.1144285071242021 * LogOfAreas + NormalDist( .0593220827020376, .0680213605952571);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000000000000022 * Slab_Temperature + -.0000000000001429 * Cost + .0000000000036117 * Time + -.0000000000000005 * LogOfAreas + NormalDist( .0000000379612091, .0000000000000714);
+}}
+defineNode(Length_of_Conveyer , Desc); 
+{ defineState(Continuous); 
+p( Length_of_Conveyer | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , K_Scatch  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-2.0545945635734877 * Slab_Temperature + .0000071088285835 * Cost + -.0002034274775032 * Time + -49.681366575373495 * K_Scatch + NormalDist( 1416.8627118644067, 15349.570010527847);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {1.8646078987930403 * Slab_Temperature + .0000105942265292 * Cost + -.0002744523679975 * Time + .0000000009021625 * K_Scatch + NormalDist( 1518.960199004975, 27774.8611915442);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000175463197936 * Slab_Temperature + -.0014082486100456 * Cost + .0282060054745881 * Time + .0000000000001185 * K_Scatch + NormalDist( 1571.3333333333333, 5478749.150337946);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {.0274550286121666 * Slab_Temperature + -.0082546531184562 * Cost + .1650977632016293 * Time + .0124322998588013 * K_Scatch + NormalDist( 1355.5, 14703966736.168709);
+}}
+defineNode(Luminosity_Index , Desc); 
+{ defineState(Continuous); 
+p( Luminosity_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Minimum_of_Luminosity  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0000546195270376 * Slab_Temperature + .0000000047963509 * Cost + -.000000139352182 * Time + .0026917691876662 * Minimum_of_Luminosity + NormalDist( -.0942712128030339, .0242607326779664);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0002158367692201 * Slab_Temperature + -.0000000470415096 * Cost + .0000009809368008 * Time + .004746843685873 * Minimum_of_Luminosity + NormalDist( -.1709344289032504, .0550180626884909);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.000000023172893 * Slab_Temperature + .0000018038631754 * Cost + -.0000372531731483 * Time + -.0000000817986838 * Minimum_of_Luminosity + NormalDist( -.1570906796657059, 9.243416841290058);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {.0018094197326848 * Slab_Temperature + -.0004508864200402 * Cost + .0090175939443092 * Time + .0039335549598529 * Minimum_of_Luminosity + NormalDist( -.1506, 43868453.57072065);
+}}
+defineNode(Log_Y_Index , Desc); 
+{ defineState(Continuous); 
+p( Log_Y_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Outside_Global_Index , SigmoidOfAreas  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0057116107729833 * Slab_Temperature + -.000000015204591 * Cost + .000000308773828 * Time + .2737773460046128 * Outside_Global_Index + 1.2015840041963834 * SigmoidOfAreas + NormalDist( 1.5176357941986105, .2570261593542131);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0008249045524121 * Slab_Temperature + -.0000000306380456 * Cost + .0000004606864117 * Time + .29364504559967 * Outside_Global_Index + .8853238753440558 * SigmoidOfAreas + NormalDist( 1.252511690670064, .1399246185962798);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000700436437 * Slab_Temperature + .0000043477119892 * Cost + -.0001126499694603 * Time + .0000000134532337 * Outside_Global_Index + .0000000078308071 * SigmoidOfAreas + NormalDist( 1.5299001393652116, 67.95851908156503);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.1422575704306273 * Slab_Temperature + -.0018023176121958 * Cost + .0360451976553514 * Time + .028527993886505 * Outside_Global_Index + .0129510078875808 * SigmoidOfAreas + NormalDist( 1.5248, 700927714.5727639);
+}}
+defineNode(Z_Scratch , Desc); 
+{ defineState(Continuous); 
+p( Z_Scratch | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Length_of_Conveyer  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0060890747520828 * Slab_Temperature + .0000000121188566 * Cost + -.000000870829503 * Time + -.0014081580562282 * Length_of_Conveyer + NormalDist( .2139303977057702, .1793801663458381);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {.0000000151919973 * Slab_Temperature + .0000000000123445 * Cost + -.000000000246824 * Time + .0000000003858709 * Length_of_Conveyer + NormalDist( .0000000713907455, .0000000328741068);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.0041634608527225 * Slab_Temperature + -.0000000022957089 * Cost + .0000000243528091 * Time + -.0000730290292815 * Length_of_Conveyer + NormalDist( .0152542889567905, .0151422663150241);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000000000000047 * Slab_Temperature + -.0000000000003573 * Cost + .0000000000075319 * Time + .0000000000002129 * Length_of_Conveyer + NormalDist( .0000000610221351, .0000000000003697);
+}}
+defineNode(Maximum_of_Luminosity , Desc); 
+{ defineState(Continuous); 
+p( Maximum_of_Luminosity | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Luminosity_Index  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.1830041764677662 * Slab_Temperature + .0000017798993791 * Cost + -.0000390268477388 * Time + 99.46146692526317 * Luminosity_Index + NormalDist( 133.00677966101694, 415.2188270268403);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-.5115833433061142 * Slab_Temperature + .0000026860054194 * Cost + -.0000516807853803 * Time + 103.97184928180842 * Luminosity_Index + NormalDist( 125.24626865671642, 451.30310617627964);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000015650181447 * Slab_Temperature + .0001117115233313 * Cost + -.0025163780596535 * Time + .000000093945068 * Luminosity_Index + NormalDist( 126.33333333333333, 38561.81361719663);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {6.309631826075836 * Slab_Temperature + .0320549606106003 * Cost + -.6410676102178765 * Time + .7170326256756524 * Luminosity_Index + NormalDist( 127, 221714234791.43176);
+}}
+defineNode(Edges_X_Index , Desc); 
+{ defineState(Continuous); 
+p( Edges_X_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Log_Y_Index  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {-.0019042708493816 * Slab_Temperature + .0000000181222277 * Cost + -.0000003280797052 * Time + -.468849373924801 * Log_Y_Index + NormalDist( .6521461245159077, .0558802411503235);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.2161309558055084 * Slab_Temperature + -.0006956071739155 * Cost + .0139116084513945 * Time + .0327670561945194 * Log_Y_Index + NormalDist( .6962, 104408508.82034637);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.0028768777539945 * Slab_Temperature + .0000000219206066 * Cost + -.0000003065693257 * Time + -.3628806294218237 * Log_Y_Index + NormalDist( .5738882648394565, .0727450176398528);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000000649596477 * Slab_Temperature + -.0000045986987018 * Cost + .0001044496167001 * Time + -.0000000117862447 * Log_Y_Index + NormalDist( .3952803385845403, 65.8997222890701);
+}}
+defineNode(Bumps , Desc); 
+{ defineState(Continuous); 
+p( Bumps | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , K_Scatch , Z_Scratch  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {.0021711700661449 * Slab_Temperature + .0000000390280387 * Cost + -.0000007807331455 * Time + .000000000034648 * K_Scatch + -.4409248426559107 * Z_Scratch + NormalDist( .3457711958934345, .2503959736369302);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-.0000000093115373 * Slab_Temperature + -.0000000002094166 * Cost + .0000000041883051 * Time + -.000000000207921 * K_Scatch + -.0000000000000001 * Z_Scratch + NormalDist( .0000000439425472, .0000094633270146);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {.0100281876187638 * Slab_Temperature + .0000000125593259 * Cost + -.0000000341410029 * Time + -.1592710716650092 * K_Scatch + .0036741565442993 * Z_Scratch + NormalDist( .103389883400471, .0937650910028724);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000001007554839 * Slab_Temperature + -.0000072699836899 * Cost + .0001620005170658 * Time + .0000000000000007 * K_Scatch + .0000000000000012 * Z_Scratch + NormalDist( .3333333951018909, 161.54823069589742);
+}}
+defineNode(Slab_X , Desc); 
+{ defineState(Continuous); 
+p( Slab_X | TypeOfSteel , Log_X_Index , Z_Scratch  ) = 
+if( TypeOfSteel == A400 ) {-148.64775259897255 * Log_X_Index + 33.50050272139401 * Z_Scratch + NormalDist( 232.63472784832047, 36063.38598254555);
+}else if( TypeOfSteel == A300 ) {-23.685855702067613 * Log_X_Index + -281.5303834967259 * Z_Scratch + NormalDist( 291.07290542470525, 49394.8705536101);
+}}
+defineNode(X_Maximum , Desc); 
+{ defineState(Continuous); 
+p( X_Maximum | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Slab_X  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.6415543045935754 * Slab_Temperature + .0000161175574953 * Cost + -.0003367378184847 * Time + 2.3866103105558 * Slab_X + NormalDist( 576.3338983050847, 220979.78606624543);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.2702498199294636 * Slab_Temperature + -.0000254465523193 * Cost + .0005075301171392 * Time + 2.378162574600026 * Slab_X + NormalDist( 712.8258706467661, 296846.7847291714);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {.0000621129525798 * Slab_Temperature + -.0049204678691315 * Cost + .0998503421722621 * Time + .0058477004836039 * Slab_X + NormalDist( 1223.6666666666667, 67679419.62004384);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.1309934739188794 * Slab_Temperature + .0532190846301064 * Cost + -1.064155069575797 * Time + 2.051722359027643 * Slab_X + NormalDist( 542.25, 611036225307.1636);
+}}
+defineNode(Other_Faults , Desc); 
+{ defineState(Continuous); 
+p( Other_Faults | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Dirtiness , Pastry , K_Scatch , Stains , Z_Scratch , Bumps  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {.0061479034944355 * Slab_Temperature + -.00000001977618 * Cost + .0000003082552826 * Time + -.826909325666575 * Dirtiness + -.850728523553432 * Pastry + -.8647801773277156 * K_Scatch + -.8529922089851996 * Stains + .2790367019161984 * Z_Scratch + -.8570949274003955 * Bumps + NormalDist( .33559327134146, .4158547399304751);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {-.0028622510273541 * Slab_Temperature + .0000000611173959 * Cost + -.0000014752536229 * Time + .0631873115898563 * Dirtiness + -.8746925044192146 * Pastry + .0000000005527095 * K_Scatch + .0196675500869702 * Stains + -.8906215439408283 * Z_Scratch + -.8746090284214126 * Bumps + NormalDist( .3358209463935883, .4607729110869017);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000000000077 * Slab_Temperature + .0000000000005587 * Cost + -.0000000000123856 * Time + -0 * Dirtiness + .000000000000001 * Pastry + -0 * K_Scatch + -0 * Stains + -0 * Z_Scratch + -.000000000000002 * Bumps + NormalDist( .0000000594516206, .0000000000009491);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0518259988934915 * Slab_Temperature + .0032992574788011 * Cost + -.0659845220375246 * Time + .0000000006876136 * Dirtiness + -.0000000003272726 * Pastry + -.0071012036499098 * K_Scatch + .0000000017557488 * Stains + -.0000000007758103 * Z_Scratch + .000000000207296 * Bumps + NormalDist( .7500000392342681, 2348836457.2827177);
+}}
+defineNode(X_Minimum , Desc); 
+{ defineState(Continuous); 
+p( X_Minimum | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Outside_X_Index , Length_of_Conveyer , Slab_X , X_Maximum  ) = 
+if( Type_of_Process == P200 && TypeOfSteel == A300 ) {2.158422883840917 * Slab_Temperature + .0000831624207609 * Cost + -.0017063968289408 * Time + -.0026395488588919 * Outside_X_Index + .0656533374301174 * Length_of_Conveyer + .0736527374133629 * Slab_X + .9441388363406698 * X_Maximum + NormalDist( 687.0497512437811, 374986.55354128516);
+}else if( Type_of_Process == P600 && TypeOfSteel == A400 ) {-1.3255979311194286 * Slab_Temperature + .4702360462741398 * Cost + -9.404959950782363 * Time + -.0818534819423594 * Outside_X_Index + -1.6016643104701245 * Length_of_Conveyer + -3.640147265599505 * Slab_X + 2.7384402594715436 * X_Maximum + NormalDist( 486.75, 47716368751752.11);
+}else if( Type_of_Process == P200 && TypeOfSteel == A400 ) {-.7985437241306057 * Slab_Temperature + .0000332848154865 * Cost + -.0006729427457449 * Time + -.000088732144918 * Outside_X_Index + .1241431807926222 * Length_of_Conveyer + -.0811467912730579 * Slab_X + 1.0791063668505958 * X_Maximum + NormalDist( 517.8101694915255, 296682.7594191311);
+}else if( Type_of_Process == P600 && TypeOfSteel == A300 ) {.0000310933353741 * Slab_Temperature + -.0024247316008782 * Cost + .049986041792687 * Time + -.0000003347801381 * Outside_X_Index + .0014133217389378 * Length_of_Conveyer + .0029273062329885 * Slab_X + .0050201741321457 * X_Maximum + NormalDist( 1418, 16673889.480512485);
+}}
+defineNode(Edges_Index , Desc); 
+{ defineState(Continuous); 
+p( Edges_Index | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , X_Maximum  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.000547911198846 * Slab_Temperature + -.0000000136343063 * Cost + .0000002791179789 * Time + .0001610686480657 * X_Maximum + NormalDist( .3159185571335372, .097650264982431);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.0017201871354711 * Slab_Temperature + .0000000123262771 * Cost + -.0000002465575207 * Time + .0001019313394723 * X_Maximum + NormalDist( .3753700548501268, .0917810307352087);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000000027122784 * Slab_Temperature + .0000001356985343 * Cost + -.000004363484806 * Time + -.0000004378563641 * X_Maximum + NormalDist( .0714465453440054, .0867812050554359);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {-.0006509129890375 * Slab_Temperature + .0002305007455483 * Cost + -.0046107803161135 * Time + .0010660698136484 * X_Maximum + NormalDist( .299275, 11466774.640725296);
+}}
+defineNode(Slab_Thickness , Desc); 
+{ defineState(Continuous); 
+p( Slab_Thickness | K_Scatch , Other_Faults  ) = 
+-233.24319165357113 * K_Scatch + 174.69560532791002 * Other_Faults + NormalDist( 495.1017177496761, 126852.30649651084);}
+defineNode(Steel_Plate_Thickness , Desc); 
+{ defineState(Continuous); 
+p( Steel_Plate_Thickness | Type_of_Process , TypeOfSteel , Slab_Temperature , Cost , Time , Slab_Thickness  ) = 
+if( TypeOfSteel == A400 && Type_of_Process == P200 ) {-.3145034603254939 * Slab_Temperature + -.000005129314744 * Cost + .000095539101974 * Time + .1438283245824123 * Slab_Thickness + NormalDist( 73.78474576271186, 4529.142825491294);
+}else if( TypeOfSteel == A300 && Type_of_Process == P200 ) {.1830112669063665 * Slab_Temperature + .0000047671709021 * Cost + -.0000944994954732 * Time + .1428294754753748 * Slab_Thickness + NormalDist( 86.6044776119403, 2024.4576270792588);
+}else if( TypeOfSteel == A300 && Type_of_Process == P600 ) {-.0000015754781684 * Slab_Temperature + .0001265983185171 * Cost + -.0025326013648482 * Time + .0000734715863985 * Slab_Thickness + NormalDist( 80.66666666666667, 44229.34943370066);
+}else if( TypeOfSteel == A400 && Type_of_Process == P600 ) {.5298294109903084 * Slab_Temperature + .0536667487943669 * Cost + -1.0733361921266305 * Time + .131804902046256 * Slab_Thickness + NormalDist( 55, 621492015943.1754);
+}}

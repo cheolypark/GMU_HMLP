@@ -1,0 +1,37 @@
+SELECT  
+tp.Latitude as 'Latitude',
+tp.Longitude as 'Longitude',
+tp.Altitude as 'Altitude',
+tp.Latitude_Velocity as 'Latitude_Velocity',
+tp.Longitude_Velocity as 'Longitude_Velocity',
+tp.Altitude_Velocity as 'Altitude_Velocity',
+tp.DistanceToCI as 'DistanceToCI',
+tp.DirectionToCI as 'DirectionToCI',
+tp.RegionType as 'RegionType',
+tp.Temperature as 'Temperature',
+tp.Activity as 'Activity',
+tp.Mission as 'Mission',
+
+tp2.Latitude as 'PreLatitude',
+tp2.Longitude as 'PreLongitude',
+tp2.Altitude as 'PreAltitude',
+tp2.Latitude_Velocity as 'PreLatitude_Velocity',
+tp2.Longitude_Velocity as 'PreLongitude_Velocity',
+tp2.Altitude_Velocity as 'PreAltitude_Velocity',
+tp2.DistanceToCI as 'PreDistanceToCI',
+tp2.DirectionToCI as 'PreDirectionToCI',
+tp2.RegionType as 'PreRegionType',
+tp2.Temperature as 'PreTemperature',
+tp2.Activity as 'PreActivity',
+tp2.Mission as 'PreMission',
+
+tg.TargetType as 'TargetType',
+tg.TargetSize as 'TargetSize',
+tg.TargetImage as 'TargetImage'
+
+FROM TargetTemporalProperty as tp 
+join TargetTemporalProperty as tp2 
+join predecessor as pd 
+join Target as tg 
+
+on tp.t = pd.t and tp2.t = pd.pret and tp.tr = tg.tr and tp2.tr = tg.tr WHERE targettype IS NOT NULL;

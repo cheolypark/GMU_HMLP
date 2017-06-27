@@ -1,0 +1,137 @@
+defineNode(Mission , Desc); 
+{ defineState(Discrete, Others, Attack ); 
+p( Mission | TargetType , PreMission  ) = 
+if( PreMission == Attack && TargetType == ThreateningGroundTarget ) {Others : .0002977963073258; Attack : .9997022036926743;  }
+else if( PreMission == Others && TargetType == ThreateningAirTarget ) {Others : .5; Attack : .5;  }
+else if( PreMission == Others && TargetType == ThreateningGroundTarget ) {Others : .5; Attack : .5;  }
+else if( PreMission == Others && TargetType == Others ) {Others : .9999655029667449; Attack : .0000344970332551;  }
+else if( PreMission == Attack && TargetType == Others ) {Others : .5; Attack : .5;  }
+else if( PreMission == Attack && TargetType == ThreateningAirTarget ) {Others : .0008896797153025; Attack : .9991103202846975;  }
+}
+defineNode(Activity , Desc); 
+{ defineState(Discrete, HeadingToCI, HeadingToOthers, Staying ); 
+p( Activity | TargetType , Mission , PreActivity  ) = 
+if( PreActivity == HeadingToOthers && Mission == Others && TargetType == Others ) {HeadingToCI : .0018475531763703; HeadingToOthers : .8691553365862902; Staying : .1289971102373395;  }
+else if( PreActivity == HeadingToCI && Mission == Others && TargetType == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToCI && Mission == Attack && TargetType == ThreateningAirTarget ) {HeadingToCI : .9369627507163324; HeadingToOthers : .0601719197707736; Staying : .002865329512894;  }
+else if( PreActivity == Staying && Mission == Others && TargetType == Others ) {HeadingToCI : .1057974283780735; HeadingToOthers : .6169636814798105; Staying : .277238890142116;  }
+else if( PreActivity == HeadingToOthers && Mission == Attack && TargetType == ThreateningAirTarget ) {HeadingToCI : .0166880616174583; HeadingToOthers : .982028241335045; Staying : .0012836970474968;  }
+else if( PreActivity == Staying && Mission == Others && TargetType == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToCI && Mission == Attack && TargetType == ThreateningGroundTarget ) {HeadingToCI : .9572466866182129; HeadingToOthers : .0021376656690894; Staying : .0406156477126977;  }
+else if( PreActivity == HeadingToOthers && Mission == Others && TargetType == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToCI && Mission == Others && TargetType == Others ) {HeadingToCI : .841876629018245; HeadingToOthers : .0222994497538372; Staying : .1358239212279178;  }
+else if( PreActivity == HeadingToOthers && Mission == Others && TargetType == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == Staying && Mission == Attack && TargetType == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == Staying && Mission == Attack && TargetType == ThreateningGroundTarget ) {HeadingToCI : .6050955414012739; HeadingToOthers : .286624203821656; Staying : .1082802547770701;  }
+else if( PreActivity == Staying && Mission == Others && TargetType == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToOthers && Mission == Attack && TargetType == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == Staying && Mission == Attack && TargetType == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToOthers && Mission == Attack && TargetType == ThreateningGroundTarget ) {HeadingToCI : .001150747986191; HeadingToOthers : .9470655926352128; Staying : .0517836593785961;  }
+else if( PreActivity == HeadingToCI && Mission == Others && TargetType == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( PreActivity == HeadingToCI && Mission == Attack && TargetType == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+}
+defineNode(RegionType , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionType | PreRegionType  ) = 
+if( PreRegionType == OffRoad ) {OffRoad : .9994304214880988; road : .0005695785119012;  }
+else if( PreRegionType == road ) {OffRoad : .1363636363636364; road : .8636363636363636;  }
+}
+defineNode(Latitude_Velocity , Desc); 
+{ defineState(Continuous); 
+p( Latitude_Velocity | TargetType , Activity , RegionType , PreLatitude_Velocity  ) = 
+if( RegionType == road && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0000011636810599);
+}else if( RegionType == road && Activity == Staying && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0012610798615335);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0001261594092696);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0000077584390404);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0019070311194707);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0000085380819263);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0000069016442511);
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreLatitude_Velocity + NormalDist(0.0 ,  0.0000093750);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0001700018869248);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreLatitude_Velocity + NormalDist( 0.0, .0000275399632545);
+}}
+defineNode(Longitude_Velocity , Desc); 
+{ defineState(Continuous); 
+p( Longitude_Velocity | TargetType , Activity , RegionType , PreLongitude_Velocity  ) = 
+if( RegionType == road && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .001446954353104);
+}else if( RegionType == road && Activity == Staying && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0188131677813414);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0017910060016498);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0000049719336356);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0113133612741177);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0000137107925352);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0000009086095747);
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreLongitude_Velocity + NormalDist(0.0 ,  0.0001621872);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .0022134952244327);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreLongitude_Velocity + NormalDist( 0.0, .00193765071369);
+}}
+defineNode(Altitude_Velocity , Desc); 
+{ defineState(Continuous); 
+p( Altitude_Velocity | TargetType , Activity , RegionType , PreAltitude_Velocity  ) = 
+if( RegionType == road && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000069813111472);
+}else if( RegionType == road && Activity == Staying && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000085195886801);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .000008449668186);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000086826898311);
+}else if( RegionType == road && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000021225194323);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000085170791182);
+}else if( RegionType == OffRoad && Activity == Staying && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000083114682263);
+}else if( RegionType == OffRoad && Activity == HeadingToCI && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000084681077152);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000079108212487);
+}else if( RegionType == road && Activity == Staying && TargetType == ThreateningGroundTarget ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000070498895006);
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == ThreateningAirTarget ) {1.0 * PreAltitude_Velocity + NormalDist(0.0 , 0.0000082176 );
+}else if( RegionType == road && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000085185606717);
+}else if( RegionType == OffRoad && Activity == HeadingToOthers && TargetType == Others ) {1.0 * PreAltitude_Velocity + NormalDist( 0.0, .0000082998632358);
+}}
+defineNode(Latitude , Desc); 
+{ defineState(Continuous); 
+p( Latitude | PreLatitude_Velocity , PreLatitude  ) = 
+1.0 * PreLatitude_Velocity + 1.0 * PreLatitude + NormalDist(0 ,  0.0000001);}
+defineNode(Longitude , Desc); 
+{ defineState(Continuous); 
+p( Longitude | PreLongitude_Velocity , PreLongitude  ) = 
+1.0 * PreLongitude_Velocity + 1.0 * PreLongitude + NormalDist(0 ,  0.0000001);}
+defineNode(Altitude , Desc); 
+{ defineState(Continuous); 
+p( Altitude | PreAltitude_Velocity , PreAltitude  ) = 
+1.0 * PreAltitude_Velocity + 1.0 * PreAltitude + NormalDist(0 ,  0.0000001);}
+defineNode(DistanceToCI , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCI | Activity , PreDistanceToCI  ) = 
+if( Activity == HeadingToOthers ) {1.002575422880476 * PreDistanceToCI + NormalDist( 1281.5410973146666, 290571.93849371106);
+}else if( Activity == HeadingToCI ) {.991535242451743 * PreDistanceToCI + NormalDist( 1480.0961759375198, 292618.24472405633);
+}else if( Activity == Staying ) {1.0000012673057117 * PreDistanceToCI + NormalDist( 1000.6004366351603, 161584.45531205033);
+}}
+defineNode(DirectionToCI , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCI | Activity , PreDirectionToCI  ) = 
+if( Activity == HeadingToOthers ) {.9813365016030442 * PreDirectionToCI + NormalDist( 94.03568402931162, 1422.7267805013084);
+}else if( Activity == HeadingToCI ) {.1303463969940752 * PreDirectionToCI + NormalDist( 23.52883784513088, 96.94295604746321);
+}else if( Activity == Staying ) {1.0 * PreDirectionToCI + NormalDist(0.0 ,  0.00000001);
+}}
+defineNode(Temperature , Desc); 
+{ defineState(Continuous); 
+p( Temperature | Activity , PreTemperature  ) = 
+if( Activity == HeadingToOthers ) {1.0000008891419039 * PreTemperature + NormalDist( 87.26909202609826, 145.56334034218463);
+}else if( Activity == HeadingToCI ) {1.0000034017283523 * PreTemperature + NormalDist( 92.20231195657543, 91.81289968886823);
+}else if( Activity == Staying ) {1.0000068754977902 * PreTemperature + NormalDist( 95.83304264789867, 21.75286278479968);
+}}

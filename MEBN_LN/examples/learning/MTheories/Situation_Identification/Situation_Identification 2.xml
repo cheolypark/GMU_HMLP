@@ -1,0 +1,358 @@
+<?xml version='1.0' encoding='US-ASCII'?>
+<xbifns:XMLBIF version="0.7" xmlns:xbifns="http://unbbayes.sourceforge.net/xml/XMLBIF_0_7.xsd">
+  <xbifns:header>
+    <xbifns:version>1.0</xbifns:version>
+    <xbifns:name>AutomaticallyCreatedNet</xbifns:name>
+    <xbifns:creator>UnBBayes</xbifns:creator>
+  </xbifns:header>
+  <xbifns:staticProperty>
+    <xbifns:nodeSize>0</xbifns:nodeSize>
+    <xbifns:nodeFontSize>0</xbifns:nodeFontSize>
+    <xbifns:colorUtilityNode>0</xbifns:colorUtilityNode>
+    <xbifns:colorDecisionNode>0</xbifns:colorDecisionNode>
+    <xbifns:colorDiscreteProbabilisticNode>0</xbifns:colorDiscreteProbabilisticNode>
+    <xbifns:colorContinuousProbilisticNode>0</xbifns:colorContinuousProbilisticNode>
+    <xbifns:colorExplanationNode>0</xbifns:colorExplanationNode>
+  </xbifns:staticProperty>
+  <xbifns:hierarchy>
+    <xbifns:root name="root">
+      <xbifns:level name="Danger_Level(rgn1,T3)"/>
+      <xbifns:level name="Speed_RPT(I2,t2)"/>
+      <xbifns:level name="Speed_RPT(i1,t2)"/>
+      <xbifns:level name="Speed_RPT(i1,T3)"/>
+      <xbifns:level name="Speed_RPT(I2,T3)"/>
+      <xbifns:level name="VehicleType(v2)"/>
+      <xbifns:level name="VehicleType(v1)"/>
+      <xbifns:level name="MTI_Condition(v2,mti1,t2)"/>
+      <xbifns:level name="Speed(v2,t2)"/>
+      <xbifns:level name="MTI_Condition(v1,mti1,t2)"/>
+      <xbifns:level name="Speed(v1,t2)"/>
+      <xbifns:level name="MTI_Condition(v1,mti1,T3)"/>
+      <xbifns:level name="Speed(v1,T3)"/>
+      <xbifns:level name="MTI_Condition(v2,mti1,T3)"/>
+      <xbifns:level name="Speed(v2,T3)"/>
+      <xbifns:level name="Speed(v2,t1)"/>
+      <xbifns:level name="Speed(v1,t1)"/>
+    </xbifns:root>
+  </xbifns:hierarchy>
+  <xbifns:network>
+    <xbifns:variables>
+      <xbifns:variable rgbColor="-256" height="60.0" width="187.0" yPos="550" xPos="100" type="DiscreteProbabilistic" name="Danger_Level__rgn1_T3">
+        <xbifns:description>Danger_Level(rgn1,T3)</xbifns:description>
+        <xbifns:state name="High"/>
+        <xbifns:state name="Low"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="158.0" yPos="550" xPos="400" type="DiscreteProbabilistic" name="Speed_RPT__I2_t2">
+        <xbifns:description>Speed_RPT(I2,t2)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="158.0" yPos="550" xPos="700" type="DiscreteProbabilistic" name="Speed_RPT__i1_t2">
+        <xbifns:description>Speed_RPT(i1,t2)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="162.0" yPos="550" xPos="1000" type="DiscreteProbabilistic" name="Speed_RPT__i1_T3">
+        <xbifns:description>Speed_RPT(i1,T3)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="162.0" yPos="550" xPos="1300" type="DiscreteProbabilistic" name="Speed_RPT__I2_T3">
+        <xbifns:description>Speed_RPT(I2,T3)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="142.0" yPos="250" xPos="1900" type="DiscreteProbabilistic" name="VehicleType__v2">
+        <xbifns:description>VehicleType(v2)</xbifns:description>
+        <xbifns:state name="Wheeled"/>
+        <xbifns:state name="Tracked"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="142.0" yPos="250" xPos="1300" type="DiscreteProbabilistic" name="VehicleType__v1">
+        <xbifns:description>VehicleType(v1)</xbifns:description>
+        <xbifns:state name="Wheeled"/>
+        <xbifns:state name="Tracked"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="203.0" yPos="400" xPos="700" type="DiscreteProbabilistic" name="MTI_Condition__v2_mti1_t2">
+        <xbifns:description>MTI_Condition(v2,mti1,t2)</xbifns:description>
+        <xbifns:state name="Good"/>
+        <xbifns:state name="Bad"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="129.0" yPos="250" xPos="2200" type="DiscreteProbabilistic" name="Speed__v2_t2">
+        <xbifns:description>Speed(v2,t2)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="203.0" yPos="400" xPos="1300" type="DiscreteProbabilistic" name="MTI_Condition__v1_mti1_t2">
+        <xbifns:description>MTI_Condition(v1,mti1,t2)</xbifns:description>
+        <xbifns:state name="Good"/>
+        <xbifns:state name="Bad"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="129.0" yPos="400" xPos="1600" type="DiscreteProbabilistic" name="Speed__v1_t2">
+        <xbifns:description>Speed(v1,t2)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="207.0" yPos="400" xPos="1900" type="DiscreteProbabilistic" name="MTI_Condition__v1_mti1_T3">
+        <xbifns:description>MTI_Condition(v1,mti1,T3)</xbifns:description>
+        <xbifns:state name="Good"/>
+        <xbifns:state name="Bad"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="133.0" yPos="400" xPos="2200" type="DiscreteProbabilistic" name="Speed__v1_T3">
+        <xbifns:description>Speed(v1,T3)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="207.0" yPos="400" xPos="2500" type="DiscreteProbabilistic" name="MTI_Condition__v2_mti1_T3">
+        <xbifns:description>MTI_Condition(v2,mti1,T3)</xbifns:description>
+        <xbifns:state name="Good"/>
+        <xbifns:state name="Bad"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="133.0" yPos="400" xPos="2800" type="DiscreteProbabilistic" name="Speed__v2_T3">
+        <xbifns:description>Speed(v2,T3)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="129.0" yPos="100" xPos="1000" type="DiscreteProbabilistic" name="Speed__v2_t1">
+        <xbifns:description>Speed(v2,t1)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+      <xbifns:variable rgbColor="-256" height="60.0" width="129.0" yPos="250" xPos="1000" type="DiscreteProbabilistic" name="Speed__v1_t1">
+        <xbifns:description>Speed(v1,t1)</xbifns:description>
+        <xbifns:state name="Slow"/>
+        <xbifns:state name="Fast"/>
+      </xbifns:variable>
+    </xbifns:variables>
+    <xbifns:structure>
+      <xbifns:edge child="Danger_Level__rgn1_T3" parent="VehicleType__v2"/>
+      <xbifns:edge child="Danger_Level__rgn1_T3" parent="VehicleType__v1"/>
+      <xbifns:edge child="Speed_RPT__I2_t2" parent="MTI_Condition__v2_mti1_t2"/>
+      <xbifns:edge child="Speed_RPT__I2_t2" parent="Speed__v2_t2"/>
+      <xbifns:edge child="Speed_RPT__i1_t2" parent="MTI_Condition__v1_mti1_t2"/>
+      <xbifns:edge child="Speed_RPT__i1_t2" parent="Speed__v1_t2"/>
+      <xbifns:edge child="Speed_RPT__i1_T3" parent="MTI_Condition__v1_mti1_T3"/>
+      <xbifns:edge child="Speed_RPT__i1_T3" parent="Speed__v1_T3"/>
+      <xbifns:edge child="Speed_RPT__I2_T3" parent="MTI_Condition__v2_mti1_T3"/>
+      <xbifns:edge child="Speed_RPT__I2_T3" parent="Speed__v2_T3"/>
+      <xbifns:edge child="Speed__v2_t2" parent="VehicleType__v2"/>
+      <xbifns:edge child="Speed__v2_t2" parent="Speed__v2_t1"/>
+      <xbifns:edge child="Speed__v1_t2" parent="VehicleType__v1"/>
+      <xbifns:edge child="Speed__v1_t2" parent="Speed__v1_t1"/>
+      <xbifns:edge child="Speed__v1_T3" parent="VehicleType__v1"/>
+      <xbifns:edge child="Speed__v1_T3" parent="Speed__v1_t2"/>
+      <xbifns:edge child="Speed__v2_T3" parent="VehicleType__v2"/>
+      <xbifns:edge child="Speed__v2_T3" parent="Speed__v2_t2"/>
+    </xbifns:structure>
+    <xbifns:conditionalDistributionSet>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Danger_Level__rgn1_T3"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="VehicleType__v2"/>
+          <xbifns:parent index="1" name="VehicleType__v1"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.10000000149011612</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.8999999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.6666666269302368</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.3333333730697632</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed_RPT__I2_t2"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="MTI_Condition__v2_mti1_t2"/>
+          <xbifns:parent index="1" name="Speed__v2_t2"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.6499999761581421</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed_RPT__i1_t2"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="MTI_Condition__v1_mti1_t2"/>
+          <xbifns:parent index="1" name="Speed__v1_t2"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.6499999761581421</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed_RPT__i1_T3"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="MTI_Condition__v1_mti1_T3"/>
+          <xbifns:parent index="1" name="Speed__v1_T3"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.6499999761581421</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed_RPT__I2_T3"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="MTI_Condition__v2_mti1_T3"/>
+          <xbifns:parent index="1" name="Speed__v2_T3"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.05000000074505806</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.949999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.6499999761581421</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="VehicleType__v2"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.8999999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.10000000149011612</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="VehicleType__v1"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.8999999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.10000000149011612</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="MTI_Condition__v2_mti1_t2"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.800000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.20000000298023224</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v2_t2"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="VehicleType__v2"/>
+          <xbifns:parent index="1" name="Speed__v2_t1"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.30000001192092896</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.699999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.25</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.75</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.550000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.44999998807907104</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="MTI_Condition__v1_mti1_t2"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.800000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.20000000298023224</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v1_t2"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="VehicleType__v1"/>
+          <xbifns:parent index="1" name="Speed__v1_t1"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.30000001192092896</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.699999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.25</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.75</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.550000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.44999998807907104</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="MTI_Condition__v1_mti1_T3"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.800000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.20000000298023224</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v1_T3"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="VehicleType__v1"/>
+          <xbifns:parent index="1" name="Speed__v1_t2"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.30000001192092896</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.699999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.25</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.75</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.550000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.44999998807907104</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="MTI_Condition__v2_mti1_T3"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.800000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.20000000298023224</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v2_T3"/>
+        <xbifns:parents>
+          <xbifns:parent index="0" name="VehicleType__v2"/>
+          <xbifns:parent index="1" name="Speed__v2_t2"/>
+        </xbifns:parents>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.30000001192092896</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.699999988079071</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="2">0.6499999761581421</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="3">0.3499999940395355</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="4">0.25</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="5">0.75</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="6">0.550000011920929</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="7">0.44999998807907104</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v2_t1"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.5</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+      <xbifns:conditionalDistribution type="Discrete">
+        <xbifns:owner name="Speed__v1_t1"/>
+        <xbifns:CPT>
+          <xbifns:dependentParentIndex index="0">0.5</xbifns:dependentParentIndex>
+          <xbifns:dependentParentIndex index="1">0.5</xbifns:dependentParentIndex>
+        </xbifns:CPT>
+      </xbifns:conditionalDistribution>
+    </xbifns:conditionalDistributionSet>
+  </xbifns:network>
+</xbifns:XMLBIF>

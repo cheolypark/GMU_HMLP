@@ -1,0 +1,659 @@
+defineNode(DistanceToSensor_g1_s1_t1 , Desc); 
+{ defineState(Discrete, Long, Mid, Short ); 
+p( DistanceToSensor_g1_s1_t1 ) = 
+{ Long : .1206742140675592; Mid : .6486554756929295; Short : .2306703102395113;  }
+}
+defineNode(TargetType_g1 , Desc); 
+{ defineState(Discrete, Others, ThreateningGroundTarget, ThreateningAirTarget ); 
+p( TargetType_g1 ) = 
+{ Others : .8691588785046729; ThreateningGroundTarget : .0654205607476635; ThreateningAirTarget : .0654205607476635;  }
+}
+defineNode(TargetSize_g1 , Desc); 
+{ defineState(Continuous); 
+p( TargetSize_g1 | TargetType_g1  ) = 
+if( TargetType_g1 == ThreateningGroundTarget ) {NormalDist( 1.9606034521074764, .0009924599763321);
+}else if( TargetType_g1 == Others ) {NormalDist( 2.974090733528371, 23.567262114135218);
+}else if( TargetType_g1 == ThreateningAirTarget ) {NormalDist( 2.0390648107171048, .0020615412341017);
+}}
+defineNode(TargetImage_g1 , Desc); 
+{ defineState(Discrete, CommercialFWA, Others, HumanWithWeapon, MilitaryFWA, CommercialWheeled ); 
+p( TargetImage_g1 | TargetType_g1  ) = 
+if( TargetType_g1 == ThreateningGroundTarget ) {CommercialFWA : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .6363636363636364; MilitaryFWA : .0909090909090909; CommercialWheeled : .0909090909090909;  }
+else if( TargetType_g1 == Others ) {CommercialFWA : .0721649484536082; Others : .7938144329896907; HumanWithWeapon : .0103092783505155; MilitaryFWA : .0103092783505155; CommercialWheeled : .1134020618556701;  }
+else if( TargetType_g1 == ThreateningAirTarget ) {CommercialFWA : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryFWA : .6363636363636364; CommercialWheeled : .0909090909090909;  }
+}
+defineNode(Mission_g1_t1 , Desc); 
+{ defineState(Discrete, Others, Attack ); 
+p( Mission_g1_t1 | TargetType_g1  ) = 
+if( TargetType_g1 == ThreateningGroundTarget ) {Others : .0003996802557954; Attack : .9996003197442046;  }
+else if( TargetType_g1 == Others ) {Others : .9999623862183104; Attack : .0000376137816896;  }
+else if( TargetType_g1 == ThreateningAirTarget ) {Others : .0002983293556086; Attack : .9997016706443914;  }
+}
+defineNode(Activity_g1_t1 , Desc); 
+{ defineState(Discrete, HeadingToCI, HeadingToOthers, Staying ); 
+p( Activity_g1_t1 | TargetType_g1 , Mission_g1_t1  ) = 
+if( Mission_g1_t1 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .9472632840591291; HeadingToOthers : .0003995205753096; Staying : .0523371953655613;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == Others ) {HeadingToCI : .2052506864256968; HeadingToOthers : .6465189754391244; Staying : .1482303381351789;  }
+else if( Mission_g1_t1 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Mission_g1_t1 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .2669251416641814; HeadingToOthers : .732776617954071; Staying : .0002982403817477;  }
+}
+defineNode(RegionType_g1_t1 , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionType_g1_t1 ) = 
+{ OffRoad : .99047354790973; road : .0095264520902701;  }
+}
+defineNode(Latitude_Velocity_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_Velocity_g1_t1 | TargetType_g1 , Activity_g1_t1 , RegionType_g1_t1  ) = 
+if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0004293852278227, .0000016181457533);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist( .0012439976247635, .000013346877816);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( .0041093514372048, .0000099306860515);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( -.000146117541191, .0000011652171125);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0004360633446699, .0000000136100451);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( -.0005454701493241, .0000001339104431);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist( .0061457730103587, .0000427170465458);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( -.0008585849088227, .0000003362947576);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist(0.0003068072 ,  0.0000131180);
+}}
+defineNode(Longitude_Velocity_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_Velocity_g1_t1 | TargetType_g1 , Activity_g1_t1 , RegionType_g1_t1  ) = 
+if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0018169271082531, .0000935740042226);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist( .0034747558528048, .0006078524779822);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( -.0082389846829186, .0000237655436738);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( .0017303335878585, .0001699421431246);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0109140761208977, .0000085257846446);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( -.0003934235691188, .0000001331425956);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist( .002267567615985, .0004146327585302);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( -.000665917948961, .0000002022996063);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist(0.0018888474 ,  0.0003169282);
+}}
+defineNode(Altitude_Velocity_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_Velocity_g1_t1 | TargetType_g1 , Activity_g1_t1 , RegionType_g1_t1  ) = 
+if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0034099183732097, .0823694654271497);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist( .0029894741471758, .085597276832162);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( .0143628465862666, .0844057370605622);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist( .0097319252249972, .0845417958345324);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == Others ) {NormalDist( -.0036184094882989, .0840838642625657);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == Others ) {NormalDist( .0796317029530276, .0818995725244788);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( .0126522670683368, .0837307392275928);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningAirTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {NormalDist( -.0019458773366846, .084801384992047);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( .124334880082273, .0437909593263044);
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t1 == OffRoad && Activity_g1_t1 == Staying && TargetType_g1 == ThreateningGroundTarget ) {NormalDist( -.0051609602429712, .0862395475464881);
+}else if( RegionType_g1_t1 == road && Activity_g1_t1 == Staying && TargetType_g1 == Others ) {NormalDist(-0.0025692315 , 0.7477273689 );
+}}
+defineNode(Latitude_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_g1_t1 ) = 
+NormalDist(0 ,  100000000);}
+defineNode(Longitude_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_g1_t1 ) = 
+NormalDist(0 ,  100000000);}
+defineNode(Altitude_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_g1_t1 ) = 
+NormalDist(0 ,  100000000);}
+defineNode(DistanceToCI_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCI_g1_t1 | Activity_g1_t1  ) = 
+if( Activity_g1_t1 == HeadingToCI ) {NormalDist( 1702.0722821210552, 545652.292425503);
+}else if( Activity_g1_t1 == Staying ) {NormalDist( 1016.7273091592469, 187880.74934527258);
+}else if( Activity_g1_t1 == HeadingToOthers ) {NormalDist( 1491.296245095185, 402649.22813330666);
+}}
+defineNode(DirectionToCI_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCI_g1_t1 | Activity_g1_t1  ) = 
+if( Activity_g1_t1 == HeadingToCI ) {NormalDist( 22.446971972133028, 145.97521911993314);
+}else if( Activity_g1_t1 == Staying ) {NormalDist(0.0 ,  0.00000001);
+}else if( Activity_g1_t1 == HeadingToOthers ) {NormalDist( 103.30090421873858, 1777.607640228099);
+}}
+defineNode(Temperature_g1_t1 , Desc); 
+{ defineState(Continuous); 
+p( Temperature_g1_t1 | Activity_g1_t1  ) = 
+if( Activity_g1_t1 == HeadingToCI ) {NormalDist( 91.97347047667905, 95.50706917474542);
+}else if( Activity_g1_t1 == Staying ) {NormalDist( 96.12373581159662, 15.506476798529121);
+}else if( Activity_g1_t1 == HeadingToOthers ) {NormalDist( 85.6054241865392, 149.28413333485446);
+}}
+defineNode(LatitudeReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( LatitudeReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , Latitude_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * Latitude_g1_t1 + NormalDist( 0.0 , 2.7375133545969477);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * Latitude_g1_t1 + NormalDist( 0.0 , 3.2382258726616353);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * Latitude_g1_t1 + NormalDist( 0.0 , 5.54103726427409);
+}}
+defineNode(LongitudeReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( LongitudeReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , Longitude_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * Longitude_g1_t1 + NormalDist( 0.0 , 2.568839078294225);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * Longitude_g1_t1 + NormalDist( 0.0 , 3.2739050009479542);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * Longitude_g1_t1 + NormalDist( 0.0 , 5.134329916799211);
+}}
+defineNode(AltitudeReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( AltitudeReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , Altitude_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * Altitude_g1_t1 + NormalDist( 0.0 , 2.5822081151479983);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * Altitude_g1_t1 + NormalDist( 0.0 , 3.353948174860886);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * Altitude_g1_t1 + NormalDist( 0.0 , 4.893184971076092);
+}}
+defineNode(DistanceToCIReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCIReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , DistanceToCI_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * DistanceToCI_g1_t1 + NormalDist( 0.0 , 2.773607799729446);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * DistanceToCI_g1_t1 + NormalDist( 0.0 , 3.2931353834387385);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * DistanceToCI_g1_t1 + NormalDist( 0.0 , 4.855065550372405);
+}}
+defineNode(DirectionToCIReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCIReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , DirectionToCI_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * DirectionToCI_g1_t1 + NormalDist( 0.0 , 2.5353538614640763);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * DirectionToCI_g1_t1 + NormalDist( 0.0 , 3.35888543896843);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * DirectionToCI_g1_t1 + NormalDist( 0.0 , 5.1600618836740875);
+}}
+defineNode(ImageReport_g1_s1_t1 , Desc); 
+{ defineState(Discrete, CommercialWheeled, Others, HumanWithWeapon, MilitaryRWA, HumanWithoutWeapon, CommercialTracked, CommercialFWA, MilitaryFWA, MilitaryTracked, CommercialRWA, MilitaryWheeled ); 
+p( ImageReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , TargetImage_g1  ) = 
+if( TargetImage_g1 == Others && DistanceToSensor_g1_s1_t1 == Long ) {CommercialWheeled : .0133333333333333; Others : .743030303030303; HumanWithWeapon : .0303030303030303; MilitaryRWA : .0254545454545455; HumanWithoutWeapon : .0278787878787879; CommercialTracked : .0375757575757576; CommercialFWA : .023030303030303; MilitaryFWA : .023030303030303; MilitaryTracked : .0278787878787879; CommercialRWA : .0278787878787879; MilitaryWheeled : .0206060606060606;  }
+else if( TargetImage_g1 == HumanWithWeapon && DistanceToSensor_g1_s1_t1 == Long ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == MilitaryFWA && DistanceToSensor_g1_s1_t1 == Long ) {CommercialWheeled : .0205680705190989; Others : .0244857982370225; HumanWithWeapon : .0127326150832517; MilitaryRWA : .0401567091087169; HumanWithoutWeapon : .0186092066601371; CommercialTracked : .0323212536728697; CommercialFWA : .0460333006856024; MilitaryFWA : .7453476983349657; MilitaryTracked : .0146914789422135; CommercialRWA : .0127326150832517; MilitaryWheeled : .0323212536728697;  }
+else if( TargetImage_g1 == CommercialWheeled && DistanceToSensor_g1_s1_t1 == Short ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == CommercialFWA && DistanceToSensor_g1_s1_t1 == Short ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == CommercialWheeled && DistanceToSensor_g1_s1_t1 == Mid ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == HumanWithWeapon && DistanceToSensor_g1_s1_t1 == Short ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == Others && DistanceToSensor_g1_s1_t1 == Short ) {CommercialWheeled : .0213918729565624; Others : .7849602989257356; HumanWithWeapon : .0240074731433909; MilitaryRWA : .0243811303129379; HumanWithoutWeapon : .0251284446520318; CommercialTracked : .0213918729565624; CommercialFWA : .0198972442783746; MilitaryFWA : .0208313872022419; MilitaryTracked : .0191499299392807; CommercialRWA : .0241943017281644; MilitaryWheeled : .0146660439047174;  }
+else if( TargetImage_g1 == MilitaryFWA && DistanceToSensor_g1_s1_t1 == Short ) {CommercialWheeled : .025089605734767; Others : .044205495818399; HumanWithWeapon : .003584229390681; MilitaryRWA : .034647550776583; HumanWithoutWeapon : .025089605734767; CommercialTracked : .029868578255675; CommercialFWA : .022700119474313; MilitaryFWA : .7084826762246117; MilitaryTracked : .034647550776583; CommercialRWA : .048984468339307; MilitaryWheeled : .022700119474313;  }
+else if( TargetImage_g1 == CommercialFWA && DistanceToSensor_g1_s1_t1 == Long ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == CommercialWheeled && DistanceToSensor_g1_s1_t1 == Long ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == CommercialFWA && DistanceToSensor_g1_s1_t1 == Mid ) {CommercialWheeled : .0909090909090909; Others : .0909090909090909; HumanWithWeapon : .0909090909090909; MilitaryRWA : .0909090909090909; HumanWithoutWeapon : .0909090909090909; CommercialTracked : .0909090909090909; CommercialFWA : .0909090909090909; MilitaryFWA : .0909090909090909; MilitaryTracked : .0909090909090909; CommercialRWA : .0909090909090909; MilitaryWheeled : .0909090909090909;  }
+else if( TargetImage_g1 == MilitaryFWA && DistanceToSensor_g1_s1_t1 == Mid ) {CommercialWheeled : .035326842837274; Others : .0208623087621697; HumanWithWeapon : .0297635605006954; MilitaryRWA : .0336578581363004; HumanWithoutWeapon : .0219749652294854; CommercialTracked : .0297635605006954; CommercialFWA : .023643949930459; MilitaryFWA : .7240611961057024; MilitaryTracked : .0358831710709318; CommercialRWA : .0214186369958275; MilitaryWheeled : .023643949930459;  }
+else if( TargetImage_g1 == HumanWithWeapon && DistanceToSensor_g1_s1_t1 == Mid ) {CommercialWheeled : .0348593028139437; Others : .0382192356152877; HumanWithWeapon : .7211255774884502; MilitaryRWA : .0289794204115918; HumanWithoutWeapon : .0180596388072239; CommercialTracked : .0239395212095758; CommercialFWA : .0289794204115918; MilitaryFWA : .0340193196136077; MilitaryTracked : .0239395212095758; CommercialRWA : .0188996220075598; MilitaryWheeled : .0289794204115918;  }
+else if( TargetImage_g1 == Others && DistanceToSensor_g1_s1_t1 == Mid ) {CommercialWheeled : .0223578252388336; Others : .743510228580003; HumanWithWeapon : .0271595058270395; MilitaryRWA : .0231581053368679; HumanWithoutWeapon : .0241584554594108; CommercialTracked : .0288601010353624; CommercialFWA : .0270594708147852; MilitaryFWA : .0268594007902766; MilitaryTracked : .0260591206922423; CommercialRWA : .0258590506677337; MilitaryWheeled : .0249587355574451;  }
+}
+defineNode(TemperatureReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( TemperatureReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , Temperature_g1_t1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * Temperature_g1_t1 + NormalDist( 0.0 , 2.839453024292612);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * Temperature_g1_t1 + NormalDist( 0.0 , 3.177902099563154);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * Temperature_g1_t1 + NormalDist( 0.0 , 4.497312887940239);
+}}
+defineNode(SizeReport_g1_s1_t1 , Desc); 
+{ defineState(Continuous); 
+p( SizeReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , TargetSize_g1  ) = 
+if( DistanceToSensor_g1_s1_t1 == Short ) { 1.0 * TargetSize_g1 + NormalDist( 0.0 , 2.7206144127192498);
+}else if( DistanceToSensor_g1_s1_t1 == Mid ) { 1.0 * TargetSize_g1 + NormalDist( 0.0 , 3.255218751024377);
+}else if( DistanceToSensor_g1_s1_t1 == Long ) { 1.0 * TargetSize_g1 + NormalDist( 0.0 , 4.29438218623179);
+}}
+defineNode(RegionTypeReport_g1_s1_t1 , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionTypeReport_g1_s1_t1 | DistanceToSensor_g1_s1_t1 , RegionType_g1_t1  ) = 
+if( RegionType_g1_t1 == OffRoad && DistanceToSensor_g1_s1_t1 == Long ) {OffRoad : .9990689013035382; road : .0009310986964618;  }
+else if( RegionType_g1_t1 == road && DistanceToSensor_g1_s1_t1 == Short ) {OffRoad : .5; road : .5;  }
+else if( RegionType_g1_t1 == road && DistanceToSensor_g1_s1_t1 == Long ) {OffRoad : .5; road : .5;  }
+else if( RegionType_g1_t1 == OffRoad && DistanceToSensor_g1_s1_t1 == Short ) {OffRoad : .9998216833095578; road : .0001783166904422;  }
+else if( RegionType_g1_t1 == OffRoad && DistanceToSensor_g1_s1_t1 == Mid ) {OffRoad : .9999386879215205; road : .0000613120784795;  }
+else if( RegionType_g1_t1 == road && DistanceToSensor_g1_s1_t1 == Mid ) {OffRoad : .0384615384615385; road : .9615384615384616;  }
+}
+defineNode(DistanceToSensor_g1_s1_t2 , Desc); 
+{ defineState(Discrete, Long, Mid, Short ); 
+p( DistanceToSensor_g1_s1_t2 ) = 
+{ Long : .1206742140675592; Mid : .6486554756929295; Short : .2306703102395113;  }
+}
+defineNode(Mission_g1_t2 , Desc); 
+{ defineState(Discrete, Others, Attack ); 
+p( Mission_g1_t2 | TargetType_g1 , Mission_g1_t1  ) = 
+if( Mission_g1_t1 == Attack && TargetType_g1 == ThreateningGroundTarget ) {Others : .0003996802557954; Attack : .9996003197442046;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == ThreateningAirTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == ThreateningGroundTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t1 == Others && TargetType_g1 == Others ) {Others : .9999623862183104; Attack : .0000376137816896;  }
+else if( Mission_g1_t1 == Attack && TargetType_g1 == Others ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t1 == Attack && TargetType_g1 == ThreateningAirTarget ) {Others : .0002983293556086; Attack : .9997016706443914;  }
+}
+defineNode(Activity_g1_t2 , Desc); 
+{ defineState(Discrete, HeadingToCI, HeadingToOthers, Staying ); 
+p( Activity_g1_t2 | TargetType_g1 , Mission_g1_t2 , Activity_g1_t1  ) = 
+if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Others && TargetType_g1 == Others ) {HeadingToCI : .0004071898086208; HeadingToOthers : .8795881565935664; Staying : .1200046535978128;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .9888517279821628; HeadingToOthers : .0100334448160535; Staying : .0011148272017837;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Others && TargetType_g1 == Others ) {HeadingToCI : .1970580776058838; HeadingToOthers : .5201623129596754; Staying : .2827796094344408;  }
+else if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .0020333468889793; HeadingToOthers : .9975599837332249; Staying : .0004066693777959;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .9502739148756848; HeadingToOthers : .0004214075010535; Staying : .0493046776232617;  }
+else if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Others && TargetType_g1 == Others ) {HeadingToCI : .8556512181718263; HeadingToOthers : .0023813885326983; Staying : .1419673932954754;  }
+else if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .8796992481203008; HeadingToOthers : .0075187969924812; Staying : .112781954887218;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == Staying && Mission_g1_t2 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToOthers && Mission_g1_t2 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t1 == HeadingToCI && Mission_g1_t2 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+}
+defineNode(RegionType_g1_t2 , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionType_g1_t2 | RegionType_g1_t1  ) = 
+if( RegionType_g1_t1 == OffRoad ) {OffRoad : .9997821215139442; road : .0002178784860558;  }
+else if( RegionType_g1_t1 == road ) {OffRoad : .0290322580645161; road : .9709677419354839;  }
+}
+defineNode(Latitude_Velocity_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_Velocity_g1_t2 | TargetType_g1 , Activity_g1_t2 , RegionType_g1_t2 , Latitude_Velocity_g1_t1  ) = 
+if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( .0004833586398251, .0000000275398799);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( .0012390274381586, .0000134157301534);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( .0004314285112334, .0000016222815693);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( -.0011447798784303, .0000001207627676);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( .0061870918309588, .0000427391103779);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( -.0005463274046394, .0000001340410853);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( .0041199912631003, .0000102443562222);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t1 + NormalDist( -.0001447643589065, .0000011802032007);
+}}
+defineNode(Longitude_Velocity_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_Velocity_g1_t2 | TargetType_g1 , Activity_g1_t2 , RegionType_g1_t2 , Longitude_Velocity_g1_t1  ) = 
+if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( .0120978134328927, .0000172518961773);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( .0034589364815358, .0006080881666209);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( .0018167240066464, .0000937546906993);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( -.0008878905986146, .0000000726453797);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( .0023341036851602, .0004129937252089);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( -.0003939687035819, .000000133517812);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( -.0083743200092674, .0000237142629049);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t1 + NormalDist( .0017498243229241, .0001707773520488);
+}}
+defineNode(Altitude_Velocity_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_Velocity_g1_t2 | TargetType_g1 , Activity_g1_t2 , RegionType_g1_t2 , Altitude_Velocity_g1_t1  ) = 
+if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .0536158225552678, .0644997611394621);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .003302060335764, .0855180893267383);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .0047082179020216, .0823224174827621);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( -.0051609602429712, .0862395475464881);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .0182326381608391, .0133572028053879);
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( -.0030511632963563, .0845263427271563);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .0099320130142113, .0847251153429713);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .0128323042959719, .0836540821593921);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t2 == road && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( .01137600362585, .0844636408449036);
+}else if( RegionType_g1_t2 == OffRoad && Activity_g1_t2 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t1 + NormalDist( -.0037863585924072, .0840672963649604);
+}}
+defineNode(Latitude_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_g1_t2 | Latitude_Velocity_g1_t1 , Latitude_g1_t1  ) = 
+1.0 * Latitude_Velocity_g1_t1 + 1.0 * Latitude_g1_t1 + NormalDist(0 ,  0.0000001);}
+defineNode(Longitude_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_g1_t2 | Longitude_Velocity_g1_t1 , Longitude_g1_t1  ) = 
+1.0 * Longitude_Velocity_g1_t1 + 1.0 * Longitude_g1_t1 + NormalDist(0 ,  0.0000001);}
+defineNode(Altitude_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_g1_t2 | Altitude_Velocity_g1_t1 , Altitude_g1_t1  ) = 
+1.0 * Altitude_Velocity_g1_t1 + 1.0 * Altitude_g1_t1 + NormalDist(0 ,  0.0000001);}
+defineNode(DistanceToCI_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCI_g1_t2 | Activity_g1_t2 , DistanceToCI_g1_t1  ) = 
+if( Activity_g1_t2 == HeadingToOthers ) {.9996048886550388 * DistanceToCI_g1_t1 + NormalDist( 1491.8962461758167, 402605.7306964017);
+}else if( Activity_g1_t2 == HeadingToCI ) {.9978998330946047 * DistanceToCI_g1_t1 + NormalDist( 1700.0189605472922, 542709.697848542);
+}else if( Activity_g1_t2 == Staying ) {.9998732623559214 * DistanceToCI_g1_t1 + NormalDist( 1016.0857165392121, 187890.7656049303);
+}}
+defineNode(DirectionToCI_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCI_g1_t2 | Activity_g1_t2 , DirectionToCI_g1_t1  ) = 
+if( Activity_g1_t2 == HeadingToOthers ) {.99064089857648 * DirectionToCI_g1_t1 + NormalDist( 103.2684403395256, 1777.1318611819133);
+}else if( Activity_g1_t2 == HeadingToCI ) {.2115475932201423 * DirectionToCI_g1_t1 + NormalDist( 22.433221399941292, 145.9914885319677);
+}else if( Activity_g1_t2 == Staying ) {1.0 * DirectionToCI_g1_t1 + NormalDist(0.0 ,  0.00000001);
+}}
+defineNode(Temperature_g1_t2 , Desc); 
+{ defineState(Continuous); 
+p( Temperature_g1_t2 | Activity_g1_t2 , Temperature_g1_t1  ) = 
+if( Activity_g1_t2 == HeadingToOthers ) {.999992688391394 * Temperature_g1_t1 + NormalDist( 85.59427121186816, 149.30895974220405);
+}else if( Activity_g1_t2 == HeadingToCI ) {.9999994848705014 * Temperature_g1_t1 + NormalDist( 91.99749596371505, 95.14401183517852);
+}else if( Activity_g1_t2 == Staying ) {.9999804926238597 * Temperature_g1_t1 + NormalDist( 96.11301528501122, 15.756015710331791);
+}}
+defineNode(DistanceToSensor_g1_s1_t3 , Desc); 
+{ defineState(Discrete, Long, Mid, Short ); 
+p( DistanceToSensor_g1_s1_t3 ) = 
+{ Long : .1206742140675592; Mid : .6486554756929295; Short : .2306703102395113;  }
+}
+defineNode(Mission_g1_t3 , Desc); 
+{ defineState(Discrete, Others, Attack ); 
+p( Mission_g1_t3 | TargetType_g1 , Mission_g1_t2  ) = 
+if( Mission_g1_t2 == Attack && TargetType_g1 == ThreateningGroundTarget ) {Others : .0003996802557954; Attack : .9996003197442046;  }
+else if( Mission_g1_t2 == Others && TargetType_g1 == ThreateningAirTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t2 == Others && TargetType_g1 == ThreateningGroundTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t2 == Others && TargetType_g1 == Others ) {Others : .9999623862183104; Attack : .0000376137816896;  }
+else if( Mission_g1_t2 == Attack && TargetType_g1 == Others ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t2 == Attack && TargetType_g1 == ThreateningAirTarget ) {Others : .0002983293556086; Attack : .9997016706443914;  }
+}
+defineNode(Activity_g1_t3 , Desc); 
+{ defineState(Discrete, HeadingToCI, HeadingToOthers, Staying ); 
+p( Activity_g1_t3 | TargetType_g1 , Mission_g1_t3 , Activity_g1_t2  ) = 
+if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Others && TargetType_g1 == Others ) {HeadingToCI : .0004071898086208; HeadingToOthers : .8795881565935664; Staying : .1200046535978128;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .9888517279821628; HeadingToOthers : .0100334448160535; Staying : .0011148272017837;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Others && TargetType_g1 == Others ) {HeadingToCI : .1970580776058838; HeadingToOthers : .5201623129596754; Staying : .2827796094344408;  }
+else if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .0020333468889793; HeadingToOthers : .9975599837332249; Staying : .0004066693777959;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .9502739148756848; HeadingToOthers : .0004214075010535; Staying : .0493046776232617;  }
+else if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Others && TargetType_g1 == Others ) {HeadingToCI : .8556512181718263; HeadingToOthers : .0023813885326983; Staying : .1419673932954754;  }
+else if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .8796992481203008; HeadingToOthers : .0075187969924812; Staying : .112781954887218;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == Staying && Mission_g1_t3 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToOthers && Mission_g1_t3 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t2 == HeadingToCI && Mission_g1_t3 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+}
+defineNode(RegionType_g1_t3 , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionType_g1_t3 | RegionType_g1_t2  ) = 
+if( RegionType_g1_t2 == OffRoad ) {OffRoad : .9997821215139442; road : .0002178784860558;  }
+else if( RegionType_g1_t2 == road ) {OffRoad : .0290322580645161; road : .9709677419354839;  }
+}
+defineNode(Latitude_Velocity_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_Velocity_g1_t3 | TargetType_g1 , Activity_g1_t3 , RegionType_g1_t3 , Latitude_Velocity_g1_t2  ) = 
+if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( .0004833586398251, .0000000275398799);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( .0012390274381586, .0000134157301534);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( .0004314285112334, .0000016222815693);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( -.0011447798784303, .0000001207627676);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( .0061870918309588, .0000427391103779);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( -.0005463274046394, .0000001340410853);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( .0041199912631003, .0000102443562222);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t2 + NormalDist( -.0001447643589065, .0000011802032007);
+}}
+defineNode(Longitude_Velocity_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_Velocity_g1_t3 | TargetType_g1 , Activity_g1_t3 , RegionType_g1_t3 , Longitude_Velocity_g1_t2  ) = 
+if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( .0120978134328927, .0000172518961773);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( .0034589364815358, .0006080881666209);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( .0018167240066464, .0000937546906993);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( -.0008878905986146, .0000000726453797);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( .0023341036851602, .0004129937252089);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( -.0003939687035819, .000000133517812);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( -.0083743200092674, .0000237142629049);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t2 + NormalDist( .0017498243229241, .0001707773520488);
+}}
+defineNode(Altitude_Velocity_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_Velocity_g1_t3 | TargetType_g1 , Activity_g1_t3 , RegionType_g1_t3 , Altitude_Velocity_g1_t2  ) = 
+if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .0536158225552678, .0644997611394621);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .003302060335764, .0855180893267383);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .0047082179020216, .0823224174827621);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( -.0051609602429712, .0862395475464881);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .0182326381608391, .0133572028053879);
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( -.0030511632963563, .0845263427271563);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .0099320130142113, .0847251153429713);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .0128323042959719, .0836540821593921);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t3 == road && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( .01137600362585, .0844636408449036);
+}else if( RegionType_g1_t3 == OffRoad && Activity_g1_t3 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t2 + NormalDist( -.0037863585924072, .0840672963649604);
+}}
+defineNode(Latitude_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_g1_t3 | Latitude_Velocity_g1_t2 , Latitude_g1_t2  ) = 
+1.0 * Latitude_Velocity_g1_t2 + 1.0 * Latitude_g1_t2 + NormalDist(0 ,  0.0000001);}
+defineNode(Longitude_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_g1_t3 | Longitude_Velocity_g1_t2 , Longitude_g1_t2  ) = 
+1.0 * Longitude_Velocity_g1_t2 + 1.0 * Longitude_g1_t2 + NormalDist(0 ,  0.0000001);}
+defineNode(Altitude_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_g1_t3 | Altitude_Velocity_g1_t2 , Altitude_g1_t2  ) = 
+1.0 * Altitude_Velocity_g1_t2 + 1.0 * Altitude_g1_t2 + NormalDist(0 ,  0.0000001);}
+defineNode(DistanceToCI_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCI_g1_t3 | Activity_g1_t3 , DistanceToCI_g1_t2  ) = 
+if( Activity_g1_t3 == HeadingToOthers ) {.9996048886550388 * DistanceToCI_g1_t2 + NormalDist( 1491.8962461758167, 402605.7306964017);
+}else if( Activity_g1_t3 == HeadingToCI ) {.9978998330946047 * DistanceToCI_g1_t2 + NormalDist( 1700.0189605472922, 542709.697848542);
+}else if( Activity_g1_t3 == Staying ) {.9998732623559214 * DistanceToCI_g1_t2 + NormalDist( 1016.0857165392121, 187890.7656049303);
+}}
+defineNode(DirectionToCI_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCI_g1_t3 | Activity_g1_t3 , DirectionToCI_g1_t2  ) = 
+if( Activity_g1_t3 == HeadingToOthers ) {.99064089857648 * DirectionToCI_g1_t2 + NormalDist( 103.2684403395256, 1777.1318611819133);
+}else if( Activity_g1_t3 == HeadingToCI ) {.2115475932201423 * DirectionToCI_g1_t2 + NormalDist( 22.433221399941292, 145.9914885319677);
+}else if( Activity_g1_t3 == Staying ) {1.0 * DirectionToCI_g1_t2 + NormalDist(0.0 ,  0.00000001);
+}}
+defineNode(Temperature_g1_t3 , Desc); 
+{ defineState(Continuous); 
+p( Temperature_g1_t3 | Activity_g1_t3 , Temperature_g1_t2  ) = 
+if( Activity_g1_t3 == HeadingToOthers ) {.999992688391394 * Temperature_g1_t2 + NormalDist( 85.59427121186816, 149.30895974220405);
+}else if( Activity_g1_t3 == HeadingToCI ) {.9999994848705014 * Temperature_g1_t2 + NormalDist( 91.99749596371505, 95.14401183517852);
+}else if( Activity_g1_t3 == Staying ) {.9999804926238597 * Temperature_g1_t2 + NormalDist( 96.11301528501122, 15.756015710331791);
+}}
+defineNode(DistanceToSensor_g1_s1_t4 , Desc); 
+{ defineState(Discrete, Long, Mid, Short ); 
+p( DistanceToSensor_g1_s1_t4 ) = 
+{ Long : .1206742140675592; Mid : .6486554756929295; Short : .2306703102395113;  }
+}
+defineNode(Mission_g1_t4 , Desc); 
+{ defineState(Discrete, Others, Attack ); 
+p( Mission_g1_t4 | TargetType_g1 , Mission_g1_t3  ) = 
+if( Mission_g1_t3 == Attack && TargetType_g1 == ThreateningGroundTarget ) {Others : .0003996802557954; Attack : .9996003197442046;  }
+else if( Mission_g1_t3 == Others && TargetType_g1 == ThreateningAirTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t3 == Others && TargetType_g1 == ThreateningGroundTarget ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t3 == Others && TargetType_g1 == Others ) {Others : .9999623862183104; Attack : .0000376137816896;  }
+else if( Mission_g1_t3 == Attack && TargetType_g1 == Others ) {Others : .5; Attack : .5;  }
+else if( Mission_g1_t3 == Attack && TargetType_g1 == ThreateningAirTarget ) {Others : .0002983293556086; Attack : .9997016706443914;  }
+}
+defineNode(Activity_g1_t4 , Desc); 
+{ defineState(Discrete, HeadingToCI, HeadingToOthers, Staying ); 
+p( Activity_g1_t4 | TargetType_g1 , Mission_g1_t4 , Activity_g1_t3  ) = 
+if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Others && TargetType_g1 == Others ) {HeadingToCI : .0004071898086208; HeadingToOthers : .8795881565935664; Staying : .1200046535978128;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .9888517279821628; HeadingToOthers : .0100334448160535; Staying : .0011148272017837;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Others && TargetType_g1 == Others ) {HeadingToCI : .1970580776058838; HeadingToOthers : .5201623129596754; Staying : .2827796094344408;  }
+else if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .0020333468889793; HeadingToOthers : .9975599837332249; Staying : .0004066693777959;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .9502739148756848; HeadingToOthers : .0004214075010535; Staying : .0493046776232617;  }
+else if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Others && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Others && TargetType_g1 == Others ) {HeadingToCI : .8556512181718263; HeadingToOthers : .0023813885326983; Staying : .1419673932954754;  }
+else if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .8796992481203008; HeadingToOthers : .0075187969924812; Staying : .112781954887218;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == Staying && Mission_g1_t4 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToOthers && Mission_g1_t4 == Attack && TargetType_g1 == ThreateningGroundTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Others && TargetType_g1 == ThreateningAirTarget ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+else if( Activity_g1_t3 == HeadingToCI && Mission_g1_t4 == Attack && TargetType_g1 == Others ) {HeadingToCI : .3333333333333333; HeadingToOthers : .3333333333333333; Staying : .3333333333333333;  }
+}
+defineNode(RegionType_g1_t4 , Desc); 
+{ defineState(Discrete, OffRoad, road ); 
+p( RegionType_g1_t4 | RegionType_g1_t3  ) = 
+if( RegionType_g1_t3 == OffRoad ) {OffRoad : .9997821215139442; road : .0002178784860558;  }
+else if( RegionType_g1_t3 == road ) {OffRoad : .0290322580645161; road : .9709677419354839;  }
+}
+defineNode(Latitude_Velocity_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_Velocity_g1_t4 | TargetType_g1 , Activity_g1_t4 , RegionType_g1_t4 , Latitude_Velocity_g1_t3  ) = 
+if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( .0004833586398251, .0000000275398799);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( .0012390274381586, .0000134157301534);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( .0004314285112334, .0000016222815693);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( -.0011447798784303, .0000001207627676);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( .0061870918309588, .0000427391103779);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( -.0005463274046394, .0000001340410853);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist(0.0003068072 ,  0.0000131180);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( .0041199912631003, .0000102443562222);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Latitude_Velocity_g1_t3 + NormalDist( -.0001447643589065, .0000011802032007);
+}}
+defineNode(Longitude_Velocity_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_Velocity_g1_t4 | TargetType_g1 , Activity_g1_t4 , RegionType_g1_t4 , Longitude_Velocity_g1_t3  ) = 
+if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( .0120978134328927, .0000172518961773);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( .0034589364815358, .0006080881666209);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( .0018167240066464, .0000937546906993);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( -.0008878905986146, .0000000726453797);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( .0023341036851602, .0004129937252089);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( -.0003939687035819, .000000133517812);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist(0.0018888474 ,  0.0003169282);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( -.0083743200092674, .0000237142629049);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Longitude_Velocity_g1_t3 + NormalDist( .0017498243229241, .0001707773520488);
+}}
+defineNode(Altitude_Velocity_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_Velocity_g1_t4 | TargetType_g1 , Activity_g1_t4 , RegionType_g1_t4 , Altitude_Velocity_g1_t3  ) = 
+if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .0536158225552678, .0644997611394621);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .003302060335764, .0855180893267383);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .0047082179020216, .0823224174827621);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( -.0051609602429712, .0862395475464881);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .0182326381608391, .0133572028053879);
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( -.0030511632963563, .0845263427271563);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == Staying && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .0099320130142113, .0847251153429713);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToCI && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .0128323042959719, .0836540821593921);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == Staying && TargetType_g1 == ThreateningGroundTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == ThreateningAirTarget ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist(-0.0025692315 , 0.7477273689 );
+}else if( RegionType_g1_t4 == road && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( .01137600362585, .0844636408449036);
+}else if( RegionType_g1_t4 == OffRoad && Activity_g1_t4 == HeadingToOthers && TargetType_g1 == Others ) {1.0 * Altitude_Velocity_g1_t3 + NormalDist( -.0037863585924072, .0840672963649604);
+}}
+defineNode(Latitude_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Latitude_g1_t4 | Latitude_Velocity_g1_t3 , Latitude_g1_t3  ) = 
+1.0 * Latitude_Velocity_g1_t3 + 1.0 * Latitude_g1_t3 + NormalDist(0 ,  0.0000001);}
+defineNode(Longitude_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Longitude_g1_t4 | Longitude_Velocity_g1_t3 , Longitude_g1_t3  ) = 
+1.0 * Longitude_Velocity_g1_t3 + 1.0 * Longitude_g1_t3 + NormalDist(0 ,  0.0000001);}
+defineNode(Altitude_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Altitude_g1_t4 | Altitude_Velocity_g1_t3 , Altitude_g1_t3  ) = 
+1.0 * Altitude_Velocity_g1_t3 + 1.0 * Altitude_g1_t3 + NormalDist(0 ,  0.0000001);}
+defineNode(DistanceToCI_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( DistanceToCI_g1_t4 | Activity_g1_t4 , DistanceToCI_g1_t3  ) = 
+if( Activity_g1_t4 == HeadingToOthers ) {.9996048886550388 * DistanceToCI_g1_t3 + NormalDist( 1491.8962461758167, 402605.7306964017);
+}else if( Activity_g1_t4 == HeadingToCI ) {.9978998330946047 * DistanceToCI_g1_t3 + NormalDist( 1700.0189605472922, 542709.697848542);
+}else if( Activity_g1_t4 == Staying ) {.9998732623559214 * DistanceToCI_g1_t3 + NormalDist( 1016.0857165392121, 187890.7656049303);
+}}
+defineNode(DirectionToCI_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( DirectionToCI_g1_t4 | Activity_g1_t4 , DirectionToCI_g1_t3  ) = 
+if( Activity_g1_t4 == HeadingToOthers ) {.99064089857648 * DirectionToCI_g1_t3 + NormalDist( 103.2684403395256, 1777.1318611819133);
+}else if( Activity_g1_t4 == HeadingToCI ) {.2115475932201423 * DirectionToCI_g1_t3 + NormalDist( 22.433221399941292, 145.9914885319677);
+}else if( Activity_g1_t4 == Staying ) {1.0 * DirectionToCI_g1_t3 + NormalDist(0.0 ,  0.00000001);
+}}
+defineNode(Temperature_g1_t4 , Desc); 
+{ defineState(Continuous); 
+p( Temperature_g1_t4 | Activity_g1_t4 , Temperature_g1_t3  ) = 
+if( Activity_g1_t4 == HeadingToOthers ) {.999992688391394 * Temperature_g1_t3 + NormalDist( 85.59427121186816, 149.30895974220405);
+}else if( Activity_g1_t4 == HeadingToCI ) {.9999994848705014 * Temperature_g1_t3 + NormalDist( 91.99749596371505, 95.14401183517852);
+}else if( Activity_g1_t4 == Staying ) {.9999804926238597 * Temperature_g1_t3 + NormalDist( 96.11301528501122, 15.756015710331791);
+}}
+defineNode(DangerLevel_ci1 , Desc); 
+{ defineState(Discrete, High, Low ); 
+p( DangerLevel_ci1 | TargetType_g1 , Mission_g1_t1  ) = 
+if( TargetType_g1 == ThreateningAirTarget && Mission_g1_t1 == Attack ) {High : 0.00033535; Low : 0.99966465; }
+else if( TargetType_g1 == ThreateningGroundTarget && Mission_g1_t1 == Attack ) {High : 0.0; Low : 1.0; }
+else if( TargetType_g1 == ThreateningAirTarget && Mission_g1_t1 == Others ) {High : 0.0; Low : 1.0; }
+else if( TargetType_g1 == Others && Mission_g1_t1 == Others ) {High : 0.0; Low : 1.0; }
+else if( TargetType_g1 == Others && Mission_g1_t1 == Attack ) {High : 0.0; Low : 1.0; }
+else if( TargetType_g1 == ThreateningGroundTarget && Mission_g1_t1 == Others ) {High : 0.0; Low : 1.0; }
+}
