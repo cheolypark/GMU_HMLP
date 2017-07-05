@@ -23,6 +23,7 @@ import mebn_rm.MEBN.MNode.MDNode;
 import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
 import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.util.StringUtil;
 import util.Node;
 import util.SortableValueMap;
 import util.Tree;
@@ -208,8 +209,9 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public String getAttributeName() {
-        String s = this.name;
-        String right = s.replaceFirst(this.mFrag.name+"_", "");
+        String s = this.name; 
+        String prefix = new StringUtil().createAbbreviation(this.mFrag.name);
+        String right = s.replaceFirst(prefix+"_", "");
         return right;
     }
 
