@@ -3,9 +3,7 @@
  */
 package util;
 import java.io.File;
-import java.io.FilenameFilter;
-import java.util.ArrayList;
-
+import java.io.FilenameFilter; 
 /**
  * http://stackoverflow.com/questions/3008043/list-all-files-from-directories-and-subdirectories-in-java
  * http://stackoverflow.com/questions/5751335/using-file-listfiles-with-filenameextensionfilter

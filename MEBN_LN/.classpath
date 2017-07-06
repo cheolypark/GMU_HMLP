@@ -4,9 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre1.8.0_121"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ModelerLib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEBN_RM"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/opencsv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/commons-math3-3.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/tetrad-development.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/colt.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/commons-collections4-4.1.jar"/>

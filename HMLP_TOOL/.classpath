@@ -5,13 +5,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/ModelerLib"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEBN_LN"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/MEBN_RM"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/colt.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/commons-collections-3.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/commons-lang3-3.5.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/commons-math3-3.6.1.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/JavaMI.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/mysql-connector-java-3.0.17-ga-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/HMLP/ModelerLib/lib/opencsv.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/colt.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/commons-collections-3.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/commons-collections4-4.1.jar"/>
