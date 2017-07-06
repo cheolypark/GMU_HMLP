@@ -28,7 +28,13 @@ public class MySQL_Interface extends TempMathFunctions {
     public String root = "root";
     public String PW = "jesus";
 
-    public MySQL_Interface() {
+    public MySQL_Interface() { 
+    }
+    
+    public void connect(String r, String p) {
+        root = r;
+        PW = p;
+        
         try {
             DriverManager.registerDriver((java.sql.Driver)new Driver());
         }
@@ -44,6 +50,12 @@ public class MySQL_Interface extends TempMathFunctions {
     }
 
     public Connection connectSchema(String s) {
+    	try {
+			connection.close();
+		} catch (SQLException e1) { 
+			e1.printStackTrace();
+		}
+    	
         try {
             DriverManager.registerDriver((java.sql.Driver)new Driver());
             this.schema = s;

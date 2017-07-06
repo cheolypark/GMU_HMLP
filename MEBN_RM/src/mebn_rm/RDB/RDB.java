@@ -46,7 +46,7 @@ public class RDB extends MySQL_Interface {
     public Map<String, Bin> mapAttributeBins = new HashMap<String, Bin>();
     public int sizeOfBins = 5;
     public static RDB database = new RDB();
-
+    
     public static RDB This() {
         return database;
     }
