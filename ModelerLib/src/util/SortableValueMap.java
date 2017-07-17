@@ -36,7 +36,7 @@ public class SortableValueMap<K extends Comparable<K>, V >  extends  LinkedHashM
 			put( entry.getKey(), entry.getValue() );     
 		} 
 	}
-	
+  
 	public void sortByValue() {     
 		List<Map.Entry<K, V>> list = new LinkedList<Map.Entry<K, V>>( entrySet() );      
 		Collections.sort( list, new Comparator<Map.Entry<K, V>>() {       

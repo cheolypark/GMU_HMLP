@@ -58,12 +58,12 @@ public class OrderingNetwork extends SearchingPath{
 		//        [I] [E] [H]	 level 2 {E}, because C and D are in levels 	
 		//          \ / \ / 
 		//           F   G 
-		
+		 
 		for (Node root: rootNodes){
 			searchAllNodeForLevels(net, root, 1);
 		}
 		
-		levels.sortByValue();
+		levels.sortByKey();
 		print();		
 		return levels; 
 	}
