@@ -4,7 +4,7 @@ package util;
  * The Interface IMessageObject.
  */
 public interface IMessageObject {
-	
+	  
 	/**
 	 * On updated.
 	 *
