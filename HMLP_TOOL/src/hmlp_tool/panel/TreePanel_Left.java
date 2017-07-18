@@ -64,6 +64,7 @@ public class TreePanel_Left extends TreePanel {
 	
 	public void initTree_SELECT_DB() {
 		// Get Database schema from MySQL
+		RDB.This().connect("root", "jesus");
 		List<String> list = RDB.This().getSchemas();
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
