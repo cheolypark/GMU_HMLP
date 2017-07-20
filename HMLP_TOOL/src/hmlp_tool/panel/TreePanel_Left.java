@@ -1,18 +1,10 @@
 package hmlp_tool.panel; 
-
-import java.awt.event.ActionEvent;
+ 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List; 
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+ 
 import javax.swing.JScrollPane;
 import javax.swing.JTree; 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -22,15 +14,15 @@ import javax.swing.tree.TreePath;
 import hmlp_tool.HMLP_Console;
 import hmlp_tool.HMLP_Console.windowMode;
 import mebn_rm.MEBN.MFrag.MFrag;
-import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.MTheory.MTheory;
-import mebn_rm.RDB.RDB;
-import mebn_rm.core.RM_To_MEBN;
+import mebn_rm.MEBN.MNode.MNode; 
+import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
   
 public class TreePanel_Left extends TreePanel {  
 
 	public String selectedObject = "";
+	public String username = "root";
+	public String password = "jesus"; 
 	 
 	DefaultMutableTreeNode root;
 	 
@@ -64,7 +56,7 @@ public class TreePanel_Left extends TreePanel {
 	
 	public void initTree_SELECT_DB() {
 		// Get Database schema from MySQL
-		RDB.This().connect("root", "jesus");
+		RDB.This().connect(username, password);
 		List<String> list = RDB.This().getSchemas();
 		DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 		DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();

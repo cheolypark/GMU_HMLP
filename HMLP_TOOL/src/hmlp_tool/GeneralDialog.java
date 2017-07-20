@@ -5,6 +5,7 @@ import javax.swing.border.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
  
 //Following can be changed applet easily
@@ -128,6 +129,10 @@ public class GeneralDialog extends JFrame {
 	   	 return pane;
     }
       
+    public void keyUpdated (KeyEvent e){
+    	
+    }
+    
     public static void main(String[] args) 
     {  
    	 	JFrame frame = new JFrame();

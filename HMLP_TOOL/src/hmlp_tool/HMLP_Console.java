@@ -2,7 +2,8 @@ package hmlp_tool;
 
 import java.awt.BorderLayout; 
 import java.awt.Frame; 
-import java.awt.event.ActionEvent; 
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -17,7 +18,8 @@ import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup; 
-import javax.swing.JButton; 
+import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel; 
@@ -47,7 +49,7 @@ public class HMLP_Console extends GeneralDialog {
 	public MTheory mTheory = null; 
 	
 	public enum windowMode {
-		SELECT_DB, EDIT_DB, ADD_PARENTS, JOIN_RELATIONS, ADD_CLD, LEARNING, EVALUATION
+		CONNECT_DB, SELECT_DB, EDIT_DB, ADD_PARENTS, JOIN_RELATIONS, ADD_CLD, LEARNING, EVALUATION
 	};
 
 	public windowMode wMode = windowMode.SELECT_DB;
@@ -58,6 +60,8 @@ public class HMLP_Console extends GeneralDialog {
 	JTextPane textOut = null;
 	JPanel btns = null;
 	TreePanel_Container treeContainer = null; 
+	TreePanel_Left leftTree;
+	TreePanel_Right rightTree;
 	JPanel center = null; 
 	
 	Action setLoad;
@@ -101,20 +105,21 @@ public class HMLP_Console extends GeneralDialog {
  		//btns = createButtonPane();
  		center = createPaneV(textOut, textIn);
  		
- 		TreePanel_Left leftTree = new TreePanel_Left(this); 
- 		TreePanel_Right rightTree = new TreePanel_Right(this, leftTree); 
+ 		leftTree = new TreePanel_Left(this); 
+ 		rightTree = new TreePanel_Right(this, leftTree); 
  		treeContainer = new TreePanel_Container(this, leftTree, rightTree);
  		    
 		getContentPane().add(treeContainer, BorderLayout.WEST); 
 		getContentPane().add(center, BorderLayout.CENTER);
 		//getContentPane().add(btns, BorderLayout.SOUTH); 
 	}
-	
-
+	  
 	public void init(windowMode mode) {
 		wMode = mode;
-		 
- 		if (wMode == windowMode.SELECT_DB) { 
+		
+		if (wMode == windowMode.CONNECT_DB) { 
+			showConnectDB();
+		} else if (wMode == windowMode.SELECT_DB) { 
 		} else if (wMode == windowMode.EDIT_DB) { 
 		} else if (wMode == windowMode.ADD_PARENTS) { 
 			if (mTheory == null)
@@ -139,6 +144,32 @@ public class HMLP_Console extends GeneralDialog {
 		this.repaint();
 	} 
 	
+    public void keyUpdated (KeyEvent e) {
+    	if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+    		leftTree.username = textInputArea.getConntents("Username: ");
+    		leftTree.password = textInputArea.getConntents("Password: ");
+    		
+    		if (leftTree.username.isEmpty()) {
+    			leftTree.username = "root";
+    			leftTree.password = "jesus";
+    		}
+    		
+    		textOutputArea.clear();
+    		textInputArea.clear();
+    		
+    		init(windowMode.SELECT_DB);
+    	}  
+    }
+	
+	public void showConnectDB() { 
+		insertLast("**********************************************************************************************************");
+		insertLast("To connect a DB, insert an username and a password for the DB.");
+		
+		textInputArea.insertTextOut("Username: ", 1);
+		textInputArea.insertTextOut("Password: ", 2);
+		 
+	} 
+	  
 	public void showMTheory() { 
 		insertLast("**********************************************************************************************************");
 		insertLast(mTheory.toString("MFrag", "MNode"));
@@ -156,7 +187,7 @@ public class HMLP_Console extends GeneralDialog {
 	public JTextPane createTextIn() {
 		JTextPane textPane = new JTextPane();
 		textPane.setLayout(new BoxLayout(textPane, BoxLayout.X_AXIS));
-		textInputArea = new HMLP_TextPane();
+		textInputArea = new HMLP_TextPane(this);
 		textInputArea.setEditable(true);
 		textPane.add(new JScrollPane(textInputArea));
 		return textPane;
@@ -165,7 +196,7 @@ public class HMLP_Console extends GeneralDialog {
 	public JTextPane createTextOut() {
 		JTextPane textPane = new JTextPane();
 		textPane.setLayout(new BoxLayout(textPane, BoxLayout.X_AXIS));
-		textOutputArea = new HMLP_TextPane();
+		textOutputArea = new HMLP_TextPane(this);
 		textOutputArea.setEditable(false);
 		textPane.add(new JScrollPane(textOutputArea));
 		return textPane;
@@ -399,7 +430,7 @@ public class HMLP_Console extends GeneralDialog {
 
 	public static void main(String[] args) {
 		HMLP_Console d = new HMLP_Console(null, "HMLP Tool V.1");
-		d.init(windowMode.SELECT_DB);
+		d.init(windowMode.CONNECT_DB);
 
 		// frame.getContentPane().add(d);
 		// d.insertTextOut("1. test");

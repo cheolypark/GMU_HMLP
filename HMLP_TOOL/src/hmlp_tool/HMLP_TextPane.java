@@ -27,17 +27,22 @@ public class HMLP_TextPane extends JTextPane {
     int offs = 0; 
     int lastLine = 0; 
     ArrayList<String> listString;  
+    GeneralDialog parent;
     
-	public HMLP_TextPane() {
+	public HMLP_TextPane(GeneralDialog p) {
 		super(); 
+		
 		// Make one of each kind of document.
 		doc = new DefaultStyledDocument();
-        setDocument(doc);  
+        setDocument(doc);
+        parent = p;
         
         class KeyStrokeListener implements KeyListener{  
             public void keyPressed(KeyEvent e){  
                 switch(e.getKeyCode()){  
-                     case KeyEvent.VK_ENTER:   
+                     case KeyEvent.VK_ENTER:
+                    	 parent.keyUpdated(e);
+                    	 //clear();
                      break;  
                  }  
                  
@@ -133,18 +138,33 @@ public class HMLP_TextPane extends JTextPane {
 	      requestFocus();
 	  }
 	  
-	/**
-	 * @param args
-	 */
+	  public String getConntents(String key){
+		  String selText = "";
+		  try {
+			  selText = getDocument().getText(0, getDocument().getLength());
+		
+		  } catch (BadLocationException e) {
+			  e.printStackTrace();
+		  }
+		  		    
+		  int i = selText.indexOf(key);
+		  int i2 = selText.indexOf("\n", i);
+		  
+		  String strResult = selText.substring(i+key.length(), i2);
+		  
+	      return strResult;
+	  }
+	  
+	/* 
 	public static void main(String[] args) {
 		  
-		JFrame f = new JFrame("Test");
-	    f.getContentPane().setLayout(new BorderLayout());
-	    HMLP_TextPane jtp = new HMLP_TextPane();
-	    f.getContentPane().add(new JScrollPane(jtp), BorderLayout.CENTER);
-	    f.setSize(400, 400); 
-	    f.show();
+//		JFrame f = new JFrame("Test");
+//	    f.getContentPane().setLayout(new BorderLayout());
+//	    HMLP_TextPane jtp = new HMLP_TextPane(this);
+//	    f.getContentPane().add(new JScrollPane(jtp), BorderLayout.CENTER);
+//	    f.setSize(400, 400); 
+//	    f.show();
 
-	}
-
+	} 
+	 */
 }
