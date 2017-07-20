@@ -118,6 +118,7 @@ public class HMLP_Console extends GeneralDialog {
 		wMode = mode;
 		
 		if (wMode == windowMode.CONNECT_DB) { 
+			treeContainer.setVisible(false);
 			showConnectDB();
 		} else if (wMode == windowMode.SELECT_DB) { 
 		} else if (wMode == windowMode.EDIT_DB) { 
@@ -163,7 +164,7 @@ public class HMLP_Console extends GeneralDialog {
 	
 	public void showConnectDB() { 
 		insertLast("**********************************************************************************************************");
-		insertLast("To connect a DB, insert an username and a password for the DB.");
+		insertLast("To connect a DB, insert a username and a password for the DB.");
 		
 		textInputArea.insertTextOut("Username: ", 1);
 		textInputArea.insertTextOut("Password: ", 2);

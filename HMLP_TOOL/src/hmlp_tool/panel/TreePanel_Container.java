@@ -50,15 +50,15 @@ public class TreePanel_Container extends MyPanel {
 		treeFrame.add(btnPane, BorderLayout.SOUTH);
 	} 
 	
-	public void init(){ 
-		
-		if (console.wMode == HMLP_Console.windowMode.CONNECT_DB){  
-			changeName("Connect Database");
+	public void init(){  
+		if (console.wMode == HMLP_Console.windowMode.CONNECT_DB){
+			setVisible(false);
 			btn1.setVisible(false);
 			btn2.setVisible(false);
 			btn3.setVisible(false);
 			btn4.setVisible(false);
 		} else if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
+			setVisible(true);
 			changeName("Select Database");
 			btn1.setVisible(false);
 			btn2.setVisible(false);
@@ -96,7 +96,6 @@ public class TreePanel_Container extends MyPanel {
 		rightTree.init();
 		
 		this.invalidate();
-		this.setVisible(true);
 		this.repaint();
 	} 
 	

@@ -32,7 +32,10 @@ public class TreePanel_Left extends TreePanel {
 	
 	public void init(){
 		
-		if (console.wMode == HMLP_Console.windowMode.SELECT_DB){
+		if (console.wMode == HMLP_Console.windowMode.CONNECT_DB){   
+			setVisible(false);
+			return;
+		} else if (console.wMode == HMLP_Console.windowMode.SELECT_DB){
 			changeName("Select DB"); 
 			initTree_SELECT_DB(); 
 		} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){

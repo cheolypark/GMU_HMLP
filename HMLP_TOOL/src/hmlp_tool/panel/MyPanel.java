@@ -30,6 +30,12 @@ public class MyPanel extends JPanel {
 		titledborder = new TitledBorder(null, "title", TitledBorder.LEFT, TitledBorder.TOP);
 		treeFrame.setBorder(new CompoundBorder(titledborder, border5));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		treeFrame.setVisible(false);
+	}
+	
+	public void setVisible(boolean b) {
+		super.setVisible(b);
+		treeFrame.setVisible(b);
 	}
 	 
 	public void changeName(String n){
