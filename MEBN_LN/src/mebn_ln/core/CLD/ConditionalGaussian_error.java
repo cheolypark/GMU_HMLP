@@ -71,7 +71,7 @@ extends LPD_Continuous {
         }
     }
 
-    public String getCPS_op(Object ob) {
+    public String getILD_op(Object ob) {
         Scorer sc = (Scorer)ob;
         List<MNode> cp = this.mNode.getContinuousParents();
         String s = "";

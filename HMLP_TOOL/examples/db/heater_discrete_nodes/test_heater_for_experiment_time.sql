@@ -36,7 +36,7 @@ CREATE TABLE `time` (
 
 LOCK TABLES `time` WRITE;
 /*!40000 ALTER TABLE `time` DISABLE KEYS */;
-INSERT INTO `time` VALUES ('0'),('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9');
+INSERT INTO `time` VALUES ('0'),('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),('17'),('18'),('19');
 /*!40000 ALTER TABLE `time` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

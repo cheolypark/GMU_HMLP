@@ -54,7 +54,7 @@ extends LPD_Discrete {
         return re;
     }
 
-    public String getCPS() {
+    public String getILD() {
         List<MNode> discreteParents = this.mNode.getDiscreteParents();
         String s = "{ defineState(Discrete, ";
         for (String state : this.mNode.getCategories()) {
@@ -163,7 +163,7 @@ extends LPD_Discrete {
                     icv.ipcProbs.put(ipc, probs);
                 }
                 String ssbn = "defineNode(DangerLevel_ci1 , Desc); \n";
-                ssbn = String.valueOf(ssbn) + icv.getCPS();
+                ssbn = String.valueOf(ssbn) + icv.getILD();
                 ssbn = String.valueOf(ssbn) + "}";
                 TextFile.save((String)("examples\\learning\\core_heraldSSBN_DangerLevel_" + numTarget + "_" + nextTime + ".txt"), (String)ssbn);
                 Long t1 = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);

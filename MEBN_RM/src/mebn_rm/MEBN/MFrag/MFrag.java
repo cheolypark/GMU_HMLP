@@ -14,6 +14,7 @@ import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
+import mebn_rm.util.StringUtil;
 import util.SortableValueMap; 
 
 public class MFrag
@@ -25,7 +26,7 @@ implements Comparable<MFrag> {
     public List<MNode> arrayResidentNodes = new ArrayList<MNode>();
     public List<MNode> arrayInputNodes = new ArrayList<MNode>();
     public List<MNode> arrayInputPrevNodes = new ArrayList<MNode>();
-    public String joiningSQL;
+    public String joiningSQL; 
     public String table = null;
     public String cvsFile;
     public SortableValueMap<String, List<String>> mapCausality = new SortableValueMap();
@@ -59,6 +60,21 @@ implements Comparable<MFrag> {
     	}
     	
     	return name;
+    }
+    
+    public String getParentTableNames() {
+    	String s = "";
+    	
+    	for (MNode mn : arrayResidentNodes){
+    		for (MNode p : mn.inputParentMNodes){
+    			s += p.mFrag.getTableName() + ", ";
+    		}
+    	}
+    	
+    	s = s.substring(0, s.length() - 2);
+    	s = new StringUtil().removeRedundantItem(s);
+    	
+    	return s;
     }
         
     public List<String> getRDBKeys(){
@@ -219,24 +235,66 @@ implements Comparable<MFrag> {
     public void initSelectedDataset(int size) {
         System.out.println("init Selected Dataset for the MFrag : " + this.name);
         ResultSet rs = null;
+        
         if (this.joiningSQL == null) {
             String attrs = "";
             String strTables = this.name;
+            
             for (MNode mn : this.getMNodes()) {
-                attrs = String.valueOf(attrs) + mn.getAttributeName() + " as " + mn.name + ", ";
+                attrs += mn.getAttributeName() + " as " + mn.name + ", ";
             }
+            
             if (!attrs.isEmpty()) {
                 attrs = attrs.substring(0, attrs.length() - 2);
                 rs = RDB.This().get(attrs, strTables);
             }
+            
+            this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
         } else {
             rs = RDB.This().get(this.joiningSQL);
+            this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
+            
+            // create default cvs files for each node 
+            for (MNode mn : this.getMNodes()) {
+            	String s = "SELECT " + mn.getAttributeName() + " as " + mn.name + "\n";
+            	s += "FROM " + "\n";
+            	s += this.getTableName() + "\n";
+            	s += "where not exists (" + "\n";
+            	s += "SELECT *" + "\n";
+            	s += "FROM " + getParentTableNames() + "\n";
+            	String afterwhere = joiningSQL.substring(joiningSQL.indexOf("WHERE"), joiningSQL.length());
+            	s += afterwhere + "\n";
+            	s += ") " + "\n";
+            	
+            	rs = RDB.This().get(s);
+            	mn.cvsFile = RDBToCVS(mn.name+"_default", this.mTheory.name, rs); 
+            }
         }
+    }
+    
+    /*
+     * SELECT
+SELECT energy as HAI_energy
+FROM 
+heateractuator_item
+where not exists (
+SELECT  
+*
+FROM
+ slabinput_item
+WHERE 
+heateractuator_item.TimeID = slabinput_item.TimeID &&
+heateractuator_item.TimeID = slabinput_item.TimeID &&
+heateractuator_item.TimeID = slabinput_item.TimeID
+)
+     */
+    
+    public String RDBToCVS(String file, String folder, ResultSet rs) {
         if (rs != null) {
             try {
                 rs.beforeFirst();
                 try {
-                    this.cvsFile = RDB.This().toExcel(this.name, this.mTheory.name, rs);
+                    return RDB.This().toExcel(file, folder, rs);
                 }
                 catch (IOException e) {
                     e.printStackTrace();
@@ -245,8 +303,9 @@ implements Comparable<MFrag> {
             catch (SQLException e1) {
                 e1.printStackTrace();
             }
-            System.out.println("MFrag : " + this.name);
         }
+        
+        return "";
     }
 
     public String toString() {
@@ -261,23 +320,23 @@ implements Comparable<MFrag> {
         String s = "";
         if (inclusions.contains("MFrag")) {
             String context;
-            s = String.valueOf(s) + "[F: " + this.name + "\r\n";
+            s += "[F: " + this.name + "\r\n";
             for (MIsANode c2 : this.arrayIsaContextNodes) {
                 context = "[C: " + c2.toString() + "]" + "\r\n";
-                s = String.valueOf(s) + "\t\t" + context;
+                s += "\t\t" + context;
             }
             for (MNode c : this.arrayContextNodes) {
                 context = c.toString(inclusions);
                 context = context.replace("R:", "C:");
-                s = String.valueOf(s) + "\t\t" + context;
+                s += "\t\t" + context;
             }
             for (MNode r : this.arrayResidentNodes) {
                 context = r.toString(inclusions);
-                s = String.valueOf(s) + "\t\t" + context;
+                s += "\t\t" + context;
             }
         }
         if (inclusions.contains("MFrag")) {
-            s = String.valueOf(s) + "\t]";
+            s += "\t]";
         }
         return s;
     }

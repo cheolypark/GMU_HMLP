@@ -12,55 +12,40 @@
  *  edu.cmu.tetrad.util.TetradMatrix
  */
 package mebn_rm.MEBN.CLD;
-
+ 
 import edu.cmu.tetrad.data.DataSet;
+import edu.cmu.tetrad.graph.EdgeListGraph;
 import edu.cmu.tetrad.graph.Graph;
 import edu.cmu.tetrad.graph.Node;
 import edu.cmu.tetrad.sem.DagScorer;
 import edu.cmu.tetrad.sem.Scorer;
-import edu.cmu.tetrad.sem.SemIm;
-import edu.cmu.tetrad.util.StatUtils;
-import edu.cmu.tetrad.util.TetradMatrix;
-import java.io.PrintStream;
-import java.util.ArrayList;
+import edu.cmu.tetrad.sem.SemIm; 
+import edu.cmu.tetrad.util.TetradMatrix;  
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import mebn_rm.MEBN.CLD.LPD_Continuous;
-import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.rv.RV;
-import mebn_rm.data.ConditionalDataSet; 
-import mebn_rm.util.Tetrad_Util;
-import util.SortableValueMap;
+import mebn_rm.MEBN.MNode.MNode; 
+import mebn_rm.RDB.RDB;
+import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.util.StringUtil;
+import mebn_rm.util.Tetrad_Util; 
 import util.TempMathFunctions;
 
-public class ConditionalGaussian
-extends LPD_Continuous {
+public class ConditionalGaussian extends LPD_Continuous {
+
+    
     public ConditionalGaussian() {
         super("", "ConditionalGaussian");
         this.parameterSize = 1;
         this.isSampling = false;
-    }
-
-    public ConditionalGaussian(String name) {
-        super(name, "ConditionalGaussian");
-        this.parameterSize = 1;
-        this.isSampling = false;
-    }
-
-    public ArrayList<String> generateParent(int parentSize) {
-        ArrayList<String> parents = new ArrayList<String>();
-        int i = 0;
-        while (i < parentSize) {
-            parents.add(this.randomByUniform("T", "W"));
-            ++i;
-        }
-        return parents;
-    }
- 
+    } 
+    
     public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
         System.out.println("////////////////////////////////" + this.mNode.name);
         System.out.println((Object)continuousGraph);
-        if (this.mNode.name.equalsIgnoreCase("LongitudeReport")) {
+        if (this.mNode.name.equalsIgnoreCase("HAI_energy")) {
             System.out.println(this.mNode.name);
         }
         if (_dataSet_con.getNumRows() == 0) {
@@ -80,14 +65,18 @@ extends LPD_Continuous {
             this.ipcScorers.put(ipc, scorer);
         }
     }
- 
-    public String getCPS_op(Object ob) {
+    
+    public void calculateBestPara_op_default(DataSet _dataSet_con, Graph continuousGraph) {
+    	DagScorer scorer = new DagScorer(_dataSet_con); 
+        defaultScorer = scorer; 
+    }
+      
+    public String getCLD_op(Object ob) {
         Scorer sc = (Scorer)ob;
         List<MNode> cp = this.mNode.getContinuousParents();
         String s = "";
         if (sc != null) {
-            SemIm im = sc.getEstSem();
-            System.out.println(im.toString());
+            SemIm im = sc.getEstSem(); 
             double mean = im.getMean((Node)sc.getVariables().get(0));
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
@@ -104,8 +93,7 @@ extends LPD_Continuous {
             }
             String meanS = TempMathFunctions.safeDoubleAsString(mean);
             String varS = TempMathFunctions.safeDoubleAsString(Math.abs(var));
-            System.out.println("mean: " + meanS + " var: " + varS + " his own var: " + im.getVariance((Node)sc.getVariables().get(0), implCovar));
-            s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");";
+             s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
         } else {
             for (MNode p : cp) {
                 s = String.valueOf(s) + "1.0 * " + p.name + " + ";
@@ -115,41 +103,153 @@ extends LPD_Continuous {
         return s;
     }
 
-    public Double calculateDist2(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
-        SortableValueMap<String, Double> NN = new SortableValueMap<String, Double>();
-        double logSC = 0.0;
-        Double alpha = 0.0;
-        for (RV r2222 : prior_CD.arrayRV) {
-            alpha = alpha + r2222.prob;
-            logSC -= Math.log(StatUtils.gamma((double)r2222.prob));
+    public String getCLD_default_op(Object ob) {
+   	 Scorer sc = (Scorer)ob;
+        String s = "";
+        if (sc != null) {
+            SemIm im = sc.getEstSem(); 
+            double mean = im.getMean((Node)sc.getVariables().get(0));
+            TetradMatrix implCovar = im.getImplCovar(false);
+            double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);              
+            String meanS = TempMathFunctions.safeDoubleAsString(mean);
+            String varS = TempMathFunctions.safeDoubleAsString(Math.abs(var));
+            s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
+        } else {
+            s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
         }
-        logSC += Math.log(StatUtils.gamma((double)alpha));
-        logSC -= Math.log(StatUtils.gamma((double)(alpha + (double)CD.arrayRV.size())));
-        for (RV r2222 : CD.arrayRV) {
-            RV rv = prior_CD.get(r2222);
-            if (rv != null) {
-                rv.prob = rv.prob + 1.0;
-                continue;
+        return s;
+    }
+      
+    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
+        EdgeListGraph hybridGraph = new EdgeListGraph();
+        IPCs = initIPCs((Graph)hybridGraph);
+        if (IPCs.size() == 0) {
+            IPCs.add("null");
+        } 
+        
+        for (String ipc : IPCs) {
+            System.out.println(ipc);
+            DataSet _dataSet_con = null;
+            _dataSet_con = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
+            EdgeListGraph continuousGraph = new EdgeListGraph();
+            Node child2 = _dataSet_con.getVariable(mNode.name);
+            continuousGraph.addNode(child2);
+            List<MNode> listPar = mNode.getAllParents();
+            for (MNode mn : listPar) {
+                if (!mn.isContinuous()) continue;
+                Node parent = data.getVariable(mn.name);
+                continuousGraph.addNode(parent);
+                continuousGraph.addDirectedEdge(parent, child2);
             }
-            System.out.println("NULL");
+            calculateBestPara_op(ipc, _dataSet_con, (Graph)continuousGraph);
         }
-        for (RV r2222 : prior_CD.arrayRV) {
-            logSC += Math.log(StatUtils.gamma((double)r2222.prob));
+        
+        // create default distribution
+        if (mNode.cvsFile != null) {	// contains a cvs for a default data
+        	System.out.println(mNode.cvsFile);
+        	
+            String strFile = mNode.cvsFile;
+            defaultData = (DataSet)RDB.This().getTetDataSetFromCSV(strFile);
+            if (defaultData.getNumRows() == 0) {
+                return null;
+            } 
+              
+            EdgeListGraph continuousGraph = new EdgeListGraph();
+            Node child2 = defaultData.getVariable(mNode.name);
+            continuousGraph.addNode(child2);
+            calculateBestPara_op_default(defaultData, continuousGraph);
         }
-        for (RV r2222 : prior_CD.arrayRV) {
-            String nn = r2222.parents.toString();
-            if (!NN.containsKey(nn)) {
-                NN.put(nn, r2222.prob);
-                continue;
+        
+        return null;
+    }
+ 
+    public String getILD() {
+        List<MNode> dp = mNode.getDiscreteParents();
+        List<MNode> cp = mNode.getContinuousParents();
+        String s = "{ defineState(Continuous); \n";
+        s = s + "p( " + mNode.name;
+        if (dp.size() > 0 || cp.size() > 0) {
+            s = s + " | ";
+        }
+        for (MNode p2 : dp) {
+            s = s + p2.name + " , ";
+        }
+        for (MNode p2 : cp) {
+            s = s + p2.name + " , ";
+        }
+        if (dp.size() > 0 || cp.size() > 0) {
+            s = s.substring(0, s.length() - 2);
+        }
+        s = s + " ) = \n";
+        if (mNode.name.equalsIgnoreCase("TemperatureReport")) {
+            System.out.println();
+        }
+        int i = 0;
+        for (String k : ipcScorers.keySet()) {
+            Scorer sc = ipcScorers.get(k);
+            if (!k.isEmpty()) {
+                String conditions = k;
+                s = i == 0 ? s + "if( " + conditions + " ) {" : s + "else if( " + conditions + " ) {";
             }
-            Double d = (Double)NN.get(nn);
-            NN.put(nn, d + r2222.prob);
+            s = s + getILD_op((Object)sc);
+            ++i;
+            if (k.isEmpty()) continue;
+            s = s + "\n}";
         }
-        for (RV r2222 : prior_CD.arrayRV) {
-            Double d = (Double)NN.get(r2222.parents.toString());
-            r2222.prob = r2222.prob / d;
+        return s;
+    }
+ 
+    // 	if some obj have (VehicleType = Tracked ) [
+    //    10 * CARDINALITY(obj) + NormalDist(10, 5)
+    //  ] else [
+    //    NormalDist(10, 5)
+    //	]
+    //
+    public String toString(List<String> inclusions) {
+        String s = "";
+        if (inclusions.contains("CLD")) {
+        	
+        	// get ovs statement
+        	String ovs = "";
+        	List<MNode> parents = mNode.getDiscreteParents(); 
+        	for (MNode mn : parents){
+        		ovs += mn.toStringOVs();
+        		ovs += ",";
+        	}
+        	ovs = new StringUtil().removeRedundantItem(ovs);
+        	ovs = ovs.replace(",", ".");        	
+        	        	
+            s = s + "[L: ";
+            int i = 0;
+            for (String k : ipcScorers.keySet()) {
+                Scorer sc = ipcScorers.get(k); 
+                
+                k = k.replace("&&", "&");
+                k = k.replace("==", "=");
+                
+                if (parents.size() > 0) {
+	                s = i == 0 ? s + "if some " + ovs + " have ( " + k + " ) [" 
+	                		   : s + "else if some " + ovs + " have ( " + k + " ) [";
+                }
+                
+                s = s + getCLD_op((Object)sc);
+                ++i;
+                if (k.isEmpty()) continue;
+                s = s + "]\n			";
+            }
+            
+            // * Add default distribution */
+            // For the continuous case, we didn't define yet a default distribution grammar, 
+            // so we commented out here.
+            // In the future, we will release here.
+//            s = s + "else[\n			";
+//            s = s + getCLD_default_op((Object)this.defaultScorer);
+//            s = s + "]\n";
+//            
+            s = s + "]\r\n";
+            
         }
-        return logSC;
+        return s;
     }
 }
 

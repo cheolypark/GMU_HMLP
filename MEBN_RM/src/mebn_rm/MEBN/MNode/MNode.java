@@ -33,6 +33,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     public CLD bestCLD = null; 
     public MFrag mFrag = null;
     public String attribute = null;
+    public String cvsFile = null;
     public List<OVariable> ovs = new ArrayList<OVariable>();
     public List<MNode> parentMNodes = new ArrayList<MNode>();
     public List<MNode> inputParentMNodes = new ArrayList<MNode>();
@@ -78,18 +79,30 @@ public class MNode extends Tree implements Comparable<MNode> {
         return this.toString(inclusions);
     }
 
-    public String toStringOVs(List<OVariable> ovs) {
+    public String toStringOVswithBracket() {
+    	List<OVariable> ovs = this.ovs;
     	String s = "";
     	
     	if (ovs.size() > 0) {
             s = String.valueOf(s) + "(";
+            s += toStringOVs();
+            s = String.valueOf(s) + ")";
+        }
+    	
+    	return s;
+    }
+    
+    public String toStringOVs() {
+    	List<OVariable> ovs = this.ovs;
+    	String s = "";
+    	
+    	if (ovs.size() > 0) {
             for (OVariable o : ovs) {
                 if (ovs.get(0) != o) {
                     s = String.valueOf(s) + ", ";
                 }
                 s = String.valueOf(s) + o.name;
             }
-            s = String.valueOf(s) + ")";
         }
     	
     	return s;
@@ -99,7 +112,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         String s = "";
         if (inclusions.contains("MNode")) {
             s = String.valueOf(s) + "[R: " + this.name;
-            s += toStringOVs(this.ovs);
+            s += toStringOVswithBracket();
 //            if (this.ovs.size() > 0) {
 //                s = String.valueOf(s) + "(";
 //                for (OVariable o : this.ovs) {
@@ -115,12 +128,12 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "\t\t\t";
                 s = String.valueOf(s) + "[RP: ";
                 for (MNode mn : this.parentMNodes) {
-                    s = String.valueOf(s) + mn.name + ", ";
-                    s += toStringOVs(mn.ovs);
+                    s = String.valueOf(s) + mn.name;
+                    s += toStringOVswithBracket();
+                    s += ", ";
                 }
                 s = s.substring(0, s.length() - 2);
-                s = String.valueOf(s) + "]";
-                s = String.valueOf(s) + "\r\n";
+                s = String.valueOf(s) + "]"; 
             }
             if (this.inputParentMNodes.size() > 0) {
                 s = String.valueOf(s) + "\r\n";
@@ -128,7 +141,7 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "[IP: ";
                 for (MNode mn : this.inputParentMNodes) {
                     s = String.valueOf(s) + mn.name;
-                    s += toStringOVs(mn.ovs);
+                    s += toStringOVswithBracket();
                     s += ", ";
                 }
                 s = s.substring(0, s.length() - 2);
@@ -354,7 +367,12 @@ public class MNode extends Tree implements Comparable<MNode> {
         } else {
             for (MNode p : this.parentMNodes) {
                 if (!p.isDiscrete()) continue;
-                l.add(p);
+                	l.add(p);
+            }
+            
+            for (MNode p : this.inputParentMNodes) {
+                if (!p.isDiscrete()) continue;
+                	l.add(p);
             }
         }
         return l;
@@ -486,12 +504,12 @@ public class MNode extends Tree implements Comparable<MNode> {
         return null;
     }
 
-    public String getCPS() {
+    public String getILD() {
         if (this.getBestCLD() == null) {
             return "";
         }
         String s = "defineNode(" + this.name + " , Desc); \n";
-        s = String.valueOf(s) + this.getBestCLD().getCPS();
+        s = String.valueOf(s) + this.getBestCLD().getILD();
         s = String.valueOf(s) + "}\n";
         globalMNodes.add(this);
         return s;

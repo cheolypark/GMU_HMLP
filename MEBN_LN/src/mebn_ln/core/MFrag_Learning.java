@@ -27,7 +27,7 @@ extends Learning_Common {
         this.mFrag = f;
         this.getCandidateMGraphs(f, 5.0);
         System.out.println("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
-        System.out.println(f.toString());
+//        System.out.println(f.toString());
         f.initSelectedDataset(-1);
         this.run_operation(f);
         System.out.println("******************* End MFrag learning with the " + f.name + " MFrag *******************");

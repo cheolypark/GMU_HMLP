@@ -34,7 +34,7 @@ extends LPD_Continuous {
         this.ipcScorers.put(ipc, null);
     }
 
-    public String getCPS_op(Object ob) {
+    public String getILD_op(Object ob) {
         List<MNode> cp = this.mNode.getContinuousParents();
         String s = "";
         for (MNode p : cp) {

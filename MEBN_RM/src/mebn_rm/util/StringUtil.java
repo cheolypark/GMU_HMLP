@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -32,7 +33,7 @@ public class StringUtil {
     }
   
     public String createAbbreviation(String input) {
-    	System.out.println(input);
+//    	System.out.println(input);
     	String str = "";
         List<List<String>> results = this.searchWordsInDictionary(input);
         if (!results.isEmpty()) {
@@ -68,25 +69,25 @@ public class StringUtil {
         input = input.replace("_", "");
         input = input.replace(" ", "");
         ArrayList<List<String>> results = new ArrayList<List<String>>();
-        long time = System.currentTimeMillis();
+//        long time = System.currentTimeMillis();
         Stack<String> words = new Stack<String>();
         this.search(input, dictionary, words, results); 
        
-        time = System.currentTimeMillis() - time;
-        System.out.println(words);
+//        time = System.currentTimeMillis() - time;
+//        System.out.println(words);
         for (List<String> result : results) {
             for (String word : result) {
-                System.out.print(String.valueOf(word) + " ");
+//                System.out.print(String.valueOf(word) + " ");
             }
-            System.out.println("(" + result.size() + " words)");
+//            System.out.println("(" + result.size() + " words)");
         }
-        System.out.println();
-        System.out.println("Took " + time + "ms");
+//        System.out.println();
+//        System.out.println("Took " + time + "ms");
         return results;
     }
 
     void search(String input, Set<String> dictionary, Stack<String> words, List<List<String>> results) {
-    	System.out.println(words);
+//    	System.out.println(words);
     	int i = 0;
         while (i < input.length()) {
             String substring = input.substring(0, i + 1);
@@ -103,11 +104,35 @@ public class StringUtil {
         }
     }
  
+    // remove redundant items
+    // e.g) heateractuator_item, slabinput_item, slabinput_item, slabinput_item
+    // => heateractuator_item, slabinput_item
+    public String removeRedundantItem (String sc) {
+    	String s = "";
+    	
+    	List<String> items = Arrays.asList(sc.split("\\s*,\\s*"));
+    	List<String> new_items = new ArrayList<String>(); 
+    	
+    	for (String i : items){
+    		if (!new_items.contains(i)) {
+    			new_items.add(i);
+    		}
+    	}
+    	
+    	for (String i : new_items){
+    		s += i + ", ";
+    	}
+    	
+    	s = s.substring(0, s.length() - 2);
+    	   
+    	return s;
+    }
+    
     public static void main(String[] args) {
     	StringUtil u = new StringUtil();
     	String list = u.createAbbreviation("finishingmill");
     //	String list = u.createAbbreviation("finishing");
-    	System.out.println(list);
+//    	System.out.println(list);
     }
 }
 

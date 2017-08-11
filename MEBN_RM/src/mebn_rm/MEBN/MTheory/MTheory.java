@@ -142,19 +142,18 @@ public class MTheory implements Comparable<MTheory> {
                 // Both have different OVs
                 MNode ip = null;
                 if (parentMNode.isContinuous()) {
-                	ip = new MCNode(newMFrag, parentMNode, listOV);
+                	ip = new MCNode(fp, parentMNode, listOV);
                 } else if (parentMNode.isDiscrete()) {
-                	ip = new MDNode(newMFrag, parentMNode, listOV);
+                	ip = new MDNode(fp, parentMNode, listOV);
                 }
                 
                 newChild.setInputParents(ip);
             }
-            
-      
-            
+             
             sql = sql.substring(0, sql.length() - 3);
             sql = sql + "\r\nFROM\r\n";
             sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
+            sqlFrom = new StringUtil().removeRedundantItem(sqlFrom);
             sql = sql + (String)sqlFrom + "\r\n";
             System.out.println(sql);
             newMFrag.joiningSQL = sql;
@@ -239,6 +238,7 @@ public class MTheory implements Comparable<MTheory> {
                 
                 sql = sql.substring(0, sql.length() - 5);
                 f.joiningSQL = f.joiningSQL + sql;
+                 
                 
             } else if (f.joiningSQL == null) {
 	            System.out.println(f.arrayContextNodes);
@@ -279,13 +279,13 @@ public class MTheory implements Comparable<MTheory> {
     public void updateCLDs() {
         for (MFrag f : this.mfrags.keySet()) {
             for (MNode n : f.getMNodes()) {
-                System.out.println(n);
+//                System.out.println(n);
                 if (n.isContinuous()) {
                     n.setCLDs(new ConditionalGaussian());
                 } else if (n.isDiscrete()) {
                     n.setCLDs(new Categorical());
                 }
-                System.out.println(n);
+//                System.out.println(n);
             }
         }
     }

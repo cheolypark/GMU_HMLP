@@ -15,19 +15,13 @@ import edu.cmu.tetrad.graph.Graph;
 import edu.cmu.tetrad.graph.Node;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.IOException; 
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
+import java.io.ObjectOutputStream; 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import mebn_rm.MEBN.CLD.Probability;
-import mebn_rm.MEBN.MFrag.MFrag;
-import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.MTheory.MTheory;
+import java.util.List; 
+import mebn_rm.MEBN.CLD.Probability; 
+import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.MEBN.parameter.Parameter;
 import mebn_rm.RDB.RDB;
 import mebn_rm.data.ConditionalDataSet;
@@ -44,9 +38,10 @@ implements Comparable<CLD> {
     public int parameterSize;
     public List<String> IPCs = null;
     public DataSet selectedData = null;
+    public DataSet defaultData = null;
     public DataSet data = null;
     public List<String> arrayCategories = null;
-    public String lpd_type = "";
+    public String cld_type = "";
     public Boolean isSampling = true;
     public SortableValueMap<Parameter, Double> paraCANs = new SortableValueMap();
     public Parameter bestParameter = null;
@@ -54,12 +49,12 @@ implements Comparable<CLD> {
 
     public CLD(String n, String c) {
         this.name = n;
-        this.lpd_type = c;
+        this.cld_type = c;
     }
 
     public String toString() {
         String s = "[L [";
-        s = String.valueOf(s) + this.lpd_type + "]: ";
+        s = String.valueOf(s) + this.cld_type + "]: ";
         s = String.valueOf(s) + this.name;
         s = String.valueOf(s) + "]\r\n";
         return s;
@@ -68,8 +63,13 @@ implements Comparable<CLD> {
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("CLD")) {
+        	
+        	if (this.cld_type.equalsIgnoreCase("Dirichlet")) {
+        		System.out.println("");
+        	}
+        	
             s = String.valueOf(s) + "[L [";
-            s = String.valueOf(s) + this.lpd_type + "]: ";
+            s = String.valueOf(s) + this.cld_type + "]: ";
             s = String.valueOf(s) + this.name;
             s = String.valueOf(s) + "]";
         }
@@ -80,11 +80,19 @@ implements Comparable<CLD> {
         return this.parameterSize;
     }
 
-    public String getCPS() {
+    public String getILD() {
         return "";
     }
 
-    public String getCPS_op(Object ob) {
+    public String getILD_op(Object ob) {
+        return "";
+    }
+    
+    public String getCLD_op(Object ob) {
+        return "";
+    }
+    
+    public String getCLD_default_op(Object ob) {
         return "";
     }
 
@@ -146,22 +154,20 @@ implements Comparable<CLD> {
         return null;
     }
 
-    public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
+    public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph graph) {
     }
+    
+    public void calculateBestPara_op_default(DataSet _dataSet_con, Graph graph) {
+    }
+     
 
-    public List<String> initIPCs(Graph hybridGraph) {
-        if (this.mNode.name.equalsIgnoreCase("HI_temperature")) {
-            System.out.println();
-        }
+    public List<String> initIPCs(Graph hybridGraph) {  
         String strFile = String.valueOf(Resource.getCSVPath(this.mNode.mFrag.mTheory.name)) + this.mNode.mFrag.name + ".csv";
         this.data = RDB.This().getTetDataSetFromCSV(strFile);
         if (this.data.getNumRows() == 0) {
             return null;
-        }
-        System.out.println(this.data.getVariables());
-        if (this.mNode.name.equalsIgnoreCase("HI_temperature")) {
-            System.out.println();
-        }
+        } 
+        
         Node child = this.data.getVariable(this.mNode.name);
         hybridGraph.addNode(child);
         List<String> parents = this.mNode.getAllParentNames();

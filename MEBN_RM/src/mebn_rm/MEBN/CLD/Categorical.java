@@ -22,26 +22,25 @@ import edu.cmu.tetrad.data.DataSet;
 import edu.cmu.tetrad.graph.Dag;
 import edu.cmu.tetrad.graph.EdgeListGraph;
 import edu.cmu.tetrad.graph.Graph;
-import edu.cmu.tetrad.graph.Node;
-import java.io.PrintStream;
+import edu.cmu.tetrad.graph.Node; 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
 import mebn_rm.MEBN.CLD.LPD_Discrete;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.parameter.Parameter;
 import mebn_rm.MEBN.rv.RV;
-import mebn_rm.data.ConditionalDataSet; 
+import mebn_rm.RDB.RDB;
+import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.util.StringUtil;
 import mebn_rm.util.Tetrad_Util;
 import util.TempMathFunctions;
 
-public class Categorical
-extends LPD_Discrete {
-    Map<String, BayesIm> ipcIMs = new HashMap<String, BayesIm>();
-
+public class Categorical extends LPD_Discrete {
+ 
     public Categorical() {
         super("", "Dirichlet");
         this.parameterSize = 1;
@@ -111,7 +110,7 @@ extends LPD_Discrete {
         return this.arrayCategories;
     }
  
-    public String getCPS() {
+    public String getILD() {
         List<MNode> discreteParents = this.mNode.getDiscreteParents();
         String s = "{ defineState(Discrete, ";
         Node thisNode = this.selectedData.getVariable(this.mNode.name);
@@ -158,17 +157,17 @@ extends LPD_Discrete {
     }
  
     public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
-        if (this.mNode.name.equalsIgnoreCase("Activity")) {
-            System.out.println();
-        }
+//        if (this.mNode.name.equalsIgnoreCase("Activity")) {
+//            System.out.println();
+//        }
         EdgeListGraph hybridGraph = new EdgeListGraph();
         this.IPCs = this.initIPCs((Graph)hybridGraph);
         if (this.IPCs == null) {
             return 0.0;
         }
-        if (this.mNode.parentMNodes.size() == 2) {
-            System.out.println();
-        }
+//        if (this.mNode.parentMNodes.size() == 2) {
+//            System.out.println();
+//        }
         for (String ipc : this.IPCs) {
             DataSet _dataSet_dis = null;
             _dataSet_dis = ipc.equalsIgnoreCase("") ? this.selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, this.selectedData);
@@ -181,7 +180,134 @@ extends LPD_Discrete {
             DirichletBayesIm bayesIm = DirichletEstimator.estimate((DirichletBayesIm)prior, (DataSet)_dataSet_dis);
             this.ipcIMs.put(ipc, (BayesIm)bayesIm);
         }
+        
+        // create default distribution
+        if (mNode.cvsFile != null) {	// contains a cvs for a default data
+        	System.out.println(mNode.cvsFile);
+        	
+            String strFile = mNode.cvsFile;
+            defaultData = (DataSet)RDB.This().getTetDataSetFromCSV(strFile);
+            if (defaultData.getNumRows() == 0) {
+                return null;
+            } 
+             
+//            defaultData = (ColtDataSet)defaultData.subsetColumns(hybridGraph.getNodes());
+            EdgeListGraph continuousGraph = new EdgeListGraph();
+            Node child2 = defaultData.getVariable(mNode.name);
+            continuousGraph.addNode(child2);
+            Dag dag = new Dag((Graph)continuousGraph);
+            BayesPm bayesPm = new BayesPm((Graph)dag);
+            DirichletBayesIm prior = DirichletBayesIm.symmetricDirichletIm((BayesPm)bayesPm, (double)0.5);
+            DirichletBayesIm bayesIm = DirichletEstimator.estimate((DirichletBayesIm)prior, (DataSet)defaultData);
+            ipcIMs_default = (BayesIm)bayesIm;
+        }
+        
         return 0.0;
+    }
+    
+    // 	if some rgn have ( TerrainType = Road ) [
+    //		Tracked = .2,
+    //		Wheeled = .8
+    //	] else if some rgn have ( TerrainType = OffRoad ) [
+    //		Tracked = .8,
+    //		Wheeled = .2
+    //	] else [
+    //		Tracked = .5,
+    //		Wheeled = .5
+    //	]
+    //
+    public String toString(List<String> inclusions) {
+    	String s = "";
+        if (inclusions.contains("CLD") && this.selectedData != null) {
+        	List<MNode> discreteParents = this.mNode.getDiscreteParents();
+        	Node thisNode = this.selectedData.getVariable(this.mNode.name);
+        	
+        	// get ovs statement
+        	String ovs = "";
+        	List<MNode> parents = mNode.getDiscreteParents(); 
+        	for (MNode mn : parents){
+        		ovs += mn.toStringOVs();
+        		ovs += ",";
+        	}
+        	ovs = new StringUtil().removeRedundantItem(ovs);
+        	ovs = ovs.replace(",", ".");      
+        	
+        	s = s + "[L: ";
+        	 
+        	boolean b = true; 
+        	for (String k : this.ipcIMs.keySet()) {
+        		BayesIm bayesIm = this.ipcIMs.get(k);
+        		k = k.replace("&&", "&");
+                k = k.replace("==", "=");
+        		 
+        		if (!k.isEmpty()) {
+        			if (b) {
+        				s += "if some " + ovs + " have ( " + k + " ) [";
+        				b = false;
+        			} else {
+        				s += "else if some " + ovs + " have ( " + k + " ) [";
+        			}
+        		}  
+        		
+        		int j = 0;
+        		while (j < bayesIm.getNumColumns(0)) {
+        			Double p = bayesIm.getProbability(0, 0, j);
+        			String prob = TempMathFunctions.safeDoubleAsString(p);
+        			String state2 = bayesIm.getBayesPm().getCategory(thisNode, j);
+        			s += state2 + " = " + prob;
+        			s += ", ";
+        			++j;
+        		}
+        		s = s.substring(0, s.length() - 2);
+        		
+        		if (!k.isEmpty()) 
+        			s = s + "]\n			";
+        	}
+        	
+        	
+            // * Add default distribution */
+        	if (parents.size() > 0) {
+        		s = s + "else[ ";
+        		
+	            if (ipcIMs_default != null) {
+	            	
+		            BayesIm bayesIm = ipcIMs_default;
+		            int j = 0;
+		    		while (j < bayesIm.getNumColumns(0)) {
+		    			Double p = bayesIm.getProbability(0, 0, j);
+		    			String prob = TempMathFunctions.safeDoubleAsString(p);
+		    			String state2 = bayesIm.getBayesPm().getCategory(thisNode, j);
+		    			s += state2 + " = " + prob;
+		    			s += ", ";
+		    			++j;
+		    		}
+		    		s = s.substring(0, s.length() - 2);
+		            	    		
+	            } else {	// no default distribution
+	            	for (String k : this.ipcIMs.keySet()) {
+	            		BayesIm bayesIm = this.ipcIMs.get(k);
+	            		int j = 0;
+	            		while (j < bayesIm.getNumColumns(0)) {
+	            			Double p = bayesIm.getProbability(0, 0, j);
+	            			Double size = Double.valueOf(bayesIm.getNumColumns(0));
+	            			Double prob = 1/size;
+	            			String state2 = bayesIm.getBayesPm().getCategory(thisNode, j);
+	            			s += state2 + " = " + prob;
+	            			s += ", ";
+	            			++j;
+	            		}
+	            		s = s.substring(0, s.length() - 2);
+	            		break;
+	            	}
+	            }
+	            
+	            s = s + "]"; 
+        	}
+        	
+        	s = s + "]\r\n";
+        }
+        
+        return s;
     }
 }
 

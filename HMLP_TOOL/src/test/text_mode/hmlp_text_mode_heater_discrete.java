@@ -24,8 +24,7 @@ public class hmlp_text_mode_heater_discrete {
 		
 		System.out.println(list);
 		
-		//String database = "test_heater_for_experiment_discrete";
-		String database = "test_heater_for_experiment";
+		String database = "test_heater_for_experiment_discrete"; 
 		
 		//2. initialize RDB
 		try {
@@ -44,17 +43,20 @@ public class hmlp_text_mode_heater_discrete {
 		childMNode = "heateractuator_item.HAI_energy";
 		parentMNodes = new ArrayList<String>();
 		parentMNodes.add("slabinput_item.SII_temperature");
+		parentMNodes.add("slabinput_item.SII_grade");	// Discrete
+		parentMNodes.add("slabinput_item.SII_volume");	// Discrete		
+		
 		mTheory.addParents(childMNode, parentMNodes);
 		
-		System.out.println(mTheory.toString("MFrag", "MNode"));
+//		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
 		childMNode = "heater_item.HI_temperature";
 		parentMNodes = new ArrayList<String>();
 		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("HAI_energy_SII_temperature.HAI_energy");
+		parentMNodes.add("HAI_energy_SII_temperature_SII_grade_SII_volume.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
-		System.out.println(mTheory.toString("MFrag", "MNode"));
+//		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
 		//5. Add contexts 
 //		String targetMFrag = "heater_item";
@@ -72,7 +74,7 @@ public class hmlp_text_mode_heater_discrete {
 		 */
 		mTheory.updateContexts();
 		
- 		System.out.println(mTheory.toString("MFrag", "MNode")); 
+// 		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
 		//6. Add CLD type  
 //		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 

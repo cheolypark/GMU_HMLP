@@ -47,7 +47,7 @@ extends Learning_Common {
             cldCANs.put(l, cldSc);
         }
         for (CLD c2 : cldCANs.keySet()) {
-            System.out.println("Prior logP(L of " + c2.name + ":" + c2.lpd_type + "):  logCLDSC: " + cldCANs.get((Object)c2));
+            System.out.println("Prior logP(L of " + c2.name + ":" + c2.cld_type + "):  logCLDSC: " + cldCANs.get((Object)c2));
         }
     }
 

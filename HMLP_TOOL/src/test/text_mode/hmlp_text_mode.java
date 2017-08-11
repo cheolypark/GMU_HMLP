@@ -23,8 +23,8 @@ public class hmlp_text_mode {
 		List<String> list = RDB.This().getSchemas();
 		
 		System.out.println(list);
-		
-		String database = "test_heater_for_experiment2_logical";
+		 
+		String database = "test_heater_for_experiment";
 		
 		//2. initialize RDB
 		try {
@@ -53,7 +53,7 @@ public class hmlp_text_mode {
 		parentMNodes.add("HAI_energy_SII_temperature.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
-//		System.out.println(mTheory.toString("MFrag", "MNode"));
+		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
 		//5. Add contexts 
 //		String targetMFrag = "heater_item";
@@ -74,21 +74,17 @@ public class hmlp_text_mode {
  		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
 		//6. Add CLD type  
-		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
-		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
-		mTheory.addCLDType("heateractuator_item.HAI_energy", new ConditionalGaussian());
-		mTheory.updateCLDs();
-		
-//		System.out.println(mTheory.toString("MFrag", "MNode")); 
+//		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
+// 		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
+//		mTheory.addCLDType("HAI_energy_SII_temperature.HAI_energy", new ConditionalGaussian());
+		mTheory.updateCLDs();  
 		
 		//7. Learn MEBN  
 		MRoot mroot = new MRoot();
 		mroot.setMTheories(mTheory);  
 		new MTheory_Learning().run(mroot);  
-		
-		// 		System.out.println(mTheory.toString("MFrag", "MNode" ));  
- 		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
 		 
+ 		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
 	}
 	
 	public static void main(String[] args) {

@@ -27,7 +27,7 @@ extends Learning_Common {
     public void run(MRoot mRoot) {
         this.getCandidateMTheories(mRoot.mtheoryCANs);
         System.out.println("******************* Begin MTheory learning with an MRoot *******************");
-        System.out.println(mRoot.toString());
+//        System.out.println(mRoot.toString());
         this.run_operation(mRoot.mtheoryCANs);
     }
 

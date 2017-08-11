@@ -50,7 +50,7 @@ public class ConvertFromMTheoryToSBN {
                 for (MFrag f2 : m.mfrags.keySet()) {
                     for (MNode mn : f2.getAllNodes()) {
                         if (!mn.name.equalsIgnoreCase(n.name)) continue;
-                        String cps = mn.getCPS();
+                        String cps = mn.getILD();
                         ssbn_next = String.valueOf(ssbn_next) + cps;
                     }
                 }
