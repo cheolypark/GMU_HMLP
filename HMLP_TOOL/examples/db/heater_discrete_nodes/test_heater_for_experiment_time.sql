@@ -1,8 +1,9 @@
 CREATE DATABASE  IF NOT EXISTS `test_heater_for_experiment_discrete` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `test_heater_for_experiment_discrete`;
+
 -- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: localhost    Database: test_heater_for_experiment
+-- Host: localhost    Database: test_heater_for_experiment_discrete
 -- ------------------------------------------------------
 -- Server version	5.7.18-log
 
@@ -36,7 +37,7 @@ CREATE TABLE `time` (
 
 LOCK TABLES `time` WRITE;
 /*!40000 ALTER TABLE `time` DISABLE KEYS */;
-INSERT INTO `time` VALUES ('0'),('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),('17'),('18'),('19');
+INSERT INTO `time` VALUES ('0'),('1'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),('17'),('18'),('19'),('2'),('20'),('21'),('22'),('23'),('3'),('4'),('5'),('6'),('7'),('8'),('9');
 /*!40000 ALTER TABLE `time` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-14 15:49:05
+-- Dump completed on 2017-08-11 17:11:52
