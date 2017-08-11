@@ -185,7 +185,7 @@ public class TreePanel_Right extends TreePanel {
 	} 
 	 
 	public DefaultMutableTreeNode getTreeNode() {
-		// Get Database schema from MySQL
+		// Get Database schema from MySQL 
 		List<String> list = RDB.This().getSchemas();
 		
 		DefaultMutableTreeNode t = new DefaultMutableTreeNode("Database list");

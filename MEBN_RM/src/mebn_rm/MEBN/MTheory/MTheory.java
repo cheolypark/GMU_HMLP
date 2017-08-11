@@ -6,8 +6,11 @@
  */
 package mebn_rm.MEBN.MTheory;
  
-import java.util.ArrayList; 
-import java.util.List; 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.CLD.Categorical;
 import mebn_rm.MEBN.CLD.ConditionalGaussian;
@@ -63,7 +66,7 @@ public class MTheory implements Comparable<MTheory> {
         MNode childMNode = f.getMNode(mNode);
         return childMNode;
     }
-
+ 
     public void addParents(String c, List<String> ps) {
         String mFrag = new StringUtil().getLeft(c);
         String mNode = new StringUtil().getRight(c);
@@ -73,57 +76,89 @@ public class MTheory implements Comparable<MTheory> {
             String mFragP = new StringUtil().getLeft(p);
             String mNodeP = new StringUtil().getRight(p);
             if (!p.equalsIgnoreCase(ps.get(0))) {
-                combParents = String.valueOf(combParents) + "_";
+                combParents = combParents + "_";
             }
             if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) {
-                combParents = String.valueOf(combParents) + mNode + "_";
+                combParents = combParents + mNode + "_";
                 bOtherMFrag = true;
             }
-            combParents = String.valueOf(combParents) + mNodeP;
+            combParents = combParents + mNodeP;
         }
         MFrag f = this.getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         if (bOtherMFrag) {
             String sql = "SELECT\r\n";
             String sqlFrom = "";
-            sql = String.valueOf(sql) + mFrag + "." + childMNode.getAttributeName() + " as " + mNode + ",\r\n";
-            sqlFrom = String.valueOf(sqlFrom) + mFrag + ", ";
+            sql = sql + f.getTableName() + "." + childMNode.getAttributeName() + " as " + mNode + ",\r\n";
+            sqlFrom = sqlFrom + f.getTableName() + ", ";
+            
             MFrag newMFrag = new MFrag(this, combParents);
-            this.setMFrags(newMFrag);
+            newMFrag.setTableName(f.getTableName());
+            
             MNode newChild = null;
             if (childMNode.isContinuous()) {
                 newChild = new MCNode(childMNode);
-            } else if (childMNode.isContinuous()) {
+            } else if (childMNode.isDiscrete()) {
                 newChild = new MDNode(childMNode);
             }
             newMFrag.setMNodes(newChild);
-            List<String> keys = (List)this.rdb.mapTableAndKeys.get((Object)mFrag);
+            
+            List<String> keys = newMFrag.getRDBKeys();
+            
+            // Add Isa Context Nodes for the new MFrag from the current MFrag
             for (String key : keys) {
-                String origin = this.rdb.mapKeysOrigins.get(key);
-                OVariable ov = new OVariable(mFrag, key, origin);
+                String originEntity = this.rdb.mapKeysOrigins.get(key);
+                OVariable ov = new OVariable(f.getTableName(), key, originEntity);
                 newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
             }
+            
+            if (newMFrag.name.equalsIgnoreCase("HI_temperature_SII_temperature_HAI_energy")){
+            	System.out.println("");
+            }
+
+            // Add parent nodes
             for (String p2 : ps) {
                 String mFragP = new StringUtil().getLeft(p2);
                 String mNodeP = new StringUtil().getRight(p2);
+                
                 MFrag fp = this.getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
-                newChild.setInputParents(parentMNode);
-                sql = String.valueOf(sql) + mFragP + "." + parentMNode.getAttributeName() + " as " + mNodeP + ",\r\n";
-                sqlFrom = String.valueOf(sqlFrom) + mFragP + ", ";
-                List<String> keys2 = (List)this.rdb.mapTableAndKeys.get((Object)mFragP);
+                
+                sql = sql + fp.getTableName() + "." + parentMNode.getAttributeName() + " as " + mNodeP + ",\r\n";
+                sqlFrom = sqlFrom + fp.getTableName() + ", "; 
+                
+                List<String> keys2 = fp.getRDBKeys();
+                List<OVariable> listOV = new ArrayList<OVariable>(); 
+                
+                // Add Isa Context Nodes for the new MFrag from the parent MFrags
                 for (String key2 : keys2) {
-                    String origin = this.rdb.mapKeysOrigins.get(key2);
-                    OVariable ov = new OVariable(mFragP, key2, origin);
+                    String originEntity = this.rdb.mapKeysOrigins.get(key2);
+                    OVariable ov = new OVariable(fp.getTableName(), key2, originEntity);
                     newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
+                    listOV.add(ov);
                 }
+                
+                // Create a new parent input MNode from a current parent MNode
+                // Both have different OVs
+                MNode ip = null;
+                if (parentMNode.isContinuous()) {
+                	ip = new MCNode(newMFrag, parentMNode, listOV);
+                } else if (parentMNode.isDiscrete()) {
+                	ip = new MDNode(newMFrag, parentMNode, listOV);
+                }
+                
+                newChild.setInputParents(ip);
             }
+            
+      
+            
             sql = sql.substring(0, sql.length() - 3);
-            sql = String.valueOf(sql) + "\r\nFROM\r\n";
+            sql = sql + "\r\nFROM\r\n";
             sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
-            sql = String.valueOf(sql) + (String)sqlFrom + "\r\n";
+            sql = sql + (String)sqlFrom + "\r\n";
             System.out.println(sql);
             newMFrag.joiningSQL = sql;
+            
             if (f.removeMNode(childMNode)) {
                 this.removeMFrag(f);
             }
@@ -141,54 +176,95 @@ public class MTheory implements Comparable<MTheory> {
         MFrag f = this.getMFrag(mFrag);
     }
 
+    public void updateParentNodesOVs(MFrag f, List<MIsANode> removeList, Map<String, String> surviveMap) {
+    	for (MNode n : f.arrayResidentNodes) {
+    		for (MNode ip : n.inputParentMNodes) {
+    			for (MIsANode isa : removeList) {
+    				OVariable ov = (OVariable)isa.ovs.get(0);
+    				for (OVariable ov_ip: ip.ovs) {
+    					if (ov.entityType.equalsIgnoreCase(ov_ip.entityType)) { 	
+    						String ovName = surviveMap.get(ov_ip.entityType);
+    						ov_ip.name = ovName; 
+    					}
+    				}
+    			}
+    		}    		
+    	}    	
+    }
+    
     public void updateContexts() {
         for (MFrag f : this.mfrags.keySet()) {
             ArrayList<MIsANode> removeList;
-            ArrayList<String> listEntityType;
-            OVariable ov;
+            Map<String, String> surviveMap;
+            OVariable ov; 
+            
             if (f.name.equalsIgnoreCase("HI_temperature_SII_temperature_HAI_energy")) {
                 System.out.println("HI_temperature_SII_temperature_HAI_energy");
             }
+            
             if (f.joiningSQL != null) {
                 System.out.println(f.arrayContextNodes);
-                listEntityType = new ArrayList<String>();
+                
+                // remove redundant OVs, if they are same OVs
+	            // e.g.) IsA(t1, TIME), IsA(t2, TIME)
+	            // => IsA(t1, TIME)
+	            // Also, resident nodes using these OVs changes to not having redundant OVs
+                surviveMap = new HashMap<String, String>();
                 removeList = new ArrayList<MIsANode>();
+                
                 for (MIsANode isa : f.arrayIsaContextNodes) {
                     ov = (OVariable)isa.ovs.get(0);
-                    if (listEntityType.contains(ov.entityType)) {
+                    if (surviveMap.containsKey(ov.entityType)) {
                         removeList.add(isa);
                         continue;
                     }
-                    listEntityType.add(ov.entityType);
+                    surviveMap.put(ov.entityType, ov.name);
                 }
+                
+                updateParentNodesOVs(f, removeList, surviveMap);
+                
                 if (removeList.size() > 0) {
                     f.arrayIsaContextNodes.removeAll(removeList);
                 }
+                
+                // Change SQL script
                 String sql = "WHERE \r\n";
                 MIsANode isamain = f.arrayIsaContextNodes.get(0);
-                String curKey = String.valueOf(((OVariable)isamain.ovs.get((int)0)).originMFrag) + "." + ((OVariable)isamain.ovs.get((int)0)).originKey;
+                String curKey = ((OVariable)isamain.ovs.get((int)0)).originMFrag + "." + ((OVariable)isamain.ovs.get((int)0)).originKey;
+                 	
                 for (MIsANode isa2 : removeList) {
-                    String otherKey = String.valueOf(((OVariable)isa2.ovs.get((int)0)).originMFrag) + "." + ((OVariable)isa2.ovs.get((int)0)).originKey;
-                    sql = String.valueOf(sql) + curKey + " = " + otherKey + " &&\r\n";
+                    String otherKey = ((OVariable)isa2.ovs.get((int)0)).originMFrag + "." + ((OVariable)isa2.ovs.get((int)0)).originKey;
+                    sql = sql + curKey + " = " + otherKey + " &&\r\n";
                 }
+                
                 sql = sql.substring(0, sql.length() - 5);
-                f.joiningSQL = String.valueOf(f.joiningSQL) + sql;
-                continue;
-            }
-            if (f.joiningSQL != null) continue;
-            System.out.println(f.arrayContextNodes);
-            listEntityType = new ArrayList();
-            removeList = new ArrayList();
-            for (MIsANode isa : f.arrayIsaContextNodes) {
-                ov = (OVariable)isa.ovs.get(0);
-                if (listEntityType.contains(ov.entityType)) {
-                    removeList.add(isa);
-                    continue;
+                f.joiningSQL = f.joiningSQL + sql;
+                
+            } else if (f.joiningSQL == null) {
+	            System.out.println(f.arrayContextNodes);
+	            
+	            // remove redundant OVs, if they are same OVs
+	            // e.g.) IsA(t1, TIME), IsA(t2, TIME)
+	            // => IsA(t1, TIME)
+	            // Also, resident nodes using these OVs changes to not having redundant OVs
+                surviveMap = new HashMap<String, String>();
+                removeList = new ArrayList<MIsANode>();
+                
+                for (MIsANode isa : f.arrayIsaContextNodes) {
+                    ov = (OVariable)isa.ovs.get(0);
+                    if (surviveMap.containsKey(ov.entityType)) {
+                        removeList.add(isa);
+                        continue;
+                    }
+                    surviveMap.put(ov.entityType, ov.name);
                 }
-                listEntityType.add(ov.entityType);
+                
+                updateParentNodesOVs(f, removeList, surviveMap);
+                
+                if (removeList.size() > 0) {
+                    f.arrayIsaContextNodes.removeAll(removeList);
+                }
             }
-            if (removeList.size() <= 0) continue;
-            f.arrayIsaContextNodes.removeAll(removeList);
         }
     }
 
@@ -217,9 +293,9 @@ public class MTheory implements Comparable<MTheory> {
     public String toString() {
         String s = "[M: " + this.name + "\r\n";
         for (MFrag m : this.mfrags.keySet()) {
-            s = String.valueOf(s) + "\t" + m.toString() + "\r\n";
+            s = s + "\t" + m.toString() + "\r\n";
         }
-        s = String.valueOf(s) + "]";
+        s = s + "]";
         return s;
     }
 
@@ -232,9 +308,9 @@ public class MTheory implements Comparable<MTheory> {
         }
         String s = "[M: " + this.name + "\r\n";
         for (MFrag m : this.mfrags.keySet()) {
-            s = String.valueOf(s) + "\t" + m.toString(inclusions) + "\r\n";
+            s = s + "\t" + m.toString(inclusions) + "\r\n";
         }
-        s = String.valueOf(s) + "]";
+        s = s + "]";
         return s;
     }
 
@@ -243,7 +319,7 @@ public class MTheory implements Comparable<MTheory> {
         for (MFrag f : this.mfrags.keySet()) {
             Double logSC = f.getSumMNodeLogScores();
             logSCs = logSCs + logSC;
-            System.out.println(String.valueOf(f.toString()) + " : " + logSC);
+            System.out.println(f.toString() + " : " + logSC);
         }
         return logSCs;
     }

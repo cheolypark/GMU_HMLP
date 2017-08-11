@@ -12,11 +12,16 @@ public class MDNode
 extends MNode {
     public MDNode(MFrag f, String name, List<OVariable> ovs) {
         super(f, name, ovs, null);
-        f.arrayResidentNodes.add(this);
+        //f.arrayResidentNodes.add(this);
+    }
+    
+    public MDNode(MFrag f, MNode mn, List<OVariable> ovs) {
+        super(f, mn.name, ovs, null);
+        setAttributeName(mn.getAttributeName());
     }
 
     public MDNode(MNode n) {
-        super(n);
+        super(n); 
     }
 }
 

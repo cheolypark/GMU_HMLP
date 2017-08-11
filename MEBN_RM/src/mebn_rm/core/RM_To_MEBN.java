@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List; 
 
-import mebn_rm.MEBN.MFrag.MFrag; 
+import mebn_rm.MEBN.MFrag.MFrag;
+import mebn_rm.MEBN.MNode.MCNode;
+import mebn_rm.MEBN.MNode.MDNode;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
@@ -56,7 +58,7 @@ public class RM_To_MEBN {
 			ovs = new ArrayList();
 			for (String key : keys) {
 				origin = this.rdb.mapKeysOrigins.get(key);
-				ov = new OVariable(f.name, key, (String) origin);
+				ov = new OVariable(f.getTableName(), key, (String) origin);
 				ovs.add(ov);
 				new mebn_rm.MEBN.MNode.MIsANode(f, ov);
 			}
@@ -66,11 +68,15 @@ public class RM_To_MEBN {
 				List<String> domains = this.rdb.mapDomainVaules.get(attr);
 				resNodeName = String.valueOf(prefix) + "_" + attr;
 				if (domains != null) {
-					new mebn_rm.MEBN.MNode.MDNode(f, resNodeName, ovs);
+					MDNode md = new MDNode(f, resNodeName, ovs);
+					md.setAttributeName(attr);
+					f.arrayResidentNodes.add(md);
 					numRV = numRV + 1;
 					continue;
 				}
-				new mebn_rm.MEBN.MNode.MCNode(f, resNodeName, ovs);
+				MCNode mc = new MCNode(f, resNodeName, ovs);
+				mc.setAttributeName(attr);
+				f.arrayResidentNodes.add(mc);
 				numRV = numRV + 1;
 			}
 		}

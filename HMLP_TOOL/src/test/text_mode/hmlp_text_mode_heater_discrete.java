@@ -12,9 +12,9 @@ import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
  
 
-public class hmlp_text_mode {
+public class hmlp_text_mode_heater_discrete {
 
-	public hmlp_text_mode() {
+	public hmlp_text_mode_heater_discrete() {
 	}
 
 	public void run() {
@@ -24,7 +24,8 @@ public class hmlp_text_mode {
 		
 		System.out.println(list);
 		
-		String database = "test_heater_for_experiment2_logical";
+		//String database = "test_heater_for_experiment_discrete";
+		String database = "test_heater_for_experiment";
 		
 		//2. initialize RDB
 		try {
@@ -53,7 +54,7 @@ public class hmlp_text_mode {
 		parentMNodes.add("HAI_energy_SII_temperature.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
-//		System.out.println(mTheory.toString("MFrag", "MNode"));
+		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
 		//5. Add contexts 
 //		String targetMFrag = "heater_item";
@@ -74,10 +75,10 @@ public class hmlp_text_mode {
  		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
 		//6. Add CLD type  
-		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
-		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
-		mTheory.addCLDType("heateractuator_item.HAI_energy", new ConditionalGaussian());
-		mTheory.updateCLDs();
+//		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
+// 		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
+//		mTheory.addCLDType("HAI_energy_SII_temperature.HAI_energy", new ConditionalGaussian());
+		mTheory.updateCLDs(); 
 		
 //		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
@@ -85,14 +86,13 @@ public class hmlp_text_mode {
 		MRoot mroot = new MRoot();
 		mroot.setMTheories(mTheory);  
 		new MTheory_Learning().run(mroot);  
-		
-		// 		System.out.println(mTheory.toString("MFrag", "MNode" ));  
+		 
  		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
 		 
 	}
 	
 	public static void main(String[] args) {
-		hmlp_text_mode h = new hmlp_text_mode();
+		hmlp_text_mode_heater_discrete h = new hmlp_text_mode_heater_discrete();
 		h.run();
 	} 
 }

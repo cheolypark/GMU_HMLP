@@ -12,7 +12,12 @@ public class MCNode
 extends MNode {
     public MCNode(MFrag f, String name, List<OVariable> ovs) {
         super(f, name, ovs, null);
-        f.arrayResidentNodes.add(this);
+       // f.arrayResidentNodes.add(this);
+    }
+
+    public MCNode(MFrag f, MNode mn, List<OVariable> ovs) {
+        super(f, mn.name, ovs, null);
+        setAttributeName(mn.getAttributeName());
     }
 
     public MCNode(MNode n) {

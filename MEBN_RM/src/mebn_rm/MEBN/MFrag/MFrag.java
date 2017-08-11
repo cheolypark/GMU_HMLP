@@ -26,6 +26,7 @@ implements Comparable<MFrag> {
     public List<MNode> arrayInputNodes = new ArrayList<MNode>();
     public List<MNode> arrayInputPrevNodes = new ArrayList<MNode>();
     public String joiningSQL;
+    public String table = null;
     public String cvsFile;
     public SortableValueMap<String, List<String>> mapCausality = new SortableValueMap();
     public SortableValueMap<String, List<String>> mapNonCorrelation = new SortableValueMap();
@@ -46,6 +47,30 @@ implements Comparable<MFrag> {
         this.name = mfragName;
         this.mTheory = m;
         m.setMFrags(this);
+    }
+    
+    public void setTableName(String o) {
+    	table = o;
+    }
+    
+    public String getTableName() {
+    	if (table != null) {
+    		return table;
+    	}
+    	
+    	return name;
+    }
+        
+    public List<String> getRDBKeys(){
+    	List<String> ret = null;
+    	
+    	if (table != null) {
+    		ret = (List<String>) mTheory.rdb.mapTableAndKeys.get(table);
+    	} else {
+    		ret = (List<String>) mTheory.rdb.mapTableAndKeys.get(name);
+    	}
+    	
+    	return ret;
     }
 
     public /* varargs */ void setCorrelation(String child, String ... parents) {

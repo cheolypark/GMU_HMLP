@@ -2,16 +2,13 @@
  * Decompiled with CFR 0_118.
  */
 package mebn_rm.MEBN.MNode;
-
-import java.io.PrintStream;
+ 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.EmptyStackException;
-import java.util.HashMap;
+import java.util.ArrayList; 
+import java.util.EmptyStackException; 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +30,9 @@ public class MNode extends Tree implements Comparable<MNode> {
     public String name = "";
     public String pret = "";
     public SortableValueMap<CLD, Double> cldCANs = new SortableValueMap();
-    public CLD bestCLD = null;
-    public Boolean isContinuous = false;
+    public CLD bestCLD = null; 
     public MFrag mFrag = null;
+    public String attribute = null;
     public List<OVariable> ovs = new ArrayList<OVariable>();
     public List<MNode> parentMNodes = new ArrayList<MNode>();
     public List<MNode> inputParentMNodes = new ArrayList<MNode>();
@@ -54,6 +51,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         super(false);
         this.name = n.name;
         this.ovs = n.ovs;
+        this.attribute = n.attribute;
     }
 
     public /* varargs */ MNode(MFrag f, String n, MNode ... parenetmnodes) {
@@ -64,22 +62,13 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public /* varargs */ MNode(MFrag f, String n, List<OVariable> o, MNode ... parenetmnodes) {
-        super(false);
-        this.name = n;
+        super(false); 
+        this.name = n; 
         this.mFrag = f;
         this.ovs = new ArrayList<OVariable>(o);
         this.setParents(parenetmnodes);
     }
-
-    public /* varargs */ MNode(MFrag f, String n, List<OVariable> o, boolean bContinuous, MNode ... parenetmnodes) {
-        super(false);
-        this.name = n;
-        this.mFrag = f;
-        this.ovs = new ArrayList<OVariable>(o);
-        this.isContinuous = bContinuous;
-        this.setParents(parenetmnodes);
-    }
-
+ 
     public String toString() {
         ArrayList<String> inclusions = new ArrayList<String>();
         inclusions.add("MNode");
@@ -89,26 +78,45 @@ public class MNode extends Tree implements Comparable<MNode> {
         return this.toString(inclusions);
     }
 
+    public String toStringOVs(List<OVariable> ovs) {
+    	String s = "";
+    	
+    	if (ovs.size() > 0) {
+            s = String.valueOf(s) + "(";
+            for (OVariable o : ovs) {
+                if (ovs.get(0) != o) {
+                    s = String.valueOf(s) + ", ";
+                }
+                s = String.valueOf(s) + o.name;
+            }
+            s = String.valueOf(s) + ")";
+        }
+    	
+    	return s;
+    }
+    
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("MNode")) {
             s = String.valueOf(s) + "[R: " + this.name;
-            if (this.ovs.size() > 0) {
-                s = String.valueOf(s) + "(";
-                for (OVariable o : this.ovs) {
-                    if (this.ovs.get(0) != o) {
-                        s = String.valueOf(s) + ", ";
-                    }
-                    s = String.valueOf(s) + o.name;
-                }
-                s = String.valueOf(s) + ")";
-            }
+            s += toStringOVs(this.ovs);
+//            if (this.ovs.size() > 0) {
+//                s = String.valueOf(s) + "(";
+//                for (OVariable o : this.ovs) {
+//                    if (this.ovs.get(0) != o) {
+//                        s = String.valueOf(s) + ", ";
+//                    }
+//                    s = String.valueOf(s) + o.name;
+//                }
+//                s = String.valueOf(s) + ")";
+//            }
             if (this.parentMNodes.size() > 0) {
                 s = String.valueOf(s) + "\r\n";
                 s = String.valueOf(s) + "\t\t\t";
                 s = String.valueOf(s) + "[RP: ";
                 for (MNode mn : this.parentMNodes) {
                     s = String.valueOf(s) + mn.name + ", ";
+                    s += toStringOVs(mn.ovs);
                 }
                 s = s.substring(0, s.length() - 2);
                 s = String.valueOf(s) + "]";
@@ -119,7 +127,9 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "\t\t\t";
                 s = String.valueOf(s) + "[IP: ";
                 for (MNode mn : this.inputParentMNodes) {
-                    s = String.valueOf(s) + mn.name + ", ";
+                    s = String.valueOf(s) + mn.name;
+                    s += toStringOVs(mn.ovs);
+                    s += ", ";
                 }
                 s = s.substring(0, s.length() - 2);
                 s = String.valueOf(s) + "]";
@@ -208,10 +218,19 @@ public class MNode extends Tree implements Comparable<MNode> {
         return new Sum_for_Log().sum(logSCs);
     }
 
+    public void setAttributeName(String s) {
+    	attribute = s;
+    }
+    
     public String getAttributeName() {
         String s = this.name; 
         String prefix = new StringUtil().createAbbreviation(this.mFrag.name);
         String right = s.replaceFirst(prefix+"_", "");
+        
+        if (attribute != null){
+        	return attribute;
+        }
+        
         return right;
     }
 

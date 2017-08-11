@@ -9,7 +9,7 @@ public class OVariable {
     public String originMFrag;
     public String originKey;
 
-    public OVariable(String f, String k, String e) {
+    public OVariable(String f, String k, String e) { 
         this.originMFrag = f;
         this.originKey = k;
         this.entityType = e.toUpperCase();
