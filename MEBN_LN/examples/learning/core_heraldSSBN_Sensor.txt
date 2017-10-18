@@ -1,5 +1,0 @@
-defineNode(DistanceToSensor , Desc); 
-{ defineState(Discrete, Mid, Long, Short ); 
-p( DistanceToSensor ) = 
-{ Mid : .5780996240183319; Long : .0972435426817059; Short : .3246568332999622;  }
-}
