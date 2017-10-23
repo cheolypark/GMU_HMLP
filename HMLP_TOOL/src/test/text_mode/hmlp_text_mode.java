@@ -24,7 +24,7 @@ public class hmlp_text_mode {
 		
 		System.out.println(list);
 		 
-		String database = "test_heater_for_experiment";
+		String database = "test_heater";
 		
 		//2. initialize RDB
 		try {

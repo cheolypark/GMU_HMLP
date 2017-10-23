@@ -24,7 +24,7 @@ public class hmlp_text_mode_heater_discrete {
 		
 		System.out.println(list);
 		
-		String database = "test_heater_for_experiment_discrete"; 
+		String database = "hybrid_test_heater"; 
 		
 		//2. initialize RDB
 		try {
