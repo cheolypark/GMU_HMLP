@@ -23,6 +23,6 @@
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/slf4j-nop-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/xom-1.2.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/tetrad-development.jar" sourcepath="/tetrad-development"/>
+	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/tetrad-development2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
