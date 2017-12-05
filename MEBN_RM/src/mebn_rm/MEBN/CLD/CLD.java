@@ -162,6 +162,12 @@ implements Comparable<CLD> {
      
 
     public List<String> initIPCs(Graph hybridGraph) {  
+    	
+        if (this.name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
+        {
+        	System.out.println("QR_RESULT_COL_1");
+        }
+        
         String strFile = String.valueOf(Resource.getCSVPath(this.mNode.mFrag.mTheory.name)) + this.mNode.mFrag.name + ".csv";
         this.data = RDB.This().getTetDataSetFromCSV(strFile);
         if (this.data.getNumRows() == 0) {

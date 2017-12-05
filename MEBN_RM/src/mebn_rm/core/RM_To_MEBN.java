@@ -102,17 +102,24 @@ public class RM_To_MEBN {
 						resNodeName = String.valueOf(prefix) + "_" + attr;
 						List<String> domains = this.rdb.mapDomainVaules.get(attr);
 						if (domains != null) {
-							new mebn_rm.MEBN.MNode.MDNode(f, resNodeName, ovs);
+							MDNode md = new mebn_rm.MEBN.MNode.MDNode(f, resNodeName, ovs);
+							md.setAttributeName(attr);
+							f.arrayResidentNodes.add(md);
 							numRV = numRV + 1;
 							continue;
 						}
-						new mebn_rm.MEBN.MNode.MCNode(f, resNodeName, ovs);
+						MCNode mc = new mebn_rm.MEBN.MNode.MCNode(f, resNodeName, ovs);
+						mc.setAttributeName(attr);
+						f.arrayResidentNodes.add(mc);
 						numRV = numRV + 1;
 					}
 				}
+				
 				if (this.rdb.mapTableAndAttributes.get((Object) table2) != null)
 					continue;
-				new mebn_rm.MEBN.MNode.MDNode(f, table2, ovs);
+				MDNode md = new mebn_rm.MEBN.MNode.MDNode(f, table2, ovs);
+				md.setAttributeName(table2);
+				f.arrayResidentNodes.add(md);				
 				numRV = numRV + 1;
 				f.mFragType = MFrag.MFragType.REFERENCE;
 			}

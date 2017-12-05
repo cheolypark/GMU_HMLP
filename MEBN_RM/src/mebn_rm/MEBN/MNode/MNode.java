@@ -293,6 +293,15 @@ public class MNode extends Tree implements Comparable<MNode> {
             ++n2;
         }
     }
+    
+    public boolean checkContainedNodeByName(MNode source, List<MNode> mNodes) {
+    	for (MNode m : mNodes) {
+    		if (source.name.equalsIgnoreCase(m.name))
+    			return true;
+    	}
+    	
+    	return false;
+    }
 
     public boolean checkSameKeys(ResultSet rs, ArrayList<String> curKeys) {
         String keyVal;
@@ -361,8 +370,13 @@ public class MNode extends Tree implements Comparable<MNode> {
         ArrayList<MNode> l = new ArrayList<MNode>();
         if (!globalMNodes.isEmpty()) {
             for (MNode p : globalMNodes) {
-                if (!this.parentMNodes.contains(p) || !p.isDiscrete()) continue;
-                l.add(p);
+                if (checkContainedNodeByName(p, parentMNodes) && p.isDiscrete()) {
+                	l.add(p);	
+                }
+                                
+                if (checkContainedNodeByName(p, inputParentMNodes) && p.isDiscrete()) {
+                	l.add(p);
+                }
             }
         } else {
             for (MNode p : this.parentMNodes) {
@@ -382,8 +396,13 @@ public class MNode extends Tree implements Comparable<MNode> {
         ArrayList<MNode> l = new ArrayList<MNode>();
         if (!globalMNodes.isEmpty()) {
             for (MNode p : globalMNodes) {
-                if (!this.parentMNodes.contains(p) || !p.isContinuous()) continue;
-                l.add(p);
+                if (checkContainedNodeByName(p, parentMNodes) && p.isContinuous()) {
+                	l.add(p);
+                }
+                
+                if (checkContainedNodeByName(p, inputParentMNodes) && p.isContinuous()) {
+                	l.add(p);	
+                }                
             }
         } else {
             for (MNode p2 : this.parentMNodes) {

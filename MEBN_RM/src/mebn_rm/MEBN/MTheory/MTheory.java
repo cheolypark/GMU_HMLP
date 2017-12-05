@@ -72,18 +72,22 @@ public class MTheory implements Comparable<MTheory> {
         String mNode = new StringUtil().getRight(c);
         String combParents = "";
         boolean bOtherMFrag = false;
+        
         for (String p : ps) {
             String mFragP = new StringUtil().getLeft(p);
-            String mNodeP = new StringUtil().getRight(p);
-            if (!p.equalsIgnoreCase(ps.get(0))) {
-                combParents = combParents + "_";
-            }
+//            String mNodeP = new StringUtil().getRight(p);
+//            if (!p.equalsIgnoreCase(ps.get(0))) {
+//                combParents = combParents + "_";
+//            }
             if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) {
-                combParents = combParents + mNode + "_";
+//                combParents = combParents + mNode + "_";
                 bOtherMFrag = true;
             }
-            combParents = combParents + mNodeP;
+//            combParents = combParents + mNodeP;
         }
+        
+        combParents = mNode;
+        
         MFrag f = this.getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         if (bOtherMFrag) {
@@ -118,9 +122,15 @@ public class MTheory implements Comparable<MTheory> {
 
             // Add parent nodes
             for (String p2 : ps) {
+            	            	
                 String mFragP = new StringUtil().getLeft(p2);
                 String mNodeP = new StringUtil().getRight(p2);
                 
+                if(mNodeP.equalsIgnoreCase("RPS_SET_ROLLGAP")){
+                	System.out.println("d");
+                }
+                	
+                	
                 MFrag fp = this.getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
                 

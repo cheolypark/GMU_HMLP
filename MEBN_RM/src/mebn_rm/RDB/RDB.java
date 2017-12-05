@@ -181,10 +181,14 @@ public class RDB extends MySQL_Interface {
         if (attrs != null) {
             for (String attr : attrs) {
                 String attrType = this.mapAttributeTypes.get(attr);
+                
+                // If continuous variables
                 if (this.isRealValueType(attrType)) {
                     this.createBins(attr, t);
                     continue;
                 }
+                
+                // If discrete variables
                 ResultSet rs = this.getDomain(attr, t);
                 if (rs.first()) {
                     while (rs.next()) {
@@ -193,6 +197,8 @@ public class RDB extends MySQL_Interface {
                     }
                     continue;
                 }
+                
+                // If all of the above are not                 
                 this.setDomainVaule(attr, "True");
                 this.setDomainVaule(attr, "False");
             }
@@ -224,6 +230,7 @@ public class RDB extends MySQL_Interface {
     }
 
     public void setDomainVaule(String attr, String d) {
+//    	System.out.println("attr: " + attr + " value: " + d);
         if (d == null || RDB.isNum(d)) {
             return;
         }

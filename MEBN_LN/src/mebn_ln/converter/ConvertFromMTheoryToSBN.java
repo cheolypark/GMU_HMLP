@@ -34,13 +34,19 @@ public class ConvertFromMTheoryToSBN {
         String strFile = String.valueOf(Resource.getlearningOutputPath((String)m.name)) + strName;
         String ssbn_next = "";
         Network net = new Network("myNet");
+        
         for (MFrag f : m.mfrags.keySet()) {
             for (MNode mn : f.getAllNodes()) {
                 for (MNode pa : mn.parentMNodes) {
                     net.add(pa.name, mn.name);
                 }
+                
+                for (MNode pa : mn.inputParentMNodes) {
+                    net.add(pa.name, mn.name);
+                }
             }
         }
+        
         net.print();
         OrderingNetwork on = new OrderingNetwork();
         SortableValueMap<Integer, ArrayList<Node>> nodesInLevels = on.run(net);

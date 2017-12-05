@@ -1,7 +1,9 @@
 package util;
    
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import util.math.RBeta;
 import util.math.RBinom;
@@ -23,6 +25,50 @@ public class TempMathFunctions {
 	public TempMathFunctions()
 	{
 	}
+	 
+	// value = 60.00000001
+	//			  12345678<-
+	// return 8
+	public static String findLocationMostSignificantDigit(double value) {
+		value = value - Math.floor(value);
+		
+	    value = Math.abs(value);
+	    if (value == 0) 
+	    	return "#";
+	    
+	    String str = "#.";
+	    
+	    while (value < 1) {
+	    	value *= 10;
+	    	str += "0";
+	    } 
+	    
+	    return str;
+	}
+	
+	// value = 60.00000001
+	// return 6
+	public int getMostSignificantDigit(double value) {
+	    value = Math.abs(value);
+	    if (value == 0) 
+	    	return 0;
+	    
+	    int count = 0;
+	    while (value < 1) {
+	    	value *= 10;
+	    	count++;
+	    }
+	    
+	    char firstChar = String.valueOf(value).charAt(0);
+	    
+	    return Integer.parseInt(firstChar + "");
+	}
+	
+	// value = 60.00000001
+	// return 1
+	public int getMostSignificantDigitFromDecimalPoint(double value) {  
+		return getMostSignificantDigit(value - Math.floor(value)); 
+	}
 	
 	public static String safeDoubleAsString(Double value) {    
 		String format = findLocationMostSignificantDigit(value); 
@@ -32,7 +78,25 @@ public class TempMathFunctions {
 	}
 	
 	public static String getSafeNumberString(String s) {
-		return safeDoubleAsString(Double.valueOf(s)); 
+		if (isNum(s))
+			return safeDoubleAsString(Double.valueOf(s));
+
+		return s;
+	}
+	
+	//e.g.,) data = "-.5E5" is changed to "-50000.0"
+	
+	public static String safeDoubleAsString2(Double data) {   
+		DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+		df.setMaximumFractionDigits(340); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
+		return df.format(data);
+	}
+	
+	public  String getSafeNumberString2(String data) {
+		if (isNum(data)){
+			return safeDoubleAsString2(Double.valueOf(data));
+		}
+		return data;
 	}
 	
 	/**
@@ -319,50 +383,6 @@ public class TempMathFunctions {
         return num / den;
 	}
  
-	// value = 60.00000001
-	//			  12345678<-
-	// return 8
-	public static String findLocationMostSignificantDigit(double value) {
-		value = value - Math.floor(value);
-		
-	    value = Math.abs(value);
-	    if (value == 0) 
-	    	return "#";
-	    
-	    String str = "#.";
-	    
-	    while (value < 1) {
-	    	value *= 10;
-	    	str += "0";
-	    } 
-	    
-	    return str;
-	}
-	
-	// value = 60.00000001
-	// return 6
-	public int getMostSignificantDigit(double value) {
-	    value = Math.abs(value);
-	    if (value == 0) 
-	    	return 0;
-	    
-	    int count = 0;
-	    while (value < 1) {
-	    	value *= 10;
-	    	count++;
-	    }
-	    
-	    char firstChar = String.valueOf(value).charAt(0);
-	    
-	    return Integer.parseInt(firstChar + "");
-	}
-	
-	// value = 60.00000001
-	// return 1
-	public int getMostSignificantDigitFromDecimalPoint(double value) {  
-		return getMostSignificantDigit(value - Math.floor(value)); 
-	}
-	
 	/**
 	 * The main method.
 	 *

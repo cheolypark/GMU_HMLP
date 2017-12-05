@@ -43,11 +43,15 @@ public class ConditionalGaussian extends LPD_Continuous {
     } 
     
     public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
+    	 
         System.out.println("////////////////////////////////" + this.mNode.name);
         System.out.println((Object)continuousGraph);
-        if (this.mNode.name.equalsIgnoreCase("HAI_energy")) {
+        
+        if (this.mNode.name.equalsIgnoreCase("QR_RESULT_COL_1")) {
             System.out.println(this.mNode.name);
         }
+        
+        
         if (_dataSet_con.getNumRows() == 0) {
             this.ipcScorers.put(ipc, null);
         } else if (!Tetrad_Util.hasVariance(_dataSet_con)) {
@@ -84,16 +88,16 @@ public class ConditionalGaussian extends LPD_Continuous {
                 Node parent = sc.getDataSet().getVariable(p.name);
                 Node child = sc.getDataSet().getVariable(this.mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
-                String edgeCoefs = TempMathFunctions.safeDoubleAsString(edgeCoef);
+                String edgeCoefs = TempMathFunctions.safeDoubleAsString2(edgeCoef);
                 s = String.valueOf(s) + edgeCoefs + " * " + "Sum(" + p.name + ")" + " + ";
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
                 mean -= edgeCoef * meanParent;
                 System.out.println(var -= edgeCoef * varParent);
             }
-            String meanS = TempMathFunctions.safeDoubleAsString(mean);
-            String varS = TempMathFunctions.safeDoubleAsString(Math.abs(var));
-             s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
+            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
+            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
+            s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
         } else {
             for (MNode p : cp) {
                 s = String.valueOf(s) + "1.0 * " + p.name + " + ";
@@ -111,8 +115,8 @@ public class ConditionalGaussian extends LPD_Continuous {
             double mean = im.getMean((Node)sc.getVariables().get(0));
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);              
-            String meanS = TempMathFunctions.safeDoubleAsString(mean);
-            String varS = TempMathFunctions.safeDoubleAsString(Math.abs(var));
+            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
+            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
             s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
         } else {
             s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
@@ -166,25 +170,35 @@ public class ConditionalGaussian extends LPD_Continuous {
     public String getILD() {
         List<MNode> dp = mNode.getDiscreteParents();
         List<MNode> cp = mNode.getContinuousParents();
+        
         String s = "{ defineState(Continuous); \n";
         s = s + "p( " + mNode.name;
+        
         if (dp.size() > 0 || cp.size() > 0) {
             s = s + " | ";
         }
+        
         for (MNode p2 : dp) {
             s = s + p2.name + " , ";
         }
+        
         for (MNode p2 : cp) {
             s = s + p2.name + " , ";
         }
+        
         if (dp.size() > 0 || cp.size() > 0) {
             s = s.substring(0, s.length() - 2);
         }
+        
         s = s + " ) = \n";
-        if (mNode.name.equalsIgnoreCase("TemperatureReport")) {
-            System.out.println();
-        }
+          
         int i = 0;
+        
+        if (this.name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
+        {
+        	System.out.println("QR_RESULT_COL_1");
+        }
+//        	 
         for (String k : ipcScorers.keySet()) {
             Scorer sc = ipcScorers.get(k);
             if (!k.isEmpty()) {
@@ -196,6 +210,60 @@ public class ConditionalGaussian extends LPD_Continuous {
             if (k.isEmpty()) continue;
             s = s + "\n}";
         }
+        
+        return s;
+    }
+     
+//    Scorer sc = (Scorer)ob;
+//    List<MNode> cp = this.mNode.getContinuousParents();
+//    String s = "";
+//    if (sc != null) {
+    
+    public String getILD_op(Object ob) {
+//    	if (this.mNode.name.equalsIgnoreCase("QR_RESULT_COL_1")) {
+//            System.out.println();
+//        }
+    	
+    	Scorer sc = (Scorer)ob;
+        List<MNode> cp = this.mNode.getContinuousParents();
+        String s = "";
+          
+        if (sc != null) {
+        	SemIm im = sc.getEstSem();
+            System.out.println(im.toString());
+            double mean = im.getMean((Node)sc.getVariables().get(0));
+            TetradMatrix implCovar = im.getImplCovar(false);
+            double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
+            for (MNode p : cp) {
+//                  Node parent = sc.getDataSet().getVariable(p.name);
+//                  Node child = sc.getDataSet().getVariable(this.mNode.name);
+//                  s = String.valueOf(s) + " 1.0 * " + p.name + " + ";
+            	  
+            	Node parent = sc.getDataSet().getVariable(p.name);
+                Node child = sc.getDataSet().getVariable(this.mNode.name);
+                double edgeCoef = im.getEdgeCoef(parent, child);
+                String edgeCoefs = TempMathFunctions.safeDoubleAsString2(edgeCoef);
+                s = String.valueOf(s) + edgeCoefs + " * " +  p.name + " + ";
+                double meanParent = im.getMean(parent);
+                double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
+                mean -= edgeCoef * meanParent;
+                System.out.println(var -= edgeCoef * varParent);
+            }
+              
+            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
+            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
+            s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");";
+
+//              String meanS = TempMathFunctions.safeDoubleAsString((double)mean);
+//              String varS = TempMathFunctions.safeDoubleAsString((double)var);
+//              s = String.valueOf(s) + "NormalDist( "+" meanS" + " , " + varS + ");";
+        } else {
+        	for (MNode p : cp) {
+        		s = String.valueOf(s) + "1.0 * " + p.name + " + ";
+        	}
+        	s = String.valueOf(s) + "NormalDist(0 ,  0.1);";
+        }
+        
         return s;
     }
  
