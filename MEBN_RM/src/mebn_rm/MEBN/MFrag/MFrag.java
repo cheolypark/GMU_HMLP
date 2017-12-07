@@ -250,9 +250,19 @@ implements Comparable<MFrag> {
             }
             
             this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
+            try {
+				rs.close();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
         } else {
             rs = RDB.This().get(this.joiningSQL);
             this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
+            try {
+				rs.close();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
             
             // create default cvs files for each node 
             for (MNode mn : this.getMNodes()) {
@@ -268,6 +278,11 @@ implements Comparable<MFrag> {
             	
             	rs = RDB.This().get(s);
             	mn.cvsFile = RDBToCVS(mn.name+"_default", this.mTheory.name, rs); 
+            	try {
+    				rs.close();
+    			} catch (SQLException e) { 
+    				e.printStackTrace();
+    			}
             }
         }
     }
@@ -292,7 +307,7 @@ heateractuator_item.TimeID = slabinput_item.TimeID
     public String RDBToCVS(String file, String folder, ResultSet rs) {
         if (rs != null) {
             try {
-                rs.beforeFirst();
+//                rs.beforeFirst();
                 try {
                     return RDB.This().toExcel(file, folder, rs);
                 }
@@ -303,6 +318,12 @@ heateractuator_item.TimeID = slabinput_item.TimeID
             catch (SQLException e1) {
                 e1.printStackTrace();
             }
+            
+            try {
+				rs.close();
+			} catch (SQLException e) { 
+				e.printStackTrace();
+			}
         }
         
         return "";

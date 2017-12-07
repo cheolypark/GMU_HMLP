@@ -27,6 +27,7 @@ public class MySQL_Interface extends TempMathFunctions {
     public String schema = "";
     public String root = "root";
     public String PW = "jesus";
+    public String address = "jdbc:mysql://localhost/";
 
     public MySQL_Interface() { 
     }
@@ -42,7 +43,7 @@ public class MySQL_Interface extends TempMathFunctions {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/", this.root, this.PW);
+            connection = DriverManager.getConnection(address, root, PW);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -58,13 +59,13 @@ public class MySQL_Interface extends TempMathFunctions {
     	
         try {
             DriverManager.registerDriver((java.sql.Driver)new Driver());
-            this.schema = s;
+            schema = s;
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/" + s, this.root, this.PW);
+            connection = DriverManager.getConnection(address + s, root, PW);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -75,16 +76,16 @@ public class MySQL_Interface extends TempMathFunctions {
 
     public Connection createSchema(String s) {
         String str = "create schema  " + s;
-        this.schema = s;
+        schema = s;
         Statement statement = null;
         try {
             statement = connection.createStatement();
             statement.executeUpdate(str);
-            return this.connectSchema(s);
+            return connectSchema(s);
         }
         catch (SQLException e) {
             if (e.getErrorCode() == 1007) {
-                return this.connectSchema(s);
+                return connectSchema(s);
             }
             e.printStackTrace();
             return null;
@@ -94,36 +95,36 @@ public class MySQL_Interface extends TempMathFunctions {
     public void createEntityTable(String s) {
         String primarykey = s;
         String sRun = "create table  " + s + " (" + primarykey + " char(45) not null, primary key(" + primarykey + "));";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public boolean createRelationTable(String s) {
         String sRun = "create table  " + s;
-        return this.updateSQL(sRun);
+        return updateSQL(sRun);
     }
 
     public void createAttributeOnTable(String table, String attribute) {
         String sRun = "alter table  " + table + " add " + attribute + " char(45);";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public void createForeignKeyAttributeOnTable(String table, String attribute, String foreignTable, String foreignKey) {
         foreignTable = foreignTable.toLowerCase();
         String sRun = "alter table  " + table + " add COLUMN " + attribute + " char(45) NULL; ";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
         sRun = "alter table  " + table + " add FOREIGN KEY (" + attribute + ") REFERENCES " + foreignTable + "(" + foreignKey + ");";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public void addValue(String table, String attribute, String value) {
         String sRun = "insert into " + table + " ( " + attribute + " ) values( " + value + " );";
         System.out.println(sRun);
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public void updateValue(String table, String key, String value) {
         String sRun = "update " + table + " SET " + value + " where " + key;
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public boolean updateSQL(String s) {
@@ -134,7 +135,7 @@ public class MySQL_Interface extends TempMathFunctions {
         }
         catch (SQLException e) {
             if (e.getErrorCode() == 1007) {
-                this.connectSchema(s);
+                connectSchema(s);
             } else if (e.getErrorCode() == 1050) {
                 System.out.println("Already there is the table");
             } else if (e.getErrorCode() == 1060) {
@@ -152,9 +153,16 @@ public class MySQL_Interface extends TempMathFunctions {
     public ResultSet querySQL(String s) {
         System.out.println(s);
         Statement statement = null;
-        try {
-            statement = connection.createStatement();
-            return statement.executeQuery(s);
+        try { 
+        	connection.close();
+        	connection = DriverManager.getConnection(address + schema, root, PW);
+        	statement = connection.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, 
+        										   java.sql.ResultSet.CONCUR_READ_ONLY);
+        	statement.setFetchSize(Integer.MIN_VALUE);
+        	return statement.executeQuery(s);
+        	
+//            statement = connection.createStatement();
+//            return statement.executeQuery(s);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -164,37 +172,38 @@ public class MySQL_Interface extends TempMathFunctions {
 
     public ResultSet getSufficientStatistics(String strAttrs, String strTables) {
         String sRun = "SELECT " + strAttrs + ", count(*) FROM " + strTables + " GROUP BY " + strAttrs + ";";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
-    public ResultSet getPrimaryKeys(String table) {
-        ResultSet rs = null;
-        try {
-            DatabaseMetaData meta = connection.getMetaData();
-            rs = meta.getPrimaryKeys(null, null, table);
-            while (rs.next()) {
-            }
-            rs.beforeFirst();
-            return rs;
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    public ResultSet getPrimaryKeys(String table) {
+//        ResultSet rs = null;
+//        try {
+//            DatabaseMetaData meta = connection.getMetaData();
+//            rs = meta.getPrimaryKeys(null, null, table);
+//            while (rs.next()) {
+//            }
+//            rs.beforeFirst();
+//            return rs;
+//        }
+//        catch (SQLException e) {
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
     public ArrayList<String> getPrimaryKeysToArray(String table) {
         ArrayList<String> primarykeys = new ArrayList<String>();
         ResultSet rs = null;
-        ArrayList<String> im = this.getImportedTable(table);
-        ArrayList<String> ex = this.getExportedTable(table);
+        ArrayList<String> im = getImportedTable(table);
+        ArrayList<String> ex = getExportedTable(table);
         try {
             DatabaseMetaData meta = connection.getMetaData();
             rs = meta.getPrimaryKeys(null, null, table);
             while (rs.next()) {
                 primarykeys.add(rs.getString("COLUMN_NAME"));
             }
-            rs.beforeFirst();
+            rs.close();
+//            rs.beforeFirst();
             return primarykeys;
         }
         catch (SQLException e) {
@@ -209,9 +218,9 @@ public class MySQL_Interface extends TempMathFunctions {
         try {
             DatabaseMetaData meta = connection.getMetaData();
             rs = meta.getTables(null, null, "%", types);
-            while (rs.next()) {
-            }
-            rs.beforeFirst();
+//            while (rs.next()) {
+//            }
+//            rs.beforeFirst();
             return rs;
         }
         catch (SQLException e) {
@@ -232,17 +241,17 @@ public class MySQL_Interface extends TempMathFunctions {
     }
 
     public ResultSet get(String sRun) {
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public ResultSet get(String strAttrs, String strTables) {
         String sRun = "SELECT " + strAttrs + " FROM " + strTables + ";";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public ResultSet getWithOutNull(String strAttrs, String strNullAttr, String strTables) {
         String sRun = "SELECT " + strAttrs + " FROM " + strTables + " WHERE " + strNullAttr + " IS NOT NULL;";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public ResultSet getNaturalJoin(ArrayList<String> importedTable, String strTables) {
@@ -251,7 +260,7 @@ public class MySQL_Interface extends TempMathFunctions {
             sRun = String.valueOf(sRun) + " natural JOIN " + s;
         }
         sRun = String.valueOf(sRun) + ";";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public String rename(String s) {
@@ -268,7 +277,7 @@ public class MySQL_Interface extends TempMathFunctions {
         String sRun = "SELECT ";
         String sOrderBy = " ORDER BY ";
         int j = 0;
-        Map<String, String> importedColumns = this.getImportedColumn(curTable);
+        Map<String, String> importedColumns = getImportedColumn(curTable);
         for (String key : importedColumns.keySet()) {
             String s = String.valueOf(curTable) + "." + key;
             sRun = String.valueOf(sRun) + s + ", ";
@@ -280,7 +289,7 @@ public class MySQL_Interface extends TempMathFunctions {
                 sRun = String.valueOf(sRun) + ", \n";
             }
             sRun = String.valueOf(sRun) + s222;
-            sRun = String.valueOf(sRun) + "." + this.rename(s222);
+            sRun = String.valueOf(sRun) + "." + rename(s222);
             sRun = String.valueOf(sRun) + " AS '" + s222 + "'";
             ++j;
         }
@@ -289,7 +298,7 @@ public class MySQL_Interface extends TempMathFunctions {
                 sRun = String.valueOf(sRun) + ", \n";
             }
             sRun = String.valueOf(sRun) + s222;
-            sRun = String.valueOf(sRun) + "." + this.rename(s222);
+            sRun = String.valueOf(sRun) + "." + rename(s222);
             sRun = String.valueOf(sRun) + " AS 'pre_" + s222 + "'";
             ++j;
         }
@@ -299,7 +308,7 @@ public class MySQL_Interface extends TempMathFunctions {
             if (j > 0) {
                 sRun = String.valueOf(sRun) + " JOIN ";
             }
-            sRun = String.valueOf(sRun) + this.rename(s222);
+            sRun = String.valueOf(sRun) + rename(s222);
             sRun = String.valueOf(sRun) + " " + s222;
             ++j;
         }
@@ -307,7 +316,7 @@ public class MySQL_Interface extends TempMathFunctions {
             if (j > 0) {
                 sRun = String.valueOf(sRun) + " JOIN ";
             }
-            sRun = String.valueOf(sRun) + this.rename(s222);
+            sRun = String.valueOf(sRun) + rename(s222);
             sRun = String.valueOf(sRun) + " pre_" + s222;
             ++j;
         }
@@ -317,18 +326,18 @@ public class MySQL_Interface extends TempMathFunctions {
             sRun = String.valueOf(sRun) + strOnArg;
         }
         sRun = String.valueOf(sRun) + sOrderBy + ";";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public ResultSet getDomain(String strAttrs, String strTables) {
         String sRun = "SELECT " + strAttrs + " FROM " + strTables + " GROUP BY " + strAttrs + ";";
-        return this.querySQL(sRun);
+        return querySQL(sRun);
     }
 
     public ArrayList<String> getImportedTable(String strTable) {
         ArrayList<String> ImportedTables = new ArrayList<String>();
         ResultSet rs = null;
-        ResultSet rstable = this.getTables();
+        ResultSet rstable = getTables();
         try {
             DatabaseMetaData metadata = connection.getMetaData();
             String strC = connection.getCatalog();
@@ -342,6 +351,8 @@ public class MySQL_Interface extends TempMathFunctions {
                     ImportedTables.add(tableIterated);
                 }
             }
+            
+            rstable.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -363,6 +374,8 @@ public class MySQL_Interface extends TempMathFunctions {
                 if (ImportedTables.containsKey(fkColumnName)) continue;
                 ImportedTables.put(fkColumnName, pkTableName);
             }
+            
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -381,6 +394,8 @@ public class MySQL_Interface extends TempMathFunctions {
                 if (exportedTables.contains(fkTableName)) continue;
                 exportedTables.add(fkTableName);
             }
+            
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -402,6 +417,7 @@ public class MySQL_Interface extends TempMathFunctions {
                 if (exportedTables.containsKey(pkColumnName)) continue;
                 exportedTables.put(pkColumnName, fkTableName);
             }
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -411,12 +427,12 @@ public class MySQL_Interface extends TempMathFunctions {
 
     public void deleteAllRows(String table) {
         String sRun = "DELETE FROM " + table + ";";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public void deleteSchema(String s) {
         String sRun = "DROP SCHEMA " + s + ";";
-        this.updateSQL(sRun);
+        updateSQL(sRun);
     }
 
     public int sizeOfPrimaryKeys(String table) {
@@ -428,7 +444,8 @@ public class MySQL_Interface extends TempMathFunctions {
             while (rs.next()) {
                 ++i;
             }
-            rs.beforeFirst();
+//            rs.beforeFirst();
+            rs.close();
             return i;
         }
         catch (SQLException e) {
@@ -441,9 +458,9 @@ public class MySQL_Interface extends TempMathFunctions {
         int i = 0;
         try {
             while (rs.next()) {
-                ++i;
-            }
-            rs.beforeFirst();
+            	++i;
+            } 
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -511,15 +528,16 @@ public class MySQL_Interface extends TempMathFunctions {
         }
         fw.flush();
         fw.close();
+        res.close();
         return strFile;
     }
 
-    public static int getRowCount(ResultSet res) throws SQLException {
-        res.last();
-        int numberOfRows = res.getRow();
-        res.beforeFirst();
-        return numberOfRows;
-    }
+//    public static int getRowCount(ResultSet res) throws SQLException {
+//        res.last();
+//        int numberOfRows = res.getRow();
+//        res.beforeFirst();
+//        return numberOfRows;
+//    }
 
     public static int getColumnCount(ResultSet res) throws SQLException {
         return res.getMetaData().getColumnCount();

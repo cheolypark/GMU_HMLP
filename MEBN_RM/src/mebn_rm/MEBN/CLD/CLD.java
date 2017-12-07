@@ -48,14 +48,14 @@ implements Comparable<CLD> {
     public ConditionalDataSet CD = new ConditionalDataSet();
 
     public CLD(String n, String c) {
-        this.name = n;
-        this.cld_type = c;
+        name = n;
+        cld_type = c;
     }
 
     public String toString() {
         String s = "[L [";
-        s = String.valueOf(s) + this.cld_type + "]: ";
-        s = String.valueOf(s) + this.name;
+        s = String.valueOf(s) + cld_type + "]: ";
+        s = String.valueOf(s) + name;
         s = String.valueOf(s) + "]\r\n";
         return s;
     }
@@ -64,20 +64,20 @@ implements Comparable<CLD> {
         String s = "";
         if (inclusions.contains("CLD")) {
         	
-        	if (this.cld_type.equalsIgnoreCase("Dirichlet")) {
+        	if (cld_type.equalsIgnoreCase("Dirichlet")) {
         		System.out.println("");
         	}
         	
             s = String.valueOf(s) + "[L [";
-            s = String.valueOf(s) + this.cld_type + "]: ";
-            s = String.valueOf(s) + this.name;
+            s = String.valueOf(s) + cld_type + "]: ";
+            s = String.valueOf(s) + name;
             s = String.valueOf(s) + "]";
         }
         return s;
     }
 
     public int getParameterSize() {
-        return this.parameterSize;
+        return parameterSize;
     }
 
     public String getILD() {
@@ -101,11 +101,11 @@ implements Comparable<CLD> {
     }
 
     public void addCategories(String c) {
-        if (this.arrayCategories == null) {
-            this.arrayCategories = new ArrayList<String>();
-            this.arrayCategories.add(c);
+        if (arrayCategories == null) {
+            arrayCategories = new ArrayList<String>();
+            arrayCategories.add(c);
         } else {
-            this.arrayCategories.add(c);
+            arrayCategories.add(c);
         }
     }
  
@@ -128,8 +128,8 @@ implements Comparable<CLD> {
 
     public Double getlogParaScore() {
         ArrayList<Double> logSCs = new ArrayList<Double>();
-        for (Parameter p : this.paraCANs.keySet()) {
-            Double logSC = this.paraCANs.get(p);
+        for (Parameter p : paraCANs.keySet()) {
+            Double logSC = paraCANs.get(p);
             logSCs.add(logSC);
             System.out.println(String.valueOf(p.toString()) + " Log Parameter scores : " + logSC);
         }
@@ -138,15 +138,15 @@ implements Comparable<CLD> {
 
     public Double getAvgLogParaScore() {
         Double logSC = 0.0;
-        for (Parameter p : this.paraCANs.keySet()) {
-            logSC = logSC + this.paraCANs.get(p);
+        for (Parameter p : paraCANs.keySet()) {
+            logSC = logSC + paraCANs.get(p);
         }
-        return logSC / (double)this.paraCANs.size();
+        return logSC / (double)paraCANs.size();
     }
 
     public void resetParaCANsPrior() {
-        for (Parameter para : this.paraCANs.keySet()) {
-            this.paraCANs.put(para, Math.log(1.0 / (double)this.paraCANs.size()));
+        for (Parameter para : paraCANs.keySet()) {
+            paraCANs.put(para, Math.log(1.0 / (double)paraCANs.size()));
         }
     }
 
@@ -163,29 +163,29 @@ implements Comparable<CLD> {
 
     public List<String> initIPCs(Graph hybridGraph) {  
     	
-        if (this.name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
+        if (name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
         {
         	System.out.println("QR_RESULT_COL_1");
         }
         
-        String strFile = String.valueOf(Resource.getCSVPath(this.mNode.mFrag.mTheory.name)) + this.mNode.mFrag.name + ".csv";
-        this.data = RDB.This().getTetDataSetFromCSV(strFile);
-        if (this.data.getNumRows() == 0) {
+        String strFile = String.valueOf(Resource.getCSVPath(mNode.mFrag.mTheory.name)) + mNode.mFrag.name + ".csv";
+        data = RDB.This().getTetDataSetFromCSV(strFile);
+        if (data.getNumRows() == 0) {
             return null;
         } 
         
-        Node child = this.data.getVariable(this.mNode.name);
+        Node child = data.getVariable(mNode.name);
         hybridGraph.addNode(child);
-        List<String> parents = this.mNode.getAllParentNames();
+        List<String> parents = mNode.getAllParentNames();
         if (parents != null) {
             for (String pr : parents) {
-                Node parent = this.data.getVariable(pr);
+                Node parent = data.getVariable(pr);
                 hybridGraph.addNode(parent);
                 hybridGraph.addDirectedEdge(parent, child);
             }
         }
-        this.selectedData = (ColtDataSet)this.data.subsetColumns(hybridGraph.getNodes());
-        return Tetrad_Util.getIPC(this.mNode, this.selectedData, this.mNode.name);
+        selectedData = (ColtDataSet)data.subsetColumns(hybridGraph.getNodes());
+        return Tetrad_Util.getIPC(mNode, selectedData, mNode.name);
     }
 
     public void save(String filename) {
@@ -194,7 +194,7 @@ implements Comparable<CLD> {
         try {
             fos = new FileOutputStream(filename);
             out = new ObjectOutputStream(fos);
-            out.writeObject(this.CD);
+            out.writeObject(CD);
             out.close();
             fos.close();
         }
@@ -209,7 +209,7 @@ implements Comparable<CLD> {
         try {
             fis = new FileInputStream(filename);
             in = new ObjectInputStream(fis);
-            this.CD = (ConditionalDataSet)in.readObject();
+            CD = (ConditionalDataSet)in.readObject();
             in.close();
             fis.close();
         }

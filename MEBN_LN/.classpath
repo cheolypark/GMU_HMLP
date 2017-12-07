@@ -17,7 +17,6 @@
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/jdepend-2.9.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/mysql-connector-java-3.0.17-ga-bin.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/opencsv.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/reflections-0.9.10.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/slf4j-api-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/slf4j-log4j12-1.7.25.jar"/>
@@ -25,5 +24,6 @@
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/xom-1.2.10.jar"/>
 	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/tetrad-development2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pcyoung/git/GMU_HMLP/ModelerLib/lib/opencsv.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

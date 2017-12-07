@@ -10,8 +10,7 @@
  *  mebn_rm.util.TempMathFunctions
  */
 package mebn_ln.converter;
-
-import au.com.bytecode.opencsv.CSVReader;
+ 
 import edu.cmu.tetrad.data.ColtDataSet;
 import edu.cmu.tetrad.data.ContinuousVariable;
 import edu.cmu.tetrad.data.DiscreteVariable;
@@ -24,7 +23,9 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.List;
+
+import au.com.bytecode.opencsv.CSVReader; 
 
 public class ConverterColtDataSet {
     public static ColtDataSet getTetDataSetFromCSV(String fCSV) {

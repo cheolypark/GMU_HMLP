@@ -11,8 +11,7 @@
  *  org.apache.commons.collections.MultiMap
  */
 package mebn_rm.RDB;
-
-import au.com.bytecode.opencsv.CSVReader;
+ 
 import edu.cmu.tetrad.data.ColtDataSet;
 import edu.cmu.tetrad.data.ContinuousVariable;
 import edu.cmu.tetrad.data.DiscreteVariable;
@@ -32,7 +31,10 @@ import mebn_rm.RDB.Bin;
 import mebn_rm.RDB.MySQL_Interface;
 import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.collections.MultiMap;
-
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+ 
 public class RDB extends MySQL_Interface {
 	
     public MultiMap mapTableAndKeys = new MultiHashMap();
@@ -52,80 +54,81 @@ public class RDB extends MySQL_Interface {
     }
 
     public void init(String schema) throws SQLException {
-        this.mapTableAndKeys.clear();
-        this.mapTableAndAttributes.clear();
-        this.mapTableTypesAndTables.clear();
-        this.mapChains.clear();
-        this.mapChainsOfChains.clear();
-        this.mapDomainVaules.clear();
-        this.mapKeysOrigins.clear();
-        this.mapAttributeTypes.clear();
-        this.mapAttributeBins.clear();
-        this.connectSchema(schema);
-        ResultSet rs = this.getTables();
+        mapTableAndKeys.clear();
+        mapTableAndAttributes.clear();
+        mapTableTypesAndTables.clear();
+        mapChains.clear();
+        mapChainsOfChains.clear();
+        mapDomainVaules.clear();
+        mapKeysOrigins.clear();
+        mapAttributeTypes.clear();
+        mapAttributeBins.clear();
+        connectSchema(schema);
+        ResultSet rs = getTables();
         Integer tableIndex = 1;
-        try {
-            rs.beforeFirst();
+        try { 
             while (rs.next()) {
                 String tableName = rs.getString(3);
                 Integer n = tableIndex;
                 tableIndex = n + 1;
-                this.initializeTableInformation(n, tableName);
+                initializeTableInformation(n, tableName);
             }
+            rs.close();
         }
+        
         catch (SQLException e) {
             e.printStackTrace();
         }
-        this.initializePrimaryKeys();
-        this.initializeAttributes();
+        initializePrimaryKeys();
+        initializeAttributes();
     }
 
     public void initializeChains() {
-        List<String> tables = (List)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        List<String> tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
         if (tables != null) {
             for (String t : tables) {
-                this.searchChains(t);
+                searchChains(t);
             }
         }
     }
 
     public void initializeTableInformation(Integer index, String table) {
-        ResultSet attributes = this.getColumn(table);
-        int sizeAttributes = this.sizeOfPrimaryKeys(table);
+        ResultSet attributes = getColumn(table);
+        int sizeAttributes = sizeOfPrimaryKeys(table);
         if (sizeAttributes == 1) {
-            this.addTableTypesAndTables("EntityTable", table);
+            addTableTypesAndTables("EntityTable", table);
             System.out.println(index + ". Found an entity table [" + table + "]");
         } else {
-            this.addTableTypesAndTables("RelationshipTable", table);
+            addTableTypesAndTables("RelationshipTable", table);
             System.out.println(index + ". Found an relationship table [" + table + "]");
         }
     }
 
     public void initializePrimaryKeys() {
-        List<String> tables = (List)this.mapTableTypesAndTables.get((Object)"EntityTable");
+        List<String> tables = (List)mapTableTypesAndTables.get((Object)"EntityTable");
         for (String t2 : tables) {
-            ArrayList<String> keys = this.getPrimaryKeysToArray(t2);
+            ArrayList<String> keys = getPrimaryKeysToArray(t2);
             for (String key : keys) {
-                this.addTableAndKeys(t2, key, t2);
+                addTableAndKeys(t2, key, t2);
             }
         }
-        tables = (List)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
         if (tables != null) {
             for (String t2 : tables) {
-                Map<String, String> importedColumns = this.getImportedColumn(t2);
+                Map<String, String> importedColumns = getImportedColumn(t2);
                 for (String importedColumn : importedColumns.keySet()) {
                     String fkTable = importedColumns.get(importedColumn);
-                    this.addTableAndKeys(t2, importedColumn, fkTable);
+                    addTableAndKeys(t2, importedColumn, fkTable);
                 }
             }
         }
-        for (Object k : this.mapChains.keySet()) {
-            List<String> chains = (List)this.mapChainsOfChains.get(k);
+        for (Object k : mapChains.keySet()) {
+            List<String> chains = (List)mapChainsOfChains.get(k);
             for (String t3 : chains) {
-                Map<String, String> importedColumns = this.getImportedColumn(t3);
+                Map<String, String> importedColumns = getImportedColumn(t3);
                 for (String importedColumn : importedColumns.keySet()) {
                     String fkTable = importedColumns.get(importedColumn);
-                    this.addTableAndKeys((String)k, importedColumn, fkTable);
+                    addTableAndKeys((String)k, importedColumn, fkTable);
                 }
             }
         }
@@ -136,71 +139,76 @@ public class RDB extends MySQL_Interface {
         List Keys;
         ResultSet rs;
         String attrType;
-        List<String> tables = (List)this.mapTableTypesAndTables.get((Object)"EntityTable");
+        List<String> tables = (List)mapTableTypesAndTables.get((Object)"EntityTable");
         for (String t2 : tables) {
-            rs = this.getColumn(t2);
+            rs = getColumn(t2);
             try {
                 while (rs.next()) {
                     attrName = rs.getString("COLUMN_NAME");
                     attrType = rs.getString("TYPE_NAME");
-                    Keys = (List)this.mapTableAndKeys.get((Object)t2);
+                    Keys = (List)mapTableAndKeys.get((Object)t2);
                     if (Keys.contains(attrName)) continue;
-                    this.addTableAndAttributes(t2, attrName, attrType);
+                    addTableAndAttributes(t2, attrName, attrType);
                 }
+                rs.close();
             }
             catch (SQLException e) {
                 e.printStackTrace();
             }
-            this.createValueDomain(t2);
+            createValueDomain(t2);
         }
-        tables = (List)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
         if (tables == null) {
             return;
         }
         for (String t2 : tables) {
-            rs = this.getColumn(t2);
+            rs = getColumn(t2);
             try {
                 while (rs.next()) {
                     attrName = rs.getString("COLUMN_NAME");
                     attrType = rs.getString("TYPE_NAME");
-                    Keys = (List)this.mapTableAndKeys.get((Object)t2);
+                    Keys = (List)mapTableAndKeys.get((Object)t2);
                     if (Keys.contains(attrName)) continue;
-                    this.addTableAndAttributes(t2, attrName, attrType);
+                    addTableAndAttributes(t2, attrName, attrType);
                 }
+                rs.close();
             }
             catch (SQLException e) {
                 e.printStackTrace();
             }
-            this.createValueDomain(t2);
+            createValueDomain(t2);
         }
-        this.printClassInfo();
+        printClassInfo();
     }
 
     public void createValueDomain(String t) throws SQLException {
-        List<String> attrs = (List)this.mapTableAndAttributes.get((Object)t);
+        List<String> attrs = (List)mapTableAndAttributes.get((Object)t);
         if (attrs != null) {
             for (String attr : attrs) {
-                String attrType = this.mapAttributeTypes.get(attr);
+                String attrType = mapAttributeTypes.get(attr);
                 
-                // If continuous variables
-                if (this.isRealValueType(attrType)) {
-                    this.createBins(attr, t);
+                // 1. If continuous variables
+                if (isRealValueType(attrType)) {
+                    createBins(attr, t);
                     continue;
                 }
                 
-                // If discrete variables
-                ResultSet rs = this.getDomain(attr, t);
-                if (rs.first()) {
-                    while (rs.next()) {
-                        String d = rs.getString(attr);
-                        this.setDomainVaule(attr, d);
-                    }
-                    continue;
+                // 2. If discrete variables, add domain values (i.g., states) 
+                ResultSet rs = getDomain(attr, t);
+                boolean b = false;
+                while (rs.next()) {
+                    String d = rs.getString(attr);
+                    setDomainVaule(attr, d);
+                    b = true;
                 }
                 
-                // If all of the above are not                 
-                this.setDomainVaule(attr, "True");
-                this.setDomainVaule(attr, "False");
+                rs.close();
+                
+                if (b) continue;
+                 
+                // 3. If all of the above are not                 
+                setDomainVaule(attr, "True");
+                setDomainVaule(attr, "False");
             }
         }
     }
@@ -215,17 +223,18 @@ public class RDB extends MySQL_Interface {
     public void createBins(String attr, String table) throws SQLException {
         Double min = Double.MAX_VALUE;
         Double max = Double.MIN_VALUE;
-        ResultSet rs = this.getDomain(attr, table);
+        ResultSet rs = getDomain(attr, table);
         while (rs.next()) {
             String d = rs.getString(attr);
             Double cur = Double.valueOf(d);
             min = Math.min(cur, min);
             max = Math.max(cur, max);
         }
+        rs.close();
         Bin bin = new Bin(min, max);
-        this.mapAttributeBins.put(attr, bin);
+        mapAttributeBins.put(attr, bin);
         for (String strBin : bin.getAllBins()) {
-            this.setDomainVaule(attr, strBin);
+            setDomainVaule(attr, strBin);
         }
     }
 
@@ -234,10 +243,10 @@ public class RDB extends MySQL_Interface {
         if (d == null || RDB.isNum(d)) {
             return;
         }
-        List<String> domains = this.mapDomainVaules.get(attr);
+        List<String> domains = mapDomainVaules.get(attr);
         if (domains == null) {
             domains = new ArrayList<String>();
-            this.mapDomainVaules.put(attr, domains);
+            mapDomainVaules.put(attr, domains);
         }
         if (!domains.contains(d)) {
             domains.add(d);
@@ -245,51 +254,51 @@ public class RDB extends MySQL_Interface {
     }
 
     public int getDomainIndex(String attr, String value) {
-        List<String> domains = this.mapDomainVaules.get(attr);
-        String attrType = this.mapAttributeTypes.get(attr);
-        if (this.isRealValueType(attrType)) {
+        List<String> domains = mapDomainVaules.get(attr);
+        String attrType = mapAttributeTypes.get(attr);
+        if (isRealValueType(attrType)) {
             String checkerNumOrBin = value.substring(0, 1);
             if (checkerNumOrBin.equals("_")) {
                 return domains.indexOf(value);
             }
-            Bin b = this.mapAttributeBins.get(attr);
+            Bin b = mapAttributeBins.get(attr);
             return b.getIndex(Double.valueOf(value));
         }
         return domains.indexOf(value);
     }
 
     public String getDomainValue(String attr, int index) {
-        List<String> domains = this.mapDomainVaules.get(attr);
+        List<String> domains = mapDomainVaules.get(attr);
         return domains.get(index);
     }
 
     public void searchChains(String targetTable) {
-        for (Object key : this.mapChains.keySet()) {
+        for (Object key : mapChains.keySet()) {
             if (targetTable.equalsIgnoreCase((String)key)) {
                 return;
             }
-            List tables = (List)this.mapChains.get(key);
+            List tables = (List)mapChains.get(key);
             if (tables == null || !tables.contains(targetTable)) continue;
             return;
         }
-        List<String> tables = (List)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        List<String> tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
         for (String t : tables) {
             boolean b;
             ArrayList<String> excepts;
-            if (targetTable.equalsIgnoreCase(t) || !(b = this.IsConnectedOdd(t, targetTable, excepts = new ArrayList<String>()))) continue;
+            if (targetTable.equalsIgnoreCase(t) || !(b = IsConnectedOdd(t, targetTable, excepts = new ArrayList<String>()))) continue;
             ArrayList<String> chains = new ArrayList<String>();
             chains.add(targetTable);
             for (String connectedTable : excepts) {
                 if (chains.contains(connectedTable)) continue;
                 chains.add(connectedTable);
             }
-            ArrayList<String> importedTables = this.getImportedTable(targetTable);
+            ArrayList<String> importedTables = getImportedTable(targetTable);
             for (String importedTable : importedTables) {
                 if (chains.contains(importedTable)) continue;
                 chains.add(importedTable);
             }
             String key2 = String.valueOf(targetTable) + "_" + t;
-            this.addChains(key2, chains, targetTable, t);
+            addChains(key2, chains, targetTable, t);
             System.out.println("Chains: " + key2 + " " + chains);
         }
     }
@@ -299,7 +308,7 @@ public class RDB extends MySQL_Interface {
             excepts.add(t);
         }
         boolean b = false;
-        ArrayList<String> importedTables = this.getImportedTable(t);
+        ArrayList<String> importedTables = getImportedTable(t);
         for (String importedTable : importedTables) {
             if (targetTable.equalsIgnoreCase(importedTable)) {
                 return true;
@@ -307,7 +316,7 @@ public class RDB extends MySQL_Interface {
             if (excepts.contains(importedTable)) {
                 return false;
             }
-            b = this.IsConnectedEven(importedTable, targetTable, excepts);
+            b = IsConnectedEven(importedTable, targetTable, excepts);
             if (!b) continue;
             return true;
         }
@@ -319,7 +328,7 @@ public class RDB extends MySQL_Interface {
             excepts.add(t);
         }
         boolean b = false;
-        ArrayList<String> exportedTables = this.getExportedTable(t);
+        ArrayList<String> exportedTables = getExportedTable(t);
         for (String exportedTable : exportedTables) {
             if (targetTable.equalsIgnoreCase(exportedTable)) {
                 return true;
@@ -327,7 +336,7 @@ public class RDB extends MySQL_Interface {
             if (excepts.contains(exportedTable)) {
                 return false;
             }
-            b = this.IsConnectedOdd(exportedTable, targetTable, excepts);
+            b = IsConnectedOdd(exportedTable, targetTable, excepts);
             if (!b) continue;
             return true;
         }
@@ -335,26 +344,26 @@ public class RDB extends MySQL_Interface {
     }
 
     public void addTableAndKeys(String t, String k, String ori) {
-        ArrayList v = (ArrayList)this.mapTableAndKeys.get((Object)t);
+        ArrayList v = (ArrayList)mapTableAndKeys.get((Object)t);
         if (v == null) {
-            this.mapTableAndKeys.put((Object)t, (Object)k);
+            mapTableAndKeys.put((Object)t, (Object)k);
         } else if (!v.contains(k)) {
-            this.mapTableAndKeys.put((Object)t, (Object)k);
+            mapTableAndKeys.put((Object)t, (Object)k);
         }
-        this.mapKeysOrigins.put(k, ori);
+        mapKeysOrigins.put(k, ori);
     }
 
     public void addTableAndAttributes(String table, String attribute, String attributeType) {
-        this.mapTableAndAttributes.put((Object)table, (Object)attribute);
-        this.mapAttributeTypes.put(attribute, attributeType);
+        mapTableAndAttributes.put((Object)table, (Object)attribute);
+        mapAttributeTypes.put(attribute, attributeType);
     }
 
     public void addTableTypesAndTables(String t, String b) {
-        this.mapTableTypesAndTables.put((Object)t, (Object)b);
+        mapTableTypesAndTables.put((Object)t, (Object)b);
     }
 
     public boolean isEntityTable(String b) {
-        ArrayList tables = (ArrayList)this.mapTableTypesAndTables.get((Object)"EntityTable");
+        ArrayList tables = (ArrayList)mapTableTypesAndTables.get((Object)"EntityTable");
         if (tables.contains(b)) {
             return true;
         }
@@ -362,7 +371,7 @@ public class RDB extends MySQL_Interface {
     }
 
     public boolean isRelationshipTable(String b) {
-        ArrayList tables = (ArrayList)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        ArrayList tables = (ArrayList)mapTableTypesAndTables.get((Object)"RelationshipTable");
         if (tables.contains(b)) {
             return true;
         }
@@ -371,25 +380,25 @@ public class RDB extends MySQL_Interface {
 
     public void addChains(String nkey, List<String> tables, String c1, String c2) {
         for (String s : tables) {
-            this.mapChains.put((Object)nkey, (Object)s);
+            mapChains.put((Object)nkey, (Object)s);
         }
-        this.mapChainsOfChains.put((Object)nkey, (Object)c1);
-        this.mapChainsOfChains.put((Object)nkey, (Object)c2);
+        mapChainsOfChains.put((Object)nkey, (Object)c1);
+        mapChainsOfChains.put((Object)nkey, (Object)c2);
     }
 
     public ArrayList<String> getEntityTables() {
-        return (ArrayList)this.mapTableTypesAndTables.get((Object)"EntityTable");
+        return (ArrayList)mapTableTypesAndTables.get((Object)"EntityTable");
     }
 
     public ArrayList<String> getRelationshipTables() {
-        return (ArrayList)this.mapTableTypesAndTables.get((Object)"RelationshipTable");
+        return (ArrayList)mapTableTypesAndTables.get((Object)"RelationshipTable");
     }
 
     public ArrayList<String> getEntityTablesHavingAttrs() {
-        ArrayList<String> list = (ArrayList)this.mapTableTypesAndTables.get((Object)"EntityTable");
+        ArrayList<String> list = (ArrayList)mapTableTypesAndTables.get((Object)"EntityTable");
         ArrayList<String> re = new ArrayList<String>();
         for (String t : list) {
-            ArrayList attrs = (ArrayList)this.mapTableAndAttributes.get((Object)t);
+            ArrayList attrs = (ArrayList)mapTableAndAttributes.get((Object)t);
             if (attrs == null) continue;
             re.add(t);
         }
@@ -397,34 +406,40 @@ public class RDB extends MySQL_Interface {
     }
 
     public ColtDataSet getRowDataSet(ArrayList<String> attrs, String strTables) throws SQLException {
-        String strAttrs = this.trimArrayString(attrs);
-        ResultSet rs = this.get(strAttrs, strTables);
-        return this.getDataSet(rs, attrs);
+        String strAttrs = trimArrayString(attrs);
+        ResultSet rs = get(strAttrs, strTables);
+        int sizeRow = sizeOfResultSet(rs);
+        rs = get(strAttrs, strTables);
+        
+        return getDataSet(sizeRow, rs, attrs);
     }
 
     public ColtDataSet getNatualJoinedDataSet(ArrayList<String> importedTables, String strTables) throws SQLException {
-        ResultSet rs = this.getNaturalJoin(importedTables, strTables);
+        ResultSet rs = getNaturalJoin(importedTables, strTables);
+        int sizeRow = sizeOfResultSet(rs);
+        rs = getNaturalJoin(importedTables, strTables);
+        
         ArrayList<String> attrs = new ArrayList<String>();
         ArrayList<String> vars = null;
-        vars = (ArrayList)this.mapTableAndAttributes.get((Object)strTables);
+        vars = (ArrayList)mapTableAndAttributes.get((Object)strTables);
         if (vars != null) {
             for (String v : vars) {
                 attrs.add(v);
             }
         }
         for (String importedTable : importedTables) {
-            vars = (ArrayList)this.mapTableAndAttributes.get((Object)importedTable);
+            vars = (ArrayList)mapTableAndAttributes.get((Object)importedTable);
             if (vars == null) continue;
             for (String v : vars) {
                 attrs.add(v);
             }
         }
-        return this.getDataSet(rs, attrs);
+        return getDataSet(sizeRow, rs, attrs);
     }
 
     public ColtDataSet getConditionedJoinedDataSet(List<String> importedTables, String strTable) throws SQLException {
         String strOnArg = "";
-        Map<String, String> importedColumns = this.getImportedColumn(strTable);
+        Map<String, String> importedColumns = getImportedColumn(strTable);
         if (importedColumns.size() > 0) {
             strOnArg = String.valueOf(strOnArg) + " on ";
         }
@@ -436,93 +451,206 @@ public class RDB extends MySQL_Interface {
             }
             ++j;
             strOnArg = String.valueOf(strOnArg) + strTable + "." + importedColumn;
-            Map<String, String> exportedColumns = this.getExportedColumn(importedT);
+            Map<String, String> exportedColumns = getExportedColumn(importedT);
             for (String exportedColumn : exportedColumns.keySet()) {
                 strOnArg = String.valueOf(strOnArg) + " = " + importedT + "." + exportedColumn;
             }
         }
-        ResultSet rs = this.getJoin(null, null, null, null, null);
+        
+        ResultSet rs = getJoin(null, null, null, null, null);
+        int sizeRow = sizeOfResultSet(rs);
+        rs = getJoin(null, null, null, null, null);
+        		
         ArrayList<String> attrs = new ArrayList<String>();
         List<String> vars = null;
-        vars = (List)this.mapTableAndAttributes.get((Object)strTable);
+        vars = (List)mapTableAndAttributes.get((Object)strTable);
         if (vars != null) {
             for (String v : vars) {
                 attrs.add(v);
             }
         }
         for (String importedTable : importedTables) {
-            vars = (ArrayList)this.mapTableAndAttributes.get((Object)importedTable);
+            vars = (ArrayList)mapTableAndAttributes.get((Object)importedTable);
             if (vars == null) continue;
             for (String v : vars) {
                 attrs.add(v);
             }
         }
-        return this.getDataSet(rs, attrs);
+        return getDataSet(sizeRow, rs, attrs);
     }
 
     public ColtDataSet getTetDataSetFromCSV(String fCSV) {
         List<Node> nodes = new ArrayList<Node>();
         ColtDataSet dataset = null;
-        CSVReader reader = null;
-        FileReader fr = null;
-        try {
-            fr = new FileReader(fCSV);
-            reader = new CSVReader((Reader)fr);
-        }
-        catch (FileNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        HashMap<Integer, String> mapHeader = new HashMap<Integer, String>();
-        try {
-            int i = 0;
-            List<String[]> list = reader.readAll();
-            for (String[] nextLine : list) {
-                int j;
-                int rowSize;
-                if (i == 0) {
-                    j = 0;
-                    while (j < nextLine.length) {
-                        String str = nextLine[j];
-                        mapHeader.put(j, str);
-                        ++j;
-                    }
-                    rowSize = list.size();
-                    dataset = new ColtDataSet(rowSize - 1, nodes);
-                } else {
-                    if (i == 1) {
-                        j = 0;
-                        while (j < nextLine.length) {
-                           
-                            if (RDB.isNum(nextLine[j])) {
-                            	ContinuousVariable gn;
-                                gn = new ContinuousVariable((String)mapHeader.get(j));
-                                nodes.add(gn);
-                            } else {
-                            	DiscreteVariable gn;
-                                gn = new DiscreteVariable((String)mapHeader.get(j));
-                                nodes.add(gn);
-                            }
-                            ++j;
-                        }
-                        rowSize = list.size();
-                        dataset = new ColtDataSet(rowSize - 1, nodes);
-                    }
-                    j = 0;
-                    while (j < nextLine.length) {
-                        long timeTotal = System.nanoTime();
-                        dataset.setObject(i - 1, j, (Object)nextLine[j]);
-                        Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
-                        ++j;
-                    }
-                }
-                ++i;
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+                
+        System.gc();
+          
+		try {
+			Iterable<CSVRecord> records;
+			
+			boolean b = false;
+			boolean b2 = false;
+			CSVParser Parser;
+			
+			records = CSVFormat.RFC4180.parse(new FileReader(fCSV));
+
+			int rowSize = 0;
+			for (CSVRecord record : records) {
+				rowSize++;
+			}
+			
+			records = CSVFormat.RFC4180.parse(new FileReader(fCSV));
+			
+			HashMap<Integer, String> mapHeader = new HashMap<Integer, String>();
+			int i = 0; 
+			for (CSVRecord record : records) {
+				// Headers
+				if (!b) {
+					b = true;
+					for (int j = 0; j < record.size(); j++) {
+						String column = record.get(j);
+						if (!column.isEmpty()) {
+							System.out.println(column);
+							mapHeader.put(j, column);
+						}
+					}
+					
+//					dataset = new ColtDataSet(records..size() - 1, nodes); 
+				} 				
+				// Data 
+				else {
+					if (!b2) {
+						b2 = true;
+						for (int j = 0; j < record.size(); j++) {
+							String column = record.get(j);
+							if (!column.isEmpty()) {
+							    if (RDB.isNum(column)) {
+		                        	ContinuousVariable gn;
+		                            gn = new ContinuousVariable((String)mapHeader.get(j));
+		                            nodes.add(gn);
+		                        } else {
+		                        	DiscreteVariable gn;
+		                            gn = new DiscreteVariable((String)mapHeader.get(j));
+		                            nodes.add(gn);
+		                        }
+							}								
+						}
+						
+	                    dataset = new ColtDataSet(rowSize - 1, nodes);
+					}
+					
+					
+					for (int j = 0; j < record.size(); j++) {
+						String column = record.get(j);
+						if (!column.isEmpty()) {
+//					        long timeTotal = System.nanoTime();
+					        dataset.setObject(i - 1, j, (Object)column);
+//		                    Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
+						}
+					}
+				}
+				
+				i++;
+			} 
+		} catch (FileNotFoundException e) { 
+			e.printStackTrace();
+		} catch (IOException e) { 
+			e.printStackTrace();
+		}
+        
+         
+//        HashMap<Integer, String> mapHeader = new HashMap<Integer, String>();
+//     
+//        int i = 0; 
+//        for (String[] nextLine : list) {
+//            int j;
+//            int rowSize;
+//            if (i == 0) {
+//                j = 0;
+//                while (j < nextLine.length) {
+//                    String str = nextLine[j];
+//                    mapHeader.put(j, str);
+//                    ++j;
+//                }
+//                rowSize = list.size();
+//                dataset = new ColtDataSet(rowSize - 1, nodes);
+//            } else {
+//                if (i == 1) {
+//                    j = 0;
+//                    while (j < nextLine.length) {
+//                       
+//                        if (RDB.isNum(nextLine[j])) {
+//                        	ContinuousVariable gn;
+//                            gn = new ContinuousVariable((String)mapHeader.get(j));
+//                            nodes.add(gn);
+//                        } else {
+//                        	DiscreteVariable gn;
+//                            gn = new DiscreteVariable((String)mapHeader.get(j));
+//                            nodes.add(gn);
+//                        }
+//                        ++j;
+//                    }
+//                    rowSize = list.size();
+//                    dataset = new ColtDataSet(rowSize - 1, nodes);
+//                }
+//                j = 0;
+//                while (j < nextLine.length) {
+//                    long timeTotal = System.nanoTime();
+//                    dataset.setObject(i - 1, j, (Object)nextLine[j]);
+//                    Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
+//                    ++j;
+//                }
+//            }
+//            ++i;
+//        }
+   
         return dataset;
     }
+    
+    
+//    int i = 0;
+////  List<String[]> list = reader.readAll();
+//   for (String[] nextLine : list) {
+//       int j;
+//       int rowSize;
+//       if (i == 0) {
+//           j = 0;
+//           while (j < nextLine.length) {
+//               String str = nextLine[j];
+//               mapHeader.put(j, str);
+//               ++j;
+//           }
+//           rowSize = list.size();
+//           dataset = new ColtDataSet(rowSize - 1, nodes);
+//       } else {
+//           if (i == 1) {
+//               j = 0;
+//               while (j < nextLine.length) {
+//                  
+//                   if (RDB.isNum(nextLine[j])) {
+//                   	ContinuousVariable gn;
+//                       gn = new ContinuousVariable((String)mapHeader.get(j));
+//                       nodes.add(gn);
+//                   } else {
+//                   	DiscreteVariable gn;
+//                       gn = new DiscreteVariable((String)mapHeader.get(j));
+//                       nodes.add(gn);
+//                   }
+//                   ++j;
+//               }
+//               rowSize = list.size();
+//               dataset = new ColtDataSet(rowSize - 1, nodes);
+//           }
+//           j = 0;
+//           while (j < nextLine.length) {
+//               long timeTotal = System.nanoTime();
+//               dataset.setObject(i - 1, j, (Object)nextLine[j]);
+//               Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
+//               ++j;
+//           }
+//       }
+//       ++i;
+//   }
 
     public String checkPreT2(String strTableC) {
         String ret = strTableC;
@@ -558,13 +686,13 @@ public class RDB extends MySQL_Interface {
         ArrayList<String> repeatedT = new ArrayList<String>();
         for (String strTable : tablesAll) {
             repeatedT.add(strTable);
-            importedColumns = this.getImportedColumn(strTable);
+            importedColumns = getImportedColumn(strTable);
             for (String importedColumn : importedColumns.keySet()) {
                 importedT = importedColumns.get(importedColumn);
                 for (String strTableC : tablesAll) {
-                    if (repeatedT.contains(strTableC) || !this.checkPreT(strTableC, importedColumn).booleanValue()) continue;
-                    String strTableC_fillterd = this.checkPreT2(strTableC);
-                    Map<String, String> importedColumnsC = this.getImportedColumn(strTableC_fillterd);
+                    if (repeatedT.contains(strTableC) || !checkPreT(strTableC, importedColumn).booleanValue()) continue;
+                    String strTableC_fillterd = checkPreT2(strTableC);
+                    Map<String, String> importedColumnsC = getImportedColumn(strTableC_fillterd);
                     for (String importedColumnC : importedColumnsC.keySet()) {
                         String importedTC = importedColumnsC.get(importedColumnC);
                         System.out.println(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
@@ -585,7 +713,7 @@ public class RDB extends MySQL_Interface {
             for (String strTableC : prevTables) {
                 strOnArg = String.valueOf(strOnArg) + " && \n";
                 strOnArg = String.valueOf(strOnArg) + "predecessor.pret = pre_" + strTableC + ".t" + "\n";
-                importedColumns = this.getImportedColumn(strTableC);
+                importedColumns = getImportedColumn(strTableC);
                 for (String importedColumn : importedColumns.keySet()) {
                     importedT = importedColumns.get(importedColumn);
                     if (importedT.equalsIgnoreCase("Time")) continue;
@@ -594,7 +722,7 @@ public class RDB extends MySQL_Interface {
                 }
             }
         }
-        ResultSet rs = this.getJoin(curTable, tablesTarget, tablesAll, prevTables, strOnArg);
+        ResultSet rs = getJoin(curTable, tablesTarget, tablesAll, prevTables, strOnArg);
         return rs;
     }
 
@@ -606,13 +734,13 @@ public class RDB extends MySQL_Interface {
         ArrayList<String> repeatedT = new ArrayList<String>();
         for (String strTable : tablesAll) {
             repeatedT.add(strTable);
-            importedColumns = this.getImportedColumn(strTable);
+            importedColumns = getImportedColumn(strTable);
             for (String importedColumn : importedColumns.keySet()) {
                 importedT = importedColumns.get(importedColumn);
                 for (String strTableC : tablesAll) {
-                    if (repeatedT.contains(strTableC) || !this.checkPreT(strTableC, importedColumn).booleanValue()) continue;
-                    String strTableC_fillterd = this.checkPreT2(strTableC);
-                    Map<String, String> importedColumnsC = this.getImportedColumn(strTableC_fillterd);
+                    if (repeatedT.contains(strTableC) || !checkPreT(strTableC, importedColumn).booleanValue()) continue;
+                    String strTableC_fillterd = checkPreT2(strTableC);
+                    Map<String, String> importedColumnsC = getImportedColumn(strTableC_fillterd);
                     for (String importedColumnC : importedColumnsC.keySet()) {
                         String importedTC = importedColumnsC.get(importedColumnC);
                         System.out.println(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
@@ -633,7 +761,7 @@ public class RDB extends MySQL_Interface {
             for (String strTableC : prevTables) {
                 strOnArg = String.valueOf(strOnArg) + " && \n";
                 strOnArg = String.valueOf(strOnArg) + "predecessor.pret = pre_" + strTableC + ".t" + "\n";
-                importedColumns = this.getImportedColumn(strTableC);
+                importedColumns = getImportedColumn(strTableC);
                 for (String importedColumn : importedColumns.keySet()) {
                     importedT = importedColumns.get(importedColumn);
                     if (importedT.equalsIgnoreCase("Time")) continue;
@@ -642,7 +770,7 @@ public class RDB extends MySQL_Interface {
                 }
             }
         }
-        ResultSet rs = this.getJoin(curTable, tablesTarget, tablesAll, prevTables, strOnArg);
+        ResultSet rs = getJoin(curTable, tablesTarget, tablesAll, prevTables, strOnArg);
         return rs;
     }
 
@@ -656,10 +784,10 @@ public class RDB extends MySQL_Interface {
             return;
         }
         Node curNode = nodes.get(nodeIndex++);
-        List<String> listDomain = this.mapDomainVaules.get(curNode.getName());
+        List<String> listDomain = mapDomainVaules.get(curNode.getName());
         for (String domain : listDomain) {
             tempList.add(domain);
-            this.createDefaultPriorDataset(nodes, nodeIndex, tempList, result);
+            createDefaultPriorDataset(nodes, nodeIndex, tempList, result);
             tempList.remove(nodeIndex - 1);
         }
     }
@@ -674,12 +802,12 @@ public class RDB extends MySQL_Interface {
         }
         ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
         ArrayList<String> tempList = new ArrayList<String>();
-        this.createDefaultPriorDataset(nodes, 0, tempList, result);
-        dataset = new ColtDataSet(this.sizeOfResultSet(rs) + result.size(), nodes);
+        createDefaultPriorDataset(nodes, 0, tempList, result);
+        dataset = new ColtDataSet(sizeOfResultSet(rs) + result.size(), nodes);
         for (ArrayList<String> dataRow : result) {
             int j = 0;
             for (String aData : dataRow) {
-                dataset.setObject(i, j, (Object)this.getDomainIndex(nodes.get(j).getName(), aData));
+                dataset.setObject(i, j, (Object)getDomainIndex(nodes.get(j).getName(), aData));
                 ++j;
             }
             ++i;
@@ -688,11 +816,13 @@ public class RDB extends MySQL_Interface {
             while (rs.next()) {
                 int j = 0;
                 for (String attr : attrs) {
-                    dataset.setObject(i, j, (Object)this.getDomainIndex(attr, rs.getString(attr)));
+                    dataset.setObject(i, j, (Object)getDomainIndex(attr, rs.getString(attr)));
                     ++j;
                 }
                 ++i;
             }
+            
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -700,7 +830,7 @@ public class RDB extends MySQL_Interface {
         return dataset;
     }
 
-    public ColtDataSet getDataSet(ResultSet rs, List<String> attrs) {
+    public ColtDataSet getDataSet(int sizeRow, ResultSet rs, List<String> attrs) {
         ArrayList<Node> nodes = new ArrayList<Node>();
         ColtDataSet dataset = null;
         int i = 0;
@@ -708,22 +838,19 @@ public class RDB extends MySQL_Interface {
             DiscreteVariable gn = new DiscreteVariable(s);
             nodes.add(gn);
         }
-        dataset = new ColtDataSet(this.sizeOfResultSet(rs), nodes);
+        dataset = new ColtDataSet(sizeRow, nodes);
         try {
             while (rs.next()) {
                 int j = 0;
                 for (String attr : attrs) {
-                    if (attr.equalsIgnoreCase("turnrate")) {
-                        int a = 0;
-                        ++a;
-                        this.getDomainIndex(attr, "7.62954");
-                    }
-                    System.out.println(String.valueOf(attr) + " " + rs.getString(attr) + " " + " " + this.getDomainIndex(attr, rs.getString(attr)));
-                    dataset.setObject(i, j, (Object)this.getDomainIndex(attr, rs.getString(attr)));
+                    System.out.println(String.valueOf(attr) + " " + rs.getString(attr) + " " + " " + getDomainIndex(attr, rs.getString(attr)));
+                    dataset.setObject(i, j, (Object)getDomainIndex(attr, rs.getString(attr)));
                     ++j;
                 }
                 ++i;
             }
+            
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -734,34 +861,34 @@ public class RDB extends MySQL_Interface {
     public void printClassInfo() {
         Object a;
         System.out.println("Tables' Types");
-        for (Object o22222 : this.mapTableTypesAndTables.keySet()) {
-            a = (ArrayList)this.mapTableTypesAndTables.get(o22222);
+        for (Object o22222 : mapTableTypesAndTables.keySet()) {
+            a = (ArrayList)mapTableTypesAndTables.get(o22222);
             System.out.println("\t" + o22222 + ":" + a);
         }
         System.out.println("Tables' Keys");
-        for (Object o : this.mapTableAndKeys.keySet()) {
-            a = (ArrayList)this.mapTableAndKeys.get(o);
+        for (Object o : mapTableAndKeys.keySet()) {
+            a = (ArrayList)mapTableAndKeys.get(o);
             System.out.println("\t" + o + ":" + a);
         }
         System.out.println("Tables' Attributes");
-        for (Object o2 : this.mapTableAndAttributes.keySet()) {
-            String attrType = this.mapAttributeTypes.get(o2);
-            ArrayList a2 = (ArrayList)this.mapTableAndAttributes.get(o2);
+        for (Object o2 : mapTableAndAttributes.keySet()) {
+            String attrType = mapAttributeTypes.get(o2);
+            ArrayList a2 = (ArrayList)mapTableAndAttributes.get(o2);
             System.out.println("\t" + o2 + ":" + a2 + "[" + attrType + "]");
         }
         System.out.println("Tables' Chains");
-        for (Object o3 : this.mapChains.keySet()) {
-            a = (ArrayList)this.mapChains.get(o3);
+        for (Object o3 : mapChains.keySet()) {
+            a = (ArrayList)mapChains.get(o3);
             System.out.println("\t" + o3 + ":" + a);
         }
         System.out.println("Tables' Chains of Chains");
-        for (Object o4 : this.mapChainsOfChains.keySet()) {
-            a = (ArrayList)this.mapChainsOfChains.get(o4);
+        for (Object o4 : mapChainsOfChains.keySet()) {
+            a = (ArrayList)mapChainsOfChains.get(o4);
             System.out.println("\t" + o4 + ":" + a);
         }
         System.out.println("Keys' Origins");
-        for (Object o5 : this.mapKeysOrigins.keySet()) {
-            a = this.mapKeysOrigins.get(o5);
+        for (Object o5 : mapKeysOrigins.keySet()) {
+            a = mapKeysOrigins.get(o5);
             System.out.println("\t" + o5 + ":" + (String)a);
         }
     }
@@ -778,14 +905,14 @@ public class RDB extends MySQL_Interface {
     }
 
     public String changeArrayString(ArrayList<String> listAttrs) {
-        String strAttrs = this.trimArrayString(listAttrs);
+        String strAttrs = trimArrayString(listAttrs);
         strAttrs = strAttrs.replace(",", "_");
         strAttrs = strAttrs.replace(" ", "");
         return strAttrs;
     }
 
     public String changeMapString(String str, ArrayList<String> listAttrs) {
-        return String.valueOf(str) + "_" + this.changeArrayString(listAttrs);
+        return String.valueOf(str) + "_" + changeArrayString(listAttrs);
     }
 }
 

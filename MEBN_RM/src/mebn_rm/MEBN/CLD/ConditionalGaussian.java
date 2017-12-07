@@ -154,7 +154,8 @@ public class ConditionalGaussian extends LPD_Continuous {
         	
             String strFile = mNode.cvsFile;
             defaultData = (DataSet)RDB.This().getTetDataSetFromCSV(strFile);
-            if (defaultData.getNumRows() == 0) {
+            
+            if (defaultData == null || defaultData.getNumRows() == 0) {
                 return null;
             } 
               
