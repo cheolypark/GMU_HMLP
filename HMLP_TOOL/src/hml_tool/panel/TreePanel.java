@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hmlp_tool.panel; 
+package hml_tool.panel; 
 import java.awt.BorderLayout; 
 import java.util.Enumeration; 
 
@@ -28,16 +28,16 @@ import javax.swing.JTree;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 
-import hmlp_tool.HMLP_Console; 
+import hml_tool.HML_Console; 
 
 public class TreePanel extends MyPanel { 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 2441678322451610066L;
-	HMLP_Console console = null;   
+	HML_Console console = null;   
 	JTree tree; 
-	public TreePanel(HMLP_Console con){
+	public TreePanel(HML_Console con){
 		super();
 		console = con;  
 		

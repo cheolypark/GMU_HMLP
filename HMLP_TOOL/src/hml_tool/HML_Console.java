@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hmlp_tool;
+package hml_tool;
 
 import java.awt.BorderLayout; 
 import java.awt.Frame; 
@@ -45,17 +45,17 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane; 
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
- 
-import hmlp_tool.panel.TreePanel_Container;
-import hmlp_tool.panel.TreePanel_Left;
-import hmlp_tool.panel.TreePanel_Right;
+
+import hml_tool.panel.TreePanel_Container;
+import hml_tool.panel.TreePanel_Left;
+import hml_tool.panel.TreePanel_Right;
 import mebn_ln.core.MTheory_Learning;
 import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN; 
 
-public class HMLP_Console extends GeneralDialog {
+public class HML_Console extends GeneralDialog {
 	/**
 	* 
 	*/
@@ -70,8 +70,8 @@ public class HMLP_Console extends GeneralDialog {
 	};
 
 	public windowMode wMode = windowMode.SELECT_DB;
-	public HMLP_TextPane textInputArea;
-	static public HMLP_TextPane textOutputArea;
+	public HML_TextPane textInputArea;
+	static public HML_TextPane textOutputArea;
 	 
 	JTextPane textIn = null;
 	JTextPane textOut = null;
@@ -97,15 +97,15 @@ public class HMLP_Console extends GeneralDialog {
 	static int widthFrame = 1000;
 	static int heightFrame = 800;
 
-	static HMLP_Console CPSLD = null;
+	static HML_Console CPSLD = null;
  
-	static public HMLP_Console This() {
+	static public HML_Console This() {
 		if (CPSLD == null) {
 			JFrame frame = new JFrame();
 			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(false);
 
-			HMLP_Console d = new HMLP_Console(frame, "");
+			HML_Console d = new HML_Console(frame, "");
 			d.init(windowMode.SELECT_DB);
 			d.setVisible(true);
 		}
@@ -113,7 +113,7 @@ public class HMLP_Console extends GeneralDialog {
 		return CPSLD; 
 	}
 
-	public HMLP_Console(Frame owner, String str) {
+	public HML_Console(Frame owner, String str) {
 		super(owner, str, widthFrame, heightFrame);
 		CPSLD = this;  
 		
@@ -204,7 +204,7 @@ public class HMLP_Console extends GeneralDialog {
 	public JTextPane createTextIn() {
 		JTextPane textPane = new JTextPane();
 		textPane.setLayout(new BoxLayout(textPane, BoxLayout.X_AXIS));
-		textInputArea = new HMLP_TextPane(this);
+		textInputArea = new HML_TextPane(this);
 		textInputArea.setEditable(true);
 		textPane.add(new JScrollPane(textInputArea));
 		return textPane;
@@ -213,7 +213,7 @@ public class HMLP_Console extends GeneralDialog {
 	public JTextPane createTextOut() {
 		JTextPane textPane = new JTextPane();
 		textPane.setLayout(new BoxLayout(textPane, BoxLayout.X_AXIS));
-		textOutputArea = new HMLP_TextPane(this);
+		textOutputArea = new HML_TextPane(this);
 		textOutputArea.setEditable(false);
 		textPane.add(new JScrollPane(textOutputArea));
 		return textPane;
@@ -445,7 +445,7 @@ public class HMLP_Console extends GeneralDialog {
 	}
 
 	public static void main(String[] args) {
-		HMLP_Console d = new HMLP_Console(null, "HML Tool V.1");
+		HML_Console d = new HML_Console(null, "HML Tool V.1");
 		d.init(windowMode.CONNECT_DB);
 
 		// frame.getContentPane().add(d);

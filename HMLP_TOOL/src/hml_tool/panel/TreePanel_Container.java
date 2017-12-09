@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hmlp_tool.panel; 
+package hml_tool.panel; 
 import java.awt.BorderLayout; 
 import java.awt.event.ActionEvent;   
 import javax.swing.AbstractAction;
@@ -25,9 +25,10 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton; 
-import javax.swing.JPanel;  
-import hmlp_tool.HMLP_Console;
-import hmlp_tool.HMLP_Console.windowMode; 
+import javax.swing.JPanel;
+
+import hml_tool.HML_Console;
+import hml_tool.HML_Console.windowMode; 
   
 public class TreePanel_Container extends MyPanel { 
     /**
@@ -35,7 +36,7 @@ public class TreePanel_Container extends MyPanel {
 	 */
 	private static final long serialVersionUID = 134803263526752867L;
 
-	HMLP_Console console = null;  
+	HML_Console console = null;  
  
 	TreePanel_Left leftTree = null;
 	TreePanel_Right rightTree = null; 
@@ -48,7 +49,7 @@ public class TreePanel_Container extends MyPanel {
 	JButton btn3;
 	JButton btn4; 
 	
-	public TreePanel_Container(HMLP_Console con, TreePanel_Left l, TreePanel_Right r){
+	public TreePanel_Container(HML_Console con, TreePanel_Left l, TreePanel_Right r){
 		console = con; 
 		leftTree = l;
 		rightTree = r;
@@ -61,26 +62,26 @@ public class TreePanel_Container extends MyPanel {
 	} 
 	
 	public void init(){  
-		if (console.wMode == HMLP_Console.windowMode.CONNECT_DB){
+		if (console.wMode == HML_Console.windowMode.CONNECT_DB){
 			setVisible(false);
 			btn1.setVisible(false);
 			btn2.setVisible(false);
 			btn3.setVisible(false);
 			btn4.setVisible(false);
-		} else if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
+		} else if (console.wMode == HML_Console.windowMode.SELECT_DB){  
 			setVisible(true);
 			changeName("Select Database");
 			btn1.setVisible(false);
 			btn2.setVisible(false);
 			btn3.setVisible(false);
 			btn4.setText("Select"); btn4.setVisible(true);
-		} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){
+		} else if (console.wMode == HML_Console.windowMode.EDIT_DB){
 			changeName("Create World Model"); 
 			btn1.setText("Remove"); btn1.setVisible(true);
 			btn2.setText("Create Table"); btn2.setVisible(true);
 			btn3.setText("Create Attribute"); btn3.setVisible(true); 
 			btn4.setText("Next[Add Parents] >>"); btn4.setVisible(true);
-		} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){
+		} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){
 			changeName("Select Parents"); 
 			btn1.setText("Clear"); btn1.setVisible(true);
 			btn2.setText("Select Parent"); btn2.setVisible(true);
@@ -92,7 +93,7 @@ public class TreePanel_Container extends MyPanel {
 			btn2.setText("Select Conditions"); btn2.setVisible(true);
 			btn3.setVisible(false); 
 			btn4.setText("Next[Add CLDs] >>"); btn4.setVisible(true);
-		} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){
+		} else if (console.wMode == HML_Console.windowMode.ADD_CLD){
 			changeName("Class Local Distribution");
 			btn1.setText("<<Prev"); btn1.setVisible(true);
 			btn2.setText("Select CLD"); btn2.setVisible(true);
@@ -130,11 +131,11 @@ public class TreePanel_Container extends MyPanel {
 	public JButton createRun1Button() {
 		setRun1 = new AbstractAction("Btn") {
 			public void actionPerformed(ActionEvent e) { 
-				if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  					
-				} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){ 
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){ 
+				if (console.wMode == HML_Console.windowMode.SELECT_DB){  					
+				} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
+				} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){ 
 				} else if (console.wMode == windowMode.JOIN_RELATIONS) {
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
+				} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
 				} else if (console.wMode == windowMode.LEARNING) { 
 				} else if (console.wMode == windowMode.EVALUATION) { 
 				}
@@ -146,15 +147,15 @@ public class TreePanel_Container extends MyPanel {
 	public JButton createRun2Button() {
 		setRun1 = new AbstractAction("Btn") {
 			public void actionPerformed(ActionEvent e) { 
-				if (console.wMode == HMLP_Console.windowMode.SELECT_DB){   
-				} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){ 
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){ 
+				if (console.wMode == HML_Console.windowMode.SELECT_DB){   
+				} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
+				} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){ 
 					// Add parents
 					// Create an MFrag, if it is required. 
 					console.mTheory.addParents(leftTree.selectedObject, rightTree.selectedObjects);
-					console.init(HMLP_Console.windowMode.ADD_PARENTS);
+					console.init(HML_Console.windowMode.ADD_PARENTS);
 				} else if (console.wMode == windowMode.JOIN_RELATIONS) { 
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
+				} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
 				} else if (console.wMode == windowMode.LEARNING) { 
 				} else if (console.wMode == windowMode.EVALUATION) { 
 				}
@@ -166,11 +167,11 @@ public class TreePanel_Container extends MyPanel {
 	public JButton createRun3Button() {
 		setRun1 = new AbstractAction("Btn") {
 			public void actionPerformed(ActionEvent e) {  
-				if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
-				} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){
+				if (console.wMode == HML_Console.windowMode.SELECT_DB){  
+				} else if (console.wMode == HML_Console.windowMode.EDIT_DB){
+				} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){
 				} else if (console.wMode == windowMode.JOIN_RELATIONS) {
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
+				} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
 				} else if (console.wMode == windowMode.LEARNING) { 
 				} else if (console.wMode == windowMode.EVALUATION) { 
 				}
@@ -182,19 +183,19 @@ public class TreePanel_Container extends MyPanel {
 	public JButton createRun4Button() {
 		setRun4 = new AbstractAction("Btn") {
 			public void actionPerformed(ActionEvent e) {   
-				if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
+				if (console.wMode == HML_Console.windowMode.SELECT_DB){  
 					console.selectedDB = leftTree.selectedObject;
-					console.init(HMLP_Console.windowMode.EDIT_DB);
-				} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){
-					console.init(HMLP_Console.windowMode.ADD_PARENTS);
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){
-					console.init(HMLP_Console.windowMode.JOIN_RELATIONS);
+					console.init(HML_Console.windowMode.EDIT_DB);
+				} else if (console.wMode == HML_Console.windowMode.EDIT_DB){
+					console.init(HML_Console.windowMode.ADD_PARENTS);
+				} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){
+					console.init(HML_Console.windowMode.JOIN_RELATIONS);
 				} else if (console.wMode == windowMode.JOIN_RELATIONS) {
-					console.init(HMLP_Console.windowMode.ADD_CLD);
-				} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
-					console.init(HMLP_Console.windowMode.LEARNING);
+					console.init(HML_Console.windowMode.ADD_CLD);
+				} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
+					console.init(HML_Console.windowMode.LEARNING);
 				} else if (console.wMode == windowMode.LEARNING) { 
-					console.init(HMLP_Console.windowMode.EVALUATION);
+					console.init(HML_Console.windowMode.EVALUATION);
 				} else if (console.wMode == windowMode.EVALUATION) { 
 				}
 			}

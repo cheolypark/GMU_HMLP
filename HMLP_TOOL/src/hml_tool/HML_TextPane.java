@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hmlp_tool;
+package hml_tool;
  
 import java.awt.Color; 
 import java.awt.event.KeyEvent;
@@ -29,7 +29,7 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
   
   
-public class HMLP_TextPane extends JTextPane {
+public class HML_TextPane extends JTextPane {
 
 	/**
 	 * 
@@ -42,7 +42,7 @@ public class HMLP_TextPane extends JTextPane {
     ArrayList<String> listString;  
     GeneralDialog parent;
     
-	public HMLP_TextPane(GeneralDialog p) {
+	public HML_TextPane(GeneralDialog p) {
 		super(); 
 		
 		// Make one of each kind of document.

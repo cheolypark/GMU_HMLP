@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hmlp_tool.panel;  
+package hml_tool.panel;  
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -29,8 +29,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import hmlp_tool.HMLP_Console;
-import hmlp_tool.HMLP_Console.windowMode;
+import hml_tool.HML_Console;
+import hml_tool.HML_Console.windowMode;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory; 
@@ -46,28 +46,28 @@ public class TreePanel_Right extends TreePanel {
 	DefaultMutableTreeNode root;
 	List<String> selectedObjects = new ArrayList<String>();
 	
-	public TreePanel_Right(HMLP_Console con, TreePanel_Left left){
+	public TreePanel_Right(HML_Console con, TreePanel_Left left){
 		super(con); 
 		leftPanel = left;
 	}  
 	
 	public void init(){
-		if (console.wMode == HMLP_Console.windowMode.CONNECT_DB){   
+		if (console.wMode == HML_Console.windowMode.CONNECT_DB){   
 			setVisible(false);
 			return;
-		} else if (console.wMode == HMLP_Console.windowMode.SELECT_DB){   
+		} else if (console.wMode == HML_Console.windowMode.SELECT_DB){   
 			setVisible(false);
 			return;
-		} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){ 
+		} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
 			setVisible(false);
 			return;
-		} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){
+		} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){
 			changeName("Parent RVs");  
 			initTree_MEBN();
 		} else if (console.wMode == windowMode.JOIN_RELATIONS) {
 			changeName("Conditions");  
 			initTree_Conditions();
-		} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){
+		} else if (console.wMode == HML_Console.windowMode.ADD_CLD){
 			changeName("Class Local Distribution");  
 			initTree_Select_CLD();
 		} else if (console.wMode == windowMode.LEARNING) { 
@@ -173,14 +173,14 @@ public class TreePanel_Right extends TreePanel {
 							selectedObjects.add(str);
 						} 
 						
-						if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
+						if (console.wMode == HML_Console.windowMode.SELECT_DB){  
 							console.insertTextOut("The database \"" + selectedObjects +"\" was selected.");
-						} else if (console.wMode == HMLP_Console.windowMode.EDIT_DB){ 
-						} else if (console.wMode == HMLP_Console.windowMode.ADD_PARENTS){ 
+						} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
+						} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){ 
 							console.insertTextOut("The node \"" + selectedObjects +"\" was selected."); 
 						} else if (console.wMode == windowMode.JOIN_RELATIONS) {
 							
-						} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
+						} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
 							console.insertTextOut("The CLD \"" + selectedObjects +"\" was selected.");
 						} else if (console.wMode == windowMode.LEARNING) { 
 						} else if (console.wMode == windowMode.EVALUATION) { 
