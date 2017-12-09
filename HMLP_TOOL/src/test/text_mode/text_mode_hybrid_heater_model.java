@@ -1,20 +1,35 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package test.text_mode;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
-import mebn_ln.core.MTheory_Learning;
-import mebn_rm.MEBN.CLD.ConditionalGaussian;
+import java.util.List; 
+import mebn_ln.core.MTheory_Learning; 
 import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
-import mebn_rm.core.RM_To_MEBN;
- 
+import mebn_rm.core.RM_To_MEBN; 
 
-public class hmlp_text_mode_heater_discrete {
+public class text_mode_hybrid_heater_model {
 
-	public hmlp_text_mode_heater_discrete() {
+	public text_mode_hybrid_heater_model() {
 	}
 
 	public void run() {
@@ -26,14 +41,14 @@ public class hmlp_text_mode_heater_discrete {
 		
 		String database = "hybrid_test_heater"; 
 		
-		//2. initialize RDB
+		//2. Initialize RDB
 		try {
 			RDB.This().init(database);
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 		
-		//3. MEBN-RM 
+		//3. Perform MEBN-RM 
 		MTheory	mTheory =  new RM_To_MEBN(RDB.This()).run(); 
 		
 		//4. Add parents
@@ -48,41 +63,17 @@ public class hmlp_text_mode_heater_discrete {
 		
 		mTheory.addParents(childMNode, parentMNodes);
 		
-//		System.out.println(mTheory.toString("MFrag", "MNode"));
-		
 		childMNode = "heater_item.HI_temperature";
 		parentMNodes = new ArrayList<String>();
 		parentMNodes.add("slabinput_item.SII_temperature");
 		parentMNodes.add("HAI_energy_SII_temperature_SII_grade_SII_volume.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
-		  
-//		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
-		//5. Add contexts 
-//		String targetMFrag = "heater_item";
-//		mTheory.addContexts(targetMFrag, null);
-		
-		/*
-		 * 	 SELECT 
-		 *  	heater_item.temperature as HI_temperature,
-		 *  	slabinput_item.temperature as SII_temperature,
-		 *  	heateractuator_item.energy as HAI_energy
-		 *   FROM heater_item, slabinput_item, heateractuator_item 
-		 *   WHERE 
-		 *  	heater_item.TimeID = slabinput_item.TimeID &&
-		 *  	heater_item.TimeID = heateractuator_item.TimeID 
-		 */
+		//5. Update contexts 
 		mTheory.updateContexts();
-		
-// 		System.out.println(mTheory.toString("MFrag", "MNode")); 
-		
+		 
 		//6. Add CLD type  
-//		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
-// 		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
-//		mTheory.addCLDType("HAI_energy_SII_temperature.HAI_energy", new ConditionalGaussian());
 		mTheory.updateCLDs(); 
-		
-//		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
 		//7. Learn MEBN  
 		MRoot mroot = new MRoot();
@@ -90,11 +81,10 @@ public class hmlp_text_mode_heater_discrete {
 		new MTheory_Learning().run(mroot);  
 		 
  		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
-		 
 	}
 	
 	public static void main(String[] args) {
-		hmlp_text_mode_heater_discrete h = new hmlp_text_mode_heater_discrete();
+		text_mode_hybrid_heater_model h = new text_mode_hybrid_heater_model();
 		h.run();
 	} 
 }

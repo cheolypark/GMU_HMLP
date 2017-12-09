@@ -1,20 +1,33 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package hmlp_tool;
-
-import java.awt.BorderLayout;
+ 
 import java.awt.Color; 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
- 
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+import java.util.ArrayList; 
 import javax.swing.JTextPane; 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
- 
- 
+  
   
 public class HMLP_TextPane extends JTextPane {
 
@@ -41,8 +54,7 @@ public class HMLP_TextPane extends JTextPane {
             public void keyPressed(KeyEvent e){  
                 switch(e.getKeyCode()){  
                      case KeyEvent.VK_ENTER:
-                    	 parent.keyUpdated(e);
-                    	 //clear();
+                    	 parent.keyUpdated(e); 
                      break;  
                  }  
                  
@@ -153,18 +165,5 @@ public class HMLP_TextPane extends JTextPane {
 		  String strResult = selText.substring(i+key.length(), i2);
 		  
 	      return strResult;
-	  }
-	  
-	/* 
-	public static void main(String[] args) {
-		  
-//		JFrame f = new JFrame("Test");
-//	    f.getContentPane().setLayout(new BorderLayout());
-//	    HMLP_TextPane jtp = new HMLP_TextPane(this);
-//	    f.getContentPane().add(new JScrollPane(jtp), BorderLayout.CENTER);
-//	    f.setSize(400, 400); 
-//	    f.show();
-
-	} 
-	 */
+	  } 
 }

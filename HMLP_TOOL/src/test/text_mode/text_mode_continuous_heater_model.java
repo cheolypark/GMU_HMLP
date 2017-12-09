@@ -1,20 +1,36 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package test.text_mode;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import mebn_ln.core.MTheory_Learning;
-import mebn_rm.MEBN.CLD.ConditionalGaussian;
+import mebn_ln.core.MTheory_Learning; 
 import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
- 
+   
+public class text_mode_continuous_heater_model {
 
-public class hmlp_text_mode {
-
-	public hmlp_text_mode() {
+	public text_mode_continuous_heater_model() {
 	}
 
 	public void run() {
@@ -33,7 +49,7 @@ public class hmlp_text_mode {
 			e.printStackTrace();
 		}
 		
-		//3. MEBN-RM 
+		//3. Perform MEBN-RM 
 		MTheory	mTheory =  new RM_To_MEBN(RDB.This()).run(); 
 		
 		//4. Add parents
@@ -55,28 +71,12 @@ public class hmlp_text_mode {
 		  
 		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
-		//5. Add contexts 
-//		String targetMFrag = "heater_item";
-//		mTheory.addContexts(targetMFrag, null);
-		
-		/*
-		 * 	 SELECT 
-		 *  	heater_item.temperature as HI_temperature,
-		 *  	slabinput_item.temperature as SII_temperature,
-		 *  	heateractuator_item.energy as HAI_energy
-		 *   FROM heater_item, slabinput_item, heateractuator_item 
-		 *   WHERE 
-		 *  	heater_item.TimeID = slabinput_item.TimeID &&
-		 *  	heater_item.TimeID = heateractuator_item.TimeID 
-		 */
+		//5. Add contexts  
 		mTheory.updateContexts();
 		
  		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
-		//6. Add CLD type  
-//		mTheory.addCLDType("HI_temperature_SII_temperature_HAI_energy.HI_temperature", new ConditionalGaussian()); 
-// 		mTheory.addCLDType("slabinput_item.SII_temperature", new ConditionalGaussian());
-//		mTheory.addCLDType("HAI_energy_SII_temperature.HAI_energy", new ConditionalGaussian());
+		//6. Add CLD type   
 		mTheory.updateCLDs();  
 		
 		//7. Learn MEBN  
@@ -88,7 +88,7 @@ public class hmlp_text_mode {
 	}
 	
 	public static void main(String[] args) {
-		hmlp_text_mode h = new hmlp_text_mode();
+		text_mode_continuous_heater_model h = new text_mode_continuous_heater_model();
 		h.run();
 	} 
 }

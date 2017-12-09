@@ -1,31 +1,41 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package hmlp_tool.panel; 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent; 
-import java.util.Vector;
-
+import java.awt.BorderLayout; 
+import java.awt.event.ActionEvent;   
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane; 
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.SoftBevelBorder;
-import javax.swing.border.TitledBorder;
-
+import javax.swing.JButton; 
+import javax.swing.JPanel;  
 import hmlp_tool.HMLP_Console;
-import hmlp_tool.HMLP_Console.windowMode;
-import mebn_rm.MEBN.MTheory.MTheory; 
+import hmlp_tool.HMLP_Console.windowMode; 
   
 public class TreePanel_Container extends MyPanel { 
-    HMLP_Console console = null;  
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 134803263526752867L;
+
+	HMLP_Console console = null;  
  
 	TreePanel_Left leftTree = null;
 	TreePanel_Right rightTree = null; 
@@ -107,8 +117,7 @@ public class TreePanel_Container extends MyPanel {
 		ButtonPanel.setLayout(new BoxLayout(ButtonPanel, BoxLayout.X_AXIS));
 		ButtonPanel.setBorder(border5);
   
-		// Add Button
-	
+		// Add Button 
 		btn1 = createRun1Button(); ButtonPanel.add(btn1); group.add(btn1); ButtonPanel.add(Box.createRigidArea(VGAP5));
 		btn2 = createRun2Button(); ButtonPanel.add(btn2); group.add(btn2); ButtonPanel.add(Box.createRigidArea(VGAP5));
 		btn3 = createRun3Button(); ButtonPanel.add(btn3); group.add(btn3); ButtonPanel.add(Box.createRigidArea(VGAP5));
@@ -144,14 +153,7 @@ public class TreePanel_Container extends MyPanel {
 					// Create an MFrag, if it is required. 
 					console.mTheory.addParents(leftTree.selectedObject, rightTree.selectedObjects);
 					console.init(HMLP_Console.windowMode.ADD_PARENTS);
-				} else if (console.wMode == windowMode.JOIN_RELATIONS) {
-//					MFrag tablea_MFrag = leftPanel.mTheory.getMFrag(leftPanel.selectedObjectParent);
-//					MGraph tablea_g = tablea_MFrag.getFirstCandidateGraph();
-//					System.out.println(tablea_g);
-//					// Set rules
-//					tablea_g.setCausality(leftPanel.selectedObject, leftPanel.selectedObject);
-//					System.out.println(tablea_g); 
-					
+				} else if (console.wMode == windowMode.JOIN_RELATIONS) { 
 				} else if (console.wMode == HMLP_Console.windowMode.ADD_CLD){ 
 				} else if (console.wMode == windowMode.LEARNING) { 
 				} else if (console.wMode == windowMode.EVALUATION) { 
@@ -198,7 +200,5 @@ public class TreePanel_Container extends MyPanel {
 			}
 		};
 		return createButton(setRun4);
-	} 
-	  
-    
+	}  
 }

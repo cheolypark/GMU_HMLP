@@ -1,3 +1,21 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package hmlp_tool.panel;  
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,6 +37,10 @@ import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB; 
   
 public class TreePanel_Right extends TreePanel {   
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1712722165546253566L;
 	Action setRun3; 
 	TreePanel_Left leftPanel = null;  
 	DefaultMutableTreeNode root;
@@ -100,8 +122,7 @@ public class TreePanel_Right extends TreePanel {
 		 
 		DefaultMutableTreeNode temp = null;
 				
-		temp = new DefaultMutableTreeNode("default"); root.add(temp); 
-//		temp = new DefaultMutableTreeNode("c1 = d1"); root.add(temp);		
+		temp = new DefaultMutableTreeNode("default"); root.add(temp);  
 		 		 
 		model.nodeChanged(root);
 		
@@ -119,10 +140,8 @@ public class TreePanel_Right extends TreePanel {
 		 
 		DefaultMutableTreeNode temp = null;
 				
-		temp = new DefaultMutableTreeNode("default"); root.add(temp); 
-//		temp = new DefaultMutableTreeNode("Continuous"); root.add(temp);
-//		temp = new DefaultMutableTreeNode("Sensor_CLD"); root.add(temp);		
-		 		 
+		temp = new DefaultMutableTreeNode("default"); root.add(temp);  
+		
 		model.nodeChanged(root);
 		
 		expandTree(tree, true);
@@ -152,13 +171,7 @@ public class TreePanel_Right extends TreePanel {
 							String strpar = eachNode.getParent().toString();
 							String str = strpar + "." + eachNode.toString();
 							selectedObjects.add(str);
-						}
-						
-//						String type = (String) node.getUserObject();
-//						String str2 = node.toString();
-//						String strpar = node.getParent().toString();
-						
-//						selectedObject = str2;
+						} 
 						
 						if (console.wMode == HMLP_Console.windowMode.SELECT_DB){  
 							console.insertTextOut("The database \"" + selectedObjects +"\" was selected.");

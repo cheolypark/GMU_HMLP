@@ -1,3 +1,21 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package hmlp_tool;
 
 import javax.swing.*;
@@ -5,34 +23,28 @@ import javax.swing.border.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.util.Vector;
+import java.awt.event.KeyEvent; 
  
-//Following can be changed applet easily
 public class GeneralDialog extends JFrame {
 
 	private static final long serialVersionUID = -6372075014284878800L;
 	
-	// The preferred size of the demo
 	private int PREFERRED_WIDTH = 680;
 	private int PREFERRED_HEIGHT = 600;
 
     Dimension VGAP5 = new Dimension(1,5); 
     EmptyBorder border5 = new EmptyBorder(5,5,5,5); 
-    Vector radiobuttons = new Vector(); 
     
 	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), 
 					  new EmptyBorder(5,5,5,5));
   
 	public GeneralDialog(Frame owner, String str, int width, int height) { 
 		super(str);
-	  //  super(owner, str);    
       	setSize(width, height); 
 	} 
 	
 	public GeneralDialog(Frame owner, String str) {
-		super(str);
-	  //  super(owner, str);    
+		super(str);     
       	setSize(PREFERRED_WIDTH, PREFERRED_HEIGHT); 
 	} 
    
@@ -51,41 +63,32 @@ public class GeneralDialog extends JFrame {
 	    return rootPane;
 	} 
     
-    public void exit() 
-    { 
+    public void exit(){ 
     	setVisible(false);
     	getParent().setVisible(false);
     	((Window) getParent()).dispose();
     }
     
-    public JButton createButton(Action a) 
-    { 
+    public JButton createButton(Action a) { 
    	 	JButton b = new JButton(); 
-   	 
    	 	b.putClientProperty("displayActionText", Boolean.TRUE); 
    	 	b.setAction(a); 
-   	 	
    	 	return b; 
     }  
  
-    public JRadioButton createRadioButton(Action a) 
-    { 
+    public JRadioButton createRadioButton(Action a) { 
    	 	JRadioButton b = new JRadioButton(); 
-   	 
    	 	b.putClientProperty("displayActionText", Boolean.TRUE); 
    	 	b.setAction(a); 
-   	 	
    	 	return b; 
     }  
     
-    public JPanel createHorizontalPanel(boolean threeD) 
-    {
+    public JPanel createHorizontalPanel(boolean threeD) {
     	JPanel p = new JPanel();
     	p.setLayout(new BoxLayout(p, BoxLayout.X_AXIS));
     	p.setAlignmentY(TOP_ALIGNMENT);
     	p.setAlignmentX(LEFT_ALIGNMENT);
-    	if(threeD) 
-    	{
+    	if (threeD) {
     		p.setBorder(loweredBorder);
     	}
     	return p;
@@ -104,11 +107,9 @@ public class GeneralDialog extends JFrame {
     	return p;
     }
 
-    public static JPanel createPaneV(JComponent pane1, JComponent pane2 )
-    {
+    public static JPanel createPaneV(JComponent pane1, JComponent pane2){
 		 JPanel pane =  new JPanel();
 		 pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS)); 
-		 //		 pane.setLayout(new GridLayout(0, 3));
 		 pane1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		 pane2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		 pane1.setPreferredSize(new Dimension(1000, 600));
@@ -118,8 +119,7 @@ public class GeneralDialog extends JFrame {
 		 return pane;
     }
     
-    public static JPanel createPaneH(JComponent pane1, JComponent pane2 )
-    {
+    public static JPanel createPaneH(JComponent pane1, JComponent pane2){
 	   	 JPanel pane =  new JPanel();
 	   	 pane.setLayout(new BoxLayout(pane, BoxLayout.X_AXIS)); 
 	   	 pane1.setAlignmentY(Component.LEFT_ALIGNMENT);
@@ -130,17 +130,13 @@ public class GeneralDialog extends JFrame {
     }
       
     public void keyUpdated (KeyEvent e){
-    	
     }
     
-    public static void main(String[] args) 
-    {  
+    public static void main(String[] args){  
    	 	JFrame frame = new JFrame();
-   	 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+   	 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
    	 	frame.setSize(500, 300);
-     	frame.setVisible(false);
-     
+     	frame.setVisible(false); 
      	GeneralDialog d = new GeneralDialog(frame,""); 
      	d.setVisible(true);
     } 
