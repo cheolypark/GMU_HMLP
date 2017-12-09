@@ -27,7 +27,11 @@ import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
-   
+
+/*
+ * This class requires a database test_heater. 
+ * To get the database, use SQL scripts in "examples/db/heater". 
+ */
 public class text_mode_continuous_heater_model {
 
 	public text_mode_continuous_heater_model() {
@@ -35,12 +39,12 @@ public class text_mode_continuous_heater_model {
 
 	public void run() {
 		//1. Get Database schema from MySQL
-		RDB.This().connect("root", "jesus");
+		RDB.This().connect("localhost", "root", "jesus");
 		List<String> list = RDB.This().getSchemas();
 		
 		System.out.println(list);
 		 
-		String database = "test_heater";
+		String database = "heater_continuous";
 		
 		//2. initialize RDB
 		try {
@@ -66,7 +70,7 @@ public class text_mode_continuous_heater_model {
 		childMNode = "heater_item.HI_temperature";
 		parentMNodes = new ArrayList<String>();
 		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("HAI_energy_SII_temperature.HAI_energy");
+		parentMNodes.add("HAI_energy.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
 		System.out.println(mTheory.toString("MFrag", "MNode"));

@@ -1,9 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `hybrid_test_heater` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hybrid_test_heater`;
-
+CREATE DATABASE  IF NOT EXISTS `heater_continuous` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `heater_continuous`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: localhost    Database: hybrid_test_heater
+-- Host: localhost    Database: heater_continuous
 -- ------------------------------------------------------
 -- Server version	5.7.18-log
 
@@ -19,28 +18,28 @@ USE `hybrid_test_heater`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `heater_item`
+-- Table structure for table `slabinput_item`
 --
 
-DROP TABLE IF EXISTS `heater_item`;
+DROP TABLE IF EXISTS `slabinput_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `heater_item` (
+CREATE TABLE `slabinput_item` (
   `TimeID` char(45) NOT NULL,
   `temperature` char(45) DEFAULT NULL,
   PRIMARY KEY (`TimeID`),
-  CONSTRAINT `heater_item_ibfk_1` FOREIGN KEY (`TimeID`) REFERENCES `time` (`TimeID`) ON UPDATE CASCADE
+  CONSTRAINT `slabinput_item_ibfk_1` FOREIGN KEY (`TimeID`) REFERENCES `time` (`TimeID`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `heater_item`
+-- Dumping data for table `slabinput_item`
 --
 
-LOCK TABLES `heater_item` WRITE;
-/*!40000 ALTER TABLE `heater_item` DISABLE KEYS */;
-INSERT INTO `heater_item` VALUES ('0','1199.6805641428834'),('1','1202.581045533217'),('10','1199.3805641428834'),('11','1202.481045533217'),('12','1200.5381620702291'),('13','1196.6996590304176'),('14','1204.5823064661546'),('15','1197.2374044112263'),('16','1200.1132642279975'),('17','1199.2782855951463'),('18','1200.1132642279975'),('19','1199.1782855951463'),('2','1200.8381620702291'),('3','1196.7996590304176'),('4','1204.1823064661546'),('5','1197.1374044112263'),('6','1200.5132642279975'),('7','1199.8782855951463'),('8','1200.5132642279975'),('9','1199.8782855951463');
-/*!40000 ALTER TABLE `heater_item` ENABLE KEYS */;
+LOCK TABLES `slabinput_item` WRITE;
+/*!40000 ALTER TABLE `slabinput_item` DISABLE KEYS */;
+INSERT INTO `slabinput_item` VALUES ('0','17.435405917816027'),('1','11.407656721134089'),('2','15.394755308639896'),('3','16.820282220750023'),('4','16.863041822018737'),('5','18.646329805131433'),('6','17.93321585835428'),('7','13.634351845896946'),('8','9.286865619619798'),('9','18.156530947317002');
+/*!40000 ALTER TABLE `slabinput_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-11 17:11:51
+-- Dump completed on 2017-05-14 15:49:04

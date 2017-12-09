@@ -38,13 +38,14 @@ public class MySQL_Interface extends TempMathFunctions {
     public static Connection connection;
     public String schema = "";
     public String root = "root";
-    public String PW = "jesus";
-    public String address = "jdbc:mysql://localhost/";
+    public String PW = "jesus"; 
+    public String address = "localhost";
 
     public MySQL_Interface() { 
     }
     
-    public void connect(String r, String p) {
+    public void connect(String a, String r, String p) {
+    	address = a;
         root = r;
         PW = p;
         
@@ -55,7 +56,7 @@ public class MySQL_Interface extends TempMathFunctions {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection(address, root, PW);
+            connection = DriverManager.getConnection("jdbc:mysql://" + address + "/", root, PW);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -77,7 +78,7 @@ public class MySQL_Interface extends TempMathFunctions {
             e.printStackTrace();
         }
         try {
-            connection = DriverManager.getConnection(address + s, root, PW);
+            connection = DriverManager.getConnection("jdbc:mysql://" + address  + "/" + s, root, PW);
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -167,7 +168,7 @@ public class MySQL_Interface extends TempMathFunctions {
         Statement statement = null;
         try { 
         	connection.close();
-        	connection = DriverManager.getConnection(address + schema, root, PW);
+        	connection = DriverManager.getConnection("jdbc:mysql://" + address + "/" + schema, root, PW);
         	statement = connection.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, 
         										   java.sql.ResultSet.CONCUR_READ_ONLY);
         	statement.setFetchSize(Integer.MIN_VALUE);
@@ -186,9 +187,7 @@ public class MySQL_Interface extends TempMathFunctions {
  
     public ArrayList<String> getPrimaryKeysToArray(String table) {
         ArrayList<String> primarykeys = new ArrayList<String>();
-        ResultSet rs = null;
-        ArrayList<String> im = getImportedTable(table);
-        ArrayList<String> ex = getExportedTable(table);
+        ResultSet rs = null; 
         try {
             DatabaseMetaData meta = connection.getMetaData();
             rs = meta.getPrimaryKeys(null, null, table);
@@ -334,8 +333,7 @@ public class MySQL_Interface extends TempMathFunctions {
                 String tableIterated = rstable.getString(3);
                 rs = metadata.getExportedKeys(strC, null, tableIterated);
                 while (rs.next()) {
-                    String fkTableName = rs.getString("FKTABLE_NAME");
-                    String fkColumnName = rs.getString("FKCOLUMN_NAME");
+                    String fkTableName = rs.getString("FKTABLE_NAME"); 
                     if (!fkTableName.equalsIgnoreCase(strTable) || strTable.equalsIgnoreCase(tableIterated) || ImportedTables.contains(tableIterated)) continue;
                     	ImportedTables.add(tableIterated);
                 }
@@ -356,10 +354,8 @@ public class MySQL_Interface extends TempMathFunctions {
             String strC = connection.getCatalog();
             ResultSet rs = metadata.getImportedKeys(strC, null, strTable);
             while (rs.next()) {
-                String fkColumnName = rs.getString("FKCOLUMN_NAME");
-                String fkTableName = rs.getString("FKTABLE_NAME");
-                String pkTableName = rs.getString("PKTABLE_NAME");
-                String pkColumnName = rs.getString("PKCOLUMN_NAME");
+                String fkColumnName = rs.getString("FKCOLUMN_NAME"); 
+                String pkTableName = rs.getString("PKTABLE_NAME"); 
                 if (ImportedTables.containsKey(fkColumnName)) continue;
                 ImportedTables.put(fkColumnName, pkTableName);
             }
@@ -398,10 +394,8 @@ public class MySQL_Interface extends TempMathFunctions {
             DatabaseMetaData metadata = connection.getMetaData();
             String strC = connection.getCatalog();
             ResultSet rs = metadata.getExportedKeys(strC, null, strTable);
-            while (rs.next()) {
-                String fkColumnName = rs.getString("FKCOLUMN_NAME");
-                String fkTableName = rs.getString("FKTABLE_NAME");
-                String pkTableName = rs.getString("PKTABLE_NAME");
+            while (rs.next()) { 
+                String fkTableName = rs.getString("FKTABLE_NAME"); 
                 String pkColumnName = rs.getString("PKCOLUMN_NAME");
                 if (exportedTables.containsKey(pkColumnName)) continue;
                 exportedTables.put(pkColumnName, fkTableName);

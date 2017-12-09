@@ -1,9 +1,9 @@
-CREATE DATABASE  IF NOT EXISTS `hybrid_test_heater` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hybrid_test_heater`;
+CREATE DATABASE  IF NOT EXISTS `heater_hybrid` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `heater_hybrid`;
 
 -- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: localhost    Database: hybrid_test_heater
+-- Host: localhost    Database: heater_hybrid
 -- ------------------------------------------------------
 -- Server version	5.7.18-log
 

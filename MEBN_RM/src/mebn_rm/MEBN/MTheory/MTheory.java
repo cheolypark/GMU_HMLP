@@ -121,10 +121,6 @@ public class MTheory implements Comparable<MTheory> {
                 OVariable ov = new OVariable(f.getTableName(), key, originEntity);
                 newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
             }
-            
-            if (newMFrag.name.equalsIgnoreCase("HI_temperature_SII_temperature_HAI_energy")){
-            	System.out.println("");
-            }
 
             // Add parent nodes
             for (String p2 : ps) {
@@ -132,11 +128,6 @@ public class MTheory implements Comparable<MTheory> {
                 String mFragP = new StringUtil().getLeft(p2);
                 String mNodeP = new StringUtil().getRight(p2);
                 
-                if(mNodeP.equalsIgnoreCase("RPS_SET_ROLLGAP")){
-                	System.out.println("d");
-                }
-                	
-                	
                 MFrag fp = getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
                 

@@ -27,6 +27,10 @@ import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN; 
 
+/*
+ * This class requires a database test_heater. 
+ * To get the database, use SQL scripts in "examples/db/heater_hybrid". 
+ */
 public class text_mode_hybrid_heater_model {
 
 	public text_mode_hybrid_heater_model() {
@@ -34,12 +38,12 @@ public class text_mode_hybrid_heater_model {
 
 	public void run() {
 		//1. Get Database schema from MySQL
-		RDB.This().connect("root", "jesus");
+		RDB.This().connect("localhost", "root", "jesus");
 		List<String> list = RDB.This().getSchemas();
 		
 		System.out.println(list);
 		
-		String database = "hybrid_test_heater"; 
+		String database = "heater_hybrid"; 
 		
 		//2. Initialize RDB
 		try {
@@ -60,15 +64,18 @@ public class text_mode_hybrid_heater_model {
 		parentMNodes.add("slabinput_item.SII_temperature");
 		parentMNodes.add("slabinput_item.SII_grade");	// Discrete
 		parentMNodes.add("slabinput_item.SII_volume");	// Discrete		
-		
 		mTheory.addParents(childMNode, parentMNodes);
-		
+
+ 		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
+ 		
 		childMNode = "heater_item.HI_temperature";
 		parentMNodes = new ArrayList<String>();
 		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("HAI_energy_SII_temperature_SII_grade_SII_volume.HAI_energy");
+		parentMNodes.add("HAI_energy.HAI_energy");
 		mTheory.addParents(childMNode, parentMNodes);
-		
+		  
+ 		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
+ 		
 		//5. Update contexts 
 		mTheory.updateContexts();
 		 

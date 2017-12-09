@@ -1,8 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `test_heater` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `test_heater`;
+CREATE DATABASE  IF NOT EXISTS `heater_continuous` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `heater_continuous`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win32 (AMD64)
 --
--- Host: localhost    Database: test_heater
+-- Host: localhost    Database: heater_continuous
 -- ------------------------------------------------------
 -- Server version	5.7.18-log
 
@@ -18,28 +18,26 @@ USE `test_heater`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `heateractuator_item`
+-- Table structure for table `time`
 --
 
-DROP TABLE IF EXISTS `heateractuator_item`;
+DROP TABLE IF EXISTS `time`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `heateractuator_item` (
+CREATE TABLE `time` (
   `TimeID` char(45) NOT NULL,
-  `energy` char(45) DEFAULT NULL,
-  PRIMARY KEY (`TimeID`),
-  CONSTRAINT `heateractuator_item_ibfk_1` FOREIGN KEY (`TimeID`) REFERENCES `time` (`TimeID`) ON UPDATE CASCADE
+  PRIMARY KEY (`TimeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `heateractuator_item`
+-- Dumping data for table `time`
 --
 
-LOCK TABLES `heateractuator_item` WRITE;
-/*!40000 ALTER TABLE `heateractuator_item` DISABLE KEYS */;
-INSERT INTO `heateractuator_item` VALUES ('0','118256.45941032615'),('1','118859.23429451065'),('2','118460.5244688102'),('3','118317.97180783986'),('4','118313.69579440192'),('5','118135.36695848434'),('6','118206.67842493427'),('7','118636.5648115293'),('8','119071.31340800396');
-/*!40000 ALTER TABLE `heateractuator_item` ENABLE KEYS */;
+LOCK TABLES `time` WRITE;
+/*!40000 ALTER TABLE `time` DISABLE KEYS */;
+INSERT INTO `time` VALUES ('0'),('1'),('2'),('3'),('4'),('5'),('6'),('7'),('8'),('9');
+/*!40000 ALTER TABLE `time` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-14 15:49:04
+-- Dump completed on 2017-05-14 15:49:05
