@@ -95,10 +95,10 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public String toStringOVswithBracket() {
-    	List<OVariable> ovs = ovs;
+    	List<OVariable> ovs1 = ovs;
     	String s = "";
     	
-    	if (ovs.size() > 0) {
+    	if (ovs1.size() > 0) {
             s = String.valueOf(s) + "(";
             s += toStringOVs();
             s = String.valueOf(s) + ")";
@@ -108,12 +108,12 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
     
     public String toStringOVs() {
-    	List<OVariable> ovs = ovs;
+    	List<OVariable> ovs1 = ovs;
     	String s = "";
     	
-    	if (ovs.size() > 0) {
-            for (OVariable o : ovs) {
-                if (ovs.get(0) != o) {
+    	if (ovs1.size() > 0) {
+            for (OVariable o : ovs1) {
+                if (ovs1.get(0) != o) {
                     s = String.valueOf(s) + ", ";
                 }
                 s = String.valueOf(s) + o.name;
