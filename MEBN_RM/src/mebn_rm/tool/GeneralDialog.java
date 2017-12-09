@@ -1,13 +1,29 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package mebn_rm.tool;
 
 import javax.swing.*;
-import javax.swing.border.*;
-
+import javax.swing.border.*; 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Vector;
- 
-//Following can be changed applet easily
+  
 public class GeneralDialog extends JFrame {
 
 	private static final long serialVersionUID = -6372075014284878800L;
@@ -17,8 +33,7 @@ public class GeneralDialog extends JFrame {
 	private int PREFERRED_HEIGHT = 600;
 
     Dimension VGAP5 = new Dimension(1,5); 
-    EmptyBorder border5 = new EmptyBorder(5,5,5,5); 
-    Vector radiobuttons = new Vector(); 
+    EmptyBorder border5 = new EmptyBorder(5,5,5,5);  
     
 	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), 
 					  new EmptyBorder(5,5,5,5));
@@ -106,8 +121,7 @@ public class GeneralDialog extends JFrame {
     public static JPanel createPaneV(JComponent pane1, JComponent pane2 )
     {
 		 JPanel pane =  new JPanel();
-		 pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS)); 
-		 //		 pane.setLayout(new GridLayout(0, 3));
+		 pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));  
 		 pane1.setAlignmentX(Component.LEFT_ALIGNMENT);
 		 pane2.setAlignmentX(Component.LEFT_ALIGNMENT);
 		 pane1.setPreferredSize(new Dimension(1000, 600));

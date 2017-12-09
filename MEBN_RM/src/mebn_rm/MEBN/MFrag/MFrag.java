@@ -1,18 +1,31 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.MFrag;
 
-import java.io.IOException;
-import java.io.PrintStream;
+import java.io.IOException; 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import mebn_rm.MEBN.MNode.MIsANode;
 import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.MTheory.MTheory;
-import mebn_rm.MEBN.MTheory.OVariable;
+import mebn_rm.MEBN.MTheory.MTheory; 
 import mebn_rm.RDB.RDB;
 import mebn_rm.util.StringUtil;
 import util.SortableValueMap; 
@@ -29,24 +42,24 @@ implements Comparable<MFrag> {
     public String joiningSQL; 
     public String table = null;
     public String cvsFile;
-    public SortableValueMap<String, List<String>> mapCausality = new SortableValueMap();
-    public SortableValueMap<String, List<String>> mapNonCorrelation = new SortableValueMap();
-    public SortableValueMap<String, List<String>> mapCorrelation = new SortableValueMap();
+    public SortableValueMap<String, List<String>> mapCausality = new SortableValueMap<String, List<String>>();
+    public SortableValueMap<String, List<String>> mapNonCorrelation = new SortableValueMap<String, List<String>>();
+    public SortableValueMap<String, List<String>> mapCorrelation = new SortableValueMap<String, List<String>>();
     public LearningType learningType = LearningType.STRUCTURE_HYBRID_DISCRETIZED;
     public MFragType mFragType = MFragType.COMMON;
 
     public MFrag(MTheory m, String mfragName) {
-        this.init(m, mfragName);
+        init(m, mfragName);
     }
 
     public MFrag(MTheory m, String mfragName, String contextSQL) {
-        this.init(m, mfragName);
-        this.joiningSQL = contextSQL;
+        init(m, mfragName);
+        joiningSQL = contextSQL;
     }
 
     public void init(MTheory m, String mfragName) {
-        this.name = mfragName;
-        this.mTheory = m;
+        name = mfragName;
+        mTheory = m;
         m.setMFrags(this);
     }
     
@@ -91,11 +104,11 @@ implements Comparable<MFrag> {
 
     public /* varargs */ void setCorrelation(String child, String ... parents) {
         List listParents = null;
-        if (this.mapCorrelation.containsKey(child)) {
-            listParents = this.mapCorrelation.get(child);
+        if (mapCorrelation.containsKey(child)) {
+            listParents = mapCorrelation.get(child);
         } else {
             listParents = new ArrayList();
-            this.mapCorrelation.put(child, listParents);
+            mapCorrelation.put(child, listParents);
         }
         int i = 0;
         while (i < parents.length) {
@@ -106,11 +119,11 @@ implements Comparable<MFrag> {
 
     public /* varargs */ void setNonCorrelation(String child, String ... parents) {
         List listParents = null;
-        if (this.mapNonCorrelation.containsKey(child)) {
-            listParents = this.mapNonCorrelation.get(child);
+        if (mapNonCorrelation.containsKey(child)) {
+            listParents = mapNonCorrelation.get(child);
         } else {
             listParents = new ArrayList();
-            this.mapNonCorrelation.put(child, listParents);
+            mapNonCorrelation.put(child, listParents);
         }
         int i = 0;
         while (i < parents.length) {
@@ -121,11 +134,11 @@ implements Comparable<MFrag> {
 
     public /* varargs */ void setCausality(String child, String ... parents) {
         List listParents = null;
-        if (this.mapCausality.containsKey(child)) {
-            listParents = this.mapCausality.get(child);
+        if (mapCausality.containsKey(child)) {
+            listParents = mapCausality.get(child);
         } else {
             listParents = new ArrayList();
-            this.mapCausality.put(child, listParents);
+            mapCausality.put(child, listParents);
         }
         int i = 0;
         while (i < parents.length) {
@@ -135,16 +148,16 @@ implements Comparable<MFrag> {
     }
 
     public void updateCausality() {
-        for (MNode mn : this.arrayResidentNodes) {
+        for (MNode mn : arrayResidentNodes) {
             List<MNode> mns = mn.getAllParents();
             for (MNode p : mns) {
-                this.setCausality(mn.name, p.name);
+                setCausality(mn.name, p.name);
             }
         }
     }
 
     public MNode getMNode(String s) {
-        for (MNode mn : this.arrayResidentNodes) {
+        for (MNode mn : arrayResidentNodes) {
             if (!s.equalsIgnoreCase(mn.name)) continue;
             return mn;
         }
@@ -158,49 +171,49 @@ implements Comparable<MFrag> {
         while (n2 < n) {
             MNode l = arrmNode[n2];
             l.mFrag = this;
-            this.setMNode(l);
+            setMNode(l);
             ++n2;
         }
     }
 
     public void setMNode(MNode mn) {
-        for (MNode n : this.arrayResidentNodes) {
+        for (MNode n : arrayResidentNodes) {
             if (!n.name.equalsIgnoreCase(mn.name)) continue;
             return;
         }
-        this.arrayResidentNodes.add(mn);
+        arrayResidentNodes.add(mn);
     }
 
     public boolean removeMNode(MNode mn) {
-        this.arrayResidentNodes.remove(mn);
-        return this.arrayResidentNodes.isEmpty();
+        arrayResidentNodes.remove(mn);
+        return arrayResidentNodes.isEmpty();
     }
 
     public List<MNode> getAllNodes() {
         ArrayList<MNode> array = new ArrayList<MNode>();
-        for (MNode s22 : this.arrayContextNodes) {
+        for (MNode s22 : arrayContextNodes) {
             array.add(s22);
         }
-        for (MNode s22 : this.arrayResidentNodes) {
+        for (MNode s22 : arrayResidentNodes) {
             array.add(s22);
         }
-        this.arrayInputPrevNodes.clear();
-        for (MNode s22 : this.arrayInputNodes) {
+        arrayInputPrevNodes.clear();
+        for (MNode s22 : arrayInputNodes) {
             if (!array.contains(s22)) {
                 array.add(s22);
                 continue;
             }
-            this.arrayInputPrevNodes.add(s22);
+            arrayInputPrevNodes.add(s22);
         }
         return array;
     }
 
     public List<MNode> getMNodes() {
         ArrayList<MNode> array = new ArrayList<MNode>();
-        for (MNode s2 : this.arrayResidentNodes) {
+        for (MNode s2 : arrayResidentNodes) {
             array.add(s2);
         }
-        for (MNode s2 : this.arrayInputNodes) {
+        for (MNode s2 : arrayInputNodes) {
             if (array.contains(s2)) continue;
             array.add(s2);
         }
@@ -209,7 +222,7 @@ implements Comparable<MFrag> {
 
     public List<MNode> getInputPrevNodes() {
         ArrayList<MNode> array = new ArrayList<MNode>();
-        for (MNode s : this.arrayInputPrevNodes) {
+        for (MNode s : arrayInputPrevNodes) {
             array.add(s);
         }
         return array;
@@ -217,7 +230,7 @@ implements Comparable<MFrag> {
 
     public Double getSumMNodeLogScores() {
         Double logSCs = 0.0;
-        for (MNode mn : this.arrayResidentNodes) {
+        for (MNode mn : arrayResidentNodes) {
             Double logSC = mn.getlogCLDScore();
             logSCs = logSCs + logSC;
         }
@@ -226,21 +239,21 @@ implements Comparable<MFrag> {
 
     public Double getAvglogMNodeScore() {
         Double logSC = 0.0;
-        for (MNode mn : this.arrayResidentNodes) {
+        for (MNode mn : arrayResidentNodes) {
             logSC = logSC + mn.getAvglogCLDScore();
         }
         return logSC;
     }
 
     public void initSelectedDataset(int size) {
-        System.out.println("init Selected Dataset for the MFrag : " + this.name);
+        System.out.println("init Selected Dataset for the MFrag : " + name);
         ResultSet rs = null;
         
-        if (this.joiningSQL == null) {
+        if (joiningSQL == null) {
             String attrs = "";
-            String strTables = this.name;
+            String strTables = name;
             
-            for (MNode mn : this.getMNodes()) {
+            for (MNode mn : getMNodes()) {
                 attrs += mn.getAttributeName() + " as " + mn.name + ", ";
             }
             
@@ -249,15 +262,15 @@ implements Comparable<MFrag> {
                 rs = RDB.This().get(attrs, strTables);
             }
             
-            this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
+            cvsFile = RDBToCVS(name, mTheory.name, rs);
             try {
 				rs.close();
 			} catch (SQLException e) { 
 				e.printStackTrace();
 			}
         } else {
-            rs = RDB.This().get(this.joiningSQL);
-            this.cvsFile = RDBToCVS(this.name, this.mTheory.name, rs);
+            rs = RDB.This().get(joiningSQL);
+            cvsFile = RDBToCVS(name, mTheory.name, rs);
             try {
 				rs.close();
 			} catch (SQLException e) { 
@@ -265,10 +278,10 @@ implements Comparable<MFrag> {
 			}
             
             // create default cvs files for each node 
-            for (MNode mn : this.getMNodes()) {
+            for (MNode mn : getMNodes()) {
             	String s = "SELECT " + mn.getAttributeName() + " as " + mn.name + "\n";
             	s += "FROM " + "\n";
-            	s += this.getTableName() + "\n";
+            	s += getTableName() + "\n";
             	s += "where not exists (" + "\n";
             	s += "SELECT *" + "\n";
             	s += "FROM " + getParentTableNames() + "\n";
@@ -277,7 +290,7 @@ implements Comparable<MFrag> {
             	s += ") " + "\n";
             	
             	rs = RDB.This().get(s);
-            	mn.cvsFile = RDBToCVS(mn.name+"_default", this.mTheory.name, rs); 
+            	mn.cvsFile = RDBToCVS(mn.name+"_default", mTheory.name, rs); 
             	try {
     				rs.close();
     			} catch (SQLException e) { 
@@ -286,28 +299,10 @@ implements Comparable<MFrag> {
             }
         }
     }
-    
-    /*
-     * SELECT
-SELECT energy as HAI_energy
-FROM 
-heateractuator_item
-where not exists (
-SELECT  
-*
-FROM
- slabinput_item
-WHERE 
-heateractuator_item.TimeID = slabinput_item.TimeID &&
-heateractuator_item.TimeID = slabinput_item.TimeID &&
-heateractuator_item.TimeID = slabinput_item.TimeID
-)
-     */
-    
+     
     public String RDBToCVS(String file, String folder, ResultSet rs) {
         if (rs != null) {
-            try {
-//                rs.beforeFirst();
+            try { 
                 try {
                     return RDB.This().toExcel(file, folder, rs);
                 }
@@ -334,24 +329,24 @@ heateractuator_item.TimeID = slabinput_item.TimeID
         inclusions.add("MFrag");
         inclusions.add("MNode");
         inclusions.add("CLD");
-        return this.toString(inclusions);
+        return toString(inclusions);
     }
 
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("MFrag")) {
             String context;
-            s += "[F: " + this.name + "\r\n";
-            for (MIsANode c2 : this.arrayIsaContextNodes) {
+            s += "[F: " + name + "\r\n";
+            for (MIsANode c2 : arrayIsaContextNodes) {
                 context = "[C: " + c2.toString() + "]" + "\r\n";
                 s += "\t\t" + context;
             }
-            for (MNode c : this.arrayContextNodes) {
+            for (MNode c : arrayContextNodes) {
                 context = c.toString(inclusions);
                 context = context.replace("R:", "C:");
                 s += "\t\t" + context;
             }
-            for (MNode r : this.arrayResidentNodes) {
+            for (MNode r : arrayResidentNodes) {
                 context = r.toString(inclusions);
                 s += "\t\t" + context;
             }
@@ -367,7 +362,7 @@ heateractuator_item.TimeID = slabinput_item.TimeID
     }
 
     public void resetContextNodes() {
-        for (MNode mn : this.arrayResidentNodes) {
+        for (MNode mn : arrayResidentNodes) {
             System.out.println(mn.ovs);
             for (MNode rp : mn.parentMNodes) {
                 System.out.println(rp.ovs);
@@ -388,7 +383,6 @@ heateractuator_item.TimeID = slabinput_item.TimeID
     public static enum MFragType {
         COMMON,
         REFERENCE 
-    }
-
+    } 
 }
 

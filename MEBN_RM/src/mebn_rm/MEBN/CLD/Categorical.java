@@ -1,16 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  edu.cmu.tetrad.bayes.BayesIm
- *  edu.cmu.tetrad.bayes.BayesPm
- *  edu.cmu.tetrad.bayes.DirichletBayesIm
- *  edu.cmu.tetrad.bayes.DirichletEstimator
- *  edu.cmu.tetrad.data.DataSet
- *  edu.cmu.tetrad.graph.Dag
- *  edu.cmu.tetrad.graph.EdgeListGraph
- *  edu.cmu.tetrad.graph.Graph
- *  edu.cmu.tetrad.graph.Node
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.CLD;
 
@@ -23,12 +27,9 @@ import edu.cmu.tetrad.graph.Dag;
 import edu.cmu.tetrad.graph.EdgeListGraph;
 import edu.cmu.tetrad.graph.Graph;
 import edu.cmu.tetrad.graph.Node; 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.ArrayList; 
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import java.util.List;  
 import mebn_rm.MEBN.CLD.LPD_Discrete;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.parameter.Parameter;
@@ -43,21 +44,21 @@ public class Categorical extends LPD_Discrete {
  
     public Categorical() {
         super("", "Dirichlet");
-        this.parameterSize = 1;
-        this.isSampling = false;
+        parameterSize = 1;
+        isSampling = false;
     }
 
     public Categorical(String name) {
         super(name, "Dirichlet");
-        this.parameterSize = 1;
-        this.isSampling = false;
+        parameterSize = 1;
+        isSampling = false;
     }
 
     public ArrayList<String> generateParent(int parentSize) {
         ArrayList<String> parents = new ArrayList<String>();
         int i = 0;
         while (i < parentSize) {
-            parents.add(this.randomByUniform("T", "W"));
+            parents.add(randomByUniform("T", "W"));
             ++i;
         }
         return parents;
@@ -88,38 +89,38 @@ public class Categorical extends LPD_Discrete {
     }
  
     public List<String> getCategories() {
-        if (this.arrayCategories == null) {
-            this.arrayCategories = new ArrayList();
+        if (arrayCategories == null) {
+            arrayCategories = new ArrayList();
             BayesIm bayesIm = null;
-            Iterator<String> iterator = this.ipcIMs.keySet().iterator();
+            Iterator<String> iterator = ipcIMs.keySet().iterator();
             if (iterator.hasNext()) {
                 String condition = iterator.next();
-                bayesIm = this.ipcIMs.get(condition);
+                bayesIm = ipcIMs.get(condition);
             }
-            if (this.selectedData != null) {
-                Node thisNode = this.selectedData.getVariable(this.mNode.name);
+            if (selectedData != null) {
+                Node thisNode = selectedData.getVariable(mNode.name);
                 int c = 0;
                 while (c < bayesIm.getBayesPm().getNumCategories(thisNode)) {
-                    this.arrayCategories.add(bayesIm.getBayesPm().getCategory(thisNode, c));
+                    arrayCategories.add(bayesIm.getBayesPm().getCategory(thisNode, c));
                     ++c;
                 }
             }
         } else {
-            return this.arrayCategories;
+            return arrayCategories;
         }
-        return this.arrayCategories;
+        return arrayCategories;
     }
  
     public String getILD() {
-        List<MNode> discreteParents = this.mNode.getDiscreteParents();
+        List<MNode> discreteParents = mNode.getDiscreteParents();
         String s = "{ defineState(Discrete, ";
-        Node thisNode = this.selectedData.getVariable(this.mNode.name);
-        for (String state : this.mNode.getCategories()) {
+        Node thisNode = selectedData.getVariable(mNode.name);
+        for (String state : mNode.getCategories()) {
             s = String.valueOf(s) + state + ", ";
         }
         s = s.substring(0, s.length() - 2);
         s = String.valueOf(s) + " ); \n";
-        s = String.valueOf(s) + "p( " + this.mNode.name;
+        s = String.valueOf(s) + "p( " + mNode.name;
         if (discreteParents.size() > 0) {
             s = String.valueOf(s) + " | ";
             for (MNode p : discreteParents) {
@@ -129,8 +130,8 @@ public class Categorical extends LPD_Discrete {
         }
         s = String.valueOf(s) + " ) = \n";
         boolean b = true;
-        for (String condition : this.ipcIMs.keySet()) {
-            BayesIm bayesIm = this.ipcIMs.get(condition);
+        for (String condition : ipcIMs.keySet()) {
+            BayesIm bayesIm = ipcIMs.get(condition);
             if (!condition.isEmpty()) {
                 if (b) {
                     s = String.valueOf(s) + "if( " + condition + " ) {";
@@ -156,29 +157,24 @@ public class Categorical extends LPD_Discrete {
         return s;
     }
  
-    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
-//        if (this.mNode.name.equalsIgnoreCase("Activity")) {
-//            System.out.println();
-//        }
+    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) { 
         EdgeListGraph hybridGraph = new EdgeListGraph();
-        this.IPCs = this.initIPCs((Graph)hybridGraph);
-        if (this.IPCs == null) {
+        IPCs = initIPCs((Graph)hybridGraph);
+        if (IPCs == null) {
             return 0.0;
-        }
-//        if (this.mNode.parentMNodes.size() == 2) {
-//            System.out.println();
-//        }
-        for (String ipc : this.IPCs) {
+        } 
+        
+        for (String ipc : IPCs) {
             DataSet _dataSet_dis = null;
-            _dataSet_dis = ipc.equalsIgnoreCase("") ? this.selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, this.selectedData);
+            _dataSet_dis = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
             EdgeListGraph graph = new EdgeListGraph();
-            Node child = _dataSet_dis.getVariable(this.mNode.name);
+            Node child = _dataSet_dis.getVariable(mNode.name);
             graph.addNode(child);
             Dag dag = new Dag((Graph)graph);
             BayesPm bayesPm = new BayesPm((Graph)dag);
             DirichletBayesIm prior = DirichletBayesIm.symmetricDirichletIm((BayesPm)bayesPm, (double)0.5);
             DirichletBayesIm bayesIm = DirichletEstimator.estimate((DirichletBayesIm)prior, (DataSet)_dataSet_dis);
-            this.ipcIMs.put(ipc, (BayesIm)bayesIm);
+            ipcIMs.put(ipc, (BayesIm)bayesIm);
         }
         
         // create default distribution
@@ -218,9 +214,9 @@ public class Categorical extends LPD_Discrete {
     //
     public String toString(List<String> inclusions) {
     	String s = "";
-        if (inclusions.contains("CLD") && this.selectedData != null) {
-        	List<MNode> discreteParents = this.mNode.getDiscreteParents();
-        	Node thisNode = this.selectedData.getVariable(this.mNode.name);
+        if (inclusions.contains("CLD") && selectedData != null) {
+        	List<MNode> discreteParents = mNode.getDiscreteParents();
+        	Node thisNode = selectedData.getVariable(mNode.name);
         	
         	// get ovs statement
         	String ovs = "";
@@ -235,8 +231,8 @@ public class Categorical extends LPD_Discrete {
         	s = s + "[L: ";
         	 
         	boolean b = true; 
-        	for (String k : this.ipcIMs.keySet()) {
-        		BayesIm bayesIm = this.ipcIMs.get(k);
+        	for (String k : ipcIMs.keySet()) {
+        		BayesIm bayesIm = ipcIMs.get(k);
         		k = k.replace("&&", "&");
                 k = k.replace("==", "=");
         		 
@@ -284,8 +280,8 @@ public class Categorical extends LPD_Discrete {
 		    		s = s.substring(0, s.length() - 2);
 		            	    		
 	            } else {	// no default distribution
-	            	for (String k : this.ipcIMs.keySet()) {
-	            		BayesIm bayesIm = this.ipcIMs.get(k);
+	            	for (String k : ipcIMs.keySet()) {
+	            		BayesIm bayesIm = ipcIMs.get(k);
 	            		int j = 0;
 	            		while (j < bayesIm.getNumColumns(0)) {
 	            			Double p = bayesIm.getProbability(0, 0, j);

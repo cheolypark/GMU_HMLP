@@ -1,8 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  com.mysql.jdbc.Driver
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.RDB;
 
@@ -159,10 +171,7 @@ public class MySQL_Interface extends TempMathFunctions {
         	statement = connection.createStatement(java.sql.ResultSet.TYPE_FORWARD_ONLY, 
         										   java.sql.ResultSet.CONCUR_READ_ONLY);
         	statement.setFetchSize(Integer.MIN_VALUE);
-        	return statement.executeQuery(s);
-        	
-//            statement = connection.createStatement();
-//            return statement.executeQuery(s);
+        	return statement.executeQuery(s); 
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -174,23 +183,7 @@ public class MySQL_Interface extends TempMathFunctions {
         String sRun = "SELECT " + strAttrs + ", count(*) FROM " + strTables + " GROUP BY " + strAttrs + ";";
         return querySQL(sRun);
     }
-
-//    public ResultSet getPrimaryKeys(String table) {
-//        ResultSet rs = null;
-//        try {
-//            DatabaseMetaData meta = connection.getMetaData();
-//            rs = meta.getPrimaryKeys(null, null, table);
-//            while (rs.next()) {
-//            }
-//            rs.beforeFirst();
-//            return rs;
-//        }
-//        catch (SQLException e) {
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
+ 
     public ArrayList<String> getPrimaryKeysToArray(String table) {
         ArrayList<String> primarykeys = new ArrayList<String>();
         ResultSet rs = null;
@@ -202,8 +195,7 @@ public class MySQL_Interface extends TempMathFunctions {
             while (rs.next()) {
                 primarykeys.add(rs.getString("COLUMN_NAME"));
             }
-            rs.close();
-//            rs.beforeFirst();
+            rs.close(); 
             return primarykeys;
         }
         catch (SQLException e) {
@@ -217,10 +209,7 @@ public class MySQL_Interface extends TempMathFunctions {
         String[] types = new String[]{"TABLE"};
         try {
             DatabaseMetaData meta = connection.getMetaData();
-            rs = meta.getTables(null, null, "%", types);
-//            while (rs.next()) {
-//            }
-//            rs.beforeFirst();
+            rs = meta.getTables(null, null, "%", types); 
             return rs;
         }
         catch (SQLException e) {
@@ -348,7 +337,7 @@ public class MySQL_Interface extends TempMathFunctions {
                     String fkTableName = rs.getString("FKTABLE_NAME");
                     String fkColumnName = rs.getString("FKCOLUMN_NAME");
                     if (!fkTableName.equalsIgnoreCase(strTable) || strTable.equalsIgnoreCase(tableIterated) || ImportedTables.contains(tableIterated)) continue;
-                    ImportedTables.add(tableIterated);
+                    	ImportedTables.add(tableIterated);
                 }
             }
             
@@ -530,14 +519,7 @@ public class MySQL_Interface extends TempMathFunctions {
         fw.close();
         res.close();
         return strFile;
-    }
-
-//    public static int getRowCount(ResultSet res) throws SQLException {
-//        res.last();
-//        int numberOfRows = res.getRow();
-//        res.beforeFirst();
-//        return numberOfRows;
-//    }
+    } 
 
     public static int getColumnCount(ResultSet res) throws SQLException {
         return res.getMetaData().getColumnCount();

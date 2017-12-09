@@ -1,16 +1,23 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  mebn_rm.MEBN.CLD.CLD
- *  mebn_rm.MEBN.MNode.MNode
- *  mebn_rm.data.ConditionalDataSet
- *  mebn_rm.util.SortableValueMap
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_ln.core;
-
-import java.io.PrintStream;
-import java.util.Set;
+ 
 import mebn_ln.core.Learning_Common;
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.MNode.MNode;
@@ -20,28 +27,27 @@ import util.SortableValueMap;
 public class MNode_Learning
 extends Learning_Common {
     public void run(MNode mn) {
-        this.getCandidateMNodes(mn);
+        getCandidateMNodes(mn);
         System.out.println("******************* Begin MNode learning with the " + mn.name + " MNode *******************");
         System.out.println(mn.toString());
-        this.run_operation(mn);
+        run_operation(mn);
         System.out.println("******************* End MNode learning with the " + mn.name + " MNode *******************");
     }
 
     public void run_operation(MNode mn) {
         SortableValueMap<CLD, Double> cldCANs = mn.cldCANs;
         ConditionalDataSet CD = mn.CDs;
-        for (CLD c2 : cldCANs.keySet()) {
-            Double samplingSize = 100.0;
-            if (this.isMC_Approach()) continue;
+        for (CLD c2 : cldCANs.keySet()) { 
+            if (isMC_Approach()) continue;
             c2.calculateBestPara(CD, null);
         }
         for (CLD l : cldCANs.keySet()) {
             Double cldSc = 0.0;
-            if (this.isMC_Approach()) {
+            if (isMC_Approach()) {
                 cldSc = l.getAvgLogParaScore();
-            } else if (this.isMC_Approach()) {
+            } else if (isMC_Approach()) {
                 cldSc = (Double)cldCANs.get((Object)l) + l.getlogParaScore();
-            } else if (this.isML_Approach()) {
+            } else if (isML_Approach()) {
                 cldSc = 0.0;
             }
             cldCANs.put(l, cldSc);

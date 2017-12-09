@@ -1,19 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  edu.cmu.tetrad.data.DataSet
- *  edu.cmu.tetrad.graph.EdgeListGraph
- *  edu.cmu.tetrad.graph.Graph
- *  edu.cmu.tetrad.graph.Node
- *  edu.cmu.tetrad.sem.DagScorer
- *  edu.cmu.tetrad.sem.Scorer
- *  edu.cmu.tetrad.sem.SemIm
- *  edu.cmu.tetrad.util.TetradMatrix
- *  mebn_rm.MEBN.CLD.LPD_Continuous
- *  mebn_rm.MEBN.MNode.MNode
- *  mebn_rm.util.TempMathFunctions
- *  mebn_rm.util.Tetrad_Util
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_ln.core.CLD;
 
@@ -24,10 +25,8 @@ import edu.cmu.tetrad.graph.Node;
 import edu.cmu.tetrad.sem.DagScorer;
 import edu.cmu.tetrad.sem.Scorer;
 import edu.cmu.tetrad.sem.SemIm;
-import edu.cmu.tetrad.util.TetradMatrix;
-import java.io.PrintStream;
-import java.util.List;
-import java.util.Map;
+import edu.cmu.tetrad.util.TetradMatrix; 
+import java.util.List; 
 import mebn_rm.MEBN.CLD.LPD_Continuous;
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.util.Tetrad_Util;
@@ -37,27 +36,27 @@ public class ConditionalGaussian_error
 extends LPD_Continuous {
     public ConditionalGaussian_error() {
         super("", "ConditionalGaussian_error");
-        this.parameterSize = 1;
-        this.isSampling = false;
+        parameterSize = 1;
+        isSampling = false;
     }
 
     public ConditionalGaussian_error(String name) {
         super(name, "ConditionalGaussian_error");
-        this.parameterSize = 1;
-        this.isSampling = false;
+        parameterSize = 1;
+        isSampling = false;
     }
 
     public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
         EdgeListGraph graph = new EdgeListGraph();
-        DataSet data = Tetrad_Util.getDifferenceData((String)this.mNode.name, (DataSet)_dataSet_con, (Graph)graph);
+        DataSet data = Tetrad_Util.getDifferenceData((String)mNode.name, (DataSet)_dataSet_con, (Graph)graph);
         DagScorer scorer = new DagScorer(data);
-        if (this.mNode.name.equalsIgnoreCase("AltitudeReport")) {
+        if (mNode.name.equalsIgnoreCase("AltitudeReport")) {
             System.out.println();
         }
         if (_dataSet_con.getNumRows() == 0) {
-            this.ipcScorers.put(ipc, null);
+            ipcScorers.put(ipc, null);
         } else if (!Tetrad_Util.hasVariance((DataSet)_dataSet_con)) {
-            this.ipcScorers.put(ipc, null);
+            ipcScorers.put(ipc, null);
         } else {
             double fml = scorer.score((Graph)graph);
             System.out.println("FML (scorer) = " + fml);
@@ -67,15 +66,15 @@ extends LPD_Continuous {
             System.out.println("# free params = " + scorer.getNumFreeParams());
             SemIm im = scorer.getEstSem();
             System.out.println("est sem = " + (Object)im);
-            this.ipcScorers.put(ipc, scorer);
+            ipcScorers.put(ipc, scorer);
         }
     }
 
     public String getILD_op(Object ob) {
         Scorer sc = (Scorer)ob;
-        List<MNode> cp = this.mNode.getContinuousParents();
+        List<MNode> cp = mNode.getContinuousParents();
         String s = "";
-        if (this.mNode.name.equalsIgnoreCase("AltitudeReport")) {
+        if (mNode.name.equalsIgnoreCase("AltitudeReport")) {
             System.out.println();
         }
         if (sc != null) {
@@ -86,7 +85,7 @@ extends LPD_Continuous {
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
             for (MNode p : cp) {
                 Node parent = sc.getDataSet().getVariable(p.name);
-                Node child = sc.getDataSet().getVariable(this.mNode.name);
+                Node child = sc.getDataSet().getVariable(mNode.name);
                 s = String.valueOf(s) + " 1.0 * " + p.name + " + ";
             }
             String meanS = TempMathFunctions.safeDoubleAsString((double)mean);

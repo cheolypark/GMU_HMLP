@@ -1,20 +1,25 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  mebn_rm.MEBN.MFrag.MFrag
- *  mebn_rm.MEBN.MFrag.MFrag$LearningType
- *  mebn_rm.MEBN.MNode.MNode
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_ln.core;
-
-import java.io.IOException;
-import java.io.PrintStream;
-import java.util.List;
-import mebn_ln.bn_structure_learning.BNStructureLearning;
+ 
 import mebn_ln.core.Learning_Common;
-import mebn_ln.core.MNode_Learning;
-import mebn_ln.core.MTheory_Learning;
+import mebn_ln.core.MNode_Learning; 
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 
@@ -24,12 +29,12 @@ extends Learning_Common {
     MFrag mFrag = null;
 
     public void run(MFrag f) {
-        this.mFrag = f;
-        this.getCandidateMGraphs(f, 5.0);
+        mFrag = f;
+        getCandidateMGraphs(f, 5.0);
         System.out.println("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
-//        System.out.println(f.toString());
+ 
         f.initSelectedDataset(-1);
-        this.run_operation(f);
+        run_operation(f);
         System.out.println("******************* End MFrag learning with the " + f.name + " MFrag *******************");
     }
 
@@ -43,7 +48,7 @@ extends Learning_Common {
         }
         if (f.learningType == MFrag.LearningType.PARAMETER || f.learningType == MFrag.LearningType.BAYES) {
             for (MNode n : f.arrayResidentNodes) {
-                this.MNode_learning.run(n);
+                MNode_learning.run(n);
             }
             return;
         }
@@ -53,14 +58,14 @@ extends Learning_Common {
 //        
 //        try {
 //            if (MTheory_Learning.structure_learning) {
-//                BNStructureLearning.run(this.mFrag.cvsFile, f);
+//                BNStructureLearning.run(mFrag.cvsFile, f);
 //            }
 //        }
 //        catch (IOException e) {
 //            e.printStackTrace();
 //        }
         for (MNode n : f.arrayResidentNodes) {
-            this.MNode_learning.run(n);
+            MNode_learning.run(n);
         }
     }
 

@@ -1,14 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  au.com.bytecode.opencsv.CSVReader
- *  edu.cmu.tetrad.data.ColtDataSet
- *  edu.cmu.tetrad.data.ContinuousVariable
- *  edu.cmu.tetrad.data.DiscreteVariable
- *  edu.cmu.tetrad.graph.Node
- *  org.apache.commons.collections.MultiHashMap
- *  org.apache.commons.collections.MultiMap
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.RDB;
  
@@ -18,15 +24,13 @@ import edu.cmu.tetrad.data.DiscreteVariable;
 import edu.cmu.tetrad.graph.Node;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException; 
-import java.io.Reader; 
+import java.io.IOException;  
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map; 
-import java.util.concurrent.TimeUnit;
+import java.util.Map;  
 import mebn_rm.RDB.Bin;
 import mebn_rm.RDB.MySQL_Interface;
 import org.apache.commons.collections.MultiHashMap;
@@ -238,8 +242,7 @@ public class RDB extends MySQL_Interface {
         }
     }
 
-    public void setDomainVaule(String attr, String d) {
-//    	System.out.println("attr: " + attr + " value: " + d);
+    public void setDomainVaule(String attr, String d) { 
         if (d == null || RDB.isNum(d)) {
             return;
         }
@@ -514,8 +517,7 @@ public class RDB extends MySQL_Interface {
 							mapHeader.put(j, column);
 						}
 					}
-					
-//					dataset = new ColtDataSet(records..size() - 1, nodes); 
+					 
 				} 				
 				// Data 
 				else {
@@ -557,101 +559,10 @@ public class RDB extends MySQL_Interface {
 		} catch (IOException e) { 
 			e.printStackTrace();
 		}
-        
-         
-//        HashMap<Integer, String> mapHeader = new HashMap<Integer, String>();
-//     
-//        int i = 0; 
-//        for (String[] nextLine : list) {
-//            int j;
-//            int rowSize;
-//            if (i == 0) {
-//                j = 0;
-//                while (j < nextLine.length) {
-//                    String str = nextLine[j];
-//                    mapHeader.put(j, str);
-//                    ++j;
-//                }
-//                rowSize = list.size();
-//                dataset = new ColtDataSet(rowSize - 1, nodes);
-//            } else {
-//                if (i == 1) {
-//                    j = 0;
-//                    while (j < nextLine.length) {
-//                       
-//                        if (RDB.isNum(nextLine[j])) {
-//                        	ContinuousVariable gn;
-//                            gn = new ContinuousVariable((String)mapHeader.get(j));
-//                            nodes.add(gn);
-//                        } else {
-//                        	DiscreteVariable gn;
-//                            gn = new DiscreteVariable((String)mapHeader.get(j));
-//                            nodes.add(gn);
-//                        }
-//                        ++j;
-//                    }
-//                    rowSize = list.size();
-//                    dataset = new ColtDataSet(rowSize - 1, nodes);
-//                }
-//                j = 0;
-//                while (j < nextLine.length) {
-//                    long timeTotal = System.nanoTime();
-//                    dataset.setObject(i - 1, j, (Object)nextLine[j]);
-//                    Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
-//                    ++j;
-//                }
-//            }
-//            ++i;
-//        }
-   
+          
         return dataset;
     }
-    
-    
-//    int i = 0;
-////  List<String[]> list = reader.readAll();
-//   for (String[] nextLine : list) {
-//       int j;
-//       int rowSize;
-//       if (i == 0) {
-//           j = 0;
-//           while (j < nextLine.length) {
-//               String str = nextLine[j];
-//               mapHeader.put(j, str);
-//               ++j;
-//           }
-//           rowSize = list.size();
-//           dataset = new ColtDataSet(rowSize - 1, nodes);
-//       } else {
-//           if (i == 1) {
-//               j = 0;
-//               while (j < nextLine.length) {
-//                  
-//                   if (RDB.isNum(nextLine[j])) {
-//                   	ContinuousVariable gn;
-//                       gn = new ContinuousVariable((String)mapHeader.get(j));
-//                       nodes.add(gn);
-//                   } else {
-//                   	DiscreteVariable gn;
-//                       gn = new DiscreteVariable((String)mapHeader.get(j));
-//                       nodes.add(gn);
-//                   }
-//                   ++j;
-//               }
-//               rowSize = list.size();
-//               dataset = new ColtDataSet(rowSize - 1, nodes);
-//           }
-//           j = 0;
-//           while (j < nextLine.length) {
-//               long timeTotal = System.nanoTime();
-//               dataset.setObject(i - 1, j, (Object)nextLine[j]);
-//               Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
-//               ++j;
-//           }
-//       }
-//       ++i;
-//   }
-
+     
     public String checkPreT2(String strTableC) {
         String ret = strTableC;
         Integer index = ret.indexOf("_pret");

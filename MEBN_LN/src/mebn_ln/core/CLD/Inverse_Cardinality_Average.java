@@ -1,28 +1,29 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  edu.cmu.tetrad.graph.EdgeListGraph
- *  edu.cmu.tetrad.graph.Graph
- *  mebn_rm.MEBN.CLD.CLD
- *  mebn_rm.MEBN.CLD.Categorical
- *  mebn_rm.MEBN.CLD.LPD_Discrete
- *  mebn_rm.MEBN.MNode.MNode
- *  mebn_rm.data.ConditionalDataSet
- *  mebn_rm.util.ExcelCSV
- *  mebn_rm.util.Tetrad_Util
- *  mebn_rm.util.TextFile
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_ln.core.CLD;
 
 import edu.cmu.tetrad.graph.EdgeListGraph;
-import edu.cmu.tetrad.graph.Graph;
-import java.io.PrintStream;
+import edu.cmu.tetrad.graph.Graph; 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Map; 
 import java.util.concurrent.TimeUnit;
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.CLD.Categorical;
@@ -39,12 +40,12 @@ extends LPD_Discrete {
 
     public Inverse_Cardinality_Average() {
         super("", "Inverse_Cardinality_Average");
-        this.parameterSize = 2;
+        parameterSize = 2;
     }
 
     public Inverse_Cardinality_Average(String name) {
         super(name, "Inverse_Cardinality_Average");
-        this.parameterSize = 2;
+        parameterSize = 2;
     }
 
     public List<String> getCategories() {
@@ -55,14 +56,14 @@ extends LPD_Discrete {
     }
 
     public String getILD() {
-        List<MNode> discreteParents = this.mNode.getDiscreteParents();
+        List<MNode> discreteParents = mNode.getDiscreteParents();
         String s = "{ defineState(Discrete, ";
-        for (String state : this.mNode.getCategories()) {
+        for (String state : mNode.getCategories()) {
             s = String.valueOf(s) + state + ", ";
         }
         s = s.substring(0, s.length() - 2);
         s = String.valueOf(s) + " ); \n";
-        s = String.valueOf(s) + "p( " + this.mNode.name;
+        s = String.valueOf(s) + "p( " + mNode.name;
         if (discreteParents.size() > 0) {
             s = String.valueOf(s) + " | ";
             for (MNode p : discreteParents) {
@@ -72,8 +73,8 @@ extends LPD_Discrete {
         }
         s = String.valueOf(s) + " ) = \n";
         boolean b = true;
-        for (String condition : this.ipcProbs.keySet()) {
-            String probs = this.ipcProbs.get(condition);
+        for (String condition : ipcProbs.keySet()) {
+            String probs = ipcProbs.get(condition);
             if (!condition.isEmpty()) {
                 if (b) {
                     s = String.valueOf(s) + "if( " + condition + " ) {";
@@ -93,14 +94,14 @@ extends LPD_Discrete {
 
     public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
         EdgeListGraph hybridGraph = new EdgeListGraph();
-        this.IPCs = this.initIPCs((Graph)hybridGraph);
-        if (this.IPCs == null) {
+        IPCs = initIPCs((Graph)hybridGraph);
+        if (IPCs == null) {
             return 0.0;
         }
-        for (String ipc : this.IPCs) {
+        for (String ipc : IPCs) {
             String probs = "";
             probs = ipc.contains("Mission == Attack && TargetType == ThreateningGroundTarget") ? "High : 0.00033535; Low : 0.99966465;" : "High : 0.0; Low : 1.0;";
-            this.ipcProbs.put(ipc, probs);
+            ipcProbs.put(ipc, probs);
         }
         return 0.0;
     }

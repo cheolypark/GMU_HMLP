@@ -49,7 +49,7 @@ public class text_mode_continuous_heater_model {
 			e.printStackTrace();
 		}
 		
-		//3. Perform MEBN-RM 
+		//3. MEBN-RM 
 		MTheory	mTheory =  new RM_To_MEBN(RDB.This()).run(); 
 		
 		//4. Add parents

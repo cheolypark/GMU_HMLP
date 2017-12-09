@@ -1,8 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  org.apache.commons.collections.MultiMap
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.MTheory;
  
@@ -26,12 +38,12 @@ import util.SortableValueMap;
   
 public class MTheory implements Comparable<MTheory> {
     public SortableValueMap<MFrag, Double> mfrags = new SortableValueMap<MFrag, Double>();
-    public ArrayList<String> entities = new ArrayList();
+    public ArrayList<String> entities = new ArrayList<String>();
     public String name;
     public RDB rdb = null;
 
     public MTheory(String n) {
-        this.name = n;
+        name = n;
     }
 
     public /* varargs */ void setMFrags(MFrag ... fs) {
@@ -41,13 +53,13 @@ public class MTheory implements Comparable<MTheory> {
         while (n2 < n) {
             MFrag f = arrmFrag[n2];
             f.mTheory = this;
-            this.mfrags.put(f, 0.0);
+            mfrags.put(f, 0.0);
             ++n2;
         }
     }
 
     public MFrag getMFrag(String s) {
-        for (MFrag f : this.mfrags.keySet()) {
+        for (MFrag f : mfrags.keySet()) {
             if (!s.equalsIgnoreCase(f.name)) continue;
             return f;
         }
@@ -55,14 +67,14 @@ public class MTheory implements Comparable<MTheory> {
     }
 
     public boolean removeMFrag(MFrag f) {
-        this.mfrags.remove(f);
-        return this.mfrags.isEmpty();
+        mfrags.remove(f);
+        return mfrags.isEmpty();
     }
 
     public MNode getMNode(String s) {
         String mFrag = new StringUtil().getLeft(s);
         String mNode = new StringUtil().getRight(s);
-        MFrag f = this.getMFrag(mFrag);
+        MFrag f = getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         return childMNode;
     }
@@ -74,21 +86,15 @@ public class MTheory implements Comparable<MTheory> {
         boolean bOtherMFrag = false;
         
         for (String p : ps) {
-            String mFragP = new StringUtil().getLeft(p);
-//            String mNodeP = new StringUtil().getRight(p);
-//            if (!p.equalsIgnoreCase(ps.get(0))) {
-//                combParents = combParents + "_";
-//            }
-            if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) {
-//                combParents = combParents + mNode + "_";
+            String mFragP = new StringUtil().getLeft(p); 
+            if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) { 
                 bOtherMFrag = true;
-            }
-//            combParents = combParents + mNodeP;
+            } 
         }
         
         combParents = mNode;
         
-        MFrag f = this.getMFrag(mFrag);
+        MFrag f = getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         if (bOtherMFrag) {
             String sql = "SELECT\r\n";
@@ -111,7 +117,7 @@ public class MTheory implements Comparable<MTheory> {
             
             // Add Isa Context Nodes for the new MFrag from the current MFrag
             for (String key : keys) {
-                String originEntity = this.rdb.mapKeysOrigins.get(key);
+                String originEntity = rdb.mapKeysOrigins.get(key);
                 OVariable ov = new OVariable(f.getTableName(), key, originEntity);
                 newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
             }
@@ -131,7 +137,7 @@ public class MTheory implements Comparable<MTheory> {
                 }
                 	
                 	
-                MFrag fp = this.getMFrag(mFragP);
+                MFrag fp = getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
                 
                 sql = sql + fp.getTableName() + "." + parentMNode.getAttributeName() + " as " + mNodeP + ",\r\n";
@@ -142,7 +148,7 @@ public class MTheory implements Comparable<MTheory> {
                 
                 // Add Isa Context Nodes for the new MFrag from the parent MFrags
                 for (String key2 : keys2) {
-                    String originEntity = this.rdb.mapKeysOrigins.get(key2);
+                    String originEntity = rdb.mapKeysOrigins.get(key2);
                     OVariable ov = new OVariable(fp.getTableName(), key2, originEntity);
                     newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
                     listOV.add(ov);
@@ -169,7 +175,7 @@ public class MTheory implements Comparable<MTheory> {
             newMFrag.joiningSQL = sql;
             
             if (f.removeMNode(childMNode)) {
-                this.removeMFrag(f);
+                removeMFrag(f);
             }
         } else {
             for (String p3 : ps) {
@@ -182,7 +188,7 @@ public class MTheory implements Comparable<MTheory> {
     }
 
     public void addContexts(String mFrag, String sql) {
-        MFrag f = this.getMFrag(mFrag);
+        MFrag f = getMFrag(mFrag);
     }
 
     public void updateParentNodesOVs(MFrag f, List<MIsANode> removeList, Map<String, String> surviveMap) {
@@ -202,7 +208,7 @@ public class MTheory implements Comparable<MTheory> {
     }
     
     public void updateContexts() {
-        for (MFrag f : this.mfrags.keySet()) {
+        for (MFrag f : mfrags.keySet()) {
             ArrayList<MIsANode> removeList;
             Map<String, String> surviveMap;
             OVariable ov; 
@@ -281,28 +287,26 @@ public class MTheory implements Comparable<MTheory> {
     public void addCLDType(String c, CLD cldType) {
         String mFrag = new StringUtil().getLeft(c);
         String mNode = new StringUtil().getRight(c);
-        MFrag f = this.getMFrag(mFrag);
+        MFrag f = getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         childMNode.setCLDs(cldType);
     }
 
     public void updateCLDs() {
-        for (MFrag f : this.mfrags.keySet()) {
-            for (MNode n : f.getMNodes()) {
-//                System.out.println(n);
+        for (MFrag f : mfrags.keySet()) {
+            for (MNode n : f.getMNodes()) { 
                 if (n.isContinuous()) {
                     n.setCLDs(new ConditionalGaussian());
                 } else if (n.isDiscrete()) {
                     n.setCLDs(new Categorical());
-                }
-//                System.out.println(n);
+                } 
             }
         }
     }
 
     public String toString() {
-        String s = "[M: " + this.name + "\r\n";
-        for (MFrag m : this.mfrags.keySet()) {
+        String s = "[M: " + name + "\r\n";
+        for (MFrag m : mfrags.keySet()) {
             s = s + "\t" + m.toString() + "\r\n";
         }
         s = s + "]";
@@ -316,8 +320,8 @@ public class MTheory implements Comparable<MTheory> {
             inclusions.add(inclusion[i]);
             ++i;
         }
-        String s = "[M: " + this.name + "\r\n";
-        for (MFrag m : this.mfrags.keySet()) {
+        String s = "[M: " + name + "\r\n";
+        for (MFrag m : mfrags.keySet()) {
             s = s + "\t" + m.toString(inclusions) + "\r\n";
         }
         s = s + "]";
@@ -326,7 +330,7 @@ public class MTheory implements Comparable<MTheory> {
 
     public Double getSumMFragLogScores() {
         Double logSCs = 0.0;
-        for (MFrag f : this.mfrags.keySet()) {
+        for (MFrag f : mfrags.keySet()) {
             Double logSC = f.getSumMNodeLogScores();
             logSCs = logSCs + logSC;
             System.out.println(f.toString() + " : " + logSC);
@@ -336,9 +340,9 @@ public class MTheory implements Comparable<MTheory> {
 
     public Double getAvgLogMFragScore() {
         Double logSC = 0.0;
-        for (MFrag f : this.mfrags.keySet()) {
+        for (MFrag f : mfrags.keySet()) {
             logSC = logSC + f.getAvglogMNodeScore();
-            this.mfrags.put(f, f.getAvglogMNodeScore());
+            mfrags.put(f, f.getAvglogMNodeScore());
         }
         return logSC;
     }

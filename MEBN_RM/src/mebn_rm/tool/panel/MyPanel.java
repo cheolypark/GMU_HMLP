@@ -1,7 +1,25 @@
-package mebn_rm.tool.panel;  
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package mebn_rm.tool.panel; 
+
 import java.awt.Component;
 import java.awt.Dimension; 
-
 import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -15,7 +33,11 @@ import javax.swing.border.TitledBorder;
  
 
 public class MyPanel extends JPanel {
-    Dimension VGAP5 = new Dimension(1,5); 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -5176532097285309146L;
+	Dimension VGAP5 = new Dimension(1,5); 
     EmptyBorder border5 = new EmptyBorder(5,5,5,5);  
 	
 	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), 
@@ -56,8 +78,7 @@ public class MyPanel extends JPanel {
     {
     	JPanel p = new JPanel();
     	p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-    	p.setAlignmentY(TOP_ALIGNMENT);
-//    	p.setAlignmentX(LEFT_ALIGNMENT);
+    	p.setAlignmentY(TOP_ALIGNMENT); 
     	if(threeD) 
     	{
     		p.setBorder(loweredBorder);

@@ -1,17 +1,23 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  mebn_rm.MEBN.MFrag.MFrag
- *  mebn_rm.MEBN.MFrag.MFrag$MFragType
- *  mebn_rm.MEBN.MTheory.MRoot
- *  mebn_rm.MEBN.MTheory.MTheory
- *  mebn_rm.util.SortableValueMap
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_ln.core;
-
-import java.io.PrintStream;
-import java.util.Set;
+ 
 import mebn_ln.core.Learning_Common;
 import mebn_ln.core.MFrag_Learning;
 import mebn_rm.MEBN.MFrag.MFrag;
@@ -25,22 +31,22 @@ extends Learning_Common {
     public static boolean structure_learning = true;
 
     public void run(MRoot mRoot) {
-        this.getCandidateMTheories(mRoot.mtheoryCANs);
+        getCandidateMTheories(mRoot.mtheoryCANs);
         System.out.println("******************* Begin MTheory learning with an MRoot *******************");
-//        System.out.println(mRoot.toString());
-        this.run_operation(mRoot.mtheoryCANs);
+ 
+        run_operation(mRoot.mtheoryCANs);
     }
 
     public void run_operation(SortableValueMap<MTheory, Double> mtheoryCANs) {
         for (MTheory m22 : mtheoryCANs.keySet()) {
             for (MFrag f : m22.mfrags.keySet()) {
                 if (f.mFragType != MFrag.MFragType.COMMON) continue;
-                this.MFrag_learning.run((MFrag)f);
+                MFrag_learning.run((MFrag)f);
             }
         }
         for (MTheory m22 : mtheoryCANs.keySet()) {
             Object f;
-            if (!this.isMC_Approach()) continue;
+            if (!isMC_Approach()) continue;
             f = m22.getAvgLogMFragScore();
         }
         for (MTheory m22 : mtheoryCANs.keySet()) {

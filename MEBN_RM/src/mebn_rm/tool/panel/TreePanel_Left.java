@@ -1,16 +1,32 @@
+/*
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package mebn_rm.tool.panel; 
  
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.List; 
- 
+import java.util.List;  
 import javax.swing.JScrollPane;
 import javax.swing.JTree; 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
-
+import javax.swing.tree.TreePath;   
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.RDB.RDB;
@@ -18,6 +34,11 @@ import mebn_rm.tool.MEBN_RM_Console;
 import mebn_rm.util.StringUtil; 
   
 public class TreePanel_Left extends TreePanel {  
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4051838457750106644L;
 
 	public String selectedObject = "";
 	 
@@ -115,12 +136,10 @@ public class TreePanel_Left extends TreePanel {
 				if (selPath != null) {
 					DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
 					if (node.isLeaf()) {
-
-						String type = (String) node.getUserObject();
+ 
 						String strpar = node.getParent().toString();
 						String strcur = node.toString(); 
-						 
-						String selectedObjectParent = strpar;
+						  
 						selectedObject = strpar +"." + strcur;
 						
 						if (console.wMode == MEBN_RM_Console.windowMode.SELECT_DB){  

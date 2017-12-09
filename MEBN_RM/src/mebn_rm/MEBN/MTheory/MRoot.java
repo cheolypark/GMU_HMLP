@@ -1,19 +1,33 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.MTheory;
 
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.ArrayList; 
 import mebn_rm.MEBN.MTheory.MTheory;
 import util.SortableValueMap; 
 
 public class MRoot
 implements Comparable<MRoot> {
-    public SortableValueMap<MTheory, Double> mtheoryCANs = new SortableValueMap();
+    public SortableValueMap<MTheory, Double> mtheoryCANs = new SortableValueMap<MTheory, Double>();
     public String name = "ROOT";
 
-    public /* varargs */ void setMTheories(MTheory ... mtheories) {
+    public void setMTheories(MTheory ... mtheories) {
         ArrayList<MTheory> arrayMTheories = new ArrayList<MTheory>();
         MTheory[] arrmTheory = mtheories;
         int n = arrmTheory.length;
@@ -23,21 +37,21 @@ implements Comparable<MRoot> {
             arrayMTheories.add(l);
             ++n2;
         }
-        for (MTheory l : this.mtheoryCANs.keySet()) {
+        for (MTheory l : mtheoryCANs.keySet()) {
             arrayMTheories.add(l);
         }
         Integer i = 1;
-        this.mtheoryCANs.clear();
+        mtheoryCANs.clear();
         for (MTheory l2 : arrayMTheories) {
-            l2.name = String.valueOf(this.name) + "_MTheory_" + i;
-            this.mtheoryCANs.put(l2, Math.log(1.0 / (double)arrayMTheories.size()));
+            l2.name = String.valueOf(name) + "_MTheory_" + i;
+            mtheoryCANs.put(l2, Math.log(1.0 / (double)arrayMTheories.size()));
             i = i + 1;
         }
     }
 
     public String toString() {
-        String s = "[" + this.name + " :";
-        for (MTheory m : this.mtheoryCANs.keySet()) {
+        String s = "[" + name + " :";
+        for (MTheory m : mtheoryCANs.keySet()) {
             s = String.valueOf(s) + m.toString() + ", ";
         }
         s = s.substring(0, s.length() - 2);
@@ -47,8 +61,8 @@ implements Comparable<MRoot> {
 
     public ArrayList<Double> getlogMFragScores() {
         ArrayList<Double> logSCs = new ArrayList<Double>();
-        for (MTheory m : this.mtheoryCANs.keySet()) {
-            Double logSC = this.mtheoryCANs.get(m);
+        for (MTheory m : mtheoryCANs.keySet()) {
+            Double logSC = mtheoryCANs.get(m);
             logSCs.add(logSC);
         }
         return logSCs;
@@ -59,7 +73,7 @@ implements Comparable<MRoot> {
     }
 
     public MTheory getMTheory(String name) {
-        for (MTheory m : this.mtheoryCANs.keySet()) {
+        for (MTheory m : mtheoryCANs.keySet()) {
             if (name.isEmpty()) {
                 return m;
             }

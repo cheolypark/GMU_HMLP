@@ -1,5 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.MNode;
  
@@ -29,7 +44,7 @@ import util.math.Sum_for_Log;
 public class MNode extends Tree implements Comparable<MNode> {
     public String name = "";
     public String pret = "";
-    public SortableValueMap<CLD, Double> cldCANs = new SortableValueMap();
+    public SortableValueMap<CLD, Double> cldCANs = new SortableValueMap<CLD, Double>();
     public CLD bestCLD = null; 
     public MFrag mFrag = null;
     public String attribute = null;
@@ -40,34 +55,34 @@ public class MNode extends Tree implements Comparable<MNode> {
     public ConditionalDataSet CDs = null;
     static List<MNode> globalMNodes = new ArrayList<MNode>();
     private Integer count = 0;
-    public SortableValueMap<String, ResidentNode> residentNodes = new SortableValueMap();
+    public SortableValueMap<String, ResidentNode> residentNodes = new SortableValueMap<String, ResidentNode>();
     public ResidentNode childResidentNode = null;
 
     public MNode(String n) {
         super(false);
-        this.name = n;
+        name = n;
     }
 
     public MNode(MNode n) {
         super(false);
-        this.name = n.name;
-        this.ovs = n.ovs;
-        this.attribute = n.attribute;
+        name = n.name;
+        ovs = n.ovs;
+        attribute = n.attribute;
     }
 
-    public /* varargs */ MNode(MFrag f, String n, MNode ... parenetmnodes) {
+    public MNode(MFrag f, String n, MNode ... parenetmnodes) {
         super(false);
-        this.name = n;
-        this.mFrag = f;
-        this.setParents(parenetmnodes);
+        name = n;
+        mFrag = f;
+        setParents(parenetmnodes);
     }
 
     public /* varargs */ MNode(MFrag f, String n, List<OVariable> o, MNode ... parenetmnodes) {
         super(false); 
-        this.name = n; 
-        this.mFrag = f;
-        this.ovs = new ArrayList<OVariable>(o);
-        this.setParents(parenetmnodes);
+        name = n; 
+        mFrag = f;
+        ovs = new ArrayList<OVariable>(o);
+        setParents(parenetmnodes);
     }
  
     public String toString() {
@@ -76,11 +91,11 @@ public class MNode extends Tree implements Comparable<MNode> {
         inclusions.add("Parents");
         inclusions.add("CLD");
         inclusions.add("Graph");
-        return this.toString(inclusions);
+        return toString(inclusions);
     }
 
     public String toStringOVswithBracket() {
-    	List<OVariable> ovs = this.ovs;
+    	List<OVariable> ovs = ovs;
     	String s = "";
     	
     	if (ovs.size() > 0) {
@@ -93,7 +108,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
     
     public String toStringOVs() {
-    	List<OVariable> ovs = this.ovs;
+    	List<OVariable> ovs = ovs;
     	String s = "";
     	
     	if (ovs.size() > 0) {
@@ -111,23 +126,23 @@ public class MNode extends Tree implements Comparable<MNode> {
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("MNode")) {
-            s = String.valueOf(s) + "[R: " + this.name;
+            s = String.valueOf(s) + "[R: " + name;
             s += toStringOVswithBracket();
-//            if (this.ovs.size() > 0) {
+//            if (ovs.size() > 0) {
 //                s = String.valueOf(s) + "(";
-//                for (OVariable o : this.ovs) {
-//                    if (this.ovs.get(0) != o) {
+//                for (OVariable o : ovs) {
+//                    if (ovs.get(0) != o) {
 //                        s = String.valueOf(s) + ", ";
 //                    }
 //                    s = String.valueOf(s) + o.name;
 //                }
 //                s = String.valueOf(s) + ")";
 //            }
-            if (this.parentMNodes.size() > 0) {
+            if (parentMNodes.size() > 0) {
                 s = String.valueOf(s) + "\r\n";
                 s = String.valueOf(s) + "\t\t\t";
                 s = String.valueOf(s) + "[RP: ";
-                for (MNode mn : this.parentMNodes) {
+                for (MNode mn : parentMNodes) {
                     s = String.valueOf(s) + mn.name;
                     s += toStringOVswithBracket();
                     s += ", ";
@@ -135,11 +150,11 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = s.substring(0, s.length() - 2);
                 s = String.valueOf(s) + "]"; 
             }
-            if (this.inputParentMNodes.size() > 0) {
+            if (inputParentMNodes.size() > 0) {
                 s = String.valueOf(s) + "\r\n";
                 s = String.valueOf(s) + "\t\t\t";
                 s = String.valueOf(s) + "[IP: ";
-                for (MNode mn : this.inputParentMNodes) {
+                for (MNode mn : inputParentMNodes) {
                     s = String.valueOf(s) + mn.name;
                     s += toStringOVswithBracket();
                     s += ", ";
@@ -148,7 +163,7 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "]";
             }
             if (inclusions.contains("CLD")) {
-                for (CLD l : this.cldCANs.keySet()) {
+                for (CLD l : cldCANs.keySet()) {
                     s = String.valueOf(s) + "\r\n";
                     s = String.valueOf(s) + "\t\t\t";
                     s = String.valueOf(s) + l.toString(inclusions);
@@ -173,20 +188,20 @@ public class MNode extends Tree implements Comparable<MNode> {
             arrayCLDs.add(l);
             ++n2;
         }
-        for (CLD l : this.cldCANs.keySet()) {
+        for (CLD l : cldCANs.keySet()) {
             arrayCLDs.add(l);
         }
         Integer i = 1;
-        this.cldCANs.clear();
+        cldCANs.clear();
         for (CLD l2 : arrayCLDs) {
-            l2.name = String.valueOf(this.name) + "_cld_" + i;
-            this.cldCANs.put(l2, Math.log(1.0 / (double)arrayCLDs.size()));
+            l2.name = String.valueOf(name) + "_cld_" + i;
+            cldCANs.put(l2, Math.log(1.0 / (double)arrayCLDs.size()));
             i = i + 1;
         }
     }
 
     public CLD getCLD(String s) {
-        for (CLD l : this.cldCANs.keySet()) {
+        for (CLD l : cldCANs.keySet()) {
             if (s.equalsIgnoreCase(l.name)) {
                 return l;
             }
@@ -197,7 +212,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public CLD getFirstCandidateCLD() {
-        Iterator<CLD> iterator = this.cldCANs.keySet().iterator();
+        Iterator<CLD> iterator = cldCANs.keySet().iterator();
         if (iterator.hasNext()) {
             CLD c = iterator.next();
             return c;
@@ -207,16 +222,16 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public Double getAvglogCLDScore() {
         Double logSC = 0.0;
-        for (CLD cld : this.cldCANs.keySet()) {
-            logSC = logSC + this.cldCANs.get(cld);
+        for (CLD cld : cldCANs.keySet()) {
+            logSC = logSC + cldCANs.get(cld);
         }
-        return logSC / (double)this.cldCANs.size();
+        return logSC / (double)cldCANs.size();
     }
 
     public ArrayList<Double> getlogCLDScores() {
         ArrayList<Double> logSCs = new ArrayList<Double>();
-        for (CLD cld : this.cldCANs.keySet()) {
-            Double logSC = this.cldCANs.get(cld);
+        for (CLD cld : cldCANs.keySet()) {
+            Double logSC = cldCANs.get(cld);
             logSCs.add(logSC);
         }
         return logSCs;
@@ -224,8 +239,8 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public Double getlogCLDScore() {
         ArrayList<Double> logSCs = new ArrayList<Double>();
-        for (CLD cld : this.cldCANs.keySet()) {
-            Double logSC = this.cldCANs.get(cld);
+        for (CLD cld : cldCANs.keySet()) {
+            Double logSC = cldCANs.get(cld);
             logSCs.add(logSC);
         }
         return new Sum_for_Log().sum(logSCs);
@@ -236,8 +251,8 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
     
     public String getAttributeName() {
-        String s = this.name; 
-        String prefix = new StringUtil().createAbbreviation(this.mFrag.name);
+        String s = name; 
+        String prefix = new StringUtil().createAbbreviation(mFrag.name);
         String right = s.replaceFirst(prefix+"_", "");
         
         if (attribute != null){
@@ -260,15 +275,15 @@ public class MNode extends Tree implements Comparable<MNode> {
                 System.out.println("*** A node can't have a parent which is the node ***");
                 throw new EmptyStackException();
             }
-            if (this.getParentNode(mnode.name) == null) {
-                this.parentMNodes.add(mnode);
+            if (getParentNode(mnode.name) == null) {
+                parentMNodes.add(mnode);
             }
             ++n2;
         }
     }
 
     public MNode getParentNode(String s) {
-        for (MNode mn : this.parentMNodes) {
+        for (MNode mn : parentMNodes) {
             if (!mn.name.equalsIgnoreCase(s)) continue;
             return mn;
         }
@@ -289,7 +304,7 @@ public class MNode extends Tree implements Comparable<MNode> {
                 System.out.println("*** the node is null ***");
                 throw new EmptyStackException();
             }
-            this.inputParentMNodes.add(mnode);
+            inputParentMNodes.add(mnode);
             ++n2;
         }
     }
@@ -306,10 +321,10 @@ public class MNode extends Tree implements Comparable<MNode> {
     public boolean checkSameKeys(ResultSet rs, ArrayList<String> curKeys) {
         String keyVal;
         boolean bCheck = true;
-        Map<String, String> importedColumns = RDB.This().getImportedColumn(this.name);
+        Map<String, String> importedColumns = RDB.This().getImportedColumn(name);
         for (String key2 : importedColumns.keySet()) {
             try {
-                keyVal = rs.getString(String.valueOf(this.name) + "." + key2);
+                keyVal = rs.getString(String.valueOf(name) + "." + key2);
                 if (curKeys.contains(keyVal)) continue;
                 bCheck = false;
                 break;
@@ -322,7 +337,7 @@ public class MNode extends Tree implements Comparable<MNode> {
             curKeys.clear();
             for (String key2 : importedColumns.keySet()) {
                 try {
-                    keyVal = rs.getString(String.valueOf(this.name) + "." + key2);
+                    keyVal = rs.getString(String.valueOf(name) + "." + key2);
                     curKeys.add(keyVal);
                     continue;
                 }
@@ -349,15 +364,15 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public List<MNode> getAllParents() {
-        List<MNode> dm = this.getDiscreteParents();
-        List<MNode> cm = this.getContinuousParents();
+        List<MNode> dm = getDiscreteParents();
+        List<MNode> cm = getContinuousParents();
         dm.addAll(cm);
         return dm;
     }
 
     public List<String> getAllParentNames() {
-        List<MNode> dm = this.getDiscreteParents();
-        List<MNode> cm = this.getContinuousParents();
+        List<MNode> dm = getDiscreteParents();
+        List<MNode> cm = getContinuousParents();
         dm.addAll(cm);
         ArrayList<String> ret = new ArrayList<String>();
         for (MNode n : dm) {
@@ -379,12 +394,12 @@ public class MNode extends Tree implements Comparable<MNode> {
                 }
             }
         } else {
-            for (MNode p : this.parentMNodes) {
+            for (MNode p : parentMNodes) {
                 if (!p.isDiscrete()) continue;
                 	l.add(p);
             }
             
-            for (MNode p : this.inputParentMNodes) {
+            for (MNode p : inputParentMNodes) {
                 if (!p.isDiscrete()) continue;
                 	l.add(p);
             }
@@ -405,11 +420,11 @@ public class MNode extends Tree implements Comparable<MNode> {
                 }                
             }
         } else {
-            for (MNode p2 : this.parentMNodes) {
+            for (MNode p2 : parentMNodes) {
                 if (!p2.isContinuous()) continue;
                 l.add(p2);
             }
-            for (MNode p2 : this.inputParentMNodes) {
+            for (MNode p2 : inputParentMNodes) {
                 if (!p2.isContinuous()) continue;
                 l.add(p2);
             }
@@ -427,7 +442,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public void setDataSet(ConditionalDataSet d) {
-        this.CDs = d;
+        CDs = d;
     }
  
     public int compareTo(MNode o) {
@@ -435,27 +450,27 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public void resetCLDCANsPrior() {
-        for (CLD e : this.cldCANs.keySet()) {
-            this.cldCANs.put(e, Math.log(1.0 / (double)this.cldCANs.size()));
+        for (CLD e : cldCANs.keySet()) {
+            cldCANs.put(e, Math.log(1.0 / (double)cldCANs.size()));
         }
     }
 
     public /* varargs */ void addParentResidentNode(String rn, String ovl, String ... sList) {
         ResidentNode resident = new ResidentNode(rn, ovl, sList);
-        this.residentNodes.put(rn, resident);
+        residentNodes.put(rn, resident);
     }
 
     public /* varargs */ void addChildResidentNode(String rn, String ovl, String ... sList) {
-        this.childResidentNode = new ResidentNode(rn, ovl, sList);
-        this.residentNodes.put(rn, this.childResidentNode);
+        childResidentNode = new ResidentNode(rn, ovl, sList);
+        residentNodes.put(rn, childResidentNode);
     }
 
     public void initCLDModel() {
         String node = "!R";
-        this.addNode(node);
-        Set<String> keySet = this.residentNodes.keySet();
+        addNode(node);
+        Set<String> keySet = residentNodes.keySet();
         String[] keys = keySet.toArray(new String[keySet.size()]);
-        this.init(node, keys, 0);
+        init(node, keys, 0);
     }
 
     private void init(String nodeParent, String[] keys, int cur) {
@@ -463,19 +478,19 @@ public class MNode extends Tree implements Comparable<MNode> {
             return;
         }
         String key = keys[cur++];
-        ResidentNode rn = this.residentNodes.get(key);
+        ResidentNode rn = residentNodes.get(key);
         for (String state : rn.states) {
-            this.count = this.count + 1;
-            String newStr = String.valueOf(state) + this.count;
-            Node node = this.addNode(newStr, nodeParent);
+            count = count + 1;
+            String newStr = String.valueOf(state) + count;
+            Node node = addNode(newStr, nodeParent);
             node.setData1(state);
             node.setData2(key);
-            this.init(newStr, keys, cur);
+            init(newStr, keys, cur);
         }
     }
 
     public void countingMarkovData(String data, int sizeWindows) {
-        this.countingMarkovData_iter(data, sizeWindows);
+        countingMarkovData_iter(data, sizeWindows);
     }
 
     private void addCount(Node node) {
@@ -503,19 +518,19 @@ public class MNode extends Tree implements Comparable<MNode> {
             parents.add(parentS);
             ++i;
         }
-        Node node = this.find("!R", parents, 0);
-        this.addCount(node);
+        Node node = find("!R", parents, 0);
+        addCount(node);
         index = data.indexOf("\t");
         if (index == -1) {
             return false;
         }
         data = data.substring(index + 1, data.length());
-        this.countingMarkovData_iter(data, sizeWindows);
+        countingMarkovData_iter(data, sizeWindows);
         return true;
     }
 
     public CLD getBestCLD() {
-        Iterator<CLD> iterator = this.cldCANs.keySet().iterator();
+        Iterator<CLD> iterator = cldCANs.keySet().iterator();
         if (iterator.hasNext()) {
             CLD c = iterator.next();
             return c;
@@ -524,68 +539,68 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public String getILD() {
-        if (this.getBestCLD() == null) {
+        if (getBestCLD() == null) {
             return "";
         }
-        String s = "defineNode(" + this.name + " , Desc); \n";
-        s = String.valueOf(s) + this.getBestCLD().getILD();
+        String s = "defineNode(" + name + " , Desc); \n";
+        s = String.valueOf(s) + getBestCLD().getILD();
         s = String.valueOf(s) + "}\n";
         globalMNodes.add(this);
         return s;
     }
 
     public List<String> getCategories() {
-        return this.getBestCLD().getCategories();
+        return getBestCLD().getCategories();
     }
 
     public void updateCPT() {
-        this.updateCPT2("!R", 0);
+        updateCPT2("!R", 0);
     }
 
     public void updateCPT2(String identifier, int depth) {
-        ArrayList<String> children = ((Node)this.nodes.get(identifier)).getChildren();
-        if (depth >= this.residentNodes.size() - 1) {
+        ArrayList<String> children = ((Node)nodes.get(identifier)).getChildren();
+        if (depth >= residentNodes.size() - 1) {
             Integer c;
             Integer t = 0;
             for (String child2 : children) {
-                c = (Integer)((Node)this.nodes.get(child2)).getData3();
+                c = (Integer)((Node)nodes.get(child2)).getData3();
                 t = t + c;
             }
             for (String child2 : children) {
-                c = (Integer)((Node)this.nodes.get(child2)).getData3();
+                c = (Integer)((Node)nodes.get(child2)).getData3();
                 Double p = Double.valueOf(c.doubleValue()) / Double.valueOf(t.doubleValue());
-                ((Node)this.nodes.get(child2)).setData4(p);
+                ((Node)nodes.get(child2)).setData4(p);
             }
             DecimalFormat formatter = new DecimalFormat("#0.0000000000");
             Double total = 0.0;
             String lastChild = "";
             for (String child3 : children) {
-                Double p = (Double)((Node)this.nodes.get(child3)).getData4();
+                Double p = (Double)((Node)nodes.get(child3)).getData4();
                 p = Double.valueOf(formatter.format(p));
-                ((Node)this.nodes.get(child3)).setData4(p);
+                ((Node)nodes.get(child3)).setData4(p);
                 total = total + p;
                 lastChild = child3;
             }
             Double gap = 1.0 - total;
-            Double p = (Double)((Node)this.nodes.get(lastChild)).getData4();
+            Double p = (Double)((Node)nodes.get(lastChild)).getData4();
             p = p + gap;
-            ((Node)this.nodes.get(lastChild)).setData4(p);
+            ((Node)nodes.get(lastChild)).setData4(p);
             return;
         }
         ++depth;
         for (String child : children) {
-            this.updateCPT2(child, depth);
+            updateCPT2(child, depth);
         }
     }
 
     public String generateContinuousCLDscript() {
-        String sDefault = this.generateContinuousDefault();
-        return this.generateContinuousCLDscript("!R", 0, sDefault);
+        String sDefault = generateContinuousDefault();
+        return generateContinuousCLDscript("!R", 0, sDefault);
     }
 
     public String generateContinuousDefault() {
         String s = "";
-        if (this.childResidentNode == null) {
+        if (childResidentNode == null) {
             return s;
         }
         s = String.valueOf(s) + " else [ NormalDist(0, 10) ]\n";
@@ -594,26 +609,26 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public String generateContinuousCLDscript(String identifier, int depth, String sDefault) {
         String s = "";
-        Node node = this.getNodes().get(identifier);
+        Node node = getNodes().get(identifier);
         ArrayList<String> children = node.getChildren();
         String tabs = "";
         String tabs2 = "";
-        if (depth == this.residentNodes.size()) {
+        if (depth == residentNodes.size()) {
             String eq = (String)node.getData4();
             s = String.valueOf(s) + tabs2 + eq;
         } else if (depth != 0) {
             tabs = String.format("%0" + depth + "d", 0).replace("0", "    ");
             tabs2 = String.format("%0" + (depth + 1) + "d", 0).replace("0", "    ");
-            ResidentNode rn = this.residentNodes.get(node.getData2());
+            ResidentNode rn = residentNodes.get(node.getData2());
             s = String.valueOf(tabs) + "if any " + rn.ordinaryVariableLabel + " have ( " + rn.name + " = " + node.getData1() + " ) [";
         }
         ++depth;
         int i = 0;
         for (String child : children) {
             s = String.valueOf(s) + "\n";
-            String str = this.generateContinuousCLDscript(child, depth, sDefault);
-            if (depth == this.residentNodes.size()) {
-                if (this.childResidentNode != null && i < this.childResidentNode.states.size() - 1) {
+            String str = generateContinuousCLDscript(child, depth, sDefault);
+            if (depth == residentNodes.size()) {
+                if (childResidentNode != null && i < childResidentNode.states.size() - 1) {
                     str = String.valueOf(str) + ",";
                 }
             } else if (i != 0) {
@@ -622,7 +637,7 @@ public class MNode extends Tree implements Comparable<MNode> {
             s = String.valueOf(s) + str;
             ++i;
         }
-        if (children.size() > 0 && depth != this.residentNodes.size()) {
+        if (children.size() > 0 && depth != residentNodes.size()) {
             s = String.valueOf(s) + tabs + "] \n";
             s = String.valueOf(s) + sDefault;
         }
@@ -630,16 +645,16 @@ public class MNode extends Tree implements Comparable<MNode> {
     }
 
     public String generateCLDscript() {
-        String sDefault = this.generateDefault();
-        return this.generateCLDscript("!R", 0, sDefault);
+        String sDefault = generateDefault();
+        return generateCLDscript("!R", 0, sDefault);
     }
 
     public String generateDefault() {
         String s = "";
-        if (this.childResidentNode == null) {
+        if (childResidentNode == null) {
             return s;
         }
-        ArrayList<String> states = this.childResidentNode.states;
+        ArrayList<String> states = childResidentNode.states;
         s = String.valueOf(s) + " else [ \n";
         Integer total = states.size();
         Double d = 1.0 / total.doubleValue();
@@ -653,11 +668,11 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public String generateCLDscript(String identifier, int depth, String sDefault) {
         String s = "";
-        Node node = this.getNodes().get(identifier);
+        Node node = getNodes().get(identifier);
         ArrayList<String> children = node.getChildren();
         String tabs = "";
         String tabs2 = "";
-        if (depth == this.residentNodes.size()) {
+        if (depth == residentNodes.size()) {
             tabs2 = String.format("%0" + (depth + 1) + "d", 0).replace("0", "    ");
             Double p = (Double)node.getData4();
             BigDecimal myNumber = new BigDecimal(p.toString());
@@ -665,16 +680,16 @@ public class MNode extends Tree implements Comparable<MNode> {
         } else if (depth != 0) {
             tabs = String.format("%0" + depth + "d", 0).replace("0", "    ");
             tabs2 = String.format("%0" + (depth + 1) + "d", 0).replace("0", "    ");
-            ResidentNode rn = this.residentNodes.get(node.getData2());
+            ResidentNode rn = residentNodes.get(node.getData2());
             s = String.valueOf(tabs) + "if any " + rn.ordinaryVariableLabel + " have ( " + rn.name + " = " + node.getData1() + " ) [";
         }
         ++depth;
         int i = 0;
         for (String child : children) {
             s = String.valueOf(s) + "\n";
-            String str = this.generateCLDscript(child, depth, sDefault);
-            if (depth == this.residentNodes.size()) {
-                if (this.childResidentNode != null && i < this.childResidentNode.states.size() - 1) {
+            String str = generateCLDscript(child, depth, sDefault);
+            if (depth == residentNodes.size()) {
+                if (childResidentNode != null && i < childResidentNode.states.size() - 1) {
                     str = String.valueOf(str) + ",";
                 }
             } else if (i != 0) {
@@ -683,7 +698,7 @@ public class MNode extends Tree implements Comparable<MNode> {
             s = String.valueOf(s) + str;
             ++i;
         }
-        if (children.size() > 0 && depth != this.residentNodes.size()) {
+        if (children.size() > 0 && depth != residentNodes.size()) {
             s = String.valueOf(s) + tabs + "] \n";
             s = String.valueOf(s) + sDefault;
         }
@@ -695,15 +710,15 @@ public class MNode extends Tree implements Comparable<MNode> {
         String ordinaryVariableLabel;
         public ArrayList<String> states;
 
-        public /* varargs */ ResidentNode(String rn, String ovl, String ... sList) {
-            this.name = "";
-            this.ordinaryVariableLabel = "";
-            this.states = new ArrayList();
-            this.name = rn;
-            this.ordinaryVariableLabel = ovl;
+        public  ResidentNode(String rn, String ovl, String ... sList) {
+            name = "";
+            ordinaryVariableLabel = "";
+            states = new ArrayList();
+            name = rn;
+            ordinaryVariableLabel = ovl;
             int i = 0;
             while (i < sList.length) {
-                this.states.add(sList[i]);
+                states.add(sList[i]);
                 ++i;
             }
         }

@@ -1,8 +1,20 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
  * 
- * Could not load the following classes:
- *  org.apache.commons.collections.MultiMap
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.core;
  
@@ -22,7 +34,7 @@ public class RM_To_MEBN {
 	RDB rdb = null;
 
 	public RM_To_MEBN(RDB r) {
-		this.rdb = r;
+		rdb = r;
 	}
 
 	public MTheory run() {
@@ -38,26 +50,26 @@ public class RM_To_MEBN {
 		Integer numMFrag = 0;
 		StringUtil sutil = new StringUtil();
 		MTheory mTheory = null;
-		String nameMTheory = this.rdb.schema;
+		String nameMTheory = rdb.schema;
 		
 		mTheory = new MTheory(nameMTheory);
-		mTheory.rdb = this.rdb;
+		mTheory.rdb = rdb;
 		
-		ArrayList<String> entityTables = (ArrayList) this.rdb.mapTableTypesAndTables.get((Object) "EntityTable");
+		ArrayList<String> entityTables = (ArrayList) rdb.mapTableTypesAndTables.get((Object) "EntityTable");
 		
 		for (String table : entityTables) {
 			mTheory.entities.add(table);
 			numEntity = numEntity + 1;
-			List attrs = (List) this.rdb.mapTableAndAttributes.get((Object) table);
+			List attrs = (List) rdb.mapTableAndAttributes.get((Object) table);
 			if (attrs == null)
 				continue;
 			f = new MFrag(mTheory, table);
 			numMFrag = numMFrag + 1;
 			prefix = sutil.createAbbreviation(table);
-			keys = (List) this.rdb.mapTableAndKeys.get((Object) table);
+			keys = (List) rdb.mapTableAndKeys.get((Object) table);
 			ovs = new ArrayList();
 			for (String key : keys) {
-				origin = this.rdb.mapKeysOrigins.get(key);
+				origin = rdb.mapKeysOrigins.get(key);
 				ov = new OVariable(f.getTableName(), key, (String) origin);
 				ovs.add(ov);
 				new mebn_rm.MEBN.MNode.MIsANode(f, ov);
@@ -65,7 +77,7 @@ public class RM_To_MEBN {
 			Iterator iterator = attrs.iterator();
 			while (iterator.hasNext()) {
 				String attr = (String) iterator.next();
-				List<String> domains = this.rdb.mapDomainVaules.get(attr);
+				List<String> domains = rdb.mapDomainVaules.get(attr);
 				resNodeName = String.valueOf(prefix) + "_" + attr;
 				if (domains != null) {
 					MDNode md = new MDNode(f, resNodeName, ovs);
@@ -81,26 +93,26 @@ public class RM_To_MEBN {
 			}
 		}
 		
-		List<String> relationshipTables = (List) this.rdb.mapTableTypesAndTables.get((Object) "RelationshipTable");
+		List<String> relationshipTables = (List) rdb.mapTableTypesAndTables.get((Object) "RelationshipTable");
 		
 		if (relationshipTables != null) {
 			for (String table2 : relationshipTables) {
 				f = new MFrag(mTheory, table2);
 				numMFrag = numMFrag + 1;
 				prefix = sutil.createAbbreviation(table2);
-				keys = (List) this.rdb.mapTableAndKeys.get((Object) table2);
+				keys = (List) rdb.mapTableAndKeys.get((Object) table2);
 				ovs = new ArrayList<OVariable>();
 				for (String key : keys) {
-					origin = this.rdb.mapKeysOrigins.get(key);
+					origin = rdb.mapKeysOrigins.get(key);
 					ov = new OVariable(f.name, key, (String) origin);
 					ovs.add(ov);
 					new mebn_rm.MEBN.MNode.MIsANode(f, ov);
 				}
-				List<String> attrs = (List) this.rdb.mapTableAndAttributes.get((Object) table2);
+				List<String> attrs = (List) rdb.mapTableAndAttributes.get((Object) table2);
 				if (attrs != null) {
 					for (String attr : attrs) {
 						resNodeName = String.valueOf(prefix) + "_" + attr;
-						List<String> domains = this.rdb.mapDomainVaules.get(attr);
+						List<String> domains = rdb.mapDomainVaules.get(attr);
 						if (domains != null) {
 							MDNode md = new mebn_rm.MEBN.MNode.MDNode(f, resNodeName, ovs);
 							md.setAttributeName(attr);
@@ -115,7 +127,7 @@ public class RM_To_MEBN {
 					}
 				}
 				
-				if (this.rdb.mapTableAndAttributes.get((Object) table2) != null)
+				if (rdb.mapTableAndAttributes.get((Object) table2) != null)
 					continue;
 				MDNode md = new mebn_rm.MEBN.MNode.MDNode(f, table2, ovs);
 				md.setAttributeName(table2);

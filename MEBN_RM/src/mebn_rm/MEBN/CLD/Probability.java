@@ -1,17 +1,32 @@
 /*
- * Decompiled with CFR 0_118.
+ * HML Core
+ * Copyright (C) 2017 Cheol Young Park
+ * 
+ * This file is part of HML Core.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package mebn_rm.MEBN.CLD;
 
 import java.util.ArrayList;
 
 public class Probability {
-    public /* varargs */ String random(Double[] p, String ... s) {
+    public String random(Double[] p, String ... s) {
         double r = Math.random();
-        return this.random_operator(0, r, 0.0, p, s);
+        return random_operator(0, r, 0.0, p, s);
     }
 
-    public /* varargs */ String random_operator(int index, double r, double e, Double[] p, String ... s) {
+    public String random_operator(int index, double r, double e, Double[] p, String ... s) {
         if (index == s.length) {
             return "";
         }
@@ -19,12 +34,12 @@ public class Probability {
         if (b < r && r <= (e += p[index].doubleValue())) {
             return s[index];
         }
-        return this.random_operator(++index, r, e, p, s);
+        return random_operator(++index, r, e, p, s);
     }
 
     public String randomByUniform(ArrayList<String> s) {
         double r = Math.random();
-        return this.randomByUniform_operator(0, r, s);
+        return randomByUniform_operator(0, r, s);
     }
 
     public String randomByUniform_operator(int index, double r, ArrayList<String> s) {
@@ -36,15 +51,15 @@ public class Probability {
         if (b < r && r <= e) {
             return s.get(index);
         }
-        return this.randomByUniform_operator(++index, r, s);
+        return randomByUniform_operator(++index, r, s);
     }
 
-    public /* varargs */ String randomByUniform(String ... s) {
+    public String randomByUniform(String ... s) {
         double r = Math.random();
-        return this.randomByUniform_operator(0, r, s);
+        return randomByUniform_operator(0, r, s);
     }
 
-    public /* varargs */ String randomByUniform_operator(int index, double r, String ... s) {
+    public String randomByUniform_operator(int index, double r, String ... s) {
         if (index == s.length) {
             return "";
         }
@@ -53,7 +68,7 @@ public class Probability {
         if (b < r && r <= e) {
             return s[index];
         }
-        return this.randomByUniform_operator(++index, r, s);
+        return randomByUniform_operator(++index, r, s);
     }
 
     public Integer sizeOf(ArrayList<String> ps, String cmp) {
