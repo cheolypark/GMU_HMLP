@@ -38,25 +38,20 @@ public class text_mode_continuous_heater_model {
 	}
 
 	public void run() {
-		//1. Get Database schema from MySQL
+		
+		//1. Initialize RDB
 		RDB.This().connect("localhost", "root", "jesus");
-		List<String> list = RDB.This().getSchemas();
-		
-		System.out.println(list);
-		 
 		String database = "heater_continuous";
-		
-		//2. initialize RDB
 		try {
 			RDB.This().init(database);
 		} catch (SQLException e) { 
 			e.printStackTrace();
 		}
 		
-		//3. MEBN-RM 
+		//2. Perform MEBN-RM 
 		MTheory	mTheory =  new RM_To_MEBN(RDB.This()).run(); 
 		
-		//4. Add parents
+		//3. Add parents
 		String childMNode = "";
 		List<String> parentMNodes = null; 
 				
@@ -75,15 +70,15 @@ public class text_mode_continuous_heater_model {
 		  
 		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
-		//5. Add contexts  
+		//4. Add contexts  
 		mTheory.updateContexts();
 		
  		System.out.println(mTheory.toString("MFrag", "MNode")); 
 		
-		//6. Add CLD type   
+		//5. Add CLD type   
 		mTheory.updateCLDs();  
 		
-		//7. Learn MEBN  
+		//6. Learn MEBN  
 		MRoot mroot = new MRoot();
 		mroot.setMTheories(mTheory);  
 		new MTheory_Learning().run(mroot);  
