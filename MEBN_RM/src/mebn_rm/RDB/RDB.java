@@ -353,7 +353,14 @@ public class RDB extends MySQL_Interface {
         } else if (!v.contains(k)) {
             mapTableAndKeys.put((Object)t, (Object)k);
         }
-        mapKeysOrigins.put(k, ori);
+        mapKeysOrigins.put(t + "." + k, ori);
+//        mapKeysOrigins.put(k, ori);
+    }
+    
+    public String getOriginFromKey(String table, String k) {
+    	String ori = "";
+    	ori = mapKeysOrigins.get(table+"."+k);
+    	return ori; 
     }
 
     public void addTableAndAttributes(String table, String attribute, String attributeType) {
@@ -513,7 +520,7 @@ public class RDB extends MySQL_Interface {
 					for (int j = 0; j < record.size(); j++) {
 						String column = record.get(j);
 						if (!column.isEmpty()) {
-							System.out.println(column);
+//							System.out.println(column);
 							mapHeader.put(j, column);
 						}
 					}

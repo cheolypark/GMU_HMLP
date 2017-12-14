@@ -68,8 +68,9 @@ public class RM_To_MEBN {
 			prefix = sutil.createAbbreviation(table);
 			keys = (List) rdb.mapTableAndKeys.get((Object) table);
 			ovs = new ArrayList();
-			for (String key : keys) {
-				origin = rdb.mapKeysOrigins.get(key);
+			for (String key : keys) { 
+//				origin = rdb.mapKeysOrigins.get(key);
+				origin = rdb.getOriginFromKey(table, key);
 				ov = new OVariable(f.getTableName(), key, (String) origin);
 				ovs.add(ov);
 				new mebn_rm.MEBN.MNode.MIsANode(f, ov);
@@ -103,7 +104,7 @@ public class RM_To_MEBN {
 				keys = (List) rdb.mapTableAndKeys.get((Object) table2);
 				ovs = new ArrayList<OVariable>();
 				for (String key : keys) {
-					origin = rdb.mapKeysOrigins.get(key);
+					origin = rdb.getOriginFromKey(table2, key);
 					ov = new OVariable(f.name, key, (String) origin);
 					ovs.add(ov);
 					new mebn_rm.MEBN.MNode.MIsANode(f, ov);

@@ -481,8 +481,13 @@ public class MySQL_Interface extends TempMathFunctions {
         int colunmCount = MySQL_Interface.getColumnCount(res);
         String strFile = String.valueOf(Resource.getCSVPath(strMTheory)) + fileName + ".csv";
         FileWriter fw = new FileWriter(strFile);
+        List<String> columnNames = new ArrayList<String>(); 
+        String dataPrev = "0";
+        String data;
+        
         int i = 1;
         while (i <= colunmCount) {
+        	columnNames.add(res.getMetaData().getColumnName(i)); 
             fw.append(res.getMetaData().getColumnName(i));
             fw.append(",");
             ++i;
@@ -491,15 +496,41 @@ public class MySQL_Interface extends TempMathFunctions {
         while (res.next()) {
             i = 1;
             while (i <= colunmCount) {
-                String data;
+                
                 if (res.getObject(i) != null) {
                     data = res.getObject(i).toString();
+                    dataPrev = data;
                     fw.append(data);
                     if (i < colunmCount) {
                         fw.append(",");
                     }
                 } else {
-                    data = "null";
+                	// If data is "null" and previous column is similar with the current column, uses the previous value for this value
+                	// e.g., )
+                	// Attribute_1	Attribut_2
+                	//	9			null
+                	// -> 
+                	// Attribute_1	Attribut_2
+                	//	9			9
+                	//
+                	if (i != 1) {
+                		String colPrev = columnNames.get(i-2);
+                		String col = columnNames.get(i-1);
+                		
+                		colPrev = colPrev.substring(0, colPrev.lastIndexOf("_")); 
+                		col = col.substring(0, col.lastIndexOf("_"));
+                		
+                		if (colPrev.equalsIgnoreCase(col)) {
+                			 fw.append(dataPrev);
+                             if (i < colunmCount) {
+                                 fw.append(",");
+                             }  
+                             ++i;
+                             continue;
+                		}
+                	}
+                	
+                	data = "null";
                     fw.append(data);
                     if (i < colunmCount) {
                         fw.append(",");

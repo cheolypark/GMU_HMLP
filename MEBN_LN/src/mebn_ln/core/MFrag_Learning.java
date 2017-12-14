@@ -33,6 +33,9 @@ extends Learning_Common {
         getCandidateMGraphs(f, 5.0);
         System.out.println("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
  
+        if (f.name.equalsIgnoreCase("rm_pass")){
+        	System.out.println();
+        }
         f.initSelectedDataset(-1);
         run_operation(f);
         System.out.println("******************* End MFrag learning with the " + f.name + " MFrag *******************");

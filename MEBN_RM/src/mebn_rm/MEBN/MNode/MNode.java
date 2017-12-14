@@ -77,7 +77,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         setParents(parenetmnodes);
     }
 
-    public /* varargs */ MNode(MFrag f, String n, List<OVariable> o, MNode ... parenetmnodes) {
+    public MNode(MFrag f, String n, List<OVariable> o, MNode ... parenetmnodes) {
         super(false); 
         name = n; 
         mFrag = f;

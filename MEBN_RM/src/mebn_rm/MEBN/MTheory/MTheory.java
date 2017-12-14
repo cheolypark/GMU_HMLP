@@ -34,6 +34,7 @@ import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
+import util.ListMgr;
 import util.SortableValueMap;
   
 public class MTheory implements Comparable<MTheory> {
@@ -95,7 +96,8 @@ public class MTheory implements Comparable<MTheory> {
         combParents = mNode;
         
         MFrag f = getMFrag(mFrag);
-        MNode childMNode = f.getMNode(mNode);
+        MNode childMNode = f.getMNode(mNode);  
+        
         if (bOtherMFrag) {
             String sql = "SELECT\r\n";
             String sqlFrom = "";
@@ -117,12 +119,14 @@ public class MTheory implements Comparable<MTheory> {
             
             // Add Isa Context Nodes for the new MFrag from the current MFrag
             for (String key : keys) {
-                String originEntity = rdb.mapKeysOrigins.get(key);
+//                String originEntity = rdb.mapKeysOrigins.get(key);
+            	String originEntity = rdb.getOriginFromKey(newMFrag.table, key);
                 OVariable ov = new OVariable(f.getTableName(), key, originEntity);
                 newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
             }
 
             // Add parent nodes
+            List<MFrag> parentMFrags = new ArrayList<MFrag>();
             for (String p2 : ps) {
             	            	
                 String mFragP = new StringUtil().getLeft(p2);
@@ -130,16 +134,26 @@ public class MTheory implements Comparable<MTheory> {
                 
                 MFrag fp = getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
-                
-                sql = sql + fp.getTableName() + "." + parentMNode.getAttributeName() + " as " + mNodeP + ",\r\n";
-                sqlFrom = sqlFrom + fp.getTableName() + ", "; 
+                if (!parentMFrags.contains(fp)) {
+                	parentMFrags.add(fp);
+                }
+
+                // create a joining sql for child and parent nodes
+                if (!fp.isTimedMFrag()){
+	                sql += fp.getTableName() + "." + parentMNode.getAttributeName() + " as " + mNodeP + ",\r\n";
+//	                sqlFrom += fp.getTableName() + ", ";
+                } else { // is a TimedMFrag 
+                	sql += fp.getTableName() + "." + mNodeP + " as " + mNodeP + ",\r\n";
+//	                sqlFrom += " ( " +  fp.joiningSQL + " ) " + fp.getTableName();  
+//	                sqlFrom += ", ";
+                }
                 
                 List<String> keys2 = fp.getRDBKeys();
                 List<OVariable> listOV = new ArrayList<OVariable>(); 
                 
                 // Add Isa Context Nodes for the new MFrag from the parent MFrags
                 for (String key2 : keys2) {
-                    String originEntity = rdb.mapKeysOrigins.get(key2);
+                    String originEntity = rdb.getOriginFromKey(fp.getTableName(), key2);
                     OVariable ov = new OVariable(fp.getTableName(), key2, originEntity);
                     newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
                     listOV.add(ov);
@@ -159,16 +173,34 @@ public class MTheory implements Comparable<MTheory> {
              
             sql = sql.substring(0, sql.length() - 3);
             sql = sql + "\r\nFROM\r\n";
+//            sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
+//            System.out.println(sqlFrom);
+//            sqlFrom = new StringUtil().removeRedundantItem(sqlFrom);
+            
+            for (MFrag fp : parentMFrags){
+	            if (fp.joiningSQL == null){
+	                sqlFrom += fp.getTableName() + ", ";
+	            } else { // is a TimedMFrag 
+	                sqlFrom += " ( " +  fp.joiningSQL + " ) " + fp.getTableName();  
+	                sqlFrom += ", ";
+	            }
+            }
+            
             sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
-            sqlFrom = new StringUtil().removeRedundantItem(sqlFrom);
             sql = sql + (String)sqlFrom + "\r\n";
-            System.out.println(sql);
+            
+            // set a where clause
+            
+//            System.out.println(sql);
+             
             newMFrag.joiningSQL = sql;
             
+            // If there is no more node, then delete this MFrag 
             if (f.removeMNode(childMNode)) {
                 removeMFrag(f);
             }
-        } else {
+        } else { // If added parents are in the same MFrag
+        	
             for (String p3 : ps) {
                 String mFragP = new StringUtil().getLeft(p3);
                 String mNodeP = new StringUtil().getRight(p3);
@@ -176,6 +208,131 @@ public class MTheory implements Comparable<MTheory> {
                 childMNode.setParents(parentMNode);
             }
         }
+    }
+    
+    // If this MFrag is a timed MFrag, a special timed table is created and it is used for joining 
+    /*
+     * 	select 
+     * 		SLAB_NO, 
+	 *  	sum(A) as A,
+	 * 		sum(B) as B,
+	 * 		sum(C) as C,  
+	 *      sum(A1) as A1,
+	 *     	sum(B1) as B1,
+	 *      sum(C1) as C1 
+	 *	from 
+	 *		( select
+	 * 			t2.*,
+	 *			case when mod(row_num, 3) = 1 then RM_PRE_WK end as A, 
+	 *			case when mod(row_num, 3) = 2 then RM_PRE_WK end as B,
+	 *			case when mod(row_num, 3) = 0 then RM_PRE_WK end as C, 
+	 *
+	 *          case when mod(row_num, 3) = 1 then RM_ACT_WK end as A1, 
+	 *        	case when mod(row_num, 3) = 2 then RM_ACT_WK end as B1,
+	 *          case when mod(row_num, 3) = 0 then RM_ACT_WK end as C1, 
+	 *          
+	 *			case when row_num / 3 > 1     then FLOOR ((row_num -1) / 3) end as flag_for_windows  
+	 * 		from (
+	 *	 		select t.*, 
+	 *		  		( case SLAB_NO when @curtype then @curRow := @curRow + 1 
+	 *											 else @curRow := 1 and @curType := SLAB_NO end
+	 *		  		) + 1 as row_num
+	 *			from rm_pass t,
+	 *		  		(select @curRow := 0, @curType := '') r
+	 *			order BY SLAB_NO asc  
+	 *	  		) t2
+	 *		) t1 
+ 	 *		group by flag_for_windows, SLAB_NO 
+     */ 
+    public void createTimedTable(MFrag f) { 
+	    if (!f.isTimedMFrag()) {
+	    	return;
+	    }
+	    
+	    int cw = f.childWindowSizeForTimedMFrag;
+	    String sqlTimed = "";
+	    sqlTimed += "select \r\n";
+	    
+	    ListMgr l = new ListMgr();
+	    List<String> keyList = f.getKeysExceptX(f.timedPrimaryKey);
+	    String keys = l.getListComma(keyList);
+	    // To do: this version works only a single keys (e.g., [SLAB_NO]),
+	    // but this version doens't work for a composite keys (e.g., [SLAB_NO, MACHINE_NO]).
+	    // So, change the sqlTimed.
+	    
+	    sqlTimed += keys + ", \r\n";
+	    
+	    for (MNode n : f.arrayResidentNodes){
+	    	for (int k = 1; k < (cw+1); k++) {
+	    		sqlTimed += "sum(" + n.name +"_"+ k + " ) as " + n.name +"_"+ k + ", \r\n";
+	    	}
+	    } 
+	    sqlTimed =  sqlTimed.substring(0, sqlTimed.length()-4);
+ 
+	    sqlTimed += "\r\n from \r\n";
+	    sqlTimed += "	( select \r\n";
+	    sqlTimed += "	t2.*, \r\n";
+	    
+	    for (MNode n : f.arrayResidentNodes){
+	    	int i = 0; 
+	    	for (int k = 1; k < (cw+1); k++) {
+	    		i++;
+		    	if (i == cw) {
+		    		i = 0;
+		    	}
+	    		sqlTimed += "case when mod(row_num, " + cw + " ) = " + i + " then " + n.attribute + " end as " + n.name +"_"+ k + ", \r\n";
+	    	}
+	    }
+	    
+	    sqlTimed += "case when row_num / " + cw + " > 1 then FLOOR ((row_num -1) / " + cw + " ) end as flag_for_windows \r\n";
+	    sqlTimed += "from ( \r\n";
+	    sqlTimed += "select t.*, \r\n";
+	    sqlTimed += "( case " + keys + " when @curtype then @curRow := @curRow + 1 \r\n";
+	    sqlTimed += "else @curRow := 1 and @curType := " + keys + " end \r\n";
+	    sqlTimed += ") + 1 as row_num \r\n";
+	    sqlTimed += "from " + f.name + " t, \r\n";
+	    sqlTimed += "(select @curRow := 0, @curType := '') r \r\n";
+	    sqlTimed += "order BY " + keys + " asc \r\n";
+	    sqlTimed += ") t2 \r\n";
+	    sqlTimed += ") t1 \r\n";
+	    sqlTimed += "group by flag_for_windows, " + keys + " \r\n"; 
+//	    System.out.println(sqlTimed);
+	    f.joiningSQL = sqlTimed;
+	  
+    }
+    public void setChildWindowSize(String timedPK, int childWindowSize) {
+    	String mFrag = new StringUtil().getLeft(timedPK);
+        String mPK = new StringUtil().getRight(timedPK);
+        MFrag f = getMFrag(mFrag);
+         
+        if (childWindowSize <= 1 ){
+    		return;
+    	}  
+        
+        f.setTimedMFrag(childWindowSize, mPK);  
+        
+        createTimedTable(f);
+         
+        List<MNode> newList = new ArrayList<MNode>(f.arrayResidentNodes);
+        
+        for (MNode mn : newList) { 
+        	// create new MNodes according to childWindowSize
+        	for (int i = 1; i < childWindowSize; i++) {
+        		MNode newMN = null;
+                if (mn.isContinuous()) {
+                	newMN = new MCNode(f, mn.name + "_" + (i+1), mn.ovs);
+                } else if (mn.isDiscrete()) {
+                	newMN = new MDNode(f, mn.name + "_" + (i+1), mn.ovs);
+                }
+                
+                newMN.setAttributeName(mn.attribute);
+                
+                f.setMNode(newMN);
+        	}
+        	
+        	mn.name += "_" + 1;
+        }
+        
     }
 
     public void addContexts(String mFrag, String sql) {
@@ -202,16 +359,65 @@ public class MTheory implements Comparable<MTheory> {
         for (MFrag f : mfrags.keySet()) {
             ArrayList<MIsANode> removeList;
             Map<String, String> surviveMap;
-            OVariable ov; 
+            OVariable ov;
+            OVariable ov2;
             
-            if (f.name.equalsIgnoreCase("HI_temperature_SII_temperature_HAI_energy")) {
-                System.out.println("HI_temperature_SII_temperature_HAI_energy");
-            }
+//            if (f.name.equalsIgnoreCase("QR_RESULT_COL_1")) {
+//            	  System.out.println(f.joiningSQL);
+//            } 
             
-            if (f.joiningSQL != null) {
-                System.out.println(f.arrayContextNodes);
+            if (f.joiningSQL != null) { 
+            	// Step 1. Add "where" clause to the SQL script of this MFrag
+                // e.g.,)
+                // quality_result_SLAB_NO  quality_result
+                // rm_pass_PASS_NO  rm_pass
+                // rm_pass_SLAB_NO  rm_pass
+                // rm_pass_PASS_NO  rm_pass
+                // rm_pass_SLAB_NO  rm_pass
+                // -> where quality_result.SLAB_NO == rm_pass.SLAB_NO
+                // If there are tables and they have same keys, then create the "where" clause 
+                //
+                List<String> dubList = new ArrayList<String>(); 
+                String sql = "WHERE \r\n";
+                for (int i = 0; i < f.arrayIsaContextNodes.size(); i++) {
+                	MIsANode isa = f.arrayIsaContextNodes.get(i);
+                	ov = (OVariable)isa.ovs.get(0);
+                	MFrag orgF = getMFrag(ov.originMFrag);
+                	
+                	// timedPrimaryKey will be skipped.
+        			if (orgF.timedPrimaryKey != null && orgF.timedPrimaryKey.equalsIgnoreCase(ov.originKey)){
+        				continue;
+        			}
+        			
+                	for (int j = 0; j < i+1; j++) {
+                		MIsANode isa2 = f.arrayIsaContextNodes.get(j);
+                    	ov2 = (OVariable)isa2.ovs.get(0);
+                    	if (!ov.originMFrag.equalsIgnoreCase(ov2.originMFrag)){
+                    		if (ov.originKey.equalsIgnoreCase(ov2.originKey)){
+//                    		if (ov.entityType.equalsIgnoreCase(ov2.entityType)){
+//	                    		System.out.println(ov + ":" + ov.originMFrag + "   <->   " + ov2 + ":" + ov2.originMFrag);
+	                    		String curKey = ov.originMFrag + "." + ov.originKey;
+	                    		String otherKey = ov2.originMFrag + "." + ov2.originKey;
+	                    		String wh = curKey + " = " + otherKey;
+	                    		
+	                    		if(wh.equalsIgnoreCase("fm_pass.PASS_NO = rm_pass.PASS_NO")){
+	                    			System.out.println();
+	                    		}
+	                    		
+	                    		if (!dubList.contains(wh)) {
+		                    		dubList.add(wh);
+		                    		sql += wh + " &&\r\n";
+	                    		}
+                			}
+                    	}
+                    }
+                } 
                 
-                // remove redundant OVs, if they are same OVs
+                if (dubList.size() > 0) {
+		            sql = sql.substring(0, sql.length() - 5);
+		            f.joiningSQL = f.joiningSQL + sql;
+                }
+                // Step 2. remove redundant OVs, if they are same OVs
 	            // e.g.) IsA(t1, TIME), IsA(t2, TIME)
 	            // => IsA(t1, TIME)
 	            // Also, resident nodes using these OVs changes to not having redundant OVs
@@ -220,6 +426,7 @@ public class MTheory implements Comparable<MTheory> {
                 
                 for (MIsANode isa : f.arrayIsaContextNodes) {
                     ov = (OVariable)isa.ovs.get(0);
+//                    System.out.println(ov.name + "  " + ov.originMFrag);
                     if (surviveMap.containsKey(ov.entityType)) {
                         removeList.add(isa);
                         continue;
@@ -231,24 +438,10 @@ public class MTheory implements Comparable<MTheory> {
                 
                 if (removeList.size() > 0) {
                     f.arrayIsaContextNodes.removeAll(removeList);
-                }
-                
-                // Change SQL script
-                String sql = "WHERE \r\n";
-                MIsANode isamain = f.arrayIsaContextNodes.get(0);
-                String curKey = ((OVariable)isamain.ovs.get((int)0)).originMFrag + "." + ((OVariable)isamain.ovs.get((int)0)).originKey;
-                 	
-                for (MIsANode isa2 : removeList) {
-                    String otherKey = ((OVariable)isa2.ovs.get((int)0)).originMFrag + "." + ((OVariable)isa2.ovs.get((int)0)).originKey;
-                    sql = sql + curKey + " = " + otherKey + " &&\r\n";
-                }
-                
-                sql = sql.substring(0, sql.length() - 5);
-                f.joiningSQL = f.joiningSQL + sql;
-                 
+                } 
                 
             } else if (f.joiningSQL == null) {
-	            System.out.println(f.arrayContextNodes);
+//	            System.out.println(f.arrayContextNodes);
 	            
 	            // remove redundant OVs, if they are same OVs
 	            // e.g.) IsA(t1, TIME), IsA(t2, TIME)

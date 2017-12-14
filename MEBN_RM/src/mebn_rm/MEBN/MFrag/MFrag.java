@@ -25,9 +25,11 @@ import java.util.ArrayList;
 import java.util.List;
 import mebn_rm.MEBN.MNode.MIsANode;
 import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.MTheory.MTheory; 
+import mebn_rm.MEBN.MTheory.MTheory;
+import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
 import mebn_rm.util.StringUtil;
+import util.ListMgr;
 import util.SortableValueMap; 
 
 public class MFrag
@@ -40,6 +42,8 @@ implements Comparable<MFrag> {
     public List<MNode> arrayInputNodes = new ArrayList<MNode>();
     public List<MNode> arrayInputPrevNodes = new ArrayList<MNode>();
     public String joiningSQL; 
+    public String timedPrimaryKey;
+    public int childWindowSizeForTimedMFrag = 0;
     public String table = null;
     public String cvsFile;
     public SortableValueMap<String, List<String>> mapCausality = new SortableValueMap<String, List<String>>();
@@ -47,6 +51,7 @@ implements Comparable<MFrag> {
     public SortableValueMap<String, List<String>> mapCorrelation = new SortableValueMap<String, List<String>>();
     public LearningType learningType = LearningType.STRUCTURE_HYBRID_DISCRETIZED;
     public MFragType mFragType = MFragType.COMMON;
+   
 
     public MFrag(MTheory m, String mfragName) {
         init(m, mfragName);
@@ -65,6 +70,11 @@ implements Comparable<MFrag> {
     
     public void setTableName(String o) {
     	table = o;
+    }
+    
+    public void setTimedMFrag(int childWindowSize, String mPK){
+    	timedPrimaryKey = mPK;
+    	childWindowSizeForTimedMFrag = childWindowSize;
     }
     
     public String getTableName() {
@@ -102,7 +112,7 @@ implements Comparable<MFrag> {
     	return ret;
     }
 
-    public /* varargs */ void setCorrelation(String child, String ... parents) {
+    public void setCorrelation(String child, String ... parents) {
         List listParents = null;
         if (mapCorrelation.containsKey(child)) {
             listParents = mapCorrelation.get(child);
@@ -117,7 +127,7 @@ implements Comparable<MFrag> {
         }
     }
 
-    public /* varargs */ void setNonCorrelation(String child, String ... parents) {
+    public void setNonCorrelation(String child, String ... parents) {
         List listParents = null;
         if (mapNonCorrelation.containsKey(child)) {
             listParents = mapNonCorrelation.get(child);
@@ -132,7 +142,7 @@ implements Comparable<MFrag> {
         }
     }
 
-    public /* varargs */ void setCausality(String child, String ... parents) {
+    public void setCausality(String child, String ... parents) {
         List listParents = null;
         if (mapCausality.containsKey(child)) {
             listParents = mapCausality.get(child);
@@ -164,7 +174,7 @@ implements Comparable<MFrag> {
         return null;
     }
 
-    public /* varargs */ void setMNodes(MNode ... mns) {
+    public void setMNodes(MNode ... mns) {
         MNode[] arrmNode = mns;
         int n = arrmNode.length;
         int n2 = 0;
@@ -219,6 +229,30 @@ implements Comparable<MFrag> {
         }
         return array;
     }
+    
+    /*
+     *  [C: IsA(rm_pass_PASS_NO, PASS)]
+	 *	[C: IsA(rm_pass_SLAB_NO, PRODUCT)]
+	 *  X = "PASS_NO", then [SLAB_NO] is returned. 
+     */
+    public List<String> getKeysExceptX(String X) {
+    	List<String> ret = new ArrayList<String>(); 
+
+    	// get keys except the timedPK
+	    for (MIsANode isaNode: arrayIsaContextNodes){
+	    	OVariable ov = isaNode.ovs.get(0);
+	    	if (!X.equalsIgnoreCase(ov.originKey)) {
+	    		ret.add(ov.originKey);
+	    	}	
+	    }
+	    return ret;
+    }
+        
+    public boolean isTimedMFrag() {
+    	 if (childWindowSizeForTimedMFrag == 0)
+    		 return false;
+    	 return true;
+    }
 
     public List<MNode> getInputPrevNodes() {
         ArrayList<MNode> array = new ArrayList<MNode>();
@@ -269,7 +303,14 @@ implements Comparable<MFrag> {
 				e.printStackTrace();
 			}
         } else {
-            rs = RDB.This().get(joiningSQL);
+        	String sql = joiningSQL; 
+        	if (isTimedMFrag()) {
+        		List<String> keyList = getKeysExceptX(timedPrimaryKey);
+        	    String keys = new ListMgr().getListComma(keyList);
+        	    sql = sql.replaceFirst(keys+",", "");
+        	}
+        	
+            rs = RDB.This().get(sql);
             cvsFile = RDBToCVS(name, mTheory.name, rs);
             try {
 				rs.close();
@@ -278,25 +319,26 @@ implements Comparable<MFrag> {
 			}
             
             // create default cvs files for each node 
-            for (MNode mn : getMNodes()) {
-            	String s = "SELECT " + mn.getAttributeName() + " as " + mn.name + "\n";
-            	s += "FROM " + "\n";
-            	s += getTableName() + "\n";
-            	s += "where not exists (" + "\n";
-            	s += "SELECT *" + "\n";
-            	s += "FROM " + getParentTableNames() + "\n";
-            	String afterwhere = joiningSQL.substring(joiningSQL.indexOf("WHERE"), joiningSQL.length());
-            	s += afterwhere + "\n";
-            	s += ") " + "\n";
-            	
-            	rs = RDB.This().get(s);
-            	mn.cvsFile = RDBToCVS(mn.name+"_default", mTheory.name, rs); 
-            	try {
-    				rs.close();
-    			} catch (SQLException e) { 
-    				e.printStackTrace();
-    			}
-            }
+            // To do: for the default local distribution, develop the following code. 
+//            for (MNode mn : getMNodes()) {
+//            	String s = "SELECT " + mn.getAttributeName() + " as " + mn.name + "\n";
+//            	s += "FROM " + "\n";
+//            	s += getTableName() + "\n";
+//            	s += "where not exists (" + "\n";
+//            	s += "SELECT *" + "\n";
+//            	s += "FROM " + getParentTableNames() + "\n";
+//            	String afterwhere = joiningSQL.substring(joiningSQL.indexOf("WHERE"), joiningSQL.length());
+//            	s += afterwhere + "\n";
+//            	s += ") " + "\n";
+//            	
+//            	rs = RDB.This().get(s);
+//            	mn.cvsFile = RDBToCVS(mn.name+"_default", mTheory.name, rs); 
+//            	try {
+//    				rs.close();
+//    			} catch (SQLException e) { 
+//    				e.printStackTrace();
+//    			}
+//            }
         }
     }
      
@@ -363,12 +405,12 @@ implements Comparable<MFrag> {
 
     public void resetContextNodes() {
         for (MNode mn : arrayResidentNodes) {
-            System.out.println(mn.ovs);
+//            System.out.println(mn.ovs);
             for (MNode rp : mn.parentMNodes) {
-                System.out.println(rp.ovs);
+//                System.out.println(rp.ovs);
             }
             for (MNode ip : mn.inputParentMNodes) {
-                System.out.println(ip.ovs);
+//                System.out.println(ip.ovs);
             }
         }
     }

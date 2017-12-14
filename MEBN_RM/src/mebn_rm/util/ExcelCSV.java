@@ -30,13 +30,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.nio.file.Files; 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List; 
 
 public class ExcelCSV {
     public static final void createCSV(String file) {
         try {
-            CSVWriter writer1 = new CSVWriter((Writer)new FileWriter(String.valueOf(file) + ".csv", true));
+        	String filename = String.valueOf(file) + ".csv";
+//        	Files.deleteIfExists(Paths.get(filename));
+        	CSVWriter writer1 = new CSVWriter((Writer)new FileWriter(filename, true));
             writer1.close();
         }
         catch (IOException e1) {
