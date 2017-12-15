@@ -51,7 +51,7 @@ implements Comparable<MFrag> {
     public SortableValueMap<String, List<String>> mapCorrelation = new SortableValueMap<String, List<String>>();
     public LearningType learningType = LearningType.STRUCTURE_HYBRID_DISCRETIZED;
     public MFragType mFragType = MFragType.COMMON;
-   
+    public List<MNode> globalMNodes = new ArrayList<MNode>();
 
     public MFrag(MTheory m, String mfragName) {
         init(m, mfragName);

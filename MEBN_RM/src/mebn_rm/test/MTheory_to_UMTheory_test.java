@@ -31,7 +31,7 @@ public class MTheory_to_UMTheory_test {
         String mTheory = m1.toString("MFrag", "MNode");
         System.out.println(mTheory);
         new mebn_rm.util.TextFile();
-        TextFile.save(".//Examples//MTheory//" + schema + ".txt", mTheory);
+        new TextFile().save(".//Examples//MTheory//" + schema + ".txt", mTheory);
 //        MTheory_to_UMTheory converter = new MTheory_to_UMTheory(m1, null);
 //        converter.saveMTheory(schema);
     }

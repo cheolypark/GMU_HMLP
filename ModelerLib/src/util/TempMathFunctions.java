@@ -86,7 +86,7 @@ public class TempMathFunctions {
 	
 	//e.g.,) data = "-.5E5" is changed to "-50000.0"
 	
-	public static String safeDoubleAsString2(Double data) {   
+	public String safeDoubleAsString2(Double data) {   
 		DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
 		df.setMaximumFractionDigits(340); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
 		return df.format(data);
@@ -381,6 +381,14 @@ public class TempMathFunctions {
 		double num =  Math.exp( - (x - m) * (x - m) / (2 * s * s) );
         double den = s * Math.sqrt(2 * Math.PI);
         return num / den;
+	}
+	
+	public double getSmalNumber() { 
+        return 0.000000000001; 
+	}
+	
+	public double getBigNumber() {
+		return 1000000000000.0;
 	}
  
 	/**

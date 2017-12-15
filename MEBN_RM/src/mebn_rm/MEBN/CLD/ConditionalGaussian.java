@@ -36,7 +36,7 @@ import mebn_rm.util.Tetrad_Util;
 import util.TempMathFunctions;
 
 public class ConditionalGaussian extends LPD_Continuous {
-
+	TempMathFunctions tmath = new TempMathFunctions();
     
     public ConditionalGaussian() {
         super("", "ConditionalGaussian");
@@ -90,15 +90,19 @@ public class ConditionalGaussian extends LPD_Continuous {
                 Node parent = sc.getDataSet().getVariable(p.name);
                 Node child = sc.getDataSet().getVariable(mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
-                String edgeCoefs = TempMathFunctions.safeDoubleAsString2(edgeCoef);
+                if (edgeCoef == 0.0){
+                	System.out.println( "The edgeCoef is zero.");
+                	edgeCoef = tmath.getSmalNumber();
+                }
+                String edgeCoefs = tmath.safeDoubleAsString2(edgeCoef);
                 s = String.valueOf(s) + edgeCoefs + " * " + "Sum(" + p.name + ")" + " + ";
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
                 mean -= edgeCoef * meanParent;
                 System.out.println(var -= edgeCoef * varParent);
             }
-            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
-            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
+            String meanS = tmath.safeDoubleAsString2(mean);
+            String varS = tmath.safeDoubleAsString2(Math.abs(var));
             s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
         } else {
             for (MNode p : cp) {
@@ -117,8 +121,8 @@ public class ConditionalGaussian extends LPD_Continuous {
             double mean = im.getMean((Node)sc.getVariables().get(0));
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);              
-            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
-            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
+            String meanS = tmath.safeDoubleAsString2(mean);
+            String varS = tmath.safeDoubleAsString2(Math.abs(var));
             s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
         } else {
             s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
@@ -217,7 +221,7 @@ public class ConditionalGaussian extends LPD_Continuous {
     	Scorer sc = (Scorer)ob;
         List<MNode> cp = mNode.getContinuousParents();
         String s = "";
-          
+         
         if (sc != null) {
         	SemIm im = sc.getEstSem();
             System.out.println(im.toString());
@@ -229,7 +233,10 @@ public class ConditionalGaussian extends LPD_Continuous {
             	Node parent = sc.getDataSet().getVariable(p.name);
                 Node child = sc.getDataSet().getVariable(mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
-                String edgeCoefs = TempMathFunctions.safeDoubleAsString2(edgeCoef);
+                if (edgeCoef == 0.0){ 
+                	edgeCoef = tmath.getSmalNumber();
+                }
+                String edgeCoefs = tmath.safeDoubleAsString2(edgeCoef);
                 s = String.valueOf(s) + edgeCoefs + " * " +  p.name + " + ";
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
@@ -237,8 +244,8 @@ public class ConditionalGaussian extends LPD_Continuous {
                 System.out.println(var -= edgeCoef * varParent);
             }
               
-            String meanS = TempMathFunctions.safeDoubleAsString2(mean);
-            String varS = TempMathFunctions.safeDoubleAsString2(Math.abs(var));
+            String meanS = tmath.safeDoubleAsString2(mean);
+            String varS = tmath.safeDoubleAsString2(Math.abs(var));
             s = cp.size() == 0 ? String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");" : String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ");";
  
         } else {

@@ -31,7 +31,7 @@ public class mebn_rm_test {
         String mTheory = m1.toString("MFrag", "MNode");
         System.out.println(mTheory);
         new mebn_rm.util.TextFile();
-        TextFile.save(".//Examples//MTheory//" + schema + ".txt", mTheory);
+        new TextFile().save(".//Examples//MTheory//" + schema + ".txt", mTheory);
     }
 
     public static void main(String[] args) {

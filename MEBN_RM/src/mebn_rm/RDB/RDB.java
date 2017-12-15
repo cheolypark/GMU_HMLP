@@ -112,8 +112,29 @@ public class RDB extends MySQL_Interface {
         List<String> tables = (List)mapTableTypesAndTables.get((Object)"EntityTable");
         for (String t2 : tables) {
             ArrayList<String> keys = getPrimaryKeysToArray(t2);
-            for (String key : keys) {
-                addTableAndKeys(t2, key, t2);
+            Map<String, String> importedColumns = getImportedColumn(t2);
+            // This is pure entity table
+            // e.g.,)
+            // [Time] and no foreign key 
+            //   t1
+            //   t2
+            //  ...
+            if (importedColumns.isEmpty()) {
+	            for (String key : keys) {
+	                addTableAndKeys(t2, key, t2);
+	            }
+            } else {
+            	// This is not pure entity table with a foreign key  
+                // e.g.,)
+                // [Time] -> [Passing Time] 
+                //   t1
+                //   t2
+                //  ...
+            	
+            	for (String importedColumn : importedColumns.keySet()) {
+                    String fkTable = importedColumns.get(importedColumn);
+                    addTableAndKeys(t2, importedColumn, fkTable);
+                }
             }
         }
         tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");

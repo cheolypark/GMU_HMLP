@@ -53,7 +53,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     public List<MNode> parentMNodes = new ArrayList<MNode>();
     public List<MNode> inputParentMNodes = new ArrayList<MNode>();
     public ConditionalDataSet CDs = null;
-    static List<MNode> globalMNodes = new ArrayList<MNode>();
+//    static List<MNode> globalMNodes = new ArrayList<MNode>();
     private Integer count = 0;
     public SortableValueMap<String, ResidentNode> residentNodes = new SortableValueMap<String, ResidentNode>();
     public ResidentNode childResidentNode = null;
@@ -383,8 +383,8 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public List<MNode> getDiscreteParents() {
         ArrayList<MNode> l = new ArrayList<MNode>();
-        if (!globalMNodes.isEmpty()) {
-            for (MNode p : globalMNodes) {
+        if (!mFrag.globalMNodes.isEmpty()) {
+            for (MNode p : mFrag.globalMNodes) {
                 if (checkContainedNodeByName(p, parentMNodes) && p.isDiscrete()) {
                 	l.add(p);	
                 }
@@ -407,10 +407,10 @@ public class MNode extends Tree implements Comparable<MNode> {
         return l;
     }
 
-    public List<MNode> getContinuousParents() {
+    public synchronized List<MNode> getContinuousParents() {
         ArrayList<MNode> l = new ArrayList<MNode>();
-        if (!globalMNodes.isEmpty()) {
-            for (MNode p : globalMNodes) {
+        if (!mFrag.globalMNodes.isEmpty()) {
+            for (MNode p : mFrag.globalMNodes) {
                 if (checkContainedNodeByName(p, parentMNodes) && p.isContinuous()) {
                 	l.add(p);
                 }
@@ -543,9 +543,9 @@ public class MNode extends Tree implements Comparable<MNode> {
             return "";
         }
         String s = "defineNode(" + name + " , Desc); \n";
-        s = String.valueOf(s) + getBestCLD().getILD();
-        s = String.valueOf(s) + "}\n";
-        globalMNodes.add(this);
+        s += getBestCLD().getILD();
+        s += "}\n";
+        mFrag.globalMNodes.add(this);
         return s;
     }
 

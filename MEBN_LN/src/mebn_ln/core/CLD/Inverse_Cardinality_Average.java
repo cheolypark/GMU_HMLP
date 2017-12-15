@@ -166,7 +166,7 @@ extends LPD_Discrete {
                 String ssbn = "defineNode(DangerLevel_ci1 , Desc); \n";
                 ssbn = String.valueOf(ssbn) + icv.getILD();
                 ssbn = String.valueOf(ssbn) + "}";
-                TextFile.save((String)("examples\\learning\\core_heraldSSBN_DangerLevel_" + numTarget + "_" + nextTime + ".txt"), (String)ssbn);
+                new TextFile().save((String)("examples\\learning\\core_heraldSSBN_DangerLevel_" + numTarget + "_" + nextTime + ".txt"), (String)ssbn);
                 Long t1 = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
                 Long usedMB = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024;
                 String[] stockArr2 = new String[]{String.valueOf(numTarget), t1.toString(), usedMB.toString(), String.valueOf(IPCs.size())};

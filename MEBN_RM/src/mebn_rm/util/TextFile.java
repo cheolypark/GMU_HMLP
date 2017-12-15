@@ -29,7 +29,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 public class TextFile {
-    public static final String load(String file) {
+    public String load(String file) {
         String text = "";
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -54,12 +54,13 @@ public class TextFile {
         return text;
     }
 
-    public static final void save(String file, String sbn) {
+    public void save(String file, String sbn) {
         Writer writer = null;
         try {
             try {
                 writer = new BufferedWriter(new OutputStreamWriter((OutputStream)new FileOutputStream(file), "utf-8"));
                 writer.write(sbn);
+                writer.close();
             }
             catch (IOException var3_3) {
                 try {

@@ -86,6 +86,10 @@ public class MTheory implements Comparable<MTheory> {
         String combParents = "";
         boolean bOtherMFrag = false;
         
+        if (c.equalsIgnoreCase("rm_pass.RPS_REAL_ROLLGAP_1")){
+        	System.out.println();
+        }
+        
         for (String p : ps) {
             String mFragP = new StringUtil().getLeft(p); 
             if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) { 
@@ -122,7 +126,8 @@ public class MTheory implements Comparable<MTheory> {
 //                String originEntity = rdb.mapKeysOrigins.get(key);
             	String originEntity = rdb.getOriginFromKey(newMFrag.table, key);
                 OVariable ov = new OVariable(f.getTableName(), key, originEntity);
-                newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
+//                newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
+        		new MIsANode(newMFrag, ov);
             }
 
             // Add parent nodes
@@ -155,7 +160,8 @@ public class MTheory implements Comparable<MTheory> {
                 for (String key2 : keys2) {
                     String originEntity = rdb.getOriginFromKey(fp.getTableName(), key2);
                     OVariable ov = new OVariable(fp.getTableName(), key2, originEntity);
-                    newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
+//                    newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
+                    new MIsANode(newMFrag, ov);
                     listOV.add(ov);
                 }
                 
@@ -362,9 +368,9 @@ public class MTheory implements Comparable<MTheory> {
             OVariable ov;
             OVariable ov2;
             
-//            if (f.name.equalsIgnoreCase("QR_RESULT_COL_1")) {
-//            	  System.out.println(f.joiningSQL);
-//            } 
+            if (f.name.equalsIgnoreCase("fm_pass")) {
+            	  System.out.println(f.joiningSQL);
+            } 
             
             if (f.joiningSQL != null) { 
             	// Step 1. Add "where" clause to the SQL script of this MFrag
@@ -385,7 +391,7 @@ public class MTheory implements Comparable<MTheory> {
                 	MFrag orgF = getMFrag(ov.originMFrag);
                 	
                 	// timedPrimaryKey will be skipped.
-        			if (orgF.timedPrimaryKey != null && orgF.timedPrimaryKey.equalsIgnoreCase(ov.originKey)){
+         			if (orgF != null &&orgF.timedPrimaryKey != null && orgF.timedPrimaryKey.equalsIgnoreCase(ov.originKey)){
         				continue;
         			}
         			
