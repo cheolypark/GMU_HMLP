@@ -19,6 +19,14 @@ public class ListMgr {
 			
 		return str;
 	}
+	
+	public Double getAverage(List<Double> list) {
+		Double ret = 0.0;
+		for (Double d : list) {
+			ret += d;
+		} 
+		return ret/list.size();
+	}
 		
 	public static void main(String[] args) {
 		ListMgr l = new ListMgr();

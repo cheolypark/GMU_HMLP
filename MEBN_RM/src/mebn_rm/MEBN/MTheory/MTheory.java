@@ -85,11 +85,7 @@ public class MTheory implements Comparable<MTheory> {
         String mNode = new StringUtil().getRight(c);
         String combParents = "";
         boolean bOtherMFrag = false;
-        
-        if (c.equalsIgnoreCase("rm_pass.RPS_REAL_ROLLGAP_1")){
-        	System.out.println();
-        }
-        
+          
         for (String p : ps) {
             String mFragP = new StringUtil().getLeft(p); 
             if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) { 
@@ -136,6 +132,8 @@ public class MTheory implements Comparable<MTheory> {
             	            	
                 String mFragP = new StringUtil().getLeft(p2);
                 String mNodeP = new StringUtil().getRight(p2);
+                
+//                System.out.println(mFragP + ":" + mNodeP);
                 
                 MFrag fp = getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
@@ -199,6 +197,10 @@ public class MTheory implements Comparable<MTheory> {
             
 //            System.out.println(sql);
              
+            if (c.equalsIgnoreCase("quality_result.QR_RESULT_COL_1")){
+            	System.out.println();
+            }
+            
             newMFrag.joiningSQL = sql;
             
             // If there is no more node, then delete this MFrag 

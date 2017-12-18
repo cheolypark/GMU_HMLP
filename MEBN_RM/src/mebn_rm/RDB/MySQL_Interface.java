@@ -481,13 +481,13 @@ public class MySQL_Interface extends TempMathFunctions {
         int colunmCount = MySQL_Interface.getColumnCount(res);
         String strFile = String.valueOf(Resource.getCSVPath(strMTheory)) + fileName + ".csv";
         FileWriter fw = new FileWriter(strFile);
-        List<String> columnNames = new ArrayList<String>(); 
-        String dataPrev = "0";
-        String data;
-        
+        List<String> columnNames = new ArrayList<String>();
+        List<String> dataList = new ArrayList<String>(); 
+        String data; 
         int i = 1;
         while (i <= colunmCount) {
-        	columnNames.add(res.getMetaData().getColumnName(i)); 
+        	columnNames.add(res.getMetaData().getColumnName(i));
+        	dataList.add("empty");
             fw.append(res.getMetaData().getColumnName(i));
             fw.append(",");
             ++i;
@@ -499,7 +499,8 @@ public class MySQL_Interface extends TempMathFunctions {
                 
                 if (res.getObject(i) != null) {
                     data = res.getObject(i).toString();
-                    dataPrev = data;
+//                    dataPrev = data;
+                    dataList.set(i-1, data);
                     fw.append(data);
                     if (i < colunmCount) {
                         fw.append(",");
@@ -513,20 +514,35 @@ public class MySQL_Interface extends TempMathFunctions {
                 	// Attribute_1	Attribut_2
                 	//	9			9
                 	//
+                	
                 	if (i != 1) {
-                		String colPrev = columnNames.get(i-2);
+                		boolean b = false;
+                		String dataPrev = null;
                 		String col = columnNames.get(i-1);
-                		
-                		colPrev = colPrev.substring(0, colPrev.lastIndexOf("_")); 
                 		col = col.substring(0, col.lastIndexOf("_"));
                 		
-                		if (colPrev.equalsIgnoreCase(col)) {
-                			 fw.append(dataPrev);
-                             if (i < colunmCount) {
-                                 fw.append(",");
-                             }  
-                             ++i;
-                             continue;
+                		for (int j = 0; j < columnNames.size(); j++) {
+                			String colPrev = columnNames.get(j);
+                			colPrev = colPrev.substring(0, colPrev.lastIndexOf("_"));	
+                			
+                			if (colPrev.equalsIgnoreCase(col) && !dataList.get(j).equalsIgnoreCase("empty")) {
+                				dataPrev = dataList.get(j);
+                			} else if (colPrev.equalsIgnoreCase(col) && dataList.get(j).equalsIgnoreCase("empty")) {
+	                			b = true;
+	                            break;
+	                		}
+                		}
+                		
+                		if (b) {
+                			if (!dataPrev.equalsIgnoreCase("empty")){
+                				fw.append(dataPrev);
+	                            if (i < colunmCount) {
+	                                fw.append(",");
+	                            }
+                			}
+                			
+                			++i;
+                            continue;
                 		}
                 	}
                 	

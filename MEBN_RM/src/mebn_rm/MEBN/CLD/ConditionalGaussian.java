@@ -49,7 +49,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         System.out.println("////////////////////////////////" + mNode.name);
         System.out.println((Object)continuousGraph);
         
-        if (mNode.name.equalsIgnoreCase("QR_RESULT_COL_1")) {
+        if (mNode.name.equalsIgnoreCase("FPS_SET_ROLLGAP_8")) {
             System.out.println(mNode.name);
         }
         
@@ -61,11 +61,11 @@ public class ConditionalGaussian extends LPD_Continuous {
         } else {
             DagScorer scorer = new DagScorer(_dataSet_con);
             double fml = scorer.score(continuousGraph);
-            System.out.println("FML (scorer) = " + fml);
-            System.out.println("BIC = " + scorer.getBicScore());
-            System.out.println("AIC = " + scorer.getAicScore());
-            System.out.println("DOF = " + scorer.getDof());
-            System.out.println("# free params = " + scorer.getNumFreeParams());
+//            System.out.println("FML (scorer) = " + fml);
+//            System.out.println("BIC = " + scorer.getBicScore());
+//            System.out.println("AIC = " + scorer.getAicScore());
+//            System.out.println("DOF = " + scorer.getDof());
+//            System.out.println("# free params = " + scorer.getNumFreeParams());
             SemIm im = scorer.getEstSem();
             System.out.println("est sem = " + (Object)im);
             ipcScorers.put(ipc, scorer);
