@@ -487,13 +487,26 @@ public class MySQL_Interface extends TempMathFunctions {
         int i = 1;
         while (i <= colunmCount) {
         	columnNames.add(res.getMetaData().getColumnName(i));
-        	dataList.add("empty");
+//        	dataList.add("empty");
             fw.append(res.getMetaData().getColumnName(i));
             fw.append(",");
             ++i;
         }
+        
+        if (fileName.equalsIgnoreCase("FM_pass")){
+        	System.out.println();
+        }
+        
         fw.append(System.getProperty("line.separator"));
         while (res.next()) {
+            
+            i = 1;
+            dataList.clear();
+            while (i <= colunmCount) {
+                dataList.add("empty"); 
+                ++i;
+            }
+        	
             i = 1;
             while (i <= colunmCount) {
                 
@@ -515,6 +528,10 @@ public class MySQL_Interface extends TempMathFunctions {
                 	//	9			9
                 	//
                 	
+                    if (i == 17){
+                    	System.out.println();
+                    }
+                    
                 	if (i != 1) {
                 		boolean b = false;
                 		String dataPrev = null;
