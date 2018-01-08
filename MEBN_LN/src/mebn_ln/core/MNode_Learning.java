@@ -35,6 +35,8 @@ extends Learning_Common {
     }
 
     public void run_operation(MNode mn) {
+    	System.gc();
+    	
         SortableValueMap<CLD, Double> cldCANs = mn.cldCANs;
         ConditionalDataSet CD = mn.CDs;
         for (CLD c2 : cldCANs.keySet()) { 
