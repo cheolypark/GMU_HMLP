@@ -18,6 +18,15 @@
  */
 package mebn_rm.MEBN.MTheory;
 
+/**
+ * OVariable is the class for a structure of Ordinary Variable.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class OVariable {
     public String name;
     public String entityType;

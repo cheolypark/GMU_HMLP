@@ -20,12 +20,19 @@ package mebn_ln.core;
  
 import mebn_ln.core.Learning_Common;
 import mebn_rm.MEBN.CLD.CLD;
-import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.MEBN.MNode.MNode; 
 import util.SortableValueMap; 
 
-public class MNode_Learning
-extends Learning_Common {
+/**
+ * MNode_Learning is the class for MNode learning. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MNode_Learning extends Learning_Common {
     public void run(MNode mn) {
         getCandidateMNodes(mn);
         System.out.println("******************* Begin MNode learning with the " + mn.name + " MNode *******************");
@@ -37,11 +44,10 @@ extends Learning_Common {
     public void run_operation(MNode mn) {
     	System.gc();
     	
-        SortableValueMap<CLD, Double> cldCANs = mn.cldCANs;
-        ConditionalDataSet CD = mn.CDs;
+        SortableValueMap<CLD, Double> cldCANs = mn.cldCANs; 
         for (CLD c2 : cldCANs.keySet()) { 
             if (isMC_Approach()) continue;
-            c2.calculateBestPara(CD, null);
+            c2.calculateBestPara();
         }
         for (CLD l : cldCANs.keySet()) {
             Double cldSc = 0.0;

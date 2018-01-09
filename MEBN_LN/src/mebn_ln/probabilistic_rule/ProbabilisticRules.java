@@ -22,6 +22,16 @@ import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory; 
 
+/**
+ * ProbabilisticRules is the class to determine casual relationships between 
+ * random variables.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class ProbabilisticRules {
     public MTheory mTheory = null;
 

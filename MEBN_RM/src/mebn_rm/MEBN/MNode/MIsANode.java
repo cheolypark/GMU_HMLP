@@ -22,8 +22,16 @@ import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.OVariable;
 
-public class MIsANode
-extends MNode {
+/**
+ * MIsANode is the class for a structure of IsA MNode.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MIsANode extends MNode {
     public MIsANode(MFrag f, OVariable o) {
         super(f, "IsA", null);
         ovs.add(o);

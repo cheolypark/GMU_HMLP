@@ -21,27 +21,29 @@ package mebn_rm.MEBN.CLD;
 import edu.cmu.tetrad.data.ColtDataSet;
 import edu.cmu.tetrad.data.DataSet;
 import edu.cmu.tetrad.graph.Graph;
-import edu.cmu.tetrad.graph.Node;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException; 
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream; 
+import edu.cmu.tetrad.graph.Node; 
 import java.util.ArrayList;
 import java.util.List; 
 import mebn_rm.MEBN.CLD.Probability; 
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.MEBN.parameter.Parameter;
-import mebn_rm.RDB.RDB;
-import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.RDB.RDB; 
 import mebn_rm.util.Resource; 
 import mebn_rm.util.Tetrad_Util;
 import util.SortableValueMap;
 import util.math.Sum_for_Log; 
 
-public class CLD
-extends Probability
-implements Comparable<CLD> {
+/**
+ * CLD is the class to perform functions related to class local distribution (CLD). 
+ * The class performs calculation for a CLD and construction of the script of the CLD.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class CLD extends Probability implements Comparable<CLD> {
     public MNode mNode = null;
     public String name;
     public int parameterSize;
@@ -52,15 +54,14 @@ implements Comparable<CLD> {
     public List<String> arrayCategories = null;
     public String cld_type = "";
     public Boolean isSampling = true;
-    public SortableValueMap<Parameter, Double> paraCANs = new SortableValueMap();
-    public Parameter bestParameter = null;
-    public ConditionalDataSet CD = new ConditionalDataSet();
+    public SortableValueMap<Parameter, Double> paraCANs = new SortableValueMap<Parameter, Double>();
+    public Parameter bestParameter = null; 
 
     public CLD(String n, String c) {
         name = n;
         cld_type = c;
     }
-
+ 
     public String toString() {
         String s = "[L [";
         s = String.valueOf(s) + cld_type + "]: ";
@@ -69,6 +70,12 @@ implements Comparable<CLD> {
         return s;
     }
 
+    /**
+     * Used for returning a string of this CLD. 
+     * The string will contains specific information according to inclusions.  
+     * @param inclusions		a list of inclusions
+     * @return					a string representing CLD
+     */
     public String toString(List<String> inclusions) {
         String s = "";
         if (inclusions.contains("CLD")) {
@@ -84,27 +91,21 @@ implements Comparable<CLD> {
         }
         return s;
     }
-
-    public int getParameterSize() {
-        return parameterSize;
-    }
-
+ 
+    /**
+     * This method is used to return the script of local distribution of a script BN.
+     * 
+     * @return 		the script of local distribution of a script BN
+     */
     public String getILD() {
         return "";
     }
-
-    public String getILD_op(Object ob) {
-        return "";
-    }
-    
-    public String getCLD_op(Object ob) {
-        return "";
-    }
-    
-    public String getCLD_default_op(Object ob) {
-        return "";
-    }
-
+ 
+    /**
+     * This method is used to return a list of categories.
+     * 
+     * @return		a list of categories
+     */
     public List<String> getCategories() {
         return null;
     }
@@ -117,16 +118,7 @@ implements Comparable<CLD> {
             arrayCategories.add(c);
         }
     }
- 
-    public Integer sizeOf(ArrayList<String> ps, String cmp) {
-        Integer i = 0;
-        for (String s : ps) {
-            if (!s.equalsIgnoreCase(cmp)) continue;
-            i = i + 1;
-        }
-        return i;
-    }
-
+   
     public Double calculateSimilarity() {
         return null;
     }
@@ -159,17 +151,20 @@ implements Comparable<CLD> {
         }
     }
 
-    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
+    /**
+     * This method is used to calculate parameters.
+     * TODO: the return of this method should be the score of the calculated parameters.   
+     * @return		the score of the calculated parameters
+     */
+    public Double calculateBestPara() {
         return null;
     }
-
-    public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph graph) {
-    }
-    
-    public void calculateBestPara_op_default(DataSet _dataSet_con, Graph graph) {
-    }
-     
-
+ 
+    /**
+     * Used for generating influencing parent conditions (IPC).
+     * @param hybridGraph		a network containing discrete and continuous nodes  
+     * @return					a list of IPCs
+     */
     public List<String> initIPCs(Graph hybridGraph) {  
     	
         if (name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
@@ -197,37 +192,37 @@ implements Comparable<CLD> {
         return Tetrad_Util.getIPC(mNode, selectedData, mNode.name);
     }
 
-    public void save(String filename) {
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-        try {
-            fos = new FileOutputStream(filename);
-            out = new ObjectOutputStream(fos);
-            out.writeObject(CD);
-            out.close();
-            fos.close();
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public void load(String filename) {
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-        try {
-            fis = new FileInputStream(filename);
-            in = new ObjectInputStream(fis);
-            CD = (ConditionalDataSet)in.readObject();
-            in.close();
-            fis.close();
-        }
-        catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-    }
+//    public void save(String filename) {
+//        FileOutputStream fos = null;
+//        ObjectOutputStream out = null;
+//        try {
+//            fos = new FileOutputStream(filename);
+//            out = new ObjectOutputStream(fos);
+//            out.writeObject(CD);
+//            out.close();
+//            fos.close();
+//        }
+//        catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//
+//    public void load(String filename) {
+//        FileInputStream fis = null;
+//        ObjectInputStream in = null;
+//        try {
+//            fis = new FileInputStream(filename);
+//            in = new ObjectInputStream(fis);
+//            CD = (ConditionalDataSet)in.readObject();
+//            in.close();
+//            fis.close();
+//        }
+//        catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
+//        catch (ClassNotFoundException ex) {
+//            ex.printStackTrace();
+//        }
+//    }
 }
 

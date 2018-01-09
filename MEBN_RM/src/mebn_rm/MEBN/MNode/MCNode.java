@@ -23,11 +23,18 @@ import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.OVariable;
 
-public class MCNode
-extends MNode {
+/**
+ * MCNode is the class for a structure of continuous MNode.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MCNode extends MNode {
     public MCNode(MFrag f, String name, List<OVariable> ovs) {
         super(f, name, ovs, null);
-       // f.arrayResidentNodes.add(this);
     }
 
     public MCNode(MFrag f, MNode mn, List<OVariable> ovs) {

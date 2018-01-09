@@ -27,8 +27,18 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
-  
-  
+
+import util.gui.GeneralDialog;
+   
+/**
+ * HML_TextPane is the class for a text panel. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+ 
 public class HML_TextPane extends JTextPane {
 
 	/**

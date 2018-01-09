@@ -18,6 +18,16 @@
  */
 package mebn_rm.MEBN.Convertor;
   
+/**
+ * MTheory_to_UMTheory is the class to convert an MThoery to a UnBBayes MThoery format.
+ * TODO: this class should be tested. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class MTheory_to_UMTheory {
 //    MultiEntityBayesianNetwork mebn = null;
 //    public Map<ResidentNode, String> mapDefaultCPT = new HashMap<ResidentNode, String>();

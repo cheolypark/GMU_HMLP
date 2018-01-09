@@ -24,6 +24,15 @@ import java.util.Map;
 import edu.cmu.tetrad.sem.Scorer;
 import mebn_rm.MEBN.CLD.CLD; 
 
+/**
+ * LPD_Continuous is the class to perform functions related to a continuous random variable.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class LPD_Continuous extends CLD {
 	public Map<String, Scorer> ipcScorers = new HashMap<String, Scorer>();
     public Scorer defaultScorer = null;

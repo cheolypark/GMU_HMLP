@@ -29,11 +29,21 @@ import edu.cmu.tetrad.util.TetradMatrix;
 import java.util.List; 
 import mebn_rm.MEBN.CLD.LPD_Continuous;
 import mebn_rm.MEBN.MNode.MNode; 
-import mebn_rm.RDB.RDB;
-import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
 import mebn_rm.util.Tetrad_Util; 
 import util.TempMathFunctions;
+
+/**
+ * ConditionalGaussian is the class to perform functions related to local distribution of 
+ * a continuous random variable in Gaussian distribution. The class performs calculation 
+ * for a local distribution and construction of the script of the local distribution.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class ConditionalGaussian extends LPD_Continuous {
 	TempMathFunctions tmath = new TempMathFunctions();
@@ -48,12 +58,7 @@ public class ConditionalGaussian extends LPD_Continuous {
     	 
         System.out.println("////////////////////////////////" + mNode.name);
         System.out.println((Object)continuousGraph);
-        
-        if (mNode.name.equalsIgnoreCase("FPS_SET_ROLLGAP_8")) {
-            System.out.println(mNode.name);
-        }
-        
-        
+         
         if (_dataSet_con.getNumRows() == 0) {
             ipcScorers.put(ipc, null);
         } else if (!Tetrad_Util.hasVariance(_dataSet_con)) {
@@ -130,7 +135,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         return s;
     }
       
-    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) {
+    public Double calculateBestPara() {
         EdgeListGraph hybridGraph = new EdgeListGraph();
         IPCs = initIPCs((Graph)hybridGraph);
         if (IPCs.size() == 0) {

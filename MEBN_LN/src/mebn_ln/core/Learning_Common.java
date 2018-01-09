@@ -17,11 +17,19 @@
  * limitations under the License.
  */
 package mebn_ln.core;
-
-import mebn_rm.MEBN.parameter.Parameter;
-import mebn_rm.data.ConditionalDataSet;
+ 
 import util.TempMathFunctions;
 import util.math.Sum_for_Log; 
+
+/**
+ * Learning_Common is the class for MEBN learning. This class contains common
+ * function for MEBN learning.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class Learning_Common extends TempMathFunctions {
     public Sum_for_Log logsum = new Sum_for_Log();
@@ -39,11 +47,6 @@ public class Learning_Common extends TempMathFunctions {
             return true;
         }
         return false;
-    }
-
-    public Double calculate(ConditionalDataSet CD, Parameter para) {
-        Double logTotal = 0.0;
-        return logTotal;
-    }
+    } 
 }
 

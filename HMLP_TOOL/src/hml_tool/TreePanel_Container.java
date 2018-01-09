@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hml_tool.panel; 
+package hml_tool; 
 import java.awt.BorderLayout; 
 import java.awt.event.ActionEvent;   
 import javax.swing.AbstractAction;
@@ -27,13 +27,19 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton; 
 import javax.swing.JPanel;
 
-import hml_tool.HML_Console;
-import hml_tool.HML_Console.windowMode; 
+import hml_tool.HML_Console.windowMode;
+import util.gui.MyPanel; 
   
-public class TreePanel_Container extends MyPanel { 
-    /**
-	 * 
-	 */
+/**
+ * TreePanel_Container is the class containing several tree panels. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class TreePanel_Container extends MyPanel {  
 	private static final long serialVersionUID = 134803263526752867L;
 
 	HML_Console console = null;  

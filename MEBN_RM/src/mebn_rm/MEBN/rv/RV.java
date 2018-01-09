@@ -22,9 +22,16 @@ import java.util.ArrayList;
 import java.util.List;
 import mebn_rm.MEBN.CLD.Probability;
 
-public class RV
-extends Probability
-implements Comparable<RV> {
+/**
+ * RV is the class for a random variable.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class RV extends Probability implements Comparable<RV> {
     public String name;
     public String value;
     public Double prob;
@@ -62,7 +69,7 @@ implements Comparable<RV> {
         parents.add(rv);
     }
 
-    public /* varargs */ void addParents(RV ... rvs) {
+    public void addParents(RV ... rvs) {
         RV[] arrrV = rvs;
         int n = arrrV.length;
         int n2 = 0;

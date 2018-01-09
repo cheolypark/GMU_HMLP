@@ -24,16 +24,27 @@ import java.util.List;
 import mebn_rm.MEBN.CLD.LPD_Continuous;
 import mebn_rm.MEBN.MNode.MNode;
 
-public class ConditionalGaussian_Empty
-extends LPD_Continuous {
-    public ConditionalGaussian_Empty() {
-        super("", "ConditionalGaussian_Empty");
+/**
+ * Deterministic_Conditional_Gaussian is the class for the special type of CLD.
+ * The Deterministic-Conditional Gaussian distribution is a Conditional 
+ * Gaussian distribution whose regression intercept is zero, regression 
+ * coefficient is one, and variance is a very small value.  
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class Deterministic_Conditional_Gaussian extends LPD_Continuous {
+    public Deterministic_Conditional_Gaussian() {
+        super("", "Deterministic_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }
 
-    public ConditionalGaussian_Empty(String name) {
-        super(name, "ConditionalGaussian_Empty");
+    public Deterministic_Conditional_Gaussian(String name) {
+        super(name, "Deterministic_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }

@@ -24,12 +24,26 @@ import network.Edge;
 import network.Network;
 import network.Node;
 
+/**
+ * SearchingPath is the class to search a depth of a network. 	
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+ 
 public class SearchingPath {
 	public SearchingPath(){
 		
 	}
-	
-	public ArrayList<Node>  findRootNodes(Network net){
+	 
+	/**
+	 * Used for returning a list of root nodes in a network.  
+	 * @param net	a network
+	 * @return		a list of nodes which are root nodes in the network 
+	 */
+	public ArrayList<Node> findRootNodes(Network net){
 		//1. Find top nodes 
 		//          [C] [D]     
 		//            \ /
@@ -47,6 +61,13 @@ public class SearchingPath {
 		return topNodes;
 	} 
 	
+	/**
+	 * Used for finding a depth which is a longest one. 
+	 * To do this, root nodes are found and for each root node,
+	 * a longest depth are searched. 
+	 * @param net	a network
+	 * @return	a depth
+	 */
 	public Integer findLongestDepth(Network net){
 		//1. Find top nodes 
 		//          [C] [D]     
@@ -75,13 +96,20 @@ public class SearchingPath {
 		return max;
 	}
 	
-	private Integer searchAllPath(Network net, Node curNode, int number){
+	/**
+	 * Used for finding a depth which is a longest one. 
+	 * @param net 		a network
+	 * @param node		a current node in the search operation
+	 * @param number	a current number of depth
+	 * @return			a longest depth
+	 */
+	private Integer searchAllPath(Network net, Node node, int number){
 		number++;
-		if (curNode.outer.isEmpty()){
+		if (node.outer.isEmpty()){
 			return number;
 		}
 		Integer ret = -1;
-		for (Edge e: curNode.outer){
+		for (Edge e: node.outer){
 			ret = Math.max(ret, searchAllPath(net, e.endNode, number));
 		} 
 		

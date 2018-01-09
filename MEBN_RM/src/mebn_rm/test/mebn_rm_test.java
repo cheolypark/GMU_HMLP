@@ -24,6 +24,15 @@ import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
 import mebn_rm.util.TextFile;
 
+/**
+ * mebn_rm_test is the test class to test MEBN-RM mapping.  
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class mebn_rm_test {
     public mebn_rm_test(String schema) throws SQLException {
         RDB.This().init(schema);

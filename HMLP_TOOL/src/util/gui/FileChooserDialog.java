@@ -16,12 +16,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hml_tool;
+package util.gui;
 import java.awt.FileDialog;
 import java.awt.Frame; 
- 
-public class FileChooserDialog {
-	
+    
+/**
+ * FileChooserDialog is the class to create a dialog window to choose a file.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class FileChooserDialog { 
 	 public String loadFile(Frame f, String title, String defDir, String fileType) {
 		 FileDialog fd = new FileDialog(f, title, FileDialog.LOAD);
 		 fd.setFile(fileType);

@@ -22,8 +22,16 @@ import java.util.ArrayList;
 import mebn_rm.MEBN.MTheory.MTheory;
 import util.SortableValueMap; 
 
-public class MRoot
-implements Comparable<MRoot> {
+/**
+ * MRoot is the class for a structure of MRoot.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MRoot implements Comparable<MRoot> {
     public SortableValueMap<MTheory, Double> mtheoryCANs = new SortableValueMap<MTheory, Double>();
     public String name = "ROOT";
 

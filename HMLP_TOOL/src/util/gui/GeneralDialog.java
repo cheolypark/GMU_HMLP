@@ -16,15 +16,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hml_tool;
+package util.gui;
 
 import javax.swing.*;
-import javax.swing.border.*;
-
+import javax.swing.border.*; 
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.ActionEvent; 
 import java.awt.event.KeyEvent; 
- 
+
+/**
+ * GeneralDialog is the class to create a common JFrame window.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */ 
+
 public class GeneralDialog extends JFrame {
 
 	private static final long serialVersionUID = -6372075014284878800L;
@@ -32,11 +40,10 @@ public class GeneralDialog extends JFrame {
 	private int PREFERRED_WIDTH = 680;
 	private int PREFERRED_HEIGHT = 600;
 
-    Dimension VGAP5 = new Dimension(1,5); 
-    EmptyBorder border5 = new EmptyBorder(5,5,5,5); 
+	public Dimension VGAP5 = new Dimension(1,5); 
+    public EmptyBorder border5 = new EmptyBorder(5,5,5,5); 
     
-	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), 
-					  new EmptyBorder(5,5,5,5));
+	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), new EmptyBorder(5,5,5,5));
   
 	public GeneralDialog(Frame owner, String str, int width, int height) { 
 		super(str);

@@ -34,6 +34,15 @@ import java.util.Map;
 import mebn_rm.util.Resource;
 import util.TempMathFunctions; 
 
+/**
+ * MySQL_Interface is the class containing interface functions for MySQL.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class MySQL_Interface extends TempMathFunctions {
     public static Connection connection;
     public String schema = "";
@@ -426,8 +435,7 @@ public class MySQL_Interface extends TempMathFunctions {
             rs = meta.getPrimaryKeys(null, null, table);
             while (rs.next()) {
                 ++i;
-            }
-//            rs.beforeFirst();
+            } 
             rs.close();
             return i;
         }

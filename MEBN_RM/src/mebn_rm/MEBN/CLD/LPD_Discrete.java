@@ -23,6 +23,16 @@ import java.util.Map;
 import edu.cmu.tetrad.bayes.BayesIm;
 import mebn_rm.MEBN.CLD.CLD; 
 
+
+/**
+ * LPD_Discrete is the class to perform functions related to a discrete random variable.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class LPD_Discrete extends CLD {
     Map<String, BayesIm> ipcIMs = new HashMap<String, BayesIm>();
     BayesIm ipcIMs_default = null;

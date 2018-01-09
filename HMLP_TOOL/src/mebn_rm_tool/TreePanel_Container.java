@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mebn_rm.tool.panel; 
+package mebn_rm_tool; 
 import java.awt.BorderLayout; 
 import java.awt.event.ActionEvent;  
 
@@ -28,9 +28,17 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton; 
 import javax.swing.JPanel;
 
-import mebn_rm.tool.MEBN_RM_Console; 
- 
-  
+import util.gui.MyPanel; 
+
+/**
+ * TreePanel_Container is the class containing tree panels.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class TreePanel_Container extends MyPanel { 
     /**
 	 * 
@@ -40,8 +48,8 @@ public class TreePanel_Container extends MyPanel {
 	MEBN_RM_Console console = null;  
  
 	TreePanel_Left leftTree = null;  
-	Action setRun4;   
-	JButton btn4; 
+	Action setRun;   
+	JButton btn; 
 	
 	public TreePanel_Container(MEBN_RM_Console con, TreePanel_Left l){
 		console = con; 
@@ -56,7 +64,7 @@ public class TreePanel_Container extends MyPanel {
 	public void init(){  
 		if (console.wMode == MEBN_RM_Console.windowMode.SELECT_DB){  
 			changeName("RM to MEBN"); 
-			btn4.setText("Select"); btn4.setVisible(true);
+			btn.setText("Select"); btn.setVisible(true);
 		} else if (console.wMode == MEBN_RM_Console.windowMode.EDIT_DB){ 
 		}  
 		
@@ -76,13 +84,13 @@ public class TreePanel_Container extends MyPanel {
 		ButtonPanel.setBorder(border5);
   
 		// Add Button 
-		btn4 = createRun4Button(); ButtonPanel.add(btn4); group.add(btn4); ButtonPanel.add(Box.createRigidArea(VGAP5));
+		btn = createRun4Button(); ButtonPanel.add(btn); group.add(btn); ButtonPanel.add(Box.createRigidArea(VGAP5));
 		
 		return ButtonPanel;
 	}
 	 
 	public JButton createRun4Button() {
-		setRun4 = new AbstractAction("Btn") {
+		setRun = new AbstractAction("Btn") {
 			public void actionPerformed(ActionEvent e) {  
 				System.out.println(console.wMode);
 				if (console.wMode == MEBN_RM_Console.windowMode.SELECT_DB ||
@@ -92,6 +100,6 @@ public class TreePanel_Container extends MyPanel {
 				} 
 			}
 		};
-		return createButton(setRun4);
+		return createButton(setRun);
 	}   
 }

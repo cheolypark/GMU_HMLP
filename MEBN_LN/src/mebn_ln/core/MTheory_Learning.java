@@ -25,8 +25,16 @@ import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import util.SortableValueMap; 
 
-public class MTheory_Learning
-extends Learning_Common {
+/**
+ * MTheory_Learning is the class for MTheory learning. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MTheory_Learning extends Learning_Common {
     MFrag_Learning MFrag_learning = new MFrag_Learning();
     public static boolean structure_learning = true;
 

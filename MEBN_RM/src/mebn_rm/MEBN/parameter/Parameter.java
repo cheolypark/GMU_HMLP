@@ -22,16 +22,24 @@ import java.util.ArrayList;
 import mebn_rm.MEBN.rv.RV;
 import util.SortableValueMap; 
 
-public class Parameter
-implements Comparable<Parameter> {
-    public ArrayList<Double> parameters = new ArrayList();
+/**
+ * Parameter is the class for parameters of a local distribution.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class Parameter implements Comparable<Parameter> {
+    public ArrayList<Double> parameters = new ArrayList<Double>();
     public boolean bTrueParameter = false;
-    SortableValueMap<RV, Double> rvMap = new SortableValueMap();
+    SortableValueMap<RV, Double> rvMap = new SortableValueMap<RV, Double>();
 
     public Parameter() {
     }
 
-    public /* varargs */ Parameter(boolean b, Double ... ds) {
+    public Parameter(boolean b, Double ... ds) {
         bTrueParameter = b;
         Double[] arrdouble = ds;
         int n = arrdouble.length;
@@ -43,7 +51,7 @@ implements Comparable<Parameter> {
         }
     }
 
-    public /* varargs */ Parameter(boolean b, RV ... rvs) {
+    public Parameter(boolean b, RV ... rvs) {
         bTrueParameter = b;
         RV[] arrrV = rvs;
         int n = arrrV.length;

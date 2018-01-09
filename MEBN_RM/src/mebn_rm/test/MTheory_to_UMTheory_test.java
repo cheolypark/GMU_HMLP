@@ -24,6 +24,16 @@ import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
 import mebn_rm.util.TextFile;
 
+/**
+ * MTheory_to_UMTheory_test is the test class to test conversion from MTheory to UnBBayes-MTheory.
+ * TODO: This class should be tested.   
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class MTheory_to_UMTheory_test {
     public MTheory_to_UMTheory_test(String schema) throws SQLException {
         RDB.This().init(schema);

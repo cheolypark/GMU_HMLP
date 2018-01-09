@@ -23,11 +23,18 @@ import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.OVariable;
 
-public class MDNode
-extends MNode {
+/**
+ * MDNode is the class for a structure of discrete MNode.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MDNode extends MNode {
     public MDNode(MFrag f, String name, List<OVariable> ovs) {
-        super(f, name, ovs, null);
-        //f.arrayResidentNodes.add(this);
+        super(f, name, ovs, null); 
     }
     
     public MDNode(MFrag f, MNode mn, List<OVariable> ovs) {

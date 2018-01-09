@@ -21,6 +21,20 @@ package network;
 import java.util.ArrayList;
  
 
+/**
+ * Node is the class for a network.
+ * <p>This contains the followings:
+ * <ul>
+ * <li>inner: a list of incoming edges
+ * <li>outer: a list of outgoing edges
+ * </ul>
+ * <p> 
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class Node {
 	public String name = "";
 	public ArrayList<Edge> inner = new ArrayList<Edge>();	
@@ -30,6 +44,11 @@ public class Node {
 		name = n;
 	}
 	
+	/**
+ 	 * Used for returning this node name. 
+	 * @return String a node name.  
+	 * @see #Network()
+	 */
 	public String getName(){
 		return name;
 	} 

@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mebn_rm.tool;
+package mebn_rm_tool;
 
 import java.awt.BorderLayout;
 import java.awt.Color; 
@@ -31,6 +31,15 @@ import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
   
+/**
+ * MEBN_RM_TextPane is the class to create a text editor in MEBN_RM_Console.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class MEBN_RM_TextPane extends JTextPane {
  
 	private static final long serialVersionUID = 4441923677825230112L;

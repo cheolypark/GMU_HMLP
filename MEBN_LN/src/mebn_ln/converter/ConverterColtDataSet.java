@@ -33,6 +33,15 @@ import java.util.List;
 
 import au.com.bytecode.opencsv.CSVReader; 
 
+/**
+ * ConverterColtDataSet is the class to convert from csv dataset to colt dataset. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class ConverterColtDataSet {
     public static ColtDataSet getTetDataSetFromCSV(String fCSV) {
         ArrayList<Node> nodes = new ArrayList<Node>();

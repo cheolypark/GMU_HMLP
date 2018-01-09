@@ -37,6 +37,15 @@ import mebn_rm.util.StringUtil;
 import util.ListMgr;
 import util.SortableValueMap;
   
+/**
+ * MTheory is the class for a structure of MTheory.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class MTheory implements Comparable<MTheory> {
     public SortableValueMap<MFrag, Double> mfrags = new SortableValueMap<MFrag, Double>();
     public ArrayList<String> entities = new ArrayList<String>();

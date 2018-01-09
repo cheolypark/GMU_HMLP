@@ -32,8 +32,17 @@ import mebn_rm.util.StringUtil;
 import util.ListMgr;
 import util.SortableValueMap; 
 
-public class MFrag
-implements Comparable<MFrag> {
+/**
+ * MFrag is the class for a structure of MFrag.<p>
+ * MTheory1 [MFrag1, MFrag2, MFrag3]
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MFrag implements Comparable<MFrag> {
     public String name;
     public MTheory mTheory = null;
     public List<MIsANode> arrayIsaContextNodes = new ArrayList<MIsANode>();

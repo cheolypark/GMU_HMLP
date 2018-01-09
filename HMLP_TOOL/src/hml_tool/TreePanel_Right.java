@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hml_tool.panel;  
+package hml_tool;  
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -29,13 +29,23 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
-import hml_tool.HML_Console;
 import hml_tool.HML_Console.windowMode;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory; 
-import mebn_rm.RDB.RDB; 
+import mebn_rm.RDB.RDB;
+import util.gui.TreePanel; 
   
+
+/**
+ * TreePanel_Right is the class for a right tree panel. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class TreePanel_Right extends TreePanel {   
 	/**
 	 * 
@@ -52,26 +62,26 @@ public class TreePanel_Right extends TreePanel {
 	}  
 	
 	public void init(){
-		if (console.wMode == HML_Console.windowMode.CONNECT_DB){   
+		if (((HML_Console)console).wMode == HML_Console.windowMode.CONNECT_DB){   
 			setVisible(false);
 			return;
-		} else if (console.wMode == HML_Console.windowMode.SELECT_DB){   
+		} else if (((HML_Console)console).wMode == HML_Console.windowMode.SELECT_DB){   
 			setVisible(false);
 			return;
-		} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
+		} else if (((HML_Console)console).wMode == HML_Console.windowMode.EDIT_DB){ 
 			setVisible(false);
 			return;
-		} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){
+		} else if (((HML_Console)console).wMode == HML_Console.windowMode.ADD_PARENTS){
 			changeName("Parent RVs");  
 			initTree_MEBN();
-		} else if (console.wMode == windowMode.JOIN_RELATIONS) {
+		} else if (((HML_Console)console).wMode == windowMode.JOIN_RELATIONS) {
 			changeName("Conditions");  
 			initTree_Conditions();
-		} else if (console.wMode == HML_Console.windowMode.ADD_CLD){
+		} else if (((HML_Console)console).wMode == HML_Console.windowMode.ADD_CLD){
 			changeName("Class Local Distribution");  
 			initTree_Select_CLD();
-		} else if (console.wMode == windowMode.LEARNING) { 
-		} else if (console.wMode == windowMode.EVALUATION) { 
+		} else if (((HML_Console)console).wMode == windowMode.LEARNING) { 
+		} else if (((HML_Console)console).wMode == windowMode.EVALUATION) { 
 		}
 		 
 		this.invalidate();
@@ -87,7 +97,7 @@ public class TreePanel_Right extends TreePanel {
 		model.reload(root);
 		
 		root.setUserObject("MFrag list");
-		MTheory m1 =  this.console.mTheory;
+		MTheory m1 =  ((HML_Console)console).mTheory;
   		
 		System.out.println("*After MEBN-RM *************************************************");
 		System.out.println(m1.toString("MFrag", "MNode"));
@@ -173,17 +183,17 @@ public class TreePanel_Right extends TreePanel {
 							selectedObjects.add(str);
 						} 
 						
-						if (console.wMode == HML_Console.windowMode.SELECT_DB){  
-							console.insertTextOut("The database \"" + selectedObjects +"\" was selected.");
-						} else if (console.wMode == HML_Console.windowMode.EDIT_DB){ 
-						} else if (console.wMode == HML_Console.windowMode.ADD_PARENTS){ 
-							console.insertTextOut("The node \"" + selectedObjects +"\" was selected."); 
-						} else if (console.wMode == windowMode.JOIN_RELATIONS) {
+						if (((HML_Console)console).wMode == HML_Console.windowMode.SELECT_DB){  
+							((HML_Console)console).insertTextOut("The database \"" + selectedObjects +"\" was selected.");
+						} else if (((HML_Console)console).wMode == HML_Console.windowMode.EDIT_DB){ 
+						} else if (((HML_Console)console).wMode == HML_Console.windowMode.ADD_PARENTS){ 
+							((HML_Console)console).insertTextOut("The node \"" + selectedObjects +"\" was selected."); 
+						} else if (((HML_Console)console).wMode == windowMode.JOIN_RELATIONS) {
 							
-						} else if (console.wMode == HML_Console.windowMode.ADD_CLD){ 
-							console.insertTextOut("The CLD \"" + selectedObjects +"\" was selected.");
-						} else if (console.wMode == windowMode.LEARNING) { 
-						} else if (console.wMode == windowMode.EVALUATION) { 
+						} else if (((HML_Console)console).wMode == HML_Console.windowMode.ADD_CLD){ 
+							((HML_Console)console).insertTextOut("The CLD \"" + selectedObjects +"\" was selected.");
+						} else if (((HML_Console)console).wMode == windowMode.LEARNING) { 
+						} else if (((HML_Console)console).wMode == windowMode.EVALUATION) { 
 						}
 					}
 				}

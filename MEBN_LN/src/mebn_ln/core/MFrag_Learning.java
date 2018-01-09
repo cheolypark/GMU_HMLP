@@ -23,8 +23,16 @@ import mebn_ln.core.MNode_Learning;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 
-public class MFrag_Learning
-extends Learning_Common {
+/**
+ * MFrag_Learning is the class for MFrag learning. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MFrag_Learning extends Learning_Common {
     MNode_Learning MNode_learning = new MNode_Learning();
     MFrag mFrag = null;
 

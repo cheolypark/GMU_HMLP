@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mebn_rm.tool;
+package mebn_rm_tool;
 
 import java.awt.BorderLayout; 
 import java.awt.Frame; 
@@ -46,15 +46,21 @@ import javax.swing.border.TitledBorder;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
-import mebn_rm.tool.panel.TreePanel_Container;
-import mebn_rm.tool.panel.TreePanel_Left; 
+import util.gui.FileChooserDialog;
+import util.gui.GeneralDialog; 
 
-public class MEBN_RM_Console extends GeneralDialog {
-	/**
-	*    
-	*/
-	private static final long serialVersionUID = 1L;
-  
+/**
+ * MEBN_RM_Console is the class to create a MEBN-RM window.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class MEBN_RM_Console extends GeneralDialog {   
+	private static final long serialVersionUID = 5180324016460719850L; 
+	
 	// Sharing data
 	public String selectedDB = "";
 	public MTheory mTheory = null; 
@@ -105,8 +111,7 @@ public class MEBN_RM_Console extends GeneralDialog {
 		CPSLD = this;  
 		
 		textIn = createTextIn();
-		textOut = createTextOut();
- 		//btns = createButtonPane();
+		textOut = createTextOut(); 
  		center = createPaneV(textOut, textIn);
  		
  		TreePanel_Left leftTree = new TreePanel_Left(this);  

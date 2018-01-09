@@ -28,10 +28,17 @@ import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
 import mebn_rm.core.RM_To_MEBN;
 
-/*
- * This class requires a database test_heater. 
- * To get the database, use SQL scripts in "examples/db/heater". 
+/**
+ * text_mode_continuous_heater_model is the test class to test a simple heater model. 
+ * This class requires a database test_heater. To get the database, use SQL scripts 
+ * in "examples/db/heater".
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
  */
+ 
 public class text_mode_continuous_heater_model {
 
 	public text_mode_continuous_heater_model() {

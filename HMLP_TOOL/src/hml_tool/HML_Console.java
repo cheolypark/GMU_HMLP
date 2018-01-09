@@ -46,21 +46,27 @@ import javax.swing.JTextPane;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.TitledBorder;
 
-import hml_tool.panel.TreePanel_Container;
-import hml_tool.panel.TreePanel_Left;
-import hml_tool.panel.TreePanel_Right;
 import mebn_ln.core.MTheory_Learning;
 import mebn_rm.MEBN.MTheory.MRoot;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB;
-import mebn_rm.core.RM_To_MEBN; 
+import mebn_rm.core.RM_To_MEBN;
+import util.gui.FileChooserDialog;
+import util.gui.GeneralDialog; 
 
-public class HML_Console extends GeneralDialog {
-	/**
-	* 
-	*/
-	private static final long serialVersionUID = 1L;
-  
+/**
+ * HML_Console is the class to create a window for HML.
+ * We can find the tool instruction in "doc\How to use the tool.pptx".
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class HML_Console extends GeneralDialog {  
+	private static final long serialVersionUID = 6441484231052304368L; 
+	
 	// Sharing data
 	public String selectedDB = "";
 	public MTheory mTheory = null; 

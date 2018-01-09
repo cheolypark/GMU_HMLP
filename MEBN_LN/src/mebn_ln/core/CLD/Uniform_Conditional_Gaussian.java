@@ -24,16 +24,26 @@ import java.util.List;
 import mebn_rm.MEBN.CLD.LPD_Continuous;
 import mebn_rm.MEBN.MNode.MNode;
 
-public class ConditionalGaussian_Uniform
-extends LPD_Continuous {
-    public ConditionalGaussian_Uniform() {
-        super("", "ConditionalGaussian_Uniform");
+/**
+ * Uniform_Gaussian is the class for the special type of CLD.
+ * The Uniform Gaussian distribution is a Conditional Gaussian distribution 
+ * whose mean is zero and variance is a very large value.  
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class Uniform_Conditional_Gaussian extends LPD_Continuous {
+    public Uniform_Conditional_Gaussian() {
+        super("", "Uniform_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }
 
-    public ConditionalGaussian_Uniform(String name) {
-        super(name, "ConditionalGaussian_Uniform");
+    public Uniform_Conditional_Gaussian(String name) {
+        super(name, "Uniform_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }

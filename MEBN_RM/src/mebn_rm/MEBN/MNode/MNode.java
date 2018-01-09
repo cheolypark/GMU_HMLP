@@ -33,13 +33,21 @@ import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MCNode;
 import mebn_rm.MEBN.MNode.MDNode;
 import mebn_rm.MEBN.MTheory.OVariable;
-import mebn_rm.RDB.RDB;
-import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
 import util.Node;
 import util.SortableValueMap;
 import util.Tree;
 import util.math.Sum_for_Log; 
+
+/**
+ * MNode is the class for a structure of MNode.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class MNode extends Tree implements Comparable<MNode> {
     public String name = "";
@@ -51,9 +59,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     public String cvsFile = null;
     public List<OVariable> ovs = new ArrayList<OVariable>();
     public List<MNode> parentMNodes = new ArrayList<MNode>();
-    public List<MNode> inputParentMNodes = new ArrayList<MNode>();
-    public ConditionalDataSet CDs = null;
-//    static List<MNode> globalMNodes = new ArrayList<MNode>();
+    public List<MNode> inputParentMNodes = new ArrayList<MNode>(); 
     private Integer count = 0;
     public SortableValueMap<String, ResidentNode> residentNodes = new SortableValueMap<String, ResidentNode>();
     public ResidentNode childResidentNode = null;
@@ -177,7 +183,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         return s;
     }
 
-    public /* varargs */ void setCLDs(CLD ... clds) {
+    public void setCLDs(CLD ... clds) {
         ArrayList<CLD> arrayCLDs = new ArrayList<CLD>();
         CLD[] arrcLD = clds;
         int n = arrcLD.length;
@@ -262,7 +268,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         return right;
     }
 
-    public /* varargs */ void setParents(MNode ... mnodes) {
+    public void setParents(MNode ... mnodes) {
         if (mnodes == null) {
             return;
         }
@@ -290,7 +296,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         return null;
     }
 
-    public /* varargs */ void setInputParents(MNode ... mnodes) {
+    public void setInputParents(MNode ... mnodes) {
         MNode[] arrmNode = mnodes;
         int n = arrmNode.length;
         int n2 = 0;
@@ -440,10 +446,6 @@ public class MNode extends Tree implements Comparable<MNode> {
         }
         return i;
     }
-
-    public void setDataSet(ConditionalDataSet d) {
-        CDs = d;
-    }
  
     public int compareTo(MNode o) {
         return 0;
@@ -455,12 +457,12 @@ public class MNode extends Tree implements Comparable<MNode> {
         }
     }
 
-    public /* varargs */ void addParentResidentNode(String rn, String ovl, String ... sList) {
+    public void addParentResidentNode(String rn, String ovl, String ... sList) {
         ResidentNode resident = new ResidentNode(rn, ovl, sList);
         residentNodes.put(rn, resident);
     }
 
-    public /* varargs */ void addChildResidentNode(String rn, String ovl, String ... sList) {
+    public void addChildResidentNode(String rn, String ovl, String ... sList) {
         childResidentNode = new ResidentNode(rn, ovl, sList);
         residentNodes.put(rn, childResidentNode);
     }

@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mebn_rm.tool.panel; 
+package util.gui; 
 
 import java.awt.Component;
 import java.awt.Dimension; 
@@ -31,20 +31,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder; 
  
+/**
+ * MyPanel is the class inherited from JPanel. This class contains common features of Panel.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class MyPanel extends JPanel {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -5176532097285309146L;
-	Dimension VGAP5 = new Dimension(1,5); 
-    EmptyBorder border5 = new EmptyBorder(5,5,5,5);  
-	
-	Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), 
-					  new EmptyBorder(5,5,5,5));
+	public Dimension VGAP5 = new Dimension(1,5); 
+	public EmptyBorder border5 = new EmptyBorder(5,5,5,5);   
+	public Border loweredBorder = new CompoundBorder(new SoftBevelBorder(SoftBevelBorder.LOWERED), new EmptyBorder(5,5,5,5));
  
-	TitledBorder titledborder;
-	JPanel treeFrame;
+	public TitledBorder titledborder;
+	public JPanel treeFrame;
 	
 	public MyPanel(){
 		// Title area

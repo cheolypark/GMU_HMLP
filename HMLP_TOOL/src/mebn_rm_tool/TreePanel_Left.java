@@ -16,7 +16,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package mebn_rm.tool.panel; 
+package mebn_rm_tool; 
  
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -30,9 +30,19 @@ import javax.swing.tree.TreePath;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.RDB.RDB;
-import mebn_rm.tool.MEBN_RM_Console;
-import mebn_rm.util.StringUtil; 
+import mebn_rm.util.StringUtil;
+import util.gui.TreePanel; 
   
+
+/**
+ * TreePanel_Left is the class to contain a list of databases. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class TreePanel_Left extends TreePanel {  
 
 	/**
@@ -49,10 +59,10 @@ public class TreePanel_Left extends TreePanel {
 	}
 	
 	public void init(){
-		if (console.wMode == MEBN_RM_Console.windowMode.SELECT_DB){
+		if (((MEBN_RM_Console)console).wMode == MEBN_RM_Console.windowMode.SELECT_DB){
 			changeName("Select DB"); 
 			initTree_SELECT_DB(); 
-		} else if (console.wMode == MEBN_RM_Console.windowMode.EDIT_DB){ 
+		} else if (((MEBN_RM_Console)console).wMode == MEBN_RM_Console.windowMode.EDIT_DB){ 
 			initTree_EDIT_DB();
 		}  
 		 
@@ -102,13 +112,13 @@ public class TreePanel_Left extends TreePanel {
 		root.setUserObject("MFrag list"); 
   		
 		System.out.println("*After MEBN-RM *************************************************");
-		System.out.println(console.mTheory.toString("MFrag", "MNode"));
+		System.out.println(((MEBN_RM_Console)console).mTheory.toString("MFrag", "MNode"));
 		System.out.println("**************************************************");  
 		 
 		DefaultMutableTreeNode temp = null;
 		DefaultMutableTreeNode temp2 = null; 
 				
-		for (MFrag m : console.mTheory.mfrags.keySet()){
+		for (MFrag m : ((MEBN_RM_Console)console).mTheory.mfrags.keySet()){
 			temp = new DefaultMutableTreeNode(m.name);
 			root.add(temp); 
 			
@@ -142,9 +152,9 @@ public class TreePanel_Left extends TreePanel {
 						  
 						selectedObject = strpar +"." + strcur;
 						
-						if (console.wMode == MEBN_RM_Console.windowMode.SELECT_DB){  
-							console.insertTextOut("The database \"" + selectedObject +"\" was selected.");
-						} else if (console.wMode == MEBN_RM_Console.windowMode.EDIT_DB){  
+						if (((MEBN_RM_Console)console).wMode == MEBN_RM_Console.windowMode.SELECT_DB){  
+							((MEBN_RM_Console)console).insertTextOut("The database \"" + selectedObject +"\" was selected.");
+						} else if (((MEBN_RM_Console)console).wMode == MEBN_RM_Console.windowMode.EDIT_DB){  
 						} 
 					}
 				}

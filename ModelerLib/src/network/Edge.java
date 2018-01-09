@@ -17,7 +17,16 @@
  * limitations under the License.
  */
 package network;
- 
+
+/**
+ * Edge is the class for edge between nodes, which is used to 
+ * construct a network.
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class Edge {
 	public String name = "";
 	public Node startNode = null;

@@ -31,14 +31,24 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;  
 import mebn_rm.MEBN.CLD.LPD_Discrete;
-import mebn_rm.MEBN.MNode.MNode;
-import mebn_rm.MEBN.parameter.Parameter;
-import mebn_rm.MEBN.rv.RV;
-import mebn_rm.RDB.RDB;
-import mebn_rm.data.ConditionalDataSet;
+import mebn_rm.MEBN.MNode.MNode; 
+import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
 import mebn_rm.util.Tetrad_Util;
 import util.TempMathFunctions;
+
+/**
+ * Categorical is the class to perform functions related to local distribution of 
+ * a categorical random variable (e.g., true and false). The class performs calculation 
+ * for a local distribution and construction of the script of the local distribution.
+ * For calculation of the local distribution, Dirichlet distribution is used.   
+ * 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class Categorical extends LPD_Discrete {
  
@@ -52,45 +62,16 @@ public class Categorical extends LPD_Discrete {
         super(name, "Dirichlet");
         parameterSize = 1;
         isSampling = false;
-    }
-
-    public ArrayList<String> generateParent(int parentSize) {
-        ArrayList<String> parents = new ArrayList<String>();
-        int i = 0;
-        while (i < parentSize) {
-            parents.add(randomByUniform("T", "W"));
-            ++i;
-        }
-        return parents;
-    }
-
-    public Double calculateDist(RV rv, Parameter para) {
-        if (!para.bTrueParameter) {
-            return 0.5;
-        }
-        if (rv.value.equalsIgnoreCase("Slow") || rv.value.equalsIgnoreCase("High") || rv.value.equalsIgnoreCase("T") || rv.value.equalsIgnoreCase("Good")) {
-            return para.parameters.get(0);
-        }
-        return 1.0 - para.parameters.get(0);
-    }
-
-    public Object getValueAt(BayesIm bayesIm, int nodeIndex, int tableRow, int tableCol) {
-        int[] parentVals = bayesIm.getParentValues(nodeIndex, tableRow);
-        if (tableCol < parentVals.length) {
-            Node columnNode = bayesIm.getNode(bayesIm.getParent(nodeIndex, tableCol));
-            BayesPm bayesPm = bayesIm.getBayesPm();
-            return bayesPm.getCategory(columnNode, parentVals[tableCol]);
-        }
-        int colIndex = tableCol - parentVals.length;
-        if (colIndex < bayesIm.getNumColumns(nodeIndex)) {
-            return bayesIm.getProbability(nodeIndex, tableRow, colIndex);
-        }
-        return "null";
-    }
+    } 
  
+    /* 
+     * This method is used to return a list of categories.
+     * 
+     * @see mebn_rm.MEBN.CLD.CLD#getCategories()
+     */
     public List<String> getCategories() {
         if (arrayCategories == null) {
-            arrayCategories = new ArrayList();
+            arrayCategories = new ArrayList<String>();
             BayesIm bayesIm = null;
             Iterator<String> iterator = ipcIMs.keySet().iterator();
             if (iterator.hasNext()) {
@@ -109,57 +90,18 @@ public class Categorical extends LPD_Discrete {
             return arrayCategories;
         }
         return arrayCategories;
-    }
- 
-    public String getILD() {
-        List<MNode> discreteParents = mNode.getDiscreteParents();
-        String s = "{ defineState(Discrete, ";
-        Node thisNode = selectedData.getVariable(mNode.name);
-        for (String state : mNode.getCategories()) {
-            s = String.valueOf(s) + state + ", ";
-        }
-        s = s.substring(0, s.length() - 2);
-        s = String.valueOf(s) + " ); \n";
-        s = String.valueOf(s) + "p( " + mNode.name;
-        if (discreteParents.size() > 0) {
-            s = String.valueOf(s) + " | ";
-            for (MNode p : discreteParents) {
-                s = String.valueOf(s) + p.name + " , ";
-            }
-            s = s.substring(0, s.length() - 2);
-        }
-        s = String.valueOf(s) + " ) = \n";
-        boolean b = true;
-        for (String condition : ipcIMs.keySet()) {
-            BayesIm bayesIm = ipcIMs.get(condition);
-            if (!condition.isEmpty()) {
-                if (b) {
-                    s = String.valueOf(s) + "if( " + condition + " ) {";
-                    b = false;
-                } else {
-                    s = String.valueOf(s) + "\nelse if( " + condition + " ) {";
-                }
-            } else {
-                s = String.valueOf(s) + "{ ";
-            }
-            int k = 0;
-            while (k < bayesIm.getNumColumns(0)) {
-                Double p = bayesIm.getProbability(0, 0, k);
-                String prob = TempMathFunctions.safeDoubleAsString(p);
-                String state2 = bayesIm.getBayesPm().getCategory(thisNode, k);
-                s = String.valueOf(s) + state2 + " : " + prob;
-                s = String.valueOf(s) + "; ";
-                ++k;
-            }
-            s = String.valueOf(s) + " }";
-        }
-        s = String.valueOf(s) + "\n";
-        return s;
-    }
- 
-    public Double calculateBestPara(ConditionalDataSet CD, ConditionalDataSet prior_CD) { 
+    } 
+    
+    /*  
+     * This method is used to calculate parameters.
+     * TODO: the return of this method should be the score of the calculated parameters.   
+     * 
+     * @see mebn_rm.MEBN.CLD.CLD#calculateBestPara()
+     */
+    public Double calculateBestPara() { 
         EdgeListGraph hybridGraph = new EdgeListGraph();
         IPCs = initIPCs((Graph)hybridGraph);
+        
         if (IPCs == null) {
             return 0.0;
         } 
@@ -186,8 +128,7 @@ public class Categorical extends LPD_Discrete {
             if (defaultData.getNumRows() == 0) {
                 return null;
             } 
-             
-//            defaultData = (ColtDataSet)defaultData.subsetColumns(hybridGraph.getNodes());
+              
             EdgeListGraph continuousGraph = new EdgeListGraph();
             Node child2 = defaultData.getVariable(mNode.name);
             continuousGraph.addNode(child2);
@@ -200,22 +141,27 @@ public class Categorical extends LPD_Discrete {
         
         return 0.0;
     }
-    
-    // 	if some rgn have ( TerrainType = Road ) [
-    //		Tracked = .2,
-    //		Wheeled = .8
-    //	] else if some rgn have ( TerrainType = OffRoad ) [
-    //		Tracked = .8,
-    //		Wheeled = .2
-    //	] else [
-    //		Tracked = .5,
-    //		Wheeled = .5
-    //	]
-    //
+     
+    /*
+     * This method is used to return the script of local distribution of MEBN.
+     * e.g.,) 
+     *   
+     * if some rgn have ( TerrainType = Road ) [
+     * 	Tracked = .2,
+     * 	Wheeled = .8
+     * ] else if some rgn have ( TerrainType = OffRoad ) [
+     * 	Tracked = .8,
+     * 	Wheeled = .2
+     * ] else [
+     * 	Tracked = .5,
+     * 	Wheeled = .5
+     * ]
+     * 
+     * @see mebn_rm.MEBN.CLD.CLD#toString(java.util.List)
+     */
     public String toString(List<String> inclusions) {
     	String s = "";
-        if (inclusions.contains("CLD") && selectedData != null) {
-        	List<MNode> discreteParents = mNode.getDiscreteParents();
+        if (inclusions.contains("CLD") && selectedData != null) { 
         	Node thisNode = selectedData.getVariable(mNode.name);
         	
         	// get ovs statement
@@ -261,7 +207,7 @@ public class Categorical extends LPD_Discrete {
         	}
         	
         	
-            // * Add default distribution */
+            // add default distribution 
         	if (parents.size() > 0) {
         		s = s + "else[ ";
         		
@@ -303,6 +249,57 @@ public class Categorical extends LPD_Discrete {
         	s = s + "]\r\n";
         }
         
+        return s;
+    }
+    
+    /* 
+     * This method is used to return the script of local distribution of a script BN.
+     * 
+     * @see mebn_rm.MEBN.CLD.CLD#getILD()
+     */
+    public String getILD() {
+        List<MNode> discreteParents = mNode.getDiscreteParents();
+        String s = "{ defineState(Discrete, ";
+        Node thisNode = selectedData.getVariable(mNode.name);
+        for (String state : mNode.getCategories()) {
+            s = String.valueOf(s) + state + ", ";
+        }
+        s = s.substring(0, s.length() - 2);
+        s = String.valueOf(s) + " ); \n";
+        s = String.valueOf(s) + "p( " + mNode.name;
+        if (discreteParents.size() > 0) {
+            s = String.valueOf(s) + " | ";
+            for (MNode p : discreteParents) {
+                s = String.valueOf(s) + p.name + " , ";
+            }
+            s = s.substring(0, s.length() - 2);
+        }
+        s = String.valueOf(s) + " ) = \n";
+        boolean b = true;
+        for (String condition : ipcIMs.keySet()) {
+            BayesIm bayesIm = ipcIMs.get(condition);
+            if (!condition.isEmpty()) {
+                if (b) {
+                    s = String.valueOf(s) + "if( " + condition + " ) {";
+                    b = false;
+                } else {
+                    s = String.valueOf(s) + "\nelse if( " + condition + " ) {";
+                }
+            } else {
+                s = String.valueOf(s) + "{ ";
+            }
+            int k = 0;
+            while (k < bayesIm.getNumColumns(0)) {
+                Double p = bayesIm.getProbability(0, 0, k);
+                String prob = TempMathFunctions.safeDoubleAsString(p);
+                String state2 = bayesIm.getBayesPm().getCategory(thisNode, k);
+                s = String.valueOf(s) + state2 + " : " + prob;
+                s = String.valueOf(s) + "; ";
+                ++k;
+            }
+            s = String.valueOf(s) + " }";
+        }
+        s = String.valueOf(s) + "\n";
         return s;
     }
 }

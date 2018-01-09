@@ -19,8 +19,18 @@
 package mebn_rm.MEBN.CLD;
 
 import java.util.ArrayList;
-
+ 
+/**
+ * Probability is the class containing functions for random number generation.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+ 
 public class Probability {
+	
     public String random(Double[] p, String ... s) {
         double r = Math.random();
         return random_operator(0, r, 0.0, p, s);

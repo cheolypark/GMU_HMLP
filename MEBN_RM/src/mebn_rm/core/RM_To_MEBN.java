@@ -30,13 +30,35 @@ import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
 import mebn_rm.util.StringUtil; 
 
+/**
+ * RM_To_MEBN is the class to construct a partial MEBN from a relational schema. 
+ * The current version of RM_To_MEBN works for MySQL. Thus, an input relational database
+ * can be a database in MySQL. The specific mechanism can be found in "Park, C. Y. (2017). 
+ * Multi-Entity Bayesian Networks Learning for Predictive Situation Awareness. 
+ * PhD Dissertation. George Mason University.".  	
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class RM_To_MEBN {
 	RDB rdb = null;
 
+	/**
+	 * This method is a constructor of this class. 
+	 * @param r		a relational database
+	 */
 	public RM_To_MEBN(RDB r) {
 		rdb = r;
 	}
 
+	
+	/**
+	 * Used for executing MEBN-RM algorithm. 
+	 * @return		an MTheory
+	 */
 	public MTheory run() {
 		MFrag f;
 		String resNodeName;
@@ -68,8 +90,7 @@ public class RM_To_MEBN {
 			prefix = sutil.createAbbreviation(table);
 			keys = (List) rdb.mapTableAndKeys.get((Object) table);
 			ovs = new ArrayList();
-			for (String key : keys) { 
-//				origin = rdb.mapKeysOrigins.get(key);
+			for (String key : keys) {  
 				origin = rdb.getOriginFromKey(table, key);
 				ov = new OVariable(f.getTableName(), key, (String) origin);
 				ovs.add(ov);

@@ -29,6 +29,15 @@ import network.Node;
 import network.operator.OrderingNetwork;
 import util.SortableValueMap;
 
+/**
+ * ConvertFromMTheoryToSBN is the class to convert from an MTheory to a BN. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class ConvertFromMTheoryToSBN {
     public String save(MTheory m, String arg) {
         String strName = String.valueOf(m.name) + arg + "_ssbn.txt";

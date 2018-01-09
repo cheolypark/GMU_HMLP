@@ -4,17 +4,27 @@
 package mebn_rm.RDB;
 
 import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Bin is the class for a bin or an interval information.
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class Bin {
     public Double min = 0.0;
     public Double max = 0.0;
     public int size = 5;
-    ArrayList<String> list = new ArrayList();
+    List<String> list = new ArrayList<String>();
 
     public Bin(Double n, Double x) {
-        this.min = n;
-        this.max = x;
-        this.initBins();
+        min = n;
+        max = x;
+        initBins();
     }
 
     private String toString(Double d) {
@@ -25,25 +35,25 @@ public class Bin {
     }
 
     private void initBins() {
-        Double s = this.min;
+        Double s = min;
         Double e = 0.0;
         int i = 0;
-        while (i < this.size) {
-            e = s + (this.max - this.min) / (double)this.size;
-            String str = "_" + this.toString(s) + "_" + this.toString(e) + "_";
-            this.list.add(str);
+        while (i < size) {
+            e = s + (max - min) / (double)size;
+            String str = "_" + toString(s) + "_" + toString(e) + "_";
+            list.add(str);
             s = e;
             ++i;
         }
     }
 
     public int getIndex(Double c) {
-        Double s = this.min;
+        Double s = min;
         Double e = 0.0;
         int i = 0;
         i = 0;
-        while (i < this.size) {
-            e = s + (this.max - this.min) / (double)this.size;
+        while (i < size) {
+            e = s + (max - min) / (double)size;
             if (s <= c && c <= e) {
                 return i;
             }
@@ -53,8 +63,8 @@ public class Bin {
         return i - 1;
     }
 
-    public ArrayList<String> getAllBins() {
-        return this.list;
+    public List<String> getAllBins() {
+        return list;
     }
 }
 

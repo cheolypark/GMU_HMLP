@@ -39,6 +39,16 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
  
+/**
+ * RDB is the class for a relational database. This class stores several information
+ * of the relational database such as Keys, Attributes, and Domain of Attributes. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
 public class RDB extends MySQL_Interface {
 	
     public MultiMap mapTableAndKeys = new MultiHashMap();

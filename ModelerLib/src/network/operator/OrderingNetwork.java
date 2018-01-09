@@ -25,22 +25,49 @@ import network.Network;
 import network.Node; 
 import util.SortableValueMap;
 
+/**
+ * OrderingNetwork is the class to construct an ordered network. 
+ * The ordered network is a network containing nodes which are in a certain level. 
+ * In terms of tree structure, a root can be in a first level and the node linked 
+ * to the root can be in a second level. In this class, these levels are constructed 
+ * given a network.     
+ * e.g., )
+ *          [C] [D]      level 1 {C, D, I, H}
+ *            \ /
+ * 		  [I] [E] [H]	 level 2 {E}, because C and D are in levels 	
+ * 			\ / \ / 
+ * 			 F   G 	
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+ 
 public class OrderingNetwork extends SearchingPath{
 	public SortableValueMap<Integer, ArrayList<Node>> levels = new SortableValueMap<Integer, ArrayList<Node>>();
 	
 	public OrderingNetwork() {
 	}
 	
-	 public List<Integer> getKeys() {
+	/**
+	 * Used for returning a list of levels in a network.  
+	 * @return a list of levels
+	 */
+	public List<Integer> getKeys() {
         ArrayList<Integer> keySet = new ArrayList<Integer>();
-        for (Integer key : this.levels.keySet()) {
+        for (Integer key : levels.keySet()) {
             keySet.add(key);
         }
         return keySet;
     }
 
+    /**
+     * Used for returning a list of reversed levels in a network. 
+     * @return a list of levels
+     */
     public List<Integer> getReversedKeys() {
-        List<Integer> keySet = this.getKeys();
+        List<Integer> keySet = getKeys();
         ArrayList<Integer> keyReversedSet = new ArrayList<Integer>();
         int i = keySet.size() - 1;
         while (i >= 0) {
@@ -51,6 +78,11 @@ public class OrderingNetwork extends SearchingPath{
     }
 
     
+	/**
+	 * Used for returning a map of levels for a network. 
+	 * @param net a network
+	 * @return a map with a key for level and a list for nodes
+	 */
 	public SortableValueMap<Integer, ArrayList<Node>> run(Network net) {
 		Node aNode= null;
 		if (net.nodes.size() == 0){
@@ -84,6 +116,11 @@ public class OrderingNetwork extends SearchingPath{
 		return levels; 
 	}
 	 
+	/**
+	 * Used for returning a level index given a node in a network. 
+	 * @param curNode a node 
+	 * @return a level index
+	 */
 	private Integer getLevelID(Node curNode){
 		for (Integer key : levels.keySet()){ 
 			for (Node n : levels.get(key)){ 
@@ -93,12 +130,15 @@ public class OrderingNetwork extends SearchingPath{
 		}
 		return -1;
 	}
-	
-	//returning -1 means rule 1.
-	//returning non -1 means rule 2.
-	private Integer getParentsLevel(Node curNode){
+	 
+	/**
+	 * Used for returning a parent level given a node in a network. 
+	 * @param node a node in a network
+	 * @return a parent level, while -1 means there is no parent.   
+	 */
+	private Integer getParentsLevel(Node node){
 		Integer ret = -1;
-		for (Edge e : curNode.inner){
+		for (Edge e : node.inner){
 			Integer lvl = getLevelID(e.startNode);
 			if (lvl == -1)
 				return -1;
@@ -108,6 +148,12 @@ public class OrderingNetwork extends SearchingPath{
 		return ret;
 	}
 	
+	/**
+	 * Used for checking levels of nodes in a network. 
+	 * @param net 		a network 
+	 * @param curNode 	a current node in searching
+	 * @param level 	a current level
+	 */
 	private void searchAllNodeForLevels(Network net, Node curNode, Integer level){
 		
 		//children 
@@ -121,23 +167,11 @@ public class OrderingNetwork extends SearchingPath{
 			} 
 		}
 	}
+	 
 	
-	private void searchAllNodeForLevels_temp_function(Network net, Node curNode, Integer level){
-		addToLevel(curNode, level);
-
-		// go up
-		for (Edge e : curNode.inner){
-			if (!contains(e.startNode))
-				searchAllNodeForLevels(net, e.startNode, (level-1));
-		}
-
-		// go down
-		for (Edge e : curNode.outer){
-			if (!contains(e.endNode))
-				searchAllNodeForLevels(net, e.endNode, (level+1));
-		}
-	}
-	
+	/**
+	 * Used for printing out information for levels of nodes in a network. 
+	 */
 	public void print(){
 		System.out.println("===== Ordered Network =====");
 		for (Integer key : levels.keySet()){
@@ -151,16 +185,26 @@ public class OrderingNetwork extends SearchingPath{
 		}
 	}
 	
-	public boolean contains(Node curNode){
+	/**
+	 * Used for checking whether a node is in levels. 
+	 * @param node 	a node for checking
+	 * @return		True, if the node is in the levels. 
+	 */
+	public boolean contains(Node node){
 		for (Integer key : levels.keySet()){
 			ArrayList<Node> list = levels.get(key);
-			if (list.contains(curNode))
+			if (list.contains(node))
 				return true;
 		}
 		return false;
 	}
 	
-	private void addToLevel(Node curNode, Integer level){
+	/**
+	 * Used for adding a node to a level.
+	 * @param node	a node for adding 
+	 * @param level	a level to which the node is added
+	 */
+	private void addToLevel(Node node, Integer level){
 		ArrayList<Node> list = null;
 		if (!levels.containsKey(level)){
 			list = new ArrayList<Node>();
@@ -168,12 +212,10 @@ public class OrderingNetwork extends SearchingPath{
 		} else {
 			list = levels.get(level);
 		}
-		list.add(curNode);
+		list.add(node);
 	}
-	 
-	/**
-	 * @param args
-	 */
+	  
+	
 	public static void main(String[] args) {
 		//				           N
 		//				          /

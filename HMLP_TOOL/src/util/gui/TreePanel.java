@@ -16,28 +16,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hml_tool.panel; 
-import java.awt.BorderLayout; 
-import java.util.Enumeration; 
+package util.gui;
 
+import java.awt.BorderLayout; 
+import java.util.Enumeration;  
 import javax.swing.Action; 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTree; 
 import javax.swing.tree.TreeNode;
-import javax.swing.tree.TreePath;
-
-import hml_tool.HML_Console; 
+import javax.swing.tree.TreePath;  
+   
+/**
+ * TreePanel is the class containing common functions for a tree window panel. 
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
 
 public class TreePanel extends MyPanel { 
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 2441678322451610066L;
-	HML_Console console = null;   
-	JTree tree; 
-	public TreePanel(HML_Console con){
+	private static final long serialVersionUID = 1087404227165489568L;
+	protected GeneralDialog console = null;   
+	protected JTree tree; 
+	public TreePanel(GeneralDialog con){
 		super();
 		console = con;  
 		

@@ -32,16 +32,27 @@ import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.util.Tetrad_Util;
 import util.TempMathFunctions;
 
-public class ConditionalGaussian_error
-extends LPD_Continuous {
-    public ConditionalGaussian_error() {
-        super("", "ConditionalGaussian_error");
+/**
+ * Only_Variance_Conditional_Gaussian is the class for the special type of CLD.
+ * The Only-Variance-Conditional Gaussian distribution is a Conditional 
+ * Gaussian distribution whose regression intercept is zero and regression 
+ * coefficient is one.  
+ * <p>
+ * 
+ * @author      Cheol Young Park
+ * @version     0.0.1
+ * @since       1.5
+ */
+
+public class Only_Variance_Conditional_Gaussian extends LPD_Continuous {
+    public Only_Variance_Conditional_Gaussian() {
+        super("", "Only_Variance_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }
 
-    public ConditionalGaussian_error(String name) {
-        super(name, "ConditionalGaussian_error");
+    public Only_Variance_Conditional_Gaussian(String name) {
+        super(name, "Only_Variance_Conditional_Gaussian");
         parameterSize = 1;
         isSampling = false;
     }
