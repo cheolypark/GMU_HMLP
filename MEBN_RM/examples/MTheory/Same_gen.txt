@@ -1,0 +1,20 @@
+[M: Same_gen
+	[F: parent
+		[C: IsA(parent_name1, PERSON)]
+		[C: IsA(parent_name2, PERSON)]
+		[R: parent(parent_name1, parent_name2)]
+		]
+	]
+	[F: same_gen
+		[C: IsA(same_gen_name1, PERSON)]
+		[C: IsA(same_gen_name2, PERSON)]
+		[R: same_gen(same_gen_name1, same_gen_name2)]
+		]
+	]
+	[F: target
+		[C: IsA(target_name1, PERSON)]
+		[C: IsA(target_name2, PERSON)]
+		[R: target_target(target_name1, target_name2)]
+		]
+	]
+]

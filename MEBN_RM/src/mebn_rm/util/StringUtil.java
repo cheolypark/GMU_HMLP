@@ -41,25 +41,26 @@ public class StringUtil {
     }
   
     public String createAbbreviation(String input) { 
-    	String str = "";
-        List<List<String>> results = this.searchWordsInDictionary(input);
-        if (!results.isEmpty()) {
-	        List<String> list = results.get(results.size() - 1);
-	        
-	        Iterator<String> iterator = list.iterator();
-	        while (iterator.hasNext()) {
-	            String s = iterator.next();
-	            s = s.substring(0, 1);
-	            str = String.valueOf(str) + s.toUpperCase();
-	        }
-        } else {
-        	String s1 = input.substring(0, 1);
-        	String s2 = input.substring((int)(input.length()/2), (int)(input.length()/2) + 1);
-        	String s3 = input.substring(input.length()-1, input.length());
-        	str = s1.toUpperCase() + s2.toUpperCase() + s3.toUpperCase();
-        }
-        
-        return str;
+    	 return input;
+//    	String str = "";
+//        List<List<String>> results = this.searchWordsInDictionary(input);
+//        if (!results.isEmpty()) {
+//	        List<String> list = results.get(results.size() - 1);
+//	        
+//	        Iterator<String> iterator = list.iterator();
+//	        while (iterator.hasNext()) {
+//	            String s = iterator.next();
+//	            s = s.substring(0, 1);
+//	            str = String.valueOf(str) + s.toUpperCase();
+//	        }
+//        } else {
+//        	String s1 = input.substring(0, 1);
+//        	String s2 = input.substring((int)(input.length()/2), (int)(input.length()/2) + 1);
+//        	String s3 = input.substring(input.length()-1, input.length());
+//        	str = s1.toUpperCase() + s2.toUpperCase() + s3.toUpperCase();
+//        }
+//        
+//        return str;
     }
 
     public List<List<String>> searchWordsInDictionary(String input) {

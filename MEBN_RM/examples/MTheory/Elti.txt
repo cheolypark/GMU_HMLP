@@ -1,0 +1,62 @@
+[M: Elti
+	[F: brother
+		[C: IsA(brother_name1, PERSON)]
+		[C: IsA(brother_name2, PERSON)]
+		[R: brother(brother_name1, brother_name2)]
+		]
+	]
+	[F: daughter
+		[C: IsA(daughter_name1, PERSON)]
+		[C: IsA(daughter_name2, PERSON)]
+		[R: daughter(daughter_name1, daughter_name2)]
+		]
+	]
+	[F: elti
+		[C: IsA(elti_name1, PERSON)]
+		[C: IsA(elti_name2, PERSON)]
+		[R: elti(elti_name1, elti_name2)]
+		]
+	]
+	[F: father
+		[C: IsA(father_name1, PERSON)]
+		[C: IsA(father_name2, PERSON)]
+		[R: father(father_name1, father_name2)]
+		]
+	]
+	[F: husband
+		[C: IsA(husband_name1, PERSON)]
+		[C: IsA(husband_name2, PERSON)]
+		[R: husband(husband_name1, husband_name2)]
+		]
+	]
+	[F: mother
+		[C: IsA(mother_name1, PERSON)]
+		[C: IsA(mother_name2, PERSON)]
+		[R: mother(mother_name1, mother_name2)]
+		]
+	]
+	[F: sister
+		[C: IsA(sister_name1, PERSON)]
+		[C: IsA(sister_name2, PERSON)]
+		[R: sister(sister_name1, sister_name2)]
+		]
+	]
+	[F: son
+		[C: IsA(son_name1, PERSON)]
+		[C: IsA(son_name2, PERSON)]
+		[R: son(son_name1, son_name2)]
+		]
+	]
+	[F: target
+		[C: IsA(target_name1, PERSON)]
+		[C: IsA(target_name2, PERSON)]
+		[R: target_is_elti(target_name1, target_name2)]
+		]
+	]
+	[F: wife
+		[C: IsA(wife_name1, PERSON)]
+		[C: IsA(wife_name2, PERSON)]
+		[R: wife(wife_name1, wife_name2)]
+		]
+	]
+]

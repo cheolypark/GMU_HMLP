@@ -53,10 +53,10 @@ public class MySQL_Interface extends TempMathFunctions {
     public MySQL_Interface() { 
     }
     
-    public void connect(String a, String r, String p) {
-    	address = a;
-        root = r;
-        PW = p;
+    public void connect(String addr, String rt, String pw) {
+    	address = addr;
+        root = rt;
+        PW = pw;
         
         try {
             DriverManager.registerDriver((java.sql.Driver)new Driver());

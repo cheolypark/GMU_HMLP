@@ -1,0 +1,47 @@
+[M: Pima
+	[F: pima
+		[C: IsA(pima_arg1, PIMA)]
+		[R: pima_arg2(pima_arg1)]
+		]
+	]
+	[F: age
+		[C: IsA(age_arg1, PIMA)]
+		[R: age_arg2(age_arg1)]
+		]
+	]
+	[F: bmi
+		[C: IsA(bmi_arg1, PIMA)]
+		[R: bmi_arg2(bmi_arg1)]
+		]
+	]
+	[F: diastolic
+		[C: IsA(diastolic_arg1, PIMA)]
+		[R: diastolic_arg2(diastolic_arg1)]
+		]
+	]
+	[F: numpreg
+		[C: IsA(numpreg_arg1, PIMA)]
+		[R: numpreg_arg2(numpreg_arg1)]
+		]
+	]
+	[F: pedigree
+		[C: IsA(pedigree_arg1, PIMA)]
+		[R: pedigree_arg2(pedigree_arg1)]
+		]
+	]
+	[F: plasma
+		[C: IsA(plasma_arg1, PIMA)]
+		[R: plasma_arg2(plasma_arg1)]
+		]
+	]
+	[F: serum
+		[C: IsA(serum_arg1, PIMA)]
+		[R: serum_arg2(serum_arg1)]
+		]
+	]
+	[F: tricepts
+		[C: IsA(tricepts_arg1, PIMA)]
+		[R: tricepts_arg2(tricepts_arg1)]
+		]
+	]
+]

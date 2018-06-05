@@ -1,0 +1,168 @@
+[M: SAT
+	[F: fault
+		[C: IsA(fault_tm, TIME)]
+		[R: fault_tf(fault_tm)]
+		]
+	]
+	[F: fault_test
+		[C: IsA(fault_test_tm, TIME)]
+		[R: fault_test_tf(fault_test_tm)]
+		]
+	]
+	[F: gmt_mission_phase
+		[C: IsA(gmt_mission_phase_tm, TIME)]
+		[R: gmt_mission_phase_state(gmt_mission_phase_tm)]
+		]
+	]
+	[F: succ
+		[C: IsA(succ_tm1, TIME)]
+		[C: IsA(succ_tm2, TIME)]
+		[R: succ(succ_tm1, succ_tm2)]
+		]
+	]
+	[F: tm001_eod_relay
+		[C: IsA(tm001_eod_relay_tm, TIME)]
+		[R: tm001_eod_relay_class(tm001_eod_relay_tm)]
+		]
+	]
+	[F: tm002_battov_temp
+		[C: IsA(tm002_battov_temp_tm, TIME)]
+		[R: tm002_battov_temp_class(tm002_battov_temp_tm)]
+		]
+	]
+	[F: tm004_eoc_signaled
+		[C: IsA(tm004_eoc_signaled_tm, TIME)]
+		[R: tm004_eoc_signaled_class(tm004_eoc_signaled_tm)]
+		]
+	]
+	[F: tm007_switch
+		[C: IsA(tm007_switch_tm, TIME)]
+		[R: tm007_switch_class(tm007_switch_tm)]
+		]
+	]
+	[F: tm009_switch
+		[C: IsA(tm009_switch_tm, TIME)]
+		[R: tm009_switch_class(tm009_switch_tm)]
+		]
+	]
+	[F: tm011_eod_override
+		[C: IsA(tm011_eod_override_tm, TIME)]
+		[R: tm011_eod_override_class(tm011_eod_override_tm)]
+		]
+	]
+	[F: tm013_switch
+		[C: IsA(tm013_switch_tm, TIME)]
+		[R: tm013_switch_class(tm013_switch_tm)]
+		]
+	]
+	[F: tm015_eod_signaled
+		[C: IsA(tm015_eod_signaled_tm, TIME)]
+		[R: tm015_eod_signaled_class(tm015_eod_signaled_tm)]
+		]
+	]
+	[F: tm017_switch
+		[C: IsA(tm017_switch_tm, TIME)]
+		[R: tm017_switch_class(tm017_switch_tm)]
+		]
+	]
+	[F: tm018_switch
+		[C: IsA(tm018_switch_tm, TIME)]
+		[R: tm018_switch_class(tm018_switch_tm)]
+		]
+	]
+	[F: tm021_eoc_disabled
+		[C: IsA(tm021_eoc_disabled_tm, TIME)]
+		[R: tm021_eoc_disabled_class(tm021_eoc_disabled_tm)]
+		]
+	]
+	[F: tm022_switch
+		[C: IsA(tm022_switch_tm, TIME)]
+		[R: tm022_switch_class(tm022_switch_tm)]
+		]
+	]
+	[F: tm029_ovt_disabled
+		[C: IsA(tm029_ovt_disabled_tm, TIME)]
+		[R: tm029_ovt_disabled_class(tm029_ovt_disabled_tm)]
+		]
+	]
+	[F: tm031_switch
+		[C: IsA(tm031_switch_tm, TIME)]
+		[R: tm031_switch_class(tm031_switch_tm)]
+		]
+	]
+	[F: tm038_switch
+		[C: IsA(tm038_switch_tm, TIME)]
+		[R: tm038_switch_class(tm038_switch_tm)]
+		]
+	]
+	[F: tm039_eod_disabled
+		[C: IsA(tm039_eod_disabled_tm, TIME)]
+		[R: tm039_eod_disabled_class(tm039_eod_disabled_tm)]
+		]
+	]
+	[F: tm040_switch
+		[C: IsA(tm040_switch_tm, TIME)]
+		[R: tm040_switch_class(tm040_switch_tm)]
+		]
+	]
+	[F: tm042_switch
+		[C: IsA(tm042_switch_tm, TIME)]
+		[R: tm042_switch_class(tm042_switch_tm)]
+		]
+	]
+	[F: tm043_switch
+		[C: IsA(tm043_switch_tm, TIME)]
+		[R: tm043_switch_class(tm043_switch_tm)]
+		]
+	]
+	[F: tm054_supply_1a
+		[C: IsA(tm054_supply_1a_tm, TIME)]
+		[R: tm054_supply_1a_class(tm054_supply_1a_tm)]
+		]
+	]
+	[F: tm055_supply_1b
+		[C: IsA(tm055_supply_1b_tm, TIME)]
+		[R: tm055_supply_1b_class(tm055_supply_1b_tm)]
+		]
+	]
+	[F: tm057_supply_2c
+		[C: IsA(tm057_supply_2c_tm, TIME)]
+		[R: tm057_supply_2c_class(tm057_supply_2c_tm)]
+		]
+	]
+	[F: tm058_asr_or_switch_10
+		[C: IsA(tm058_asr_or_switch_10_tm, TIME)]
+		[R: tm058_asr_or_switch_10_class(tm058_asr_or_switch_10_tm)]
+		]
+	]
+	[F: tm070_supply_3c
+		[C: IsA(tm070_supply_3c_tm, TIME)]
+		[R: tm070_supply_3c_class(tm070_supply_3c_tm)]
+		]
+	]
+	[F: tm071_asr_or_switch_20
+		[C: IsA(tm071_asr_or_switch_20_tm, TIME)]
+		[R: tm071_asr_or_switch_20_class(tm071_asr_or_switch_20_tm)]
+		]
+	]
+	[F: tm211_bus_voltage
+		[C: IsA(tm211_bus_voltage_tm, TIME)]
+		[R: tm211_bus_voltage_class(tm211_bus_voltage_tm)]
+		]
+	]
+	[F: tm220_supply_1c
+		[C: IsA(tm220_supply_1c_tm, TIME)]
+		[R: tm220_supply_1c_class(tm220_supply_1c_tm)]
+		]
+	]
+	[F: tm222_charging
+		[C: IsA(tm222_charging_tm, TIME)]
+		[R: tm222_charging_class(tm222_charging_tm)]
+		]
+	]
+	[F: tm257_battery_voltage
+		[C: IsA(tm257_battery_voltage_tm, TIME)]
+		[R: tm257_battery_voltage_class(tm257_battery_voltage_tm)]
+		]
+	]
+]

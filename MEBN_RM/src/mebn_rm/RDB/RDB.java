@@ -65,10 +65,14 @@ public class RDB extends MySQL_Interface {
     
     public static RDB This() {
         return database;
-    }
-
+    } 
+    
     public void init(String schema) throws SQLException {
-        mapTableAndKeys.clear();
+    	init(schema, true);
+    }
+    
+    public void init(String schema, boolean bCreatingDomainInfo) throws SQLException {
+    	mapTableAndKeys.clear();
         mapTableAndAttributes.clear();
         mapTableTypesAndTables.clear();
         mapChains.clear();
@@ -92,9 +96,10 @@ public class RDB extends MySQL_Interface {
         
         catch (SQLException e) {
             e.printStackTrace();
-        }
+        }  
+        
         initializePrimaryKeys();
-        initializeAttributes();
+        initializeAttributes(bCreatingDomainInfo); 
     }
 
     public void initializeChains() {
@@ -106,57 +111,99 @@ public class RDB extends MySQL_Interface {
         }
     }
 
-    public void initializeTableInformation(Integer index, String table) {
-        ResultSet attributes = getColumn(table);
-        int sizeAttributes = sizeOfPrimaryKeys(table);
-        if (sizeAttributes == 1) {
-            addTableTypesAndTables("EntityTable", table);
-            System.out.println(index + ". Found an entity table [" + table + "]");
-        } else {
-            addTableTypesAndTables("RelationshipTable", table);
-            System.out.println(index + ". Found an relationship table [" + table + "]");
+    public boolean check_entity_relation_normalization(ArrayList<String> priKeys, Map<String, String> importedColumns) {
+    	if (priKeys.size() >= 2){
+    		for (String key: priKeys) {
+    			if (!importedColumns.containsKey(key)) {
+    		    	return false;
+    			}
+    		}
+    	}
+    	
+    	return true;
+    }
+    
+    public void initializeTableInformation(Integer index, String table) { 
+        //int sizeAttributes = sizeOfPrimaryKeys(table);
+        Map<String, String> importedColumns = getImportedColumn(table);
+        ArrayList<String> priKeys = getPrimaryKeysToArray(table);
+        
+        // check entity relation normalization
+        if (!check_entity_relation_normalization(priKeys, importedColumns)) {
+        	throw new AssertionError("The table " + table+ " is not in entity relation normalization.");
         }
+        
+        if (priKeys.size() == 1 && importedColumns.isEmpty()) { // Case 1: only one original primary key without any foreign keys
+        	addTableTypesAndTables("EntityTable", table);
+            System.out.println(index + ". Found an entity table [" + table + "]");
+            return;	
+        } else if (priKeys.size() == 1 && !importedColumns.isEmpty()) { // Case 2: only one original primary key with foreign keys
+        	if (!importedColumns.containsKey(priKeys.get(0))){
+        		addTableTypesAndTables("EntityTable", table);
+                System.out.println(index + ". Found an entity table [" + table + "]");
+                return;		
+        	}
+        }
+        
+        addTableTypesAndTables("RelationshipTable", table);
+        System.out.println(index + ". Found an relationship table [" + table + "]");
+        
     }
 
     public void initializePrimaryKeys() {
         List<String> tables = (List)mapTableTypesAndTables.get((Object)"EntityTable");
-        for (String t2 : tables) {
-            ArrayList<String> keys = getPrimaryKeysToArray(t2);
-            Map<String, String> importedColumns = getImportedColumn(t2);
-            // This is pure entity table
+        for (String t : tables) {
+            ArrayList<String> keys = getPrimaryKeysToArray(t);
+            Map<String, String> importedColumns = getImportedColumn(t);
+
+            // This is an original entity table
             // e.g.,)
             // [Time] and no foreign key 
             //   t1
             //   t2
             //  ...
-            if (importedColumns.isEmpty()) {
-	            for (String key : keys) {
-	                addTableAndKeys(t2, key, t2);
-	            }
-            } else {
-            	// This is not pure entity table with a foreign key  
-                // e.g.,)
-                // [Time] -> [Passing Time] 
-                //   t1
-                //   t2
-                //  ...
-            	
-            	for (String importedColumn : importedColumns.keySet()) {
-                    String fkTable = importedColumns.get(importedColumn);
-                    addTableAndKeys(t2, importedColumn, fkTable);
-                }
+            
+            for (String key : keys) {
+                addTableAndKeys(t, key, t);
             }
+            
+//            if (importedColumns.isEmpty()) {
+//	            for (String key : keys) {
+//	                addTableAndKeys(t2, key, t2);
+//	            }
+//            } else {  
+//            	// This is not pure entity table with a foreign key  
+//                // e.g.,)
+//                // [Time] -> [Passing Time] 
+//                //   t1
+//                //   t2
+//                //  ...
+//            	
+//            	for (String key : keys) {
+//            		for (String importedColumn : importedColumns.keySet()) {
+//                        String fkTable = importedColumns.get(importedColumn);
+//                        if (importedColumn.equalsIgnoreCase(key))
+//                        	addTableAndKeys(t2, importedColumn, fkTable);
+//                    } 
+//   	            } 
+//            }
         }
+        
         tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
+        
         if (tables != null) {
-            for (String t2 : tables) {
-                Map<String, String> importedColumns = getImportedColumn(t2);
-                for (String importedColumn : importedColumns.keySet()) {
+            for (String t : tables) {
+            	ArrayList<String> keys = getPrimaryKeysToArray(t);
+                Map<String, String> importedColumns = getImportedColumn(t);
+                //for (String importedColumn : importedColumns.keySet()) 
+                for (String importedColumn : keys)
+                {
                     String fkTable = importedColumns.get(importedColumn);
-                    addTableAndKeys(t2, importedColumn, fkTable);
+                    addTableAndKeys(t, importedColumn, fkTable);
                 }
             }
         }
+        
         for (Object k : mapChains.keySet()) {
             List<String> chains = (List)mapChainsOfChains.get(k);
             for (String t3 : chains) {
@@ -169,7 +216,7 @@ public class RDB extends MySQL_Interface {
         }
     }
 
-    public void initializeAttributes() throws SQLException {
+    public void initializeAttributes(boolean bCreatingDomainInfo) throws SQLException {
         String attrName;
         List Keys;
         ResultSet rs;
@@ -190,7 +237,9 @@ public class RDB extends MySQL_Interface {
             catch (SQLException e) {
                 e.printStackTrace();
             }
-            createValueDomain(t2);
+            
+            if (bCreatingDomainInfo)
+            	createValueDomain(t2);
         }
         tables = (List)mapTableTypesAndTables.get((Object)"RelationshipTable");
         if (tables == null) {
@@ -203,6 +252,9 @@ public class RDB extends MySQL_Interface {
                     attrName = rs.getString("COLUMN_NAME");
                     attrType = rs.getString("TYPE_NAME");
                     Keys = (List)mapTableAndKeys.get((Object)t2);
+                    if (Keys == null) { 
+                    	throw new AssertionError("The table " + t2+ " has a table which doesn't contain a primary key");
+                    }
                     if (Keys.contains(attrName)) continue;
                     addTableAndAttributes(t2, attrName, attrType);
                 }
@@ -211,7 +263,9 @@ public class RDB extends MySQL_Interface {
             catch (SQLException e) {
                 e.printStackTrace();
             }
-            createValueDomain(t2);
+            
+            if (bCreatingDomainInfo)
+            	createValueDomain(t2);
         }
         printClassInfo();
     }

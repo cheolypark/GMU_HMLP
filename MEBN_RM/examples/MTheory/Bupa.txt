@@ -1,0 +1,37 @@
+[M: Bupa
+	[F: alkphos
+		[C: IsA(alkphos_arg1, BUPA_NAME)]
+		[R: alkphos_arg2(alkphos_arg1)]
+		]
+	]
+	[F: bupa
+		[C: IsA(bupa_arg1, BUPA_NAME)]
+		[R: bupa_arg2(bupa_arg1)]
+		]
+	]
+	[F: drinks
+		[C: IsA(drinks_arg1, BUPA_NAME)]
+		[R: drinks_arg2(drinks_arg1)]
+		]
+	]
+	[F: gammagt
+		[C: IsA(gammagt_arg1, BUPA_NAME)]
+		[R: gammagt_arg2(gammagt_arg1)]
+		]
+	]
+	[F: mcv
+		[C: IsA(mcv_arg1, BUPA_NAME)]
+		[R: mcv_arg2(mcv_arg1)]
+		]
+	]
+	[F: sgot
+		[C: IsA(sgot_arg1, BUPA_NAME)]
+		[R: sgot_arg2(sgot_arg1)]
+		]
+	]
+	[F: sgpt
+		[C: IsA(sgpt_arg1, BUPA_NAME)]
+		[R: sgpt_arg2(sgpt_arg1)]
+		]
+	]
+]
