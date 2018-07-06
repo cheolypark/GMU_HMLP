@@ -399,23 +399,27 @@ public class TempMathFunctions {
 	 */
 	public static void main(String args[]) throws Exception {
 		
-		double d1 = 60.00000001;
-		int e2 = new TempMathFunctions().getMostSignificantDigitFromDecimalPoint(d1);
-    	
 		TempMathFunctions math = new TempMathFunctions();
-		 
 	//	System.out.print("math.gamma(0.4) = " + math.gamma( 2,1) + " \n" );
-		double d= math.normal(0, 10); //-20.26318822783283
-		
-		for( int i = 0 ; i < 100; i ++){
-			//System.out.print( math.exponential(2) + " \n" );
-			System.out.print( RExp.Get(2) + " \n" );
-		}
+//		double d= math.normal(0, 10); //-20.26318822783283
+//		
+//		for( int i = 0 ; i < 100; i ++){
+//			//System.out.print( math.exponential(2) + " \n" );
+//			System.out.print( RExp.Get(2) + " \n" );
+//		}
 		
 	//	System.out.print("math.binomial(10, 0.5) = " + math.binomial(10, 0.5) + " \n" );
-	
 	//	System.out.print("Test = " + (int)Math.round((Math.random()*10)) + " \n" );
 		
+		double d1 = 60.00000001;
+		int e1 = new TempMathFunctions().getMostSignificantDigitFromDecimalPoint(d1);
+		System.out.println(e1);
 		
+		double d2 = .01234;
+		String e2 = new TempMathFunctions().safeDoubleAsString(d2);
+		System.out.println(e2);
+		
+		
+//		
 	} 
 }

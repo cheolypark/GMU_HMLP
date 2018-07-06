@@ -39,7 +39,7 @@ import util.SortableValueMap;
  */
 
 public class ConvertFromMTheoryToSBN {
-    public String save(MTheory m, String arg) {
+    public static String save(MTheory m, String arg) {
         String strName = String.valueOf(m.name) + arg + "_ssbn.txt";
         String strFile = String.valueOf(Resource.getlearningOutputPath((String)m.name)) + strName;
         String ssbn_next = "";

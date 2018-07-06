@@ -18,6 +18,8 @@
  */
 package mebn_ln.core;
  
+import java.io.IOException;
+
 import mebn_ln.core.Learning_Common;
 import mebn_ln.core.MNode_Learning; 
 import mebn_rm.MEBN.MFrag.MFrag;
@@ -65,16 +67,16 @@ public class MFrag_Learning extends Learning_Common {
         }
         if (f.learningType != MFrag.LearningType.STRUCTURE_HYBRID_DISCRETIZED) return;
         
-//        This is a structuring learning 
-//        
-//        try {
-//            if (MTheory_Learning.structure_learning) {
-//                BNStructureLearning.run(mFrag.cvsFile, f);
-//            }
-//        }
-//        catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        This is a structuring BN learning  
+//	        try {
+//	            if (MTheory_Learning.structure_learning) {
+//	                BNStructureLearning.run(mFrag.cvsFile, f);
+//	            } 
+//	        }
+//	        catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+	        
         for (MNode n : f.arrayResidentNodes) {
             MNode_learning.run(n);
         }

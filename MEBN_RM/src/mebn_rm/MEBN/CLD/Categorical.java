@@ -146,10 +146,10 @@ public class Categorical extends LPD_Discrete {
      * This method is used to return the script of local distribution of MEBN.
      * e.g.,) 
      *   
-     * if some rgn have ( TerrainType = Road ) [
+     * if any rgn have ( TerrainType = Road ) [
      * 	Tracked = .2,
      * 	Wheeled = .8
-     * ] else if some rgn have ( TerrainType = OffRoad ) [
+     * ] else if any rgn have ( TerrainType = OffRoad ) [
      * 	Tracked = .8,
      * 	Wheeled = .2
      * ] else [
@@ -173,10 +173,12 @@ public class Categorical extends LPD_Discrete {
         	}
         	ovs = new StringUtil().removeRedundantItem(ovs);
         	ovs = ovs.replace(",", ".");      
+        	ovs = ovs.replace(" ", "");
         	
         	s = s + "[L: ";
         	 
         	boolean b = true; 
+        	
         	for (String k : ipcIMs.keySet()) {
         		BayesIm bayesIm = ipcIMs.get(k);
         		k = k.replace("&&", "&");
@@ -184,29 +186,31 @@ public class Categorical extends LPD_Discrete {
         		 
         		if (!k.isEmpty()) {
         			if (b) {
-        				s += "if some " + ovs + " have ( " + k + " ) [";
+        				s += "if any " + ovs + " have ( " + k + " ) ";
         				b = false;
         			} else {
-        				s += "else if some " + ovs + " have ( " + k + " ) [";
+        				s += "else if any " + ovs + " have ( " + k + " ) ";
         			}
-        		}  
+        		}   
+        		
+        		s += "[";
         		
         		int j = 0;
         		while (j < bayesIm.getNumColumns(0)) {
         			Double p = bayesIm.getProbability(0, 0, j);
-        			String prob = TempMathFunctions.safeDoubleAsString(p);
+        			//String prob = TempMathFunctions.safeDoubleAsString(p);
+	    			String prob = p.toString();
         			String state2 = bayesIm.getBayesPm().getCategory(thisNode, j);
         			s += state2 + " = " + prob;
         			s += ", ";
         			++j;
         		}
+        		
         		s = s.substring(0, s.length() - 2);
         		
-        		if (!k.isEmpty()) 
-        			s = s + "]\n			";
+        		s = s + "]\n			";
         	}
-        	
-        	
+        	  
             // add default distribution 
         	if (parents.size() > 0) {
         		s = s + "else[ ";
@@ -217,7 +221,8 @@ public class Categorical extends LPD_Discrete {
 		            int j = 0;
 		    		while (j < bayesIm.getNumColumns(0)) {
 		    			Double p = bayesIm.getProbability(0, 0, j);
-		    			String prob = TempMathFunctions.safeDoubleAsString(p);
+//		    			String prob = TempMathFunctions.safeDoubleAsString(p);
+		    			String prob = p.toString();
 		    			String state2 = bayesIm.getBayesPm().getCategory(thisNode, j);
 		    			s += state2 + " = " + prob;
 		    			s += ", ";
@@ -291,7 +296,8 @@ public class Categorical extends LPD_Discrete {
             int k = 0;
             while (k < bayesIm.getNumColumns(0)) {
                 Double p = bayesIm.getProbability(0, 0, k);
-                String prob = TempMathFunctions.safeDoubleAsString(p);
+                //String prob = TempMathFunctions.safeDoubleAsString(p);
+                String prob = p.toString();
                 String state2 = bayesIm.getBayesPm().getCategory(thisNode, k);
                 s = String.valueOf(s) + state2 + " : " + prob;
                 s = String.valueOf(s) + "; ";
