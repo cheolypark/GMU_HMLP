@@ -137,12 +137,12 @@ public class ConditionalGaussian extends LPD_Continuous {
       
     public Double calculateBestPara() {
         EdgeListGraph hybridGraph = new EdgeListGraph();
-        IPCs = initIPCs((Graph)hybridGraph);
-        if (IPCs.size() == 0) {
-            IPCs.add("null");
+        IPCs_Data = initIPCs((Graph)hybridGraph);
+        if (IPCs_Data.size() == 0) {
+            IPCs_Data.add("null");
         } 
         
-        for (String ipc : IPCs) {
+        for (String ipc : IPCs_Data) {
             System.out.println(ipc);
             DataSet _dataSet_con = null;
             _dataSet_con = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);

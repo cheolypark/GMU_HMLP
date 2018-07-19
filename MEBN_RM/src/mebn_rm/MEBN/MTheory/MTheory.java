@@ -110,6 +110,7 @@ public class MTheory implements Comparable<MTheory> {
         if (bOtherMFrag) {
             String sql = "SELECT\r\n";
             String sqlFrom = "";
+            
             sql = sql + f.getTableName() + "." + childMNode.getAttributeName() + " as " + mNode + ",\r\n";
             sqlFrom = sqlFrom + f.getTableName() + ", ";
             
@@ -128,22 +129,17 @@ public class MTheory implements Comparable<MTheory> {
             
             // Add Isa Context Nodes for the new MFrag from the current MFrag
             for (String key : keys) {
-//                String originEntity = rdb.mapKeysOrigins.get(key);
             	String originEntity = rdb.getOriginFromKey(newMFrag.table, key);
                 OVariable ov = new OVariable(f.getTableName(), key, originEntity);
-//                newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
         		new MIsANode(newMFrag, ov);
             }
 
             // Add parent nodes
             List<MFrag> parentMFrags = new ArrayList<MFrag>();
             for (String p2 : ps) {
-            	            	
                 String mFragP = new StringUtil().getLeft(p2);
                 String mNodeP = new StringUtil().getRight(p2);
-                
-//                System.out.println(mFragP + ":" + mNodeP);
-                
+
                 MFrag fp = getMFrag(mFragP);
                 MNode parentMNode = fp.getMNode(mNodeP);
                 if (!parentMFrags.contains(fp)) {
@@ -167,7 +163,6 @@ public class MTheory implements Comparable<MTheory> {
                 for (String key2 : keys2) {
                     String originEntity = rdb.getOriginFromKey(fp.getTableName(), key2);
                     OVariable ov = new OVariable(fp.getTableName(), key2, originEntity);
-//                    newMFrag.arrayIsaContextNodes.add(new MIsANode(f, ov));
                     new MIsANode(newMFrag, ov);
                     listOV.add(ov);
                 }
@@ -181,14 +176,14 @@ public class MTheory implements Comparable<MTheory> {
                 	ip = new MDNode(fp, parentMNode, listOV);
                 }
                 
+                // The new column name for the training csv data is set 
+	            ip.columnName = ip.name;
+	                
                 newChild.setInputParents(ip);
             }
              
             sql = sql.substring(0, sql.length() - 3);
             sql = sql + "\r\nFROM\r\n";
-//            sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
-//            System.out.println(sqlFrom);
-//            sqlFrom = new StringUtil().removeRedundantItem(sqlFrom);
             
             for (MFrag fp : parentMFrags){
 	            if (fp.joiningSQL == null){
@@ -204,12 +199,6 @@ public class MTheory implements Comparable<MTheory> {
             
             // set a where clause
             
-//            System.out.println(sql);
-             
-            if (c.equalsIgnoreCase("quality_result.QR_RESULT_COL_1")){
-            	System.out.println();
-            }
-            
             newMFrag.joiningSQL = sql;
             
             // If there is no more node, then delete this MFrag 
@@ -217,7 +206,6 @@ public class MTheory implements Comparable<MTheory> {
                 removeMFrag(f);
             }
         } else { // If added parents are in the same MFrag
-        	
             for (String p3 : ps) {
                 String mFragP = new StringUtil().getLeft(p3);
                 String mNodeP = new StringUtil().getRight(p3);
@@ -458,6 +446,12 @@ public class MTheory implements Comparable<MTheory> {
                 } 
                 
             } else if (f.joiningSQL == null) {
+            	/*
+            	 * TO DO: This should be updated for necessary OVs.
+            	 * e.g., ) predecessor (pret, t); IsA(pret, Time); IsA(t, Time);
+            	 * We should not remove one of time OVs.
+            	 */
+            	
 //	            System.out.println(f.arrayContextNodes);
 	            
 	            // remove redundant OVs, if they are same OVs

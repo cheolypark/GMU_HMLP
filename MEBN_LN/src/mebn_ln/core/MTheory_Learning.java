@@ -46,19 +46,22 @@ public class MTheory_Learning extends Learning_Common {
     }
 
     public void run_operation(SortableValueMap<MTheory, Double> mtheoryCANs) {
-        for (MTheory m22 : mtheoryCANs.keySet()) {
-            for (MFrag f : m22.mfrags.keySet()) {
-                if (f.mFragType != MFrag.MFragType.COMMON) continue;
-                MFrag_learning.run((MFrag)f);
+        for (MTheory m : mtheoryCANs.keySet()) {
+            for (MFrag f : m.mfrags.keySet()) {
+                if (f.mFragType == MFrag.MFragType.COMMON)  { // For MFragType.REFERENCE, we don't perform machine learning. 
+                	MFrag_learning.run((MFrag)f);
+                }
             }
         }
-        for (MTheory m22 : mtheoryCANs.keySet()) {
+        
+        for (MTheory m : mtheoryCANs.keySet()) {
             Object f;
             if (!isMC_Approach()) continue;
-            f = m22.getAvgLogMFragScore();
+            f = m.getAvgLogMFragScore();
         }
-        for (MTheory m22 : mtheoryCANs.keySet()) {
-            System.out.println("6 >>>>>>> " + m22.name + " logMTheorySC : " + mtheoryCANs.get((Object)m22));
+        
+        for (MTheory m : mtheoryCANs.keySet()) {
+            System.out.println("6 >>>>>>> " + m.name + " logMTheorySC : " + mtheoryCANs.get((Object)m));
         }
     }
 

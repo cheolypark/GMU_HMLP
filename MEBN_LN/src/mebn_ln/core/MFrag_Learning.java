@@ -43,7 +43,7 @@ public class MFrag_Learning extends Learning_Common {
         getCandidateMGraphs(f, 5.0);
         System.out.println("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
  
-        if (f.name.equalsIgnoreCase("rm_pass")){
+        if (f.name.equalsIgnoreCase("predecessor")){
         	System.out.println();
         }
         f.initSelectedDataset(-1);
@@ -55,10 +55,7 @@ public class MFrag_Learning extends Learning_Common {
      * Enabled force condition propagation
      * Lifted jumps to return sites
      */
-    public void run_operation(MFrag f) {
-        if (f.name.equalsIgnoreCase("HI_temperature_SII_temperature_HAI_energy")) {
-            System.out.println("");
-        }
+    public void run_operation(MFrag f) { 
         if (f.learningType == MFrag.LearningType.PARAMETER || f.learningType == MFrag.LearningType.BAYES) {
             for (MNode n : f.arrayResidentNodes) {
                 MNode_learning.run(n);

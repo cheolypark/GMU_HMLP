@@ -54,51 +54,55 @@ public final class Tetrad_Util {
         return list;
     }
 
-    public static List<String> getIPC(DataSet data) {
-        return Tetrad_Util.getIPC(null, data, "");
-    }
-
-    public static List<String> getIPC(MNode mNode, DataSet data, String exceptNode) {
+//    public static List<String> getIPC(DataSet data) {
+//        return Tetrad_Util.getIPC(null, data, "");
+//    }
+   
+    public static List<String> getIPC(MNode mNode, DataSet data, String exceptNode, Map<String, String> IPCs_MEBN) {
         ArrayList<String> IPCs = new ArrayList<String>();
         List<Node> list = Tetrad_Util.getDiscreteNodes(data, exceptNode);
-        Tetrad_Util.getIPC_op(0, mNode, list, IPCs, "");
-        for (Node n : list) {
-            System.out.println((Object)n);
-        }
+        Tetrad_Util.getIPC_op(0, mNode, list, IPCs, "", IPCs_MEBN, ""); 
         return IPCs;
     }
 
-    static void getIPC_op(int index, MNode mNode, List<Node> list, List<String> IPCs, String s) {
+    static void getIPC_op(int index, MNode mNode, List<Node> list, List<String> IPCs, String s, Map<String, String> IPCs_MEBN, String s_mebn) {
         if (index >= list.size()) {
             if (!s.isEmpty()) {
                 s = s.substring(0, s.length() - 4);
+                s_mebn = s_mebn.substring(0, s_mebn.length() - 4);
             }
             IPCs.add(s);
+            IPCs_MEBN.put(s, s_mebn);
             return;
         }
-        DiscreteVariable n = (DiscreteVariable)list.get(index); 
+        
+        DiscreteVariable n = (DiscreteVariable)list.get(index);  
+        String originalParentName = mNode.getParentNameFromColumnName(n.getName()); 
         ++index;
-        for (String cat : n.getCategories()) {
-            String ns = String.valueOf(s) + n.getName() + " == " + cat + " && ";
-            Tetrad_Util.getIPC_op(index, mNode, list, IPCs, ns);
+        
+        for (String cat : n.getCategories()) { 
+            String ns1 = s + n.getName() + " == " + cat + " && ";
+            String ns2 = s_mebn + originalParentName + " == " + cat + " && ";
+            Tetrad_Util.getIPC_op(index, mNode, list, IPCs, ns1, IPCs_MEBN, ns2);
         }
     }
-
-    public static void getIPC_op_from_MNode(int index, MNode mNode, List<String> IPCs, String s) {
-        if (index >= mNode.parentMNodes.size()) {
-            if (!s.isEmpty()) {
-                s = s.substring(0, s.length() - 4);
-            }
-            IPCs.add(s);
-            return;
-        }
-        MNode pm = mNode.parentMNodes.get(index);
-        ++index;
-        for (String cat : pm.getCategories()) {
-            String ns = String.valueOf(s) + pm.name + " == " + cat + " && ";
-            Tetrad_Util.getIPC_op_from_MNode(index, mNode, IPCs, ns);
-        }
-    }
+    
+//
+//    public static void getIPC_op_from_MNode(int index, MNode mNode, List<String> IPCs, String s) {
+//        if (index >= mNode.parentMNodes.size()) {
+//            if (!s.isEmpty()) {
+//                s = s.substring(0, s.length() - 4);
+//            }
+//            IPCs.add(s);
+//            return;
+//        }
+//        MNode pm = mNode.parentMNodes.get(index);
+//        ++index;
+//        for (String cat : pm.getCategories()) {
+//            String ns = String.valueOf(s) + pm.name + " == " + cat + " && ";
+//            Tetrad_Util.getIPC_op_from_MNode(index, mNode, IPCs, ns);
+//        }
+//    }
 
     static Map<String, String> getIPCmap(String ipc) {
         String[] list;

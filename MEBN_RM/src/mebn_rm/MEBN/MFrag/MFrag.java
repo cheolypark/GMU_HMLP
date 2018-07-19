@@ -182,7 +182,31 @@ public class MFrag implements Comparable<MFrag> {
         }
         return null;
     }
-
+    
+    public MIsANode getIsaMNode(String s) {
+        for (MIsANode mn : arrayIsaContextNodes) {
+            if (!s.equalsIgnoreCase(mn.toString())) continue;
+            return mn;
+        }
+        return null;
+    }
+    
+    public MNode getContextMNode(String s) {
+        for (MNode mn : arrayContextNodes) {
+            if (!s.equalsIgnoreCase(mn.toString())) continue;
+            return mn;
+        }
+        return null;
+    }
+    
+    public MNode getInputMNode(String s) {
+        for (MNode mn : arrayInputNodes) {
+            if (!s.equalsIgnoreCase(mn.toString())) continue;
+            return mn;
+        }
+        return null;
+    }  
+    
     public void setMNodes(MNode ... mns) {
         MNode[] arrmNode = mns;
         int n = arrmNode.length;
@@ -239,6 +263,67 @@ public class MFrag implements Comparable<MFrag> {
         return array;
     }
     
+    public List<OVariable> getOVsInMNodes() {
+        List<OVariable> allOvs = new ArrayList<OVariable>();
+        for (MNode n : arrayResidentNodes) {
+        	for (OVariable ov : n.ovs) {
+        		if (!allOvs.contains(ov)) {
+        			allOvs.add(ov);	
+        		}
+        	}
+        		
+        	
+        	for (MNode input : n.inputParentMNodes) {
+	        	for (OVariable ov : input.ovs) {
+	        		if (!allOvs.contains(ov)) {
+	        			allOvs.add(ov);	
+	        		}
+	        	}
+        	}
+        }
+        
+        return allOvs;
+    }
+    
+    public void removeAllUnnecessaryIsANodes() {
+    	List<OVariable> allOvs = getOVsInMNodes();
+    	
+    	// k, 2, k, 1, 4	i = 0, last = 4 [check for i, if i==k then switch i and last, and i++ and last--]  
+    	// 4, 2, k, 1, k	i = 1, last = 3 [check for i, if i==k then switch i and last, and i++ and last--]
+    	// 4, 2, k, 1, k	i = 2, last = 3	[check for i, if i==k then switch i and last, and i++ and last--]
+    	// 4, 2, 1, k, k	i = 2, last = 3	[check for i, if i==k then switch i and last, and i++ and last--]
+    	//
+    	int last = arrayIsaContextNodes.size()-1;
+    	for (int i = 0; i < arrayIsaContextNodes.size(); i++) {
+    		MIsANode isa = arrayIsaContextNodes.get(i);
+    	
+    		if (!allOvs.contains(isa.ovs.get(0))) {
+    			System.out.println(isa +" "+last+" "+i );
+    			
+    			MIsANode isaLast = arrayIsaContextNodes.get(last);
+    			arrayIsaContextNodes.set(last, isa);
+    			arrayIsaContextNodes.set(i, isaLast);
+    			last--;
+    			
+    			if (!allOvs.contains(arrayIsaContextNodes.get(i))) {
+    				i--;	
+    			}
+    			
+    		} else {
+    			System.out.println("exsiting " + isa);
+    		}
+    		
+    		if (last == i)
+    			break;
+    	}    	 
+    	
+    	// Remove all unnecessary nodes
+    	for (int i = (arrayIsaContextNodes.size()-1); last < i; i--) {
+    		System.out.println("del" + last+" "+i );
+    		arrayIsaContextNodes.remove(i);
+    	}
+    }    
+    
     /*
      *  [C: IsA(rm_pass_PASS_NO, PASS)]
 	 *	[C: IsA(rm_pass_SLAB_NO, PRODUCT)]
@@ -292,25 +377,28 @@ public class MFrag implements Comparable<MFrag> {
         System.out.println("init Selected Dataset for the MFrag : " + name);
         ResultSet rs = null;
         
-        if (joiningSQL == null) {
-            String attrs = "";
-            String strTables = name;
-            
-            for (MNode mn : getMNodes()) {
-                attrs += mn.getAttributeName() + " as " + mn.name + ", ";
-            }
-            
-            if (!attrs.isEmpty()) {
-                attrs = attrs.substring(0, attrs.length() - 2);
-                rs = RDB.This().get(attrs, strTables);
-            }
-            
-            cvsFile = RDBToCVS(name, mTheory.name, rs);
-            try {
-				rs.close();
-			} catch (SQLException e) { 
-				e.printStackTrace();
-			}
+        if (joiningSQL == null) { 
+        	if (this.mFragType == MFragType.COMMON) {	// For MFragType.REFERENCE, we don't make a data set. 
+	            String attrs = "";
+	            String strTables = name;
+	            
+	               for (MNode mn : getMNodes()) {
+		                attrs += mn.getAttributeName() + " as " + mn.name + ", ";
+		            }
+		            
+		            if (!attrs.isEmpty()) {
+		                attrs = attrs.substring(0, attrs.length() - 2);
+		                rs = RDB.This().get(attrs, strTables);
+		            }
+	                
+	            cvsFile = RDBToCVS(name, mTheory.name, rs);
+	            
+	            try {
+					rs.close();
+				} catch (SQLException e) { 
+					e.printStackTrace();
+				}  
+        	}
         } else {
         	String sql = joiningSQL; 
         	if (isTimedMFrag()) {

@@ -23,7 +23,10 @@ import edu.cmu.tetrad.data.DataSet;
 import edu.cmu.tetrad.graph.Graph;
 import edu.cmu.tetrad.graph.Node; 
 import java.util.ArrayList;
-import java.util.List; 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import mebn_rm.MEBN.CLD.Probability; 
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.MEBN.parameter.Parameter;
@@ -47,7 +50,8 @@ public class CLD extends Probability implements Comparable<CLD> {
     public MNode mNode = null;
     public String name;
     public int parameterSize;
-    public List<String> IPCs = null;
+    public List<String> IPCs_Data = null;	//	IPC corresponding to columns in csv data (This can not have a redundant name) 
+    public Map<String, String> IPCs_MEBN = new HashMap<String, String>();	//	IPC corresponding to CLD in a resident node (This can have a redundant name) 
     public DataSet selectedData = null;
     public DataSet defaultData = null;
     public DataSet data = null;
@@ -167,9 +171,9 @@ public class CLD extends Probability implements Comparable<CLD> {
      */
     public List<String> initIPCs(Graph hybridGraph) {  
     	
-        if (name.equalsIgnoreCase("QR_RESULT_COL_1_cld_1"))
+        if (name.equalsIgnoreCase("land_state_Dry_cld_1"))
         {
-        	System.out.println("QR_RESULT_COL_1");
+        	System.out.println("land_state_Dry_cld_1");
         }
         
         String strFile = String.valueOf(Resource.getCSVPath(mNode.mFrag.mTheory.name)) + mNode.mFrag.name + ".csv";
@@ -180,7 +184,8 @@ public class CLD extends Probability implements Comparable<CLD> {
         
         Node child = data.getVariable(mNode.name);
         hybridGraph.addNode(child);
-        List<String> parents = mNode.getAllParentNames();
+        List<String> parents = mNode.getAllParentColumnNames();
+//        mNode.mFrag.getTableName()+"_P_"
         if (parents != null) {
             for (String pr : parents) {
                 Node parent = data.getVariable(pr);
@@ -189,7 +194,8 @@ public class CLD extends Probability implements Comparable<CLD> {
             }
         }
         selectedData = (ColtDataSet)data.subsetColumns(hybridGraph.getNodes());
-        return Tetrad_Util.getIPC(mNode, selectedData, mNode.name);
+         
+        return Tetrad_Util.getIPC(mNode, selectedData, mNode.name, IPCs_MEBN);
     }
 
 //    public void save(String filename) {

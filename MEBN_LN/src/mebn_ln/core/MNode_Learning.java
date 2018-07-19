@@ -47,6 +47,11 @@ public class MNode_Learning extends Learning_Common {
         SortableValueMap<CLD, Double> cldCANs = mn.cldCANs; 
         for (CLD c2 : cldCANs.keySet()) { 
             if (isMC_Approach()) continue;
+            
+            if (mn.name.equalsIgnoreCase("land_state_Dry")) {
+            	System.out.println(mn.name);
+            }
+            
             c2.calculateBestPara();
         }
         for (CLD l : cldCANs.keySet()) {

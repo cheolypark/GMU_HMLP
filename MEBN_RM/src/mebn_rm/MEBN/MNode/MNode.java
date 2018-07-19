@@ -56,6 +56,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     public CLD bestCLD = null; 
     public MFrag mFrag = null;
     public String attribute = null;
+    public String columnName = null;
     public String cvsFile = null;
     public List<OVariable> ovs = new ArrayList<OVariable>();
     public List<MNode> parentMNodes = new ArrayList<MNode>();
@@ -63,6 +64,7 @@ public class MNode extends Tree implements Comparable<MNode> {
     private Integer count = 0;
     public SortableValueMap<String, ResidentNode> residentNodes = new SortableValueMap<String, ResidentNode>();
     public ResidentNode childResidentNode = null;
+    public MNode originalMNode = null; 	// A context node will have an original resident node.   
 
     public MNode(String n) {
         super(false);
@@ -74,6 +76,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         name = n.name;
         ovs = n.ovs;
         attribute = n.attribute;
+        columnName =  n.columnName;
     }
 
     public MNode(MFrag f, String n, MNode ... parenetmnodes) {
@@ -90,7 +93,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         ovs = new ArrayList<OVariable>(o);
         setParents(parenetmnodes);
     }
- 
+       
     public String toString() {
         ArrayList<String> inclusions = new ArrayList<String>();
         inclusions.add("MNode");
@@ -150,7 +153,7 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "[RP: ";
                 for (MNode mn : parentMNodes) {
                     s = String.valueOf(s) + mn.name;
-                    s += toStringOVswithBracket();
+                    s += mn.toStringOVswithBracket();
                     s += ", ";
                 }
                 s = s.substring(0, s.length() - 2);
@@ -162,7 +165,7 @@ public class MNode extends Tree implements Comparable<MNode> {
                 s = String.valueOf(s) + "[IP: ";
                 for (MNode mn : inputParentMNodes) {
                     s = String.valueOf(s) + mn.name;
-                    s += toStringOVswithBracket();
+                    s += mn.toStringOVswithBracket();
                     s += ", ";
                 }
                 s = s.substring(0, s.length() - 2);
@@ -295,7 +298,40 @@ public class MNode extends Tree implements Comparable<MNode> {
         }
         return null;
     }
-
+    
+    public MNode getInputParentNode(String s) {
+        for (MNode mn : inputParentMNodes) {
+            if (!mn.name.equalsIgnoreCase(s)) continue;
+            return mn;
+        }
+        return null;
+    }
+    
+    /*
+     * This function is used to get an original parent name using a column name in a csv data set. 
+     */
+    public String getParentNameFromColumnName(String columnName) {
+    	for (MNode mn : parentMNodes) {
+            if (mn.columnName.equalsIgnoreCase(columnName)) 
+            	return mn.name;
+        }
+    	
+    	for (MNode mn : inputParentMNodes) {
+    		if (mn.columnName.equalsIgnoreCase(columnName)) 
+            	return mn.name;
+        }
+    	
+        return null;
+    }
+    
+    public OVariable getOrdinaryVariable(String s) {
+        for (OVariable mn : ovs) {
+            if (!mn.name.equalsIgnoreCase(s)) continue;
+            return mn;
+        }
+        return null;
+    } 
+    
     public void setInputParents(MNode ... mnodes) {
         MNode[] arrmNode = mnodes;
         int n = arrmNode.length;
@@ -383,6 +419,17 @@ public class MNode extends Tree implements Comparable<MNode> {
         ArrayList<String> ret = new ArrayList<String>();
         for (MNode n : dm) {
             ret.add(n.name);
+        }
+        return ret;
+    }
+    
+    public List<String> getAllParentColumnNames() {
+        List<MNode> dm = getDiscreteParents();
+        List<MNode> cm = getContinuousParents();
+        dm.addAll(cm);
+        ArrayList<String> ret = new ArrayList<String>();
+        for (MNode n : dm) {
+            ret.add(n.columnName);
         }
         return ret;
     }

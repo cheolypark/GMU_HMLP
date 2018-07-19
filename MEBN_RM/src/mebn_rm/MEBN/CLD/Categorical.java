@@ -34,8 +34,7 @@ import mebn_rm.MEBN.CLD.LPD_Discrete;
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
-import mebn_rm.util.Tetrad_Util;
-import util.TempMathFunctions;
+import mebn_rm.util.Tetrad_Util; 
 
 /**
  * Categorical is the class to perform functions related to local distribution of 
@@ -100,13 +99,13 @@ public class Categorical extends LPD_Discrete {
      */
     public Double calculateBestPara() { 
         EdgeListGraph hybridGraph = new EdgeListGraph();
-        IPCs = initIPCs((Graph)hybridGraph);
+        IPCs_Data = initIPCs((Graph)hybridGraph);
         
-        if (IPCs == null) {
+        if (IPCs_Data == null) {
             return 0.0;
         } 
         
-        for (String ipc : IPCs) {
+        for (String ipc : IPCs_Data) {
             DataSet _dataSet_dis = null;
             _dataSet_dis = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
             EdgeListGraph graph = new EdgeListGraph();
@@ -181,15 +180,16 @@ public class Categorical extends LPD_Discrete {
         	
         	for (String k : ipcIMs.keySet()) {
         		BayesIm bayesIm = ipcIMs.get(k);
-        		k = k.replace("&&", "&");
-                k = k.replace("==", "=");
+        		String conditions = IPCs_MEBN.get(k);
+        		conditions = conditions.replace("&&", "&");
+        		conditions = conditions.replace("==", "=");
         		 
         		if (!k.isEmpty()) {
         			if (b) {
-        				s += "if any " + ovs + " have ( " + k + " ) ";
+        				s += "if any " + ovs + " have ( " + conditions + " ) ";
         				b = false;
         			} else {
-        				s += "else if any " + ovs + " have ( " + k + " ) ";
+        				s += "else if any " + ovs + " have ( " + conditions + " ) ";
         			}
         		}   
         		
