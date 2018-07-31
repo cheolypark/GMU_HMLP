@@ -489,13 +489,7 @@ public class MTheory implements Comparable<MTheory> {
 
     public void updateCLDs() {
         for (MFrag f : mfrags.keySet()) {
-            for (MNode n : f.getMNodes()) { 
-                if (n.isContinuous()) {
-                    n.setCLDs(new ConditionalGaussian());
-                } else if (n.isDiscrete()) {
-                    n.setCLDs(new Categorical());
-                } 
-            }
+        	f.updateCLDs();
         }
     }
 

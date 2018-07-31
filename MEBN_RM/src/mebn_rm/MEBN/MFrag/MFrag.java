@@ -23,6 +23,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import mebn_rm.MEBN.CLD.Categorical;
+import mebn_rm.MEBN.CLD.ConditionalGaussian;
 import mebn_rm.MEBN.MNode.MIsANode;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory;
@@ -62,6 +65,10 @@ public class MFrag implements Comparable<MFrag> {
     public MFragType mFragType = MFragType.COMMON;
     public List<MNode> globalMNodes = new ArrayList<MNode>();
 
+    public MFrag(String mfragName) {
+    	name = mfragName;
+    }
+    
     public MFrag(MTheory m, String mfragName) {
         init(m, mfragName);
     }
@@ -173,6 +180,16 @@ public class MFrag implements Comparable<MFrag> {
                 setCausality(mn.name, p.name);
             }
         }
+    }
+    
+    public void updateCLDs() { 
+        for (MNode n : getMNodes()) { 
+            if (n.isContinuous()) {
+                n.setCLDs(new ConditionalGaussian());
+            } else if (n.isDiscrete()) {
+                n.setCLDs(new Categorical());
+            } 
+        } 
     }
 
     public MNode getMNode(String s) {

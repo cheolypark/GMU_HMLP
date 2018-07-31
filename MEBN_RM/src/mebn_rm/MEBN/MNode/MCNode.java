@@ -33,6 +33,10 @@ import mebn_rm.MEBN.MTheory.OVariable;
  */
 
 public class MCNode extends MNode {
+	public MCNode(MFrag f, String name) {
+        super(f, name); 
+    }
+	   
     public MCNode(MFrag f, String name, List<OVariable> ovs) {
         super(f, name, ovs, null);
     }

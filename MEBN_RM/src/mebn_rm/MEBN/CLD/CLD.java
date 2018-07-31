@@ -176,7 +176,14 @@ public class CLD extends Probability implements Comparable<CLD> {
         	System.out.println("land_state_Dry_cld_1");
         }
         
-        String strFile = String.valueOf(Resource.getCSVPath(mNode.mFrag.mTheory.name)) + mNode.mFrag.name + ".csv";
+        String strFile = "";
+        
+        if (mNode.mFrag.cvsFile != null) {
+        	strFile = mNode.mFrag.cvsFile; 
+        } else {
+        	strFile = String.valueOf(Resource.getCSVPath(mNode.mFrag.mTheory.name)) + mNode.mFrag.name + ".csv";
+        }
+        
         data = RDB.This().getTetDataSetFromCSV(strFile);
         if (data.getNumRows() == 0) {
             return null;
@@ -184,8 +191,8 @@ public class CLD extends Probability implements Comparable<CLD> {
         
         Node child = data.getVariable(mNode.name);
         hybridGraph.addNode(child);
-        List<String> parents = mNode.getAllParentColumnNames();
-//        mNode.mFrag.getTableName()+"_P_"
+        List<String> parents = mNode.getAllParentColumnNames(); 
+        
         if (parents != null) {
             for (String pr : parents) {
                 Node parent = data.getVariable(pr);
@@ -196,39 +203,6 @@ public class CLD extends Probability implements Comparable<CLD> {
         selectedData = (ColtDataSet)data.subsetColumns(hybridGraph.getNodes());
          
         return Tetrad_Util.getIPC(mNode, selectedData, mNode.name, IPCs_MEBN);
-    }
-
-//    public void save(String filename) {
-//        FileOutputStream fos = null;
-//        ObjectOutputStream out = null;
-//        try {
-//            fos = new FileOutputStream(filename);
-//            out = new ObjectOutputStream(fos);
-//            out.writeObject(CD);
-//            out.close();
-//            fos.close();
-//        }
-//        catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
-//
-//    public void load(String filename) {
-//        FileInputStream fis = null;
-//        ObjectInputStream in = null;
-//        try {
-//            fis = new FileInputStream(filename);
-//            in = new ObjectInputStream(fis);
-//            CD = (ConditionalDataSet)in.readObject();
-//            in.close();
-//            fis.close();
-//        }
-//        catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//        catch (ClassNotFoundException ex) {
-//            ex.printStackTrace();
-//        }
-//    }
+    } 
 }
 

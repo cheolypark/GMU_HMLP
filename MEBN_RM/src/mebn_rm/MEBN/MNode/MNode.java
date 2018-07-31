@@ -66,9 +66,10 @@ public class MNode extends Tree implements Comparable<MNode> {
     public ResidentNode childResidentNode = null;
     public MNode originalMNode = null; 	// A context node will have an original resident node.   
 
-    public MNode(String n) {
+    public MNode(MFrag f, String n) {
         super(false);
         name = n;
+        mFrag = f;
     }
 
     public MNode(MNode n) {
