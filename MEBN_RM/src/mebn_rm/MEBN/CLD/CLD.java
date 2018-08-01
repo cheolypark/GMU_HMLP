@@ -189,7 +189,7 @@ public class CLD extends Probability implements Comparable<CLD> {
             return null;
         } 
         
-        Node child = data.getVariable(mNode.name);
+		Node child = data.getVariable(mNode.name);
         hybridGraph.addNode(child);
         List<String> parents = mNode.getAllParentColumnNames(); 
         
