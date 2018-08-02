@@ -186,19 +186,18 @@ public class MTheory implements Comparable<MTheory> {
             sql = sql + "\r\nFROM\r\n";
             
             for (MFrag fp : parentMFrags){
-	            if (fp.joiningSQL == null){
-	                sqlFrom += fp.getTableName() + ", ";
-	            } else { // is a TimedMFrag 
-	                sqlFrom += " ( " +  fp.joiningSQL + " ) " + fp.getTableName();  
-	                sqlFrom += ", ";
-	            }
+            	if (f != fp) { // If the MFrag for the child node is already used, don't add it to the joining SQL.
+	                if (fp.joiningSQL == null){
+		                sqlFrom += fp.getTableName() + ", ";
+		            } 
+            	}
             }
             
             sqlFrom = sqlFrom.substring(0, sqlFrom.length() - 2);
             sql = sql + (String)sqlFrom + "\r\n";
             
             // set a where clause
-            
+             
             newMFrag.joiningSQL = sql;
             
             // If there is no more node, then delete this MFrag 
@@ -211,134 +210,12 @@ public class MTheory implements Comparable<MTheory> {
                 String mNodeP = new StringUtil().getRight(p3);
                 MNode parentMNode = f.getMNode(mNodeP);
                 childMNode.setParents(parentMNode);
+                
+                parentMNode.columnName = parentMNode.name;
             }
         }
     }
     
-    // If this MFrag is a timed MFrag, a special timed table is created and it is used for joining 
-    /*
-     * 	select 
-     * 		SLAB_NO, 
-	 *  	sum(A) as A,
-	 * 		sum(B) as B,
-	 * 		sum(C) as C,  
-	 *      sum(A1) as A1,
-	 *     	sum(B1) as B1,
-	 *      sum(C1) as C1 
-	 *	from 
-	 *		( select
-	 * 			t2.*,
-	 *			case when mod(row_num, 3) = 1 then RM_PRE_WK end as A, 
-	 *			case when mod(row_num, 3) = 2 then RM_PRE_WK end as B,
-	 *			case when mod(row_num, 3) = 0 then RM_PRE_WK end as C, 
-	 *
-	 *          case when mod(row_num, 3) = 1 then RM_ACT_WK end as A1, 
-	 *        	case when mod(row_num, 3) = 2 then RM_ACT_WK end as B1,
-	 *          case when mod(row_num, 3) = 0 then RM_ACT_WK end as C1, 
-	 *          
-	 *			case when row_num / 3 > 1     then FLOOR ((row_num -1) / 3) end as flag_for_windows  
-	 * 		from (
-	 *	 		select t.*, 
-	 *		  		( case SLAB_NO when @curtype then @curRow := @curRow + 1 
-	 *											 else @curRow := 1 and @curType := SLAB_NO end
-	 *		  		) + 1 as row_num
-	 *			from rm_pass t,
-	 *		  		(select @curRow := 0, @curType := '') r
-	 *			order BY SLAB_NO asc  
-	 *	  		) t2
-	 *		) t1 
- 	 *		group by flag_for_windows, SLAB_NO 
-     */ 
-    public void createTimedTable(MFrag f) { 
-	    if (!f.isTimedMFrag()) {
-	    	return;
-	    }
-	    
-	    int cw = f.childWindowSizeForTimedMFrag;
-	    String sqlTimed = "";
-	    sqlTimed += "select \r\n";
-	    
-	    ListMgr l = new ListMgr();
-	    List<String> keyList = f.getKeysExceptX(f.timedPrimaryKey);
-	    String keys = l.getListComma(keyList);
-	    // To do: this version works only a single keys (e.g., [SLAB_NO]),
-	    // but this version doens't work for a composite keys (e.g., [SLAB_NO, MACHINE_NO]).
-	    // So, change the sqlTimed.
-	    
-	    sqlTimed += keys + ", \r\n";
-	    
-	    for (MNode n : f.arrayResidentNodes){
-	    	for (int k = 1; k < (cw+1); k++) {
-	    		sqlTimed += "sum(" + n.name +"_"+ k + " ) as " + n.name +"_"+ k + ", \r\n";
-	    	}
-	    } 
-	    sqlTimed =  sqlTimed.substring(0, sqlTimed.length()-4);
- 
-	    sqlTimed += "\r\n from \r\n";
-	    sqlTimed += "	( select \r\n";
-	    sqlTimed += "	t2.*, \r\n";
-	    
-	    for (MNode n : f.arrayResidentNodes){
-	    	int i = 0; 
-	    	for (int k = 1; k < (cw+1); k++) {
-	    		i++;
-		    	if (i == cw) {
-		    		i = 0;
-		    	}
-	    		sqlTimed += "case when mod(row_num, " + cw + " ) = " + i + " then " + n.attribute + " end as " + n.name +"_"+ k + ", \r\n";
-	    	}
-	    }
-	    
-	    sqlTimed += "case when row_num / " + cw + " > 1 then FLOOR ((row_num -1) / " + cw + " ) end as flag_for_windows \r\n";
-	    sqlTimed += "from ( \r\n";
-	    sqlTimed += "select t.*, \r\n";
-	    sqlTimed += "( case " + keys + " when @curtype then @curRow := @curRow + 1 \r\n";
-	    sqlTimed += "else @curRow := 1 and @curType := " + keys + " end \r\n";
-	    sqlTimed += ") + 1 as row_num \r\n";
-	    sqlTimed += "from " + f.name + " t, \r\n";
-	    sqlTimed += "(select @curRow := 0, @curType := '') r \r\n";
-	    sqlTimed += "order BY " + keys + " asc \r\n";
-	    sqlTimed += ") t2 \r\n";
-	    sqlTimed += ") t1 \r\n";
-	    sqlTimed += "group by flag_for_windows, " + keys + " \r\n"; 
-//	    System.out.println(sqlTimed);
-	    f.joiningSQL = sqlTimed;
-	  
-    }
-    public void setChildWindowSize(String timedPK, int childWindowSize) {
-    	String mFrag = new StringUtil().getLeft(timedPK);
-        String mPK = new StringUtil().getRight(timedPK);
-        MFrag f = getMFrag(mFrag);
-         
-        if (childWindowSize <= 1 ){
-    		return;
-    	}  
-        
-        f.setTimedMFrag(childWindowSize, mPK);  
-        
-        createTimedTable(f);
-         
-        List<MNode> newList = new ArrayList<MNode>(f.arrayResidentNodes);
-        
-        for (MNode mn : newList) { 
-        	// create new MNodes according to childWindowSize
-        	for (int i = 1; i < childWindowSize; i++) {
-        		MNode newMN = null;
-                if (mn.isContinuous()) {
-                	newMN = new MCNode(f, mn.name + "_" + (i+1), mn.ovs);
-                } else if (mn.isDiscrete()) {
-                	newMN = new MDNode(f, mn.name + "_" + (i+1), mn.ovs);
-                }
-                
-                newMN.setAttributeName(mn.attribute);
-                
-                f.setMNode(newMN);
-        	}
-        	
-        	mn.name += "_" + 1;
-        }
-        
-    }
 
     public void addContexts(String mFrag, String sql) {
         MFrag f = getMFrag(mFrag);
