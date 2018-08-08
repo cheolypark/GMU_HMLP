@@ -430,7 +430,11 @@ public class MNode extends Tree implements Comparable<MNode> {
         dm.addAll(cm);
         ArrayList<String> ret = new ArrayList<String>();
         for (MNode n : dm) {
-            ret.add(n.columnName);
+        	if (n.columnName != null) {
+        		ret.add(n.columnName);
+        	} else {
+        		ret.add(n.name);
+        	}
         }
         return ret;
     }
