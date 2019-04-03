@@ -178,7 +178,7 @@ public class CLD extends Probability implements Comparable<CLD> {
         
         String strFile = "";
         
-        if (mNode.mFrag.cvsFile != null) {
+        if (mNode.mFrag.cvsFile != null && !mNode.mFrag.cvsFile.isEmpty()) {
         	strFile = mNode.mFrag.cvsFile; 
         } else {
         	strFile = String.valueOf(Resource.getCSVPath(mNode.mFrag.mTheory.name)) + mNode.mFrag.name + ".csv";
@@ -189,7 +189,7 @@ public class CLD extends Probability implements Comparable<CLD> {
             return null;
         } 
         
-		Node child = data.getVariable(mNode.name);
+		Node child = data.getVariable(mNode.getColumnName());
         hybridGraph.addNode(child);
         List<String> parents = mNode.getAllParentColumnNames(); 
         

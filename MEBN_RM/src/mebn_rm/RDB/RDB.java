@@ -576,6 +576,7 @@ public class RDB extends MySQL_Interface {
 
     public ColtDataSet getTetDataSetFromCSV(String fCSV) {
         List<Node> nodes = new ArrayList<Node>();
+        List<Integer> removeList = new ArrayList<Integer>();
         ColtDataSet dataset = null;
                 
         System.gc();
@@ -599,13 +600,15 @@ public class RDB extends MySQL_Interface {
 			HashMap<Integer, String> mapHeader = new HashMap<Integer, String>();
 			int i = 0; 
 			for (CSVRecord record : records) {
+				
+				// System.out.println(record.size());
 				// Headers
 				if (!b) {
 					b = true;
 					for (int j = 0; j < record.size(); j++) {
 						String column = record.get(j);
 						if (!column.isEmpty()) {
-//							System.out.println(column);
+							// System.out.println(column);
 							mapHeader.put(j, column);
 						}
 					}
@@ -632,15 +635,19 @@ public class RDB extends MySQL_Interface {
 						
 	                    dataset = new ColtDataSet(rowSize - 1, nodes);
 					}
-					
-					
+					 
 					for (int j = 0; j < record.size(); j++) {
 						String column = record.get(j);
 						if (!column.isEmpty()) {
-//					        long timeTotal = System.nanoTime();
+					        // long timeTotal = System.nanoTime();
 					        dataset.setObject(i - 1, j, (Object)column);
-//		                    Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
+		                    // Long l = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - timeTotal);
 						}
+					}
+					
+					// If empty row, remove this.
+					if (record.size() == 1 && record.get(0).isEmpty()) {
+						removeList.add(i-1);
 					}
 				}
 				
@@ -650,6 +657,15 @@ public class RDB extends MySQL_Interface {
 			e.printStackTrace();
 		} catch (IOException e) { 
 			e.printStackTrace();
+		}
+		
+		if (!removeList.isEmpty()) {
+			int[] array = new int[removeList.size()];
+			for (int i = 0; i < removeList.size(); i++) {
+				array[i] = removeList.get(i);
+			}
+			System.out.println("Data have missing values!");
+			dataset.removeRows(array);
 		}
           
         return dataset;

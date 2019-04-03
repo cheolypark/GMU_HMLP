@@ -70,9 +70,12 @@ public class RM_To_MEBN {
 		Integer numEntity = 0;
 		Integer numRV = 0;
 		Integer numMFrag = 0;
+		Integer numOV = 0;
 		StringUtil sutil = new StringUtil();
 		MTheory mTheory = null;
 		String nameMTheory = rdb.schema;
+		
+		Long time1 = System.nanoTime(); 
 		
 		mTheory = new MTheory(nameMTheory);
 		mTheory.rdb = rdb;
@@ -94,6 +97,7 @@ public class RM_To_MEBN {
 				origin = rdb.getOriginFromKey(table, key);
 				ov = new OVariable(f.getTableName(), key, (String) origin);
 				ovs.add(ov);
+				numOV += 1;
 				new mebn_rm.MEBN.MNode.MIsANode(f, ov);
 			}
 			Iterator iterator = attrs.iterator();
@@ -128,6 +132,7 @@ public class RM_To_MEBN {
 					origin = rdb.getOriginFromKey(table2, key);
 					ov = new OVariable(f.name, key, (String) origin);
 					ovs.add(ov);
+					numOV += 1;
 					new mebn_rm.MEBN.MNode.MIsANode(f, ov);
 				}
 				List<String> attrs = (List) rdb.mapTableAndAttributes.get((Object) table2);
@@ -158,11 +163,19 @@ public class RM_To_MEBN {
 				f.mFragType = MFrag.MFragType.REFERENCE;
 			}
 		}
+		
+		// Coverting time
+        Double seconds = (double)(System.nanoTime()-time1) / 1000000000.0;
+		
 		System.out.println(mTheory);
 		System.out.println("=========================================================================================");
 		System.out.println("numEntity\tnumRV\tnumMFrag");
-		System.out.println(numEntity + "\t" + numRV + "\t" + numMFrag);
+		System.out.println("# of Entity \t # of MFrag \t # of Resident Node \t # of IsA Nodes");
+		System.out.println(numEntity + "\t" + numMFrag + "\t" + numRV + "\t" + numOV );
+		System.out.println("Mapping time");
+		System.out.println(seconds);
 		System.out.println("=========================================================================================");
+		  
 		return mTheory;
 	}
 }

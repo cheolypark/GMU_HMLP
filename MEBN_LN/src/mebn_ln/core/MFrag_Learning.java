@@ -19,6 +19,7 @@
 package mebn_ln.core;
  
 import java.io.IOException;
+import java.util.List;
 
 import mebn_ln.core.Learning_Common;
 import mebn_ln.core.MNode_Learning; 
@@ -74,8 +75,18 @@ public class MFrag_Learning extends Learning_Common {
 //	            e.printStackTrace();
 //	        }
 	        
+        if (f.name.equalsIgnoreCase("land_state_Dry")) {
+    		System.out.println("A");
+    	}
+        
         for (MNode n : f.arrayResidentNodes) {
             MNode_learning.run(n);
+            
+            List<MNode> recurNodes = n.getRecursiveNodes();
+            
+            for (MNode re : recurNodes) {
+            	MNode_learning.run(re);
+            }
         }
     }
 

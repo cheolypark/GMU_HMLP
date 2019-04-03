@@ -271,6 +271,14 @@ public class MNode extends Tree implements Comparable<MNode> {
         
         return right;
     }
+    
+    public String getColumnName() {
+        String s = name; 
+        if (columnName != null && !columnName.isEmpty())
+    		s = columnName;
+ 
+        return s;
+    }    
 
     public void setParents(MNode ... mnodes) {
         if (mnodes == null) {
@@ -405,6 +413,19 @@ public class MNode extends Tree implements Comparable<MNode> {
         }
         return false;
     }
+    
+    public List<MNode> getRecursiveNodes() {
+        List<MNode> rec = new ArrayList<MNode>();
+        List<MNode> parents = getAllParents();
+        
+        for (MNode n : parents) {
+        	if (n.name.equalsIgnoreCase(this.name)) {
+        		rec.add(n);
+        	}
+        }        
+        
+        return rec;
+    }
 
     public List<MNode> getAllParents() {
         List<MNode> dm = getDiscreteParents();
@@ -441,17 +462,18 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public List<MNode> getDiscreteParents() {
         ArrayList<MNode> l = new ArrayList<MNode>();
-        if (!mFrag.globalMNodes.isEmpty()) {
-            for (MNode p : mFrag.globalMNodes) {
-                if (checkContainedNodeByName(p, parentMNodes) && p.isDiscrete()) {
-                	l.add(p);	
-                }
-                                
-                if (checkContainedNodeByName(p, inputParentMNodes) && p.isDiscrete()) {
-                	l.add(p);
-                }
-            }
-        } else {
+//        if (!mFrag.globalMNodes.isEmpty()) {
+//            for (MNode p : mFrag.globalMNodes) {
+//                if (checkContainedNodeByName(p, parentMNodes) && p.isDiscrete()) {
+//                	l.add(p);	
+//                }
+//                                
+//                if (checkContainedNodeByName(p, inputParentMNodes) && p.isDiscrete()) {
+//                	l.add(p);
+//                }
+//            }
+//        } else 
+        {
             for (MNode p : parentMNodes) {
                 if (!p.isDiscrete()) continue;
                 	l.add(p);
@@ -467,17 +489,18 @@ public class MNode extends Tree implements Comparable<MNode> {
 
     public synchronized List<MNode> getContinuousParents() {
         ArrayList<MNode> l = new ArrayList<MNode>();
-        if (!mFrag.globalMNodes.isEmpty()) {
-            for (MNode p : mFrag.globalMNodes) {
-                if (checkContainedNodeByName(p, parentMNodes) && p.isContinuous()) {
-                	l.add(p);
-                }
-                
-                if (checkContainedNodeByName(p, inputParentMNodes) && p.isContinuous()) {
-                	l.add(p);	
-                }                
-            }
-        } else {
+//        if (!mFrag.globalMNodes.isEmpty()) {
+//            for (MNode p : mFrag.globalMNodes) {
+//                if (checkContainedNodeByName(p, parentMNodes) && p.isContinuous()) {
+//                	l.add(p);
+//                }
+//                
+//                if (checkContainedNodeByName(p, inputParentMNodes) && p.isContinuous()) {
+//                	l.add(p);	
+//                }                
+//            }
+//        } else 
+        {
             for (MNode p2 : parentMNodes) {
                 if (!p2.isContinuous()) continue;
                 l.add(p2);
@@ -596,10 +619,10 @@ public class MNode extends Tree implements Comparable<MNode> {
         if (getBestCLD() == null) {
             return "";
         }
-        String s = "defineNode(" + name + " , Desc); \n";
+        String s = "defineNode(" + getColumnName() + " , Desc); \n";
         s += getBestCLD().getILD();
         s += "}\n";
-        mFrag.globalMNodes.add(this);
+//        mFrag.globalMNodes.add(this);
         return s;
     }
 

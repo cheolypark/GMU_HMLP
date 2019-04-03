@@ -79,6 +79,7 @@ public class Categorical extends LPD_Discrete {
             }
             if (selectedData != null) {
                 Node thisNode = selectedData.getVariable(mNode.name);
+//                Node thisNode = selectedData.getVariable(mNode.columnName);
                 int c = 0;
                 while (c < bayesIm.getBayesPm().getNumCategories(thisNode)) {
                     arrayCategories.add(bayesIm.getBayesPm().getCategory(thisNode, c));
@@ -110,6 +111,8 @@ public class Categorical extends LPD_Discrete {
             _dataSet_dis = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
             EdgeListGraph graph = new EdgeListGraph();
             Node child = _dataSet_dis.getVariable(mNode.name);
+//            Node child = _dataSet_dis.getVariable(mNode.columnName);
+            
             graph.addNode(child);
             Dag dag = new Dag((Graph)graph);
             BayesPm bayesPm = new BayesPm((Graph)dag);
@@ -130,6 +133,8 @@ public class Categorical extends LPD_Discrete {
               
             EdgeListGraph continuousGraph = new EdgeListGraph();
             Node child2 = defaultData.getVariable(mNode.name);
+//            Node child2 = defaultData.getVariable(mNode.columnName);
+             
             continuousGraph.addNode(child2);
             Dag dag = new Dag((Graph)continuousGraph);
             BayesPm bayesPm = new BayesPm((Graph)dag);

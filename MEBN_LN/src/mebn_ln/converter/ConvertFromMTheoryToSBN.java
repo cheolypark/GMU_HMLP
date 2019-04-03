@@ -18,7 +18,9 @@
  */
 package mebn_ln.converter;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.List;
+
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory;
@@ -46,33 +48,52 @@ public class ConvertFromMTheoryToSBN {
         Network net = new Network("myNet");
         
         for (MFrag f : m.mfrags.keySet()) {
-            for (MNode mn : f.getAllNodes()) {
+            for (MNode mn : f.getAllNodes()) { 
+            	String cName = mn.name;
+            	
                 for (MNode pa : mn.parentMNodes) {
-                    net.add(pa.name, mn.name);
+                    net.add(pa.getColumnName(), cName);
                 }
                 
-                for (MNode pa : mn.inputParentMNodes) {
-                    net.add(pa.name, mn.name);
+                for (MNode pa : mn.inputParentMNodes) {  
+                    net.add(pa.getColumnName(), cName);
                 }
             }
         }
         
         net.print();
+        
         OrderingNetwork on = new OrderingNetwork();
         SortableValueMap<Integer, ArrayList<Node>> nodesInLevels = on.run(net);
         for (Integer i : nodesInLevels.keySet()) {
             ArrayList<Node> listNode = (ArrayList)nodesInLevels.get((Object)i);
             for (Node n : listNode) {
+            	skip:
                 for (MFrag f2 : m.mfrags.keySet()) {
-                    for (MNode mn : f2.getAllNodes()) {
-                        if (!mn.name.equalsIgnoreCase(n.name)) continue;
-                        String cps = mn.getILD();
+                	if (f2.name.equalsIgnoreCase("land_state_Dry")) {
+                		System.out.println("A");
+                	}
+                	List<MNode> allNodes = f2.getAllNodes();
+                	
+                    for (MNode mn : allNodes) {
+                    	
+                    	System.out.println("mn.name: "  + mn.getColumnName() + " 		n.name: "  + n.name);
+                    
+                    	
+                    	if (!mn.getColumnName().equalsIgnoreCase(n.name)) continue;
+                        
+                    	String cps = mn.getILD();
                         ssbn_next = String.valueOf(ssbn_next) + cps;
+                        
+                        break skip;
                     }
                 }
+               
             }
         }
+        
         new TextFile().save((String)strFile, (String)ssbn_next);
+        
         return strFile;
     }
 }

@@ -72,7 +72,7 @@ public class ConditionalGaussian extends LPD_Continuous {
 //            System.out.println("DOF = " + scorer.getDof());
 //            System.out.println("# free params = " + scorer.getNumFreeParams());
             SemIm im = scorer.getEstSem();
-            System.out.println("est sem = " + (Object)im);
+//            System.out.println("est sem = " + (Object)im);
             ipcScorers.put(ipc, scorer);
         }
     }
@@ -92,7 +92,7 @@ public class ConditionalGaussian extends LPD_Continuous {
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
             for (MNode p : cp) {
-                Node parent = sc.getDataSet().getVariable(p.name);
+                Node parent = sc.getDataSet().getVariable(p.columnName);
                 Node child = sc.getDataSet().getVariable(mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
                 if (edgeCoef == 0.0){
@@ -119,21 +119,21 @@ public class ConditionalGaussian extends LPD_Continuous {
     }
 
     public String getCLD_default_op(Object ob) {
-   	 Scorer sc = (Scorer)ob;
-        String s = "";
-        if (sc != null) {
-            SemIm im = sc.getEstSem(); 
-            double mean = im.getMean((Node)sc.getVariables().get(0));
-            TetradMatrix implCovar = im.getImplCovar(false);
-            double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);              
-            String meanS = tmath.safeDoubleAsString2(mean);
-            String varS = tmath.safeDoubleAsString2(Math.abs(var));
-            s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
-        } else {
-            s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
-        }
-        return s;
-    }
+		Scorer sc = (Scorer) ob;
+		String s = "";
+		if (sc != null) {
+			SemIm im = sc.getEstSem();
+			double mean = im.getMean((Node) sc.getVariables().get(0));
+			TetradMatrix implCovar = im.getImplCovar(false);
+			double var = im.getVariance((Node) sc.getVariables().get(0), implCovar);
+			String meanS = tmath.safeDoubleAsString2(mean);
+			String varS = tmath.safeDoubleAsString2(Math.abs(var));
+			s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
+		} else {
+			s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
+		}
+		return s;
+	}
       
     public Double calculateBestPara() {
         EdgeListGraph hybridGraph = new EdgeListGraph();
@@ -143,16 +143,16 @@ public class ConditionalGaussian extends LPD_Continuous {
         } 
         
         for (String ipc : IPCs_Data) {
-            System.out.println(ipc);
+//            System.out.println(ipc);
             DataSet _dataSet_con = null;
             _dataSet_con = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
             EdgeListGraph continuousGraph = new EdgeListGraph();
-            Node child2 = _dataSet_con.getVariable(mNode.name);
+            Node child2 = _dataSet_con.getVariable(mNode.getColumnName());
             continuousGraph.addNode(child2);
             List<MNode> listPar = mNode.getAllParents();
             for (MNode mn : listPar) {
                 if (!mn.isContinuous()) continue;
-                Node parent = data.getVariable(mn.name);
+                Node parent = data.getVariable(mn.getColumnName());
                 continuousGraph.addNode(parent);
                 continuousGraph.addDirectedEdge(parent, child2);
             }
@@ -171,7 +171,7 @@ public class ConditionalGaussian extends LPD_Continuous {
             } 
               
             EdgeListGraph continuousGraph = new EdgeListGraph();
-            Node child2 = defaultData.getVariable(mNode.name);
+            Node child2 = defaultData.getVariable(mNode.getColumnName());
             continuousGraph.addNode(child2);
             calculateBestPara_op_default(defaultData, continuousGraph);
         }
@@ -183,19 +183,20 @@ public class ConditionalGaussian extends LPD_Continuous {
         List<MNode> dp = mNode.getDiscreteParents();
         List<MNode> cp = mNode.getContinuousParents();
         
-        String s = "{ defineState(Continuous); \n";
-        s = s + "p( " + mNode.name;
+        String s = "{\n";
+        s = s + "defineState(Continuous); \n";
+        s = s + "p( " + mNode.getColumnName();
         
         if (dp.size() > 0 || cp.size() > 0) {
             s = s + " | ";
         }
         
         for (MNode p2 : dp) {
-            s = s + p2.name + " , ";
+            s = s + p2.getColumnName() + " , ";
         }
         
         for (MNode p2 : cp) {
-            s = s + p2.name + " , ";
+            s = s + p2.getColumnName() + " , ";
         }
         
         if (dp.size() > 0 || cp.size() > 0) {
@@ -229,20 +230,20 @@ public class ConditionalGaussian extends LPD_Continuous {
          
         if (sc != null) {
         	SemIm im = sc.getEstSem();
-            System.out.println(im.toString());
+//            System.out.println(im.toString());
             double mean = im.getMean((Node)sc.getVariables().get(0));
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
             for (MNode p : cp) { 
             	
-            	Node parent = sc.getDataSet().getVariable(p.name);
+            	Node parent = sc.getDataSet().getVariable(p.getColumnName());
                 Node child = sc.getDataSet().getVariable(mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
                 if (edgeCoef == 0.0){ 
                 	edgeCoef = tmath.getSmalNumber();
                 }
                 String edgeCoefs = tmath.safeDoubleAsString2(edgeCoef);
-                s = String.valueOf(s) + edgeCoefs + " * " +  p.name + " + ";
+                s = String.valueOf(s) + edgeCoefs + " * " +  p.getColumnName() + " + ";
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
                 mean -= edgeCoef * meanParent;
@@ -255,7 +256,7 @@ public class ConditionalGaussian extends LPD_Continuous {
  
         } else {
         	for (MNode p : cp) {
-        		s = String.valueOf(s) + "1.0 * " + p.name + " + ";
+        		s = String.valueOf(s) + "1.0 * " + p.getColumnName() + " + ";
         	}
         	s = String.valueOf(s) + "NormalDist(0 ,  0.1);";
         }
@@ -282,6 +283,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         	}
         	ovs = new StringUtil().removeRedundantItem(ovs);
         	ovs = ovs.replace(",", ".");        	
+        	ovs = ovs.replace(" ", "");
         	        	
             s = s + "[L: ";
             int i = 0;
@@ -304,11 +306,13 @@ public class ConditionalGaussian extends LPD_Continuous {
             
             // * Add default distribution */
             // For the continuous case, we didn't define yet a default distribution grammar, 
-            // so we commented out here.
-            // In the future, we will release here.
-//            s = s + "else[\n			";
-//            s = s + getCLD_default_op((Object)defaultScorer);
-//            s = s + "]\n";
+            // so we commented out here. 
+            List<MNode> cparents = mNode.getContinuousParents();
+            if (cparents.size() > 0) {
+                s = s + "else[\n			";
+	            s = s + getCLD_default_op((Object)defaultScorer);
+	            s = s + "]\n";
+	        }
 //            
             s = s + "]\r\n";
             

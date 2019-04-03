@@ -1,12 +1,11 @@
 package util.math;
 
 import java.math.BigDecimal;
-
-
+import java.sql.SQLException;
+ 
 public class KL_Divergence { 
 	public double distence = 0.0; 
 	
-
 	public KL_Divergence() {
 	} 
 	
@@ -22,13 +21,26 @@ public class KL_Divergence {
 		prior = Math.abs(prior1) + Math.abs(prior2); 
 		lambda = Math.abs(prior1)/prior;
 		 
-		cov = lambda * cov1 + (1 - lambda) * cov2 + lambda * (1 - lambda) * (mean1 - mean2)*(mean1-mean2);
+		cov = lambda * cov1 + (1 - lambda) * cov2 + lambda * (1 - lambda) * (mean1-mean2)*(mean1-mean2);
  
 	    distence = 0.5 * (prior * Math.log(cov) - prior1 * Math.log(cov1) - prior2 * Math.log(cov2));
 	    distence = Math.abs(distence);
 			 
 	    return distence; 
 	} 
+	
+	//
+	// Kullback-Leibler divergence for two univariate gaussian
+	// https://stats.stackexchange.com/questions/7440/kl-divergence-between-two-univariate-gaussians
+	//
+	public double get(double cov1, double cov2, double mean1, double mean2) {
+
+		distence += Math.log(cov2/cov1);
+			distence += (cov1*cov1 + (mean1 - mean2) * (mean1 - mean2))/(2*cov2*cov2);
+		distence += - 0.5; 
+		
+		return distence;
+	}
 	
 	//Kullback-Leibler divergence for two discrete distributions
 	public double get(double[] p1, double[] p2) { 
@@ -56,6 +68,11 @@ public class KL_Divergence {
         System.out.println(new BigDecimalUtils().ln(p1.divide(p2, 10, BigDecimal.ROUND_HALF_EVEN), 10));
 		return p1.multiply(new BigDecimalUtils().ln(p1.divide(p2, 10, BigDecimal.ROUND_HALF_EVEN), 10));  
 	}
-	
-	
+	 
+    public static void main(String[] args) throws SQLException {
+    	double cov1 = 0.1; double cov2 = 1;
+		double mean1 = -2.0; double mean2 = -2.5;   
+		  
+		System.out.println(new KL_Divergence().get(cov1, cov2, mean1, mean2)); 
+    }
 }
