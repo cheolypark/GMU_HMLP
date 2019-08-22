@@ -82,21 +82,21 @@ public class MTheory implements Comparable<MTheory> {
     }
 
     public MNode getMNode(String s) {
-        String mFrag = new StringUtil().getLeft(s);
-        String mNode = new StringUtil().getRight(s);
+        String mFrag = StringUtil.This().getLeft(s);
+        String mNode = StringUtil.This().getRight(s);
         MFrag f = getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         return childMNode;
     }
  
     public void addParents(String c, List<String> ps) {
-        String mFrag = new StringUtil().getLeft(c);
-        String mNode = new StringUtil().getRight(c);
+        String mFrag = StringUtil.This().getLeft(c);
+        String mNode = StringUtil.This().getRight(c);
         String combParents = "";
         boolean bOtherMFrag = false;
           
         for (String p : ps) {
-            String mFragP = new StringUtil().getLeft(p); 
+            String mFragP = StringUtil.This().getLeft(p); 
             if (!mFrag.equalsIgnoreCase(mFragP) && !bOtherMFrag) { 
                 bOtherMFrag = true;
             } 
@@ -186,8 +186,10 @@ public class MTheory implements Comparable<MTheory> {
             sql = sql + "\r\nFROM\r\n";
             
             for (MFrag fp : parentMFrags){
-            	if (f != fp) { // If the MFrag for the child node is already used, don't add it to the joining SQL.
-	                if (fp.joiningSQL == null){
+            	if (f != fp) { 
+            		// If the MFrag for the child node is already used, don't add it to the joining SQL.
+//	                if (fp.joiningSQL == null){
+	                if (f.joiningSQL == null){
 		                sqlFrom += fp.getTableName() + ", ";
 		            } 
             	}
@@ -244,7 +246,7 @@ public class MTheory implements Comparable<MTheory> {
             OVariable ov;
             OVariable ov2;
             
-            if (f.name.equalsIgnoreCase("fm_pass")) {
+            if (f.name.equalsIgnoreCase("heater_item_temperature")) {
             	  System.out.println(f.joiningSQL);
             } 
             
@@ -357,8 +359,8 @@ public class MTheory implements Comparable<MTheory> {
     }
 
     public void addCLDType(String c, CLD cldType) {
-        String mFrag = new StringUtil().getLeft(c);
-        String mNode = new StringUtil().getRight(c);
+        String mFrag = StringUtil.This().getLeft(c);
+        String mNode = StringUtil.This().getRight(c);
         MFrag f = getMFrag(mFrag);
         MNode childMNode = f.getMNode(mNode);
         childMNode.setCLDs(cldType);

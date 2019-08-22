@@ -70,8 +70,7 @@ public class RM_To_MEBN {
 		Integer numEntity = 0;
 		Integer numRV = 0;
 		Integer numMFrag = 0;
-		Integer numOV = 0;
-		StringUtil sutil = new StringUtil();
+		Integer numOV = 0; 
 		MTheory mTheory = null;
 		String nameMTheory = rdb.schema;
 		
@@ -90,7 +89,7 @@ public class RM_To_MEBN {
 				continue;
 			f = new MFrag(mTheory, table);
 			numMFrag = numMFrag + 1;
-			prefix = sutil.createAbbreviation(table);
+			prefix = StringUtil.This().createAbbreviation(table);
 			keys = (List) rdb.mapTableAndKeys.get((Object) table);
 			ovs = new ArrayList();
 			for (String key : keys) {  
@@ -104,7 +103,8 @@ public class RM_To_MEBN {
 			while (iterator.hasNext()) {
 				String attr = (String) iterator.next();
 				List<String> domains = rdb.mapDomainVaules.get(attr);
-				resNodeName = String.valueOf(prefix) + "_" + attr;
+				//resNodeName = String.valueOf(prefix) + "_" + attr;
+				resNodeName = attr  + "_In" + String.valueOf(prefix);
 				if (domains != null) {
 					MDNode md = new MDNode(f, resNodeName, ovs);
 					md.setAttributeName(attr);
@@ -125,7 +125,7 @@ public class RM_To_MEBN {
 			for (String table2 : relationshipTables) {
 				f = new MFrag(mTheory, table2);
 				numMFrag = numMFrag + 1;
-				prefix = sutil.createAbbreviation(table2);
+				prefix = StringUtil.This().createAbbreviation(table2);
 				keys = (List) rdb.mapTableAndKeys.get((Object) table2);
 				ovs = new ArrayList<OVariable>();
 				for (String key : keys) {
@@ -138,7 +138,7 @@ public class RM_To_MEBN {
 				List<String> attrs = (List) rdb.mapTableAndAttributes.get((Object) table2);
 				if (attrs != null) {
 					for (String attr : attrs) {
-						resNodeName = String.valueOf(prefix) + "_" + attr;
+						resNodeName = attr  + "_In" + String.valueOf(prefix);
 						List<String> domains = rdb.mapDomainVaules.get(attr);
 						if (domains != null) {
 							MDNode md = new mebn_rm.MEBN.MNode.MDNode(f, resNodeName, ovs);

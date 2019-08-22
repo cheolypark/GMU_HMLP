@@ -88,7 +88,7 @@ public class TempMathFunctions {
 	
 	public String safeDoubleAsString2(Double data) {   
 		DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-		df.setMaximumFractionDigits(340); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
+		df.setMaximumFractionDigits(5); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
 		return df.format(data);
 	}
 	
@@ -415,7 +415,8 @@ public class TempMathFunctions {
 		int e1 = new TempMathFunctions().getMostSignificantDigitFromDecimalPoint(d1);
 		System.out.println(e1);
 		
-		double d2 = .01234;
+//		double d2 = .0001234;
+		double d2 = 8.434634656930763;
 		String e2 = new TempMathFunctions().safeDoubleAsString(d2);
 		System.out.println(e2);
 		

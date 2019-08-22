@@ -113,7 +113,7 @@ public class ConditionalGaussian extends LPD_Continuous {
             for (MNode p : cp) {
                 s = String.valueOf(s) + "1.0 * " + p.name + " + ";
             }
-            s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
+            s = String.valueOf(s) + "NormalDist(0.0 ,  100000000)";
         }
         return s;
     }
@@ -130,7 +130,7 @@ public class ConditionalGaussian extends LPD_Continuous {
 			String varS = tmath.safeDoubleAsString2(Math.abs(var));
 			s = String.valueOf(s) + "NormalDist( " + meanS + ", " + varS + ")";
 		} else {
-			s = String.valueOf(s) + "NormalDist(0.0 ,  100000000);";
+			s = String.valueOf(s) + "NormalDist(0.0 ,  100000000)";
 		}
 		return s;
 	}
@@ -264,7 +264,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         return s;
     }
  
-    // 	if some obj have (VehicleType = Tracked ) [
+    // 	if any obj have (VehicleType = Tracked ) [
     //    10 * CARDINALITY(obj) + NormalDist(10, 5)
     //  ] else [
     //    NormalDist(10, 5)
@@ -281,7 +281,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         		ovs += mn.toStringOVs();
         		ovs += ",";
         	}
-        	ovs = new StringUtil().removeRedundantItem(ovs);
+        	ovs = StringUtil.This().removeRedundantItem(ovs);
         	ovs = ovs.replace(",", ".");        	
         	ovs = ovs.replace(" ", "");
         	        	
@@ -294,8 +294,8 @@ public class ConditionalGaussian extends LPD_Continuous {
                 k = k.replace("==", "=");
                 
                 if (parents.size() > 0) {
-	                s = i == 0 ? s + "if some " + ovs + " have ( " + k + " ) [" 
-	                		   : s + "else if some " + ovs + " have ( " + k + " ) [";
+	                s = i == 0 ? s + "if any " + ovs + " have ( " + k + " ) [" 
+	                		   : s + "else if any " + ovs + " have ( " + k + " ) [";
                 }
                 
                 s = s + getCLD_op((Object)sc);
@@ -306,14 +306,15 @@ public class ConditionalGaussian extends LPD_Continuous {
             
             // * Add default distribution */
             // For the continuous case, we didn't define yet a default distribution grammar, 
-            // so we commented out here. 
-            List<MNode> cparents = mNode.getContinuousParents();
-            if (cparents.size() > 0) {
+            // so we commented out here.
+            
+//            List<MNode> cparents = mNode.getContinuousParents();
+            if (parents.size() > 0) {
                 s = s + "else[\n			";
 	            s = s + getCLD_default_op((Object)defaultScorer);
 	            s = s + "]\n";
 	        }
-//            
+           
             s = s + "]\r\n";
             
         }

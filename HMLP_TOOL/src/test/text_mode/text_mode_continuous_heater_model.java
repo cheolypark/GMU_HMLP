@@ -62,17 +62,17 @@ public class text_mode_continuous_heater_model {
 		String childMNode = "";
 		List<String> parentMNodes = null; 
 				
-		childMNode = "heateractuator_item.HAI_energy";
+		childMNode = "heateractuator_item.energy_InHAI";
 		parentMNodes = new ArrayList<String>();
-		parentMNodes.add("slabinput_item.SII_temperature");
+		parentMNodes.add("slabinput_item.temperature_InSII");
 		mTheory.addParents(childMNode, parentMNodes);
 		
 		System.out.println(mTheory.toString("MFrag", "MNode"));
 		
-		childMNode = "heater_item.HI_temperature";
+		childMNode = "heater_item.temperature_InHI";
 		parentMNodes = new ArrayList<String>();
-		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("HAI_energy.HAI_energy");
+		parentMNodes.add("slabinput_item.temperature_InSII");
+		parentMNodes.add("energy_InHAI.energy_InHAI");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
 		System.out.println(mTheory.toString("MFrag", "MNode"));

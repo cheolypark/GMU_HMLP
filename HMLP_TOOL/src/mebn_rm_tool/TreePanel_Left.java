@@ -92,7 +92,7 @@ public class TreePanel_Left extends TreePanel {
 	}
 	 
 	public void initTree_EDIT_DB() {
-		String database = new StringUtil().getRight(selectedObject); 
+		String database = StringUtil.This().getRight(selectedObject); 
 		
 		// Step 1. initialize RDB
 		try {

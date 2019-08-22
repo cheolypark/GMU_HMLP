@@ -61,20 +61,20 @@ public class text_mode_hybrid_heater_model {
 		//3. Add parents
 		String childMNode = "";
 		List<String> parentMNodes = null; 
-				
-		childMNode = "heateractuator_item.HAI_energy";
+		
+		childMNode = "heateractuator_item.energy_InHAI";
 		parentMNodes = new ArrayList<String>();
-		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("slabinput_item.SII_grade");	// Discrete
-		parentMNodes.add("slabinput_item.SII_volume");	// Discrete		
+		parentMNodes.add("slabinput_item.temperature_InSII");
+		parentMNodes.add("slabinput_item.grade_InSII");		// Discrete
+		parentMNodes.add("slabinput_item.volume_InSII");	// Discrete		
 		mTheory.addParents(childMNode, parentMNodes);
 
  		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  
  		
-		childMNode = "heater_item.HI_temperature";
+		childMNode = "heater_item.temperature_InHI";
 		parentMNodes = new ArrayList<String>();
-		parentMNodes.add("slabinput_item.SII_temperature");
-		parentMNodes.add("HAI_energy.HAI_energy");
+		parentMNodes.add("slabinput_item.temperature_InSII"); 
+		parentMNodes.add("energy_InHAI.energy_InHAI");
 		mTheory.addParents(childMNode, parentMNodes);
 		  
  		System.out.println(mTheory.toString("MFrag", "MNode", "CLD" ));  

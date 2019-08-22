@@ -262,8 +262,8 @@ public class MNode extends Tree implements Comparable<MNode> {
     
     public String getAttributeName() {
         String s = name; 
-        String prefix = new StringUtil().createAbbreviation(mFrag.name);
-        String right = s.replaceFirst(prefix+"_", "");
+        String shortMFragName = StringUtil.This().createAbbreviation(mFrag.name);
+        String right = s.replace("_In"+shortMFragName, "");
         
         if (attribute != null){
         	return attribute;

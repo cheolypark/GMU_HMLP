@@ -175,7 +175,7 @@ public class Categorical extends LPD_Discrete {
         		ovs += mn.toStringOVs();
         		ovs += ",";
         	}
-        	ovs = new StringUtil().removeRedundantItem(ovs);
+        	ovs = StringUtil.This().removeRedundantItem(ovs);
         	ovs = ovs.replace(",", ".");      
         	ovs = ovs.replace(" ", "");
         	

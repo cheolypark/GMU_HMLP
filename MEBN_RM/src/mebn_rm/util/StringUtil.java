@@ -28,8 +28,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.Stack;
+ 
   
 public class StringUtil {
+	HashSet<String> dictionary = new HashSet<String>();
+	
+	public static StringUtil stringUtil = new StringUtil();
+    
+    public static StringUtil This() {
+        return stringUtil;
+    }     
+	
     public String getLeft(String s) {
         String left = s.substring(0, s.indexOf("."));
         return left;
@@ -41,39 +50,39 @@ public class StringUtil {
     }
   
     public String createAbbreviation(String input) { 
-    	 return input;
-//    	String str = "";
-//        List<List<String>> results = this.searchWordsInDictionary(input);
-//        if (!results.isEmpty()) {
-//	        List<String> list = results.get(results.size() - 1);
-//	        
-//	        Iterator<String> iterator = list.iterator();
-//	        while (iterator.hasNext()) {
-//	            String s = iterator.next();
-//	            s = s.substring(0, 1);
-//	            str = String.valueOf(str) + s.toUpperCase();
-//	        }
-//        } else {
-//        	String s1 = input.substring(0, 1);
-//        	String s2 = input.substring((int)(input.length()/2), (int)(input.length()/2) + 1);
-//        	String s3 = input.substring(input.length()-1, input.length());
-//        	str = s1.toUpperCase() + s2.toUpperCase() + s3.toUpperCase();
-//        }
-//        
-//        return str;
+		String str = "";
+		List<List<String>> results = this.searchWordsInDictionary(input);
+		if (!results.isEmpty()) {
+		    List<String> list = results.get(results.size() - 1);
+		    
+		    Iterator<String> iterator = list.iterator();
+		    while (iterator.hasNext()) {
+		        String s = iterator.next();
+		        s = s.substring(0, 1);
+		        str = String.valueOf(str) + s.toUpperCase();
+		    }
+		} else {
+			String s1 = input.substring(0, 1);
+			String s2 = input.substring((int)(input.length()/2), (int)(input.length()/2) + 1);
+			String s3 = input.substring(input.length()-1, input.length());
+			str = s1.toUpperCase() + s2.toUpperCase() + s3.toUpperCase();
+		}
+		
+		return str;
     }
 
     public List<List<String>> searchWordsInDictionary(String input) {
-        HashSet<String> dictionary = new HashSet<String>();
-        try {
-            Scanner filescan = new Scanner(new File("util/dictionary.txt"));
-            while (filescan.hasNext()) {
-                dictionary.add(filescan.nextLine().toLowerCase());
-            }
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    	if (dictionary.isEmpty()) {
+	        try {
+	            Scanner filescan = new Scanner(new File("util/dictionary.txt"));
+	            while (filescan.hasNext()) {
+	                dictionary.add(filescan.nextLine().toLowerCase());
+	            }
+	        }
+	        catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        }
+    	}
         input = input.replace("_", "");
         input = input.replace(" ", "");
         ArrayList<List<String>> results = new ArrayList<List<String>>(); 

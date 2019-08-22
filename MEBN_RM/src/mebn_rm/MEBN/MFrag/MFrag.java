@@ -112,7 +112,7 @@ public class MFrag implements Comparable<MFrag> {
 		}
 
 		s = s.substring(0, s.length() - 2);
-		s = new StringUtil().removeRedundantItem(s);
+		s = StringUtil.This().removeRedundantItem(s);
 
 		return s;
 	}
