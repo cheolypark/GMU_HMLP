@@ -62,7 +62,7 @@ import util.gui.GeneralDialog;
  * @author      Cheol Young Park
  * @version     0.0.1
  * @since       1.5
- */   
+ */      
 
 public class HML_Console extends GeneralDialog {  
 	private static final long serialVersionUID = 6441484231052304368L; 
