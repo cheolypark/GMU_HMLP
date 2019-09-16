@@ -112,10 +112,7 @@ public class mebn_rm_alg_test {
 	        RDB.This().init(schema, false); 
 	        
 	        MTheory m = new RM_To_MEBN(RDB.This()).run();
-	        String mTheory = m.toString("MFrag", "MNode");
-	        System.out.println("///////////////////////////////////////////////////////////////");
-	        System.out.println("The schema, " + schema + ", is used to create an MTheory");
-	        System.out.println(mTheory);
+	        String mTheory = m.toString("MFrag", "MNode"); 
 	         
 	        new mebn_rm.util.TextFile();
 	        new TextFile().save(".//Examples//MTheory//" + schema + ".txt", mTheory);

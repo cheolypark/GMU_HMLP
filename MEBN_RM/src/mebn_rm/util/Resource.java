@@ -46,8 +46,7 @@ public class Resource {
 
     public static void createPath(String strPath) {
         File theDir = new File(strPath);
-        if (!theDir.exists()) {
-            System.out.println("creating directory: " + strPath);
+        if (!theDir.exists()) { 
             boolean result = false;
             try {
                 theDir.mkdir();
@@ -55,10 +54,7 @@ public class Resource {
             }
             catch (SecurityException var3_3) {
                 // empty catch block
-            }
-            if (result) {
-                System.out.println("DIR created");
-            }
+            } 
         }
     }
 }

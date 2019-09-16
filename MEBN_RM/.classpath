@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="/ModelerLib/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="lib" path="/ModelerLib/lib/xom-1.2.10.jar"/>
 	<classpathentry kind="lib" path="/ModelerLib/lib/tetrad-development.jar"/>
+	<classpathentry kind="lib" path="/ModelerLib/lib/log4j-1.2.17.jar" sourcepath="C:/Users/PCYOUNG/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -30,8 +30,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
 import mebn_rm.util.Resource;
+import network.Network;
 import util.TempMathFunctions; 
 
 /**
@@ -44,6 +48,8 @@ import util.TempMathFunctions;
  */
 
 public class MySQL_Interface extends TempMathFunctions {
+	static Logger logger = Logger.getLogger(MySQL_Interface.class);
+	
     public static Connection connection;
     public String schema = "";
     public String root = "root";
@@ -92,7 +98,7 @@ public class MySQL_Interface extends TempMathFunctions {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println("Connected to a RDB [" + s + "]");
+        logger.debug("Connected to a RDB [" + s + "]");
         return null;
     }
 
@@ -140,7 +146,7 @@ public class MySQL_Interface extends TempMathFunctions {
 
     public void addValue(String table, String attribute, String value) {
         String sRun = "insert into " + table + " ( " + attribute + " ) values( " + value + " );";
-        System.out.println(sRun);
+        logger.debug(sRun);
         updateSQL(sRun);
     }
 
@@ -159,11 +165,11 @@ public class MySQL_Interface extends TempMathFunctions {
             if (e.getErrorCode() == 1007) {
                 connectSchema(s);
             } else if (e.getErrorCode() == 1050) {
-                System.out.println("Already there is the table");
+                logger.debug("Already there is the table");
             } else if (e.getErrorCode() == 1060) {
-                System.out.println("Already there is the attribute");
+                logger.debug("Already there is the attribute");
             } else if (e.getErrorCode() == 1062) {
-                System.out.println("Duplicate key");
+                logger.debug("Duplicate key");
             } else {
                 e.printStackTrace();
             }
@@ -173,7 +179,7 @@ public class MySQL_Interface extends TempMathFunctions {
     }
 
     public ResultSet querySQL(String s) {
-        System.out.println(s);
+        logger.debug(s);
         Statement statement = null;
         try { 
         	connection.close();
@@ -500,10 +506,7 @@ public class MySQL_Interface extends TempMathFunctions {
             fw.append(",");
             ++i;
         }
-        
-        if (fileName.equalsIgnoreCase("FM_pass")){
-        	System.out.println();
-        }
+         
         
         fw.append(System.getProperty("line.separator"));
         while (res.next()) {
@@ -534,11 +537,7 @@ public class MySQL_Interface extends TempMathFunctions {
                 	// -> 
                 	// Attribute_1	Attribut_2
                 	//	9			9
-                	//
-                	
-                    if (i == 17){
-                    	System.out.println();
-                    }
+                	// 
                     
                 	if (i != 1) {
                 		boolean b = false;
@@ -559,7 +558,13 @@ public class MySQL_Interface extends TempMathFunctions {
                 		}
                 		
                 		if (b) {
-                			if (!dataPrev.equalsIgnoreCase("empty")){
+                			if (dataPrev == null) {
+                				fw.append("0");
+	                            if (i < colunmCount) {
+	                                fw.append(",");
+	                            }
+                				
+                			} else  if (!dataPrev.equalsIgnoreCase("empty")){
                 				fw.append(dataPrev);
 	                            if (i < colunmCount) {
 	                                fw.append(",");

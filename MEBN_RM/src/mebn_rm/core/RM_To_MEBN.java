@@ -20,11 +20,14 @@ package mebn_rm.core;
  
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List; 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MCNode;
 import mebn_rm.MEBN.MNode.MDNode;
+import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.MEBN.MTheory.OVariable;
 import mebn_rm.RDB.RDB;
@@ -44,6 +47,7 @@ import mebn_rm.util.StringUtil;
  */
 
 public class RM_To_MEBN {
+	static Logger logger = Logger.getLogger(RM_To_MEBN.class);
 	RDB rdb = null;
 
 	/**
@@ -167,14 +171,14 @@ public class RM_To_MEBN {
 		// Coverting time
         Double seconds = (double)(System.nanoTime()-time1) / 1000000000.0;
 		
-		System.out.println(mTheory);
-		System.out.println("=========================================================================================");
-		System.out.println("numEntity\tnumRV\tnumMFrag");
-		System.out.println("# of Entity \t # of MFrag \t # of Resident Node \t # of IsA Nodes");
-		System.out.println(numEntity + "\t" + numMFrag + "\t" + numRV + "\t" + numOV );
-		System.out.println("Mapping time");
-		System.out.println(seconds);
-		System.out.println("=========================================================================================");
+		logger.debug(mTheory);
+		logger.debug("=========================================================================================");
+		logger.debug("numEntity\tnumRV\tnumMFrag");
+		logger.debug("# of Entity \t # of MFrag \t # of Resident Node \t # of IsA Nodes");
+		logger.debug(numEntity + "\t" + numMFrag + "\t" + numRV + "\t" + numOV );
+		logger.debug("Mapping time");
+		logger.debug(seconds);
+		logger.debug("=========================================================================================");
 		  
 		return mTheory;
 	}

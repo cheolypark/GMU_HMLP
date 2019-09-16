@@ -57,22 +57,17 @@ public class KL_Divergence {
 	
 	
 	public double get(double p1, double p2) { 
-        if (p1 == 0 || p2 == 0) return 0;   
-        System.out.println(p1 * Math.log( p1 / p2 ));
+        if (p1 == 0 || p2 == 0) return 0;    
 		return p1 * Math.log( p1 / p2 );  
 	}
 	
 	public java.math.BigDecimal get(java.math.BigDecimal p1, java.math.BigDecimal p2) { 
-        if (p1.doubleValue() == 0 || p2.doubleValue() == 0) return new java.math.BigDecimal("0.0");  
-        System.out.println(p1.divide(p2, 10, BigDecimal.ROUND_HALF_EVEN));
-        System.out.println(new BigDecimalUtils().ln(p1.divide(p2, 10, BigDecimal.ROUND_HALF_EVEN), 10));
+        if (p1.doubleValue() == 0 || p2.doubleValue() == 0) return new java.math.BigDecimal("0.0");   
 		return p1.multiply(new BigDecimalUtils().ln(p1.divide(p2, 10, BigDecimal.ROUND_HALF_EVEN), 10));  
 	}
 	 
     public static void main(String[] args) throws SQLException {
     	double cov1 = 0.1; double cov2 = 1;
-		double mean1 = -2.0; double mean2 = -2.5;   
-		  
-		System.out.println(new KL_Divergence().get(cov1, cov2, mean1, mean2)); 
+		double mean1 = -2.0; double mean2 = -2.5;    
     }
 }

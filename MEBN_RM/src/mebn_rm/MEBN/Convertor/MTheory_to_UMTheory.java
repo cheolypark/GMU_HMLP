@@ -17,7 +17,11 @@
  * limitations under the License.
  */
 package mebn_rm.MEBN.Convertor;
-  
+
+import org.apache.log4j.Logger;
+
+import mebn_rm.MEBN.CLD.ConditionalGaussian;
+
 /**
  * MTheory_to_UMTheory is the class to convert an MThoery to a UnBBayes MThoery format.
  * TODO: this class should be tested. 
@@ -29,6 +33,7 @@ package mebn_rm.MEBN.Convertor;
  */
 
 public class MTheory_to_UMTheory {
+	static Logger logger = Logger.getLogger(MTheory_to_UMTheory.class);
 //    MultiEntityBayesianNetwork mebn = null;
 //    public Map<ResidentNode, String> mapDefaultCPT = new HashMap<ResidentNode, String>();
 //    MFrag refMFrag = null;
@@ -57,7 +62,7 @@ public class MTheory_to_UMTheory {
 //    public void initEntityTypes() throws TypeException {
 //        ArrayList<String> tables = mTheory.rdb.getEntityTables();
 //        for (String t : tables) {
-//            System.out.println("Create " + t.toUpperCase() + " Entity");
+//            logger.debug("Create " + t.toUpperCase() + " Entity");
 //            mebnCreateEntity(t.toUpperCase());
 //        }
 //    }
@@ -246,41 +251,41 @@ public class MTheory_to_UMTheory {
 //
 //    public void printUnBBayesNet(ProbabilisticNetwork bn) {
 //        for (Node node : bn.getNodes()) {
-//            System.out.println(node.getDescription());
+//            logger.debug(node.getDescription());
 //            int i = 0;
 //            while (i < node.getStatesSize()) {
-//                System.out.println(String.valueOf(node.getStateAt(i)) + " : " + ((ProbabilisticNode)node).getMarginalAt(i));
+//                logger.debug(String.valueOf(node.getStateAt(i)) + " : " + ((ProbabilisticNode)node).getMarginalAt(i));
 //                ++i;
 //            }
 //        }
 //    }
 //
 //    public void printMebn() {
-//        System.out.println("*************Start**************");
+//        logger.debug("*************Start**************");
 //        for (MFrag mfrag : mebn.getDomainMFragList()) {
-//            System.out.println("********************************");
-//            System.out.println(" " + (Object)mfrag + " MFrag");
-//            System.out.println("********************************");
+//            logger.debug("********************************");
+//            logger.debug(" " + (Object)mfrag + " MFrag");
+//            logger.debug("********************************");
 //            for (OrdinaryVariable ordinaryVariable : mfrag.getOrdinaryVariableList()) {
-//                System.out.println("Ordinary Variable: " + ordinaryVariable.getName());
+//                logger.debug("Ordinary Variable: " + ordinaryVariable.getName());
 //            }
 //            for (ContextNode contextNode : mfrag.getContextNodeList()) {
 //                ResidentNodePointer n = (ResidentNodePointer)contextNode.getFormulaTree().getNodeVariable();
-//                System.out.println("Context Node: " + contextNode.getName() + "(" + getArugmentStrings(n.getOrdinaryVariableList()) + ")");
+//                logger.debug("Context Node: " + contextNode.getName() + "(" + getArugmentStrings(n.getOrdinaryVariableList()) + ")");
 //            }
 //            for (ResidentNode residentNode : mfrag.getResidentNodeList()) {
-//                System.out.println("Resident Node: " + residentNode.getName() + "(" + getArugmentStrings(residentNode.getOrdinaryVariableList()) + ")");
+//                logger.debug("Resident Node: " + residentNode.getName() + "(" + getArugmentStrings(residentNode.getOrdinaryVariableList()) + ")");
 //                residentNode.getTableFunction();
 //                for (ResidentNode residentNodeFather : residentNode.getResidentNodeFatherList()) {
-//                    System.out.println((Object)residentNodeFather + " -> " + (Object)residentNode);
+//                    logger.debug((Object)residentNodeFather + " -> " + (Object)residentNode);
 //                }
 //                for (InputNode inputNodeFather : residentNode.getParentInputNodesList()) {
 //                    ResidentNode r = (ResidentNode)inputNodeFather.getInputInstanceOf();
-//                    System.out.println(String.valueOf(inputNodeFather.getName()) + "(" + getArugmentStrings(r.getOrdinaryVariableList()) + ")" + " -> " + (Object)residentNode);
+//                    logger.debug(String.valueOf(inputNodeFather.getName()) + "(" + getArugmentStrings(r.getOrdinaryVariableList()) + ")" + " -> " + (Object)residentNode);
 //                }
 //            }
 //        }
-//        System.out.println("**************End***************");
+//        logger.debug("**************End***************");
 //    }
 //
 //    public boolean CheckError(String s, String t) {
@@ -370,12 +375,12 @@ public class MTheory_to_UMTheory {
 //
 //    public void printListOfTypes() {
 //        Set setType = mebn.getTypeContainer().getListOfTypes();
-//        System.out.println(setType);
+//        logger.debug(setType);
 //    }
 //
 //    public void printCategoricalStateEntity() {
 //        List list = mebn.getCategoricalStatesEntityContainer().getListEntity();
-//        System.out.println(list);
+//        logger.debug(list);
 //    }
 //
 //    public ContextNode addContextNode(String t, MFrag tarM) throws ArgumentOVariableAlreadySetException, OVDontIsOfTypeExpected {
@@ -459,7 +464,7 @@ public class MTheory_to_UMTheory {
 //            return null;
 //        }
 //        tarM.addEdge(uEdge);
-//        System.out.println("new input edge : " + uEdge.getOriginNode().getName() + " -> " + uEdge.getDestinationNode().getName());
+//        logger.debug("new input edge : " + uEdge.getOriginNode().getName() + " -> " + uEdge.getDestinationNode().getName());
 //        return i;
 //    }
 }

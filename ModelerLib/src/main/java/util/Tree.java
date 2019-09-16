@@ -79,9 +79,7 @@ public class Tree {
     	Node node = nodes.get(identifier);
     	Node nodeRet = null; 
     	String mData = matchingData.get(matchingDepth);
-
-    	//System.out.println(node.getData2() + " : " + node.getData1() +  "  " +  "  " + mData + "  " + matchingDepth );
-    	
+ 
     	for (String c : node.getChildren()){
     		Node nodeChild = nodes.get(c);
     		if (mData.equalsIgnoreCase((String)nodeChild.getData1())){

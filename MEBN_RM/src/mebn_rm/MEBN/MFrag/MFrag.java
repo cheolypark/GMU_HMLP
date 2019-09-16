@@ -24,8 +24,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.Categorical;
 import mebn_rm.MEBN.CLD.ConditionalGaussian;
+import mebn_rm.MEBN.Convertor.MTheory_to_UMTheory;
 import mebn_rm.MEBN.MNode.MIsANode;
 import mebn_rm.MEBN.MNode.MNode;
 import mebn_rm.MEBN.MTheory.MTheory;
@@ -47,6 +50,7 @@ import util.SortableValueMap;
  */
 
 public class MFrag implements Comparable<MFrag> {
+	static Logger logger = Logger.getLogger(MFrag.class);
 	public String name;
 	public MTheory mTheory = null;
 	public List<MIsANode> arrayIsaContextNodes = new ArrayList<MIsANode>();
@@ -317,7 +321,7 @@ public class MFrag implements Comparable<MFrag> {
 			MIsANode isa = arrayIsaContextNodes.get(i);
 
 			if (!allOvs.contains(isa.ovs.get(0))) {
-				System.out.println(isa + " " + last + " " + i);
+				logger.debug(isa + " " + last + " " + i);
 
 				MIsANode isaLast = arrayIsaContextNodes.get(last);
 				arrayIsaContextNodes.set(last, isa);
@@ -329,7 +333,7 @@ public class MFrag implements Comparable<MFrag> {
 				}
 
 			} else {
-				System.out.println("exsiting " + isa);
+				logger.debug("exsiting " + isa);
 			}
 
 			if (last == i)
@@ -338,7 +342,7 @@ public class MFrag implements Comparable<MFrag> {
 
 		// Remove all unnecessary nodes
 		for (int i = (arrayIsaContextNodes.size() - 1); last < i; i--) {
-			System.out.println("del" + last + " " + i);
+			logger.debug("del" + last + " " + i);
 			arrayIsaContextNodes.remove(i);
 		}
 	}
@@ -392,7 +396,7 @@ public class MFrag implements Comparable<MFrag> {
 	}
 
 	public void initSelectedDataset(int size) {
-		System.out.println("init Selected Dataset for the MFrag : " + name);
+		logger.debug("init Selected Dataset for the MFrag : " + name);
 		ResultSet rs = null;
 
 		if (joiningSQL == null) {
@@ -519,12 +523,12 @@ public class MFrag implements Comparable<MFrag> {
 
 	public void resetContextNodes() {
 		for (MNode mn : arrayResidentNodes) {
-			// System.out.println(mn.ovs);
+			// logger.debug(mn.ovs);
 			for (MNode rp : mn.parentMNodes) {
-				// System.out.println(rp.ovs);
+				// logger.debug(rp.ovs);
 			}
 			for (MNode ip : mn.inputParentMNodes) {
-				// System.out.println(ip.ovs);
+				// logger.debug(ip.ovs);
 			}
 		}
 	}

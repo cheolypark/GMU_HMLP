@@ -37,8 +37,8 @@ public class mebn_rm_test {
     public mebn_rm_test(String schema) throws SQLException {
         RDB.This().init(schema);
         MTheory m1 = new RM_To_MEBN(RDB.This()).run();
-        String mTheory = m1.toString("MFrag", "MNode");
-        System.out.println(mTheory);
+        String mTheory = m1.toString("MFrag", "MNode"); 
+        
         new mebn_rm.util.TextFile();
         new TextFile().save(".//Examples//MTheory//" + schema + ".txt", mTheory);
     }

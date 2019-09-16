@@ -18,6 +18,8 @@
  */
 package mebn_ln.core;
  
+import org.apache.log4j.Logger;
+
 import mebn_ln.core.Learning_Common;
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.MNode.MNode; 
@@ -33,12 +35,13 @@ import util.SortableValueMap;
  */
 
 public class MNode_Learning extends Learning_Common {
+	static Logger logger = Logger.getLogger(MNode_Learning.class);
     public void run(MNode mn) {
         getCandidateMNodes(mn);
-        System.out.println("******************* Begin MNode learning with the " + mn.name + " MNode *******************");
-        System.out.println(mn.toString());
+        logger.debug("******************* Begin MNode learning with the " + mn.name + " MNode *******************");
+        logger.debug(mn.toString());
         run_operation(mn);
-        System.out.println("******************* End MNode learning with the " + mn.name + " MNode *******************");
+        logger.debug("******************* End MNode learning with the " + mn.name + " MNode *******************");
     }
 
     public void run_operation(MNode mn) {
@@ -49,7 +52,7 @@ public class MNode_Learning extends Learning_Common {
             if (isMC_Approach()) continue;
             
             if (mn.name.equalsIgnoreCase("land_state_Dry")) {
-            	System.out.println(mn.name);
+            	logger.debug(mn.name);
             }
             
             c2.calculateBestPara();
@@ -66,7 +69,7 @@ public class MNode_Learning extends Learning_Common {
             cldCANs.put(l, cldSc);
         }
         for (CLD c2 : cldCANs.keySet()) {
-            System.out.println("Prior logP(L of " + c2.name + ":" + c2.cld_type + "):  logCLDSC: " + cldCANs.get((Object)c2));
+            logger.debug("Prior logP(L of " + c2.name + ":" + c2.cld_type + "):  logCLDSC: " + cldCANs.get((Object)c2));
         }
     }
 

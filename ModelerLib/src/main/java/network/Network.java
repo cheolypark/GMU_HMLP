@@ -19,7 +19,7 @@
 package network; 
 
 import util.SortableValueMap;
- 
+import org.apache.log4j.Logger;
 /**
  * Network is the class to construct a network. 
  * <p>This contains the followings:
@@ -35,6 +35,8 @@ import util.SortableValueMap;
  */
  
 public class Network { 
+	static Logger logger = Logger.getLogger(Network.class);
+	
 	public String name = "";
 	public SortableValueMap<String, Node> nodes = new SortableValueMap<String, Node>();
 	public SortableValueMap<String, Edge> edges = new SortableValueMap<String, Edge>();
@@ -50,7 +52,9 @@ public class Network {
 		Integer i = 1;
 		for (String key : edges.keySet()){
 			Edge e = edges.get(key);
-			System.out.println(i + "["+e.startNode.name + "-" + e.name + "->" + e.endNode.name + "]");
+
+			logger.debug(i + " ["+e.startNode.name + "-" + e.name + "->" + e.endNode.name + "]");
+			  
 			i++;
 		}		
 	}

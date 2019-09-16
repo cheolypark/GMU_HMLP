@@ -100,8 +100,7 @@ public class ConverterColtDataSet {
                         dataset.setObject(row - 1, col, (Object)nextLine[col]);
                         ++col;
                     }
-                }
-                System.out.println(row);
+                } 
                 ++row;
             }
         }

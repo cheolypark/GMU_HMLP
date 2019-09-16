@@ -85,8 +85,6 @@ public class doubleQuickSort {
     	A[0] = 0.10;
     	A[1] = 2.0;
     	A[2] = 0.03;
-    	q.sort(A);
-    	
-    	System.out.println(q.toString());
+    	q.sort(A); 
     }
 }

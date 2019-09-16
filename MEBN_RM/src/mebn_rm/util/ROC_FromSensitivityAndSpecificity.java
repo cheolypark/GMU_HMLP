@@ -18,11 +18,16 @@
  */
 package mebn_rm.util;
  
-import java.util.Map; 
+import java.util.Map;
 
+import org.apache.log4j.Logger;
+
+import network.Network;
 import util.SortableValueMap; 
 
 public class ROC_FromSensitivityAndSpecificity {
+	static Logger logger = Logger.getLogger(ROC_FromSensitivityAndSpecificity.class);
+	
     Double sens = 0.0;
     Double spec = 0.0;
     Double FPR = 0.0;
@@ -63,17 +68,16 @@ public class ROC_FromSensitivityAndSpecificity {
     }
 
     public void print() {
-        System.out.println("////////////////////////////////////////////////////");
-        System.out.println("/// ROC ///");
-        System.out.println("Sensitivity\t" + this.sens + "\tSpecificity\t" + this.spec);
-        System.out.println("false positive rate\t" + this.FPR + "\tfalse negative rate\t" + this.FNR);
-        System.out.println("X\tY");
+    	logger.debug("////////////////////////////////////////////////////");
+    	logger.debug("/// ROC ///");
+    	logger.debug("Sensitivity\t" + this.sens + "\tSpecificity\t" + this.spec);
+    	logger.debug("false positive rate\t" + this.FPR + "\tfalse negative rate\t" + this.FNR);
+    	logger.debug("X\tY");
         for (Double x : this.roc.keySet()) {
             Double y = this.roc.get(x);
-            System.out.println(x + "\t" + y);
+            logger.debug(x + "\t" + y);
         }
-        System.out.println();
-        System.out.println("AUC = " + this.auc);
+        logger.debug("AUC = " + this.auc);
     }
 
     public static void main(String[] args) {

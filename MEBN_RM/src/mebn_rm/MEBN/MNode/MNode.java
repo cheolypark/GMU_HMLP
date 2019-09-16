@@ -28,6 +28,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MCNode;
@@ -50,6 +53,7 @@ import util.math.Sum_for_Log;
  */
 
 public class MNode extends Tree implements Comparable<MNode> {
+	static Logger logger = Logger.getLogger(MNode.class);
     public String name = "";
     public String pret = "";
     public SortableValueMap<CLD, Double> cldCANs = new SortableValueMap<CLD, Double>();
@@ -290,7 +294,7 @@ public class MNode extends Tree implements Comparable<MNode> {
         while (n2 < n) {
             MNode mnode = arrmNode[n2];
             if (this == mnode) {
-                System.out.println("*** A node can't have a parent which is the node ***");
+                logger.debug("*** A node can't have a parent which is the node ***");
                 throw new EmptyStackException();
             }
             if (getParentNode(mnode.name) == null) {
@@ -348,11 +352,11 @@ public class MNode extends Tree implements Comparable<MNode> {
         while (n2 < n) {
             MNode mnode = arrmNode[n2];
             if (this == mnode) {
-                System.out.println("*** A node can't have a parent which is the node ***");
+                logger.debug("*** A node can't have a parent which is the node ***");
                 throw new EmptyStackException();
             }
             if (mnode == null) {
-                System.out.println("*** the node is null ***");
+                logger.debug("*** the node is null ***");
                 throw new EmptyStackException();
             }
             inputParentMNodes.add(mnode);

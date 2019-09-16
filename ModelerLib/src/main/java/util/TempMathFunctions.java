@@ -88,7 +88,7 @@ public class TempMathFunctions {
 	
 	public String safeDoubleAsString2(Double data) {   
 		DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
-		df.setMaximumFractionDigits(5); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
+		df.setMaximumFractionDigits(20); //340 = DecimalFormat.DOUBLE_FRACTION_DIGITS 
 		return df.format(data);
 	}
 	
@@ -218,8 +218,7 @@ public class TempMathFunctions {
 				return b - Math.sqrt((b-a)*(b-c)*(1-U));
 		}
 		else 
-		{
-			System.out.println("Invalid input !\n");
+		{ 
 			return 0;
 		}
 	}
@@ -412,13 +411,11 @@ public class TempMathFunctions {
 	//	System.out.print("Test = " + (int)Math.round((Math.random()*10)) + " \n" );
 		
 		double d1 = 60.00000001;
-		int e1 = new TempMathFunctions().getMostSignificantDigitFromDecimalPoint(d1);
-		System.out.println(e1);
+		int e1 = new TempMathFunctions().getMostSignificantDigitFromDecimalPoint(d1); 
 		
 //		double d2 = .0001234;
 		double d2 = 8.434634656930763;
-		String e2 = new TempMathFunctions().safeDoubleAsString(d2);
-		System.out.println(e2);
+		String e2 = new TempMathFunctions().safeDoubleAsString(d2); 
 		
 		
 //		

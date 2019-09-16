@@ -21,8 +21,11 @@ package mebn_ln.core;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import mebn_ln.core.Learning_Common;
-import mebn_ln.core.MNode_Learning; 
+import mebn_ln.core.MNode_Learning;
+import mebn_rm.MEBN.CLD.Categorical;
 import mebn_rm.MEBN.MFrag.MFrag;
 import mebn_rm.MEBN.MNode.MNode;
 
@@ -36,20 +39,18 @@ import mebn_rm.MEBN.MNode.MNode;
  */
 
 public class MFrag_Learning extends Learning_Common {
+	static Logger logger = Logger.getLogger(MFrag_Learning.class);
     MNode_Learning MNode_learning = new MNode_Learning();
     MFrag mFrag = null;
 
     public void run(MFrag f) {
         mFrag = f;
         getCandidateMGraphs(f, 5.0);
-        System.out.println("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
- 
-        if (f.name.equalsIgnoreCase("predecessor")){
-        	System.out.println();
-        }
+        logger.debug("******************* Begin MFrag learning with the " + f.name + " MFrag *******************");
+  
         f.initSelectedDataset(-1);
         run_operation(f);
-        System.out.println("******************* End MFrag learning with the " + f.name + " MFrag *******************");
+        logger.debug("******************* End MFrag learning with the " + f.name + " MFrag *******************");
     }
 
     /*
@@ -74,10 +75,7 @@ public class MFrag_Learning extends Learning_Common {
 //	        catch (IOException e) {
 //	            e.printStackTrace();
 //	        }
-	        
-        if (f.name.equalsIgnoreCase("land_state_Dry")) {
-    		System.out.println("A");
-    	}
+	         
         
         for (MNode n : f.arrayResidentNodes) {
             MNode_learning.run(n);

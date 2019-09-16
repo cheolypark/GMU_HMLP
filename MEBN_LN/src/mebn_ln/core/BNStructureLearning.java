@@ -69,8 +69,8 @@ public class BNStructureLearning {
             for (String parent : listParents) {
                 k.setForbidden(parent, child2);
             }
-        }
-        System.out.println((Object)k);
+        } 
+        
         BDeScore score = new BDeScore(discretized);
         score.setSamplePrior(1.0);
         score.setStructurePrior(10.0);
@@ -89,8 +89,7 @@ public class BNStructureLearning {
             Node n1 = e.getNode1();
             Node n2 = e.getNode2();
             f.setCausality(n2.getName(), new String[]{n1.getName()});
-        }
-        System.out.println((Object)f.mapCausality);
+        } 
     }
 }
 

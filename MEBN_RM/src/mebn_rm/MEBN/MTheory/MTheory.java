@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.CLD;
 import mebn_rm.MEBN.CLD.Categorical;
 import mebn_rm.MEBN.CLD.ConditionalGaussian;
@@ -47,6 +49,8 @@ import util.SortableValueMap;
  */
 
 public class MTheory implements Comparable<MTheory> {
+	static Logger logger = Logger.getLogger(MTheory.class);
+	
     public SortableValueMap<MFrag, Double> mfrags = new SortableValueMap<MFrag, Double>();
     public ArrayList<String> entities = new ArrayList<String>();
     public String name;
@@ -247,7 +251,7 @@ public class MTheory implements Comparable<MTheory> {
             OVariable ov2;
             
             if (f.name.equalsIgnoreCase("heater_item_temperature")) {
-            	  System.out.println(f.joiningSQL);
+            	  logger.debug(f.joiningSQL);
             } 
             
             if (f.joiningSQL != null) { 
@@ -279,15 +283,11 @@ public class MTheory implements Comparable<MTheory> {
                     	if (!ov.originMFrag.equalsIgnoreCase(ov2.originMFrag)){
                     		if (ov.originKey.equalsIgnoreCase(ov2.originKey)){
 //                    		if (ov.entityType.equalsIgnoreCase(ov2.entityType)){
-//	                    		System.out.println(ov + ":" + ov.originMFrag + "   <->   " + ov2 + ":" + ov2.originMFrag);
+//	                    		logger.debug(ov + ":" + ov.originMFrag + "   <->   " + ov2 + ":" + ov2.originMFrag);
 	                    		String curKey = ov.originMFrag + "." + ov.originKey;
 	                    		String otherKey = ov2.originMFrag + "." + ov2.originKey;
 	                    		String wh = curKey + " = " + otherKey;
-	                    		
-	                    		if(wh.equalsIgnoreCase("fm_pass.PASS_NO = rm_pass.PASS_NO")){
-	                    			System.out.println();
-	                    		}
-	                    		
+	                    		 
 	                    		if (!dubList.contains(wh)) {
 		                    		dubList.add(wh);
 		                    		sql += wh + " &&\r\n";
@@ -310,7 +310,7 @@ public class MTheory implements Comparable<MTheory> {
                 
                 for (MIsANode isa : f.arrayIsaContextNodes) {
                     ov = (OVariable)isa.ovs.get(0);
-//                    System.out.println(ov.name + "  " + ov.originMFrag);
+//                    logger.debug(ov.name + "  " + ov.originMFrag);
                     if (surviveMap.containsKey(ov.entityType)) {
                         removeList.add(isa);
                         continue;
@@ -331,7 +331,7 @@ public class MTheory implements Comparable<MTheory> {
             	 * We should not remove one of time OVs.
             	 */
             	
-//	            System.out.println(f.arrayContextNodes);
+//	            logger.debug(f.arrayContextNodes);
 	            
 	            // remove redundant OVs, if they are same OVs
 	            // e.g.) IsA(t1, TIME), IsA(t2, TIME)
@@ -401,7 +401,7 @@ public class MTheory implements Comparable<MTheory> {
         for (MFrag f : mfrags.keySet()) {
             Double logSC = f.getSumMNodeLogScores();
             logSCs = logSCs + logSC;
-            System.out.println(f.toString() + " : " + logSC);
+            logger.debug(f.toString() + " : " + logSC);
         }
         return logSCs;
     }

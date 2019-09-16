@@ -27,6 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.Probability; 
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.MEBN.parameter.Parameter;
@@ -47,6 +49,7 @@ import util.math.Sum_for_Log;
  */
 
 public class CLD extends Probability implements Comparable<CLD> {
+	static Logger logger = Logger.getLogger(CLD.class);
     public MNode mNode = null;
     public String name;
     public int parameterSize;
@@ -85,7 +88,7 @@ public class CLD extends Probability implements Comparable<CLD> {
         if (inclusions.contains("CLD")) {
         	
         	if (cld_type.equalsIgnoreCase("Dirichlet")) {
-        		System.out.println("");
+        		logger.debug("");
         	}
         	
             s = String.valueOf(s) + "[L [";
@@ -136,7 +139,7 @@ public class CLD extends Probability implements Comparable<CLD> {
         for (Parameter p : paraCANs.keySet()) {
             Double logSC = paraCANs.get(p);
             logSCs.add(logSC);
-            System.out.println(String.valueOf(p.toString()) + " Log Parameter scores : " + logSC);
+            logger.debug(String.valueOf(p.toString()) + " Log Parameter scores : " + logSC);
         }
         return new Sum_for_Log().sum(logSCs);
     }
@@ -173,7 +176,7 @@ public class CLD extends Probability implements Comparable<CLD> {
     	
         if (name.equalsIgnoreCase("land_state_Dry_cld_1"))
         {
-        	System.out.println("land_state_Dry_cld_1");
+        	logger.debug("land_state_Dry_cld_1");
         }
         
         String strFile = "";

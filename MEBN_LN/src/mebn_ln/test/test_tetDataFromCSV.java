@@ -10,8 +10,7 @@ public class test_tetDataFromCSV {
 	
 	public void run(String fCSV) {
 		RDB rdb = new RDB();
-		ColtDataSet cs = rdb.getTetDataSetFromCSV(fCSV); 
-		System.out.println(cs);
+		ColtDataSet cs = rdb.getTetDataSetFromCSV(fCSV);  
 	}
 
 	public static void main(String[] args) {

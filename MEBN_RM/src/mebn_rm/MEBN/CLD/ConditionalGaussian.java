@@ -26,7 +26,10 @@ import edu.cmu.tetrad.sem.DagScorer;
 import edu.cmu.tetrad.sem.Scorer;
 import edu.cmu.tetrad.sem.SemIm; 
 import edu.cmu.tetrad.util.TetradMatrix;   
-import java.util.List; 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.LPD_Continuous;
 import mebn_rm.MEBN.MNode.MNode; 
 import mebn_rm.RDB.RDB; 
@@ -46,6 +49,7 @@ import util.TempMathFunctions;
  */
 
 public class ConditionalGaussian extends LPD_Continuous {
+	static Logger logger = Logger.getLogger(ConditionalGaussian.class);
 	TempMathFunctions tmath = new TempMathFunctions();
     
     public ConditionalGaussian() {
@@ -56,8 +60,8 @@ public class ConditionalGaussian extends LPD_Continuous {
     
     public void calculateBestPara_op(String ipc, DataSet _dataSet_con, Graph continuousGraph) {
     	 
-        System.out.println("////////////////////////////////" + mNode.name);
-        System.out.println((Object)continuousGraph);
+        logger.debug("////////////////////////////////" + mNode.name);
+        logger.debug((Object)continuousGraph);
          
         if (_dataSet_con.getNumRows() == 0) {
             ipcScorers.put(ipc, null);
@@ -66,13 +70,13 @@ public class ConditionalGaussian extends LPD_Continuous {
         } else {
             DagScorer scorer = new DagScorer(_dataSet_con);
             double fml = scorer.score(continuousGraph);
-//            System.out.println("FML (scorer) = " + fml);
-//            System.out.println("BIC = " + scorer.getBicScore());
-//            System.out.println("AIC = " + scorer.getAicScore());
-//            System.out.println("DOF = " + scorer.getDof());
-//            System.out.println("# free params = " + scorer.getNumFreeParams());
+//            logger.debug("FML (scorer) = " + fml);
+//            logger.debug("BIC = " + scorer.getBicScore());
+//            logger.debug("AIC = " + scorer.getAicScore());
+//            logger.debug("DOF = " + scorer.getDof());
+//            logger.debug("# free params = " + scorer.getNumFreeParams());
             SemIm im = scorer.getEstSem();
-//            System.out.println("est sem = " + (Object)im);
+//            logger.debug("est sem = " + (Object)im);
             ipcScorers.put(ipc, scorer);
         }
     }
@@ -96,7 +100,7 @@ public class ConditionalGaussian extends LPD_Continuous {
                 Node child = sc.getDataSet().getVariable(mNode.name);
                 double edgeCoef = im.getEdgeCoef(parent, child);
                 if (edgeCoef == 0.0){
-                	System.out.println( "The edgeCoef is zero.");
+                	logger.debug( "The edgeCoef is zero.");
                 	edgeCoef = tmath.getSmalNumber();
                 }
                 String edgeCoefs = tmath.safeDoubleAsString2(edgeCoef);
@@ -104,7 +108,7 @@ public class ConditionalGaussian extends LPD_Continuous {
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
                 mean -= edgeCoef * meanParent;
-                System.out.println(var -= edgeCoef * varParent);
+                var -= edgeCoef * varParent;
             }
             String meanS = tmath.safeDoubleAsString2(mean);
             String varS = tmath.safeDoubleAsString2(Math.abs(var));
@@ -142,8 +146,7 @@ public class ConditionalGaussian extends LPD_Continuous {
             IPCs_Data.add("null");
         } 
         
-        for (String ipc : IPCs_Data) {
-//            System.out.println(ipc);
+        for (String ipc : IPCs_Data) { 
             DataSet _dataSet_con = null;
             _dataSet_con = ipc.equalsIgnoreCase("") ? selectedData : Tetrad_Util.getSubsetdataFromIPC(ipc, selectedData);
             EdgeListGraph continuousGraph = new EdgeListGraph();
@@ -161,7 +164,7 @@ public class ConditionalGaussian extends LPD_Continuous {
         
         // create default distribution
         if (mNode.cvsFile != null) {	// contains a cvs for a default data
-        	System.out.println(mNode.cvsFile);
+        	logger.debug(mNode.cvsFile);
         	
             String strFile = mNode.cvsFile;
             defaultData = (DataSet)RDB.This().getTetDataSetFromCSV(strFile);
@@ -230,7 +233,7 @@ public class ConditionalGaussian extends LPD_Continuous {
          
         if (sc != null) {
         	SemIm im = sc.getEstSem();
-//            System.out.println(im.toString());
+//            logger.debug(im.toString());
             double mean = im.getMean((Node)sc.getVariables().get(0));
             TetradMatrix implCovar = im.getImplCovar(false);
             double var = im.getVariance((Node)sc.getVariables().get(0), implCovar);
@@ -247,7 +250,7 @@ public class ConditionalGaussian extends LPD_Continuous {
                 double meanParent = im.getMean(parent);
                 double varParent = implCovar.get(sc.getVariables().indexOf((Object)parent), sc.getVariables().indexOf((Object)child));
                 mean -= edgeCoef * meanParent;
-                System.out.println(var -= edgeCoef * varParent);
+                var -= edgeCoef * varParent;
             }
               
             String meanS = tmath.safeDoubleAsString2(mean);

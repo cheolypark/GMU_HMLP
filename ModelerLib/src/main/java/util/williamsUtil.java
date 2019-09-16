@@ -189,8 +189,7 @@ public class williamsUtil{
 	 
 			x = 50 + (int)Math.round(coord[1] * 100);
 			y = 50 - (int)Math.round(coord[0] * 100);
-			
-			System.out.println(toString());
+			 
 		}
 	}
 	

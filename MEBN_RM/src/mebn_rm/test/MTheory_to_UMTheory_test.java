@@ -39,7 +39,7 @@ public class MTheory_to_UMTheory_test {
         RDB.This().init(schema);
         MTheory m1 = new RM_To_MEBN(RDB.This()).run();
         String mTheory = m1.toString("MFrag", "MNode");
-        System.out.println(mTheory);
+        
         new mebn_rm.util.TextFile();
         new TextFile().save(".//Examples//MTheory//" + schema + ".txt", mTheory);
 //        MTheory_to_UMTheory converter = new MTheory_to_UMTheory(m1, null);

@@ -69,17 +69,12 @@ public class ConvertFromMTheoryToSBN {
             ArrayList<Node> listNode = (ArrayList)nodesInLevels.get((Object)i);
             for (Node n : listNode) {
             	skip:
-                for (MFrag f2 : m.mfrags.keySet()) {
-                	if (f2.name.equalsIgnoreCase("land_state_Dry")) {
-                		System.out.println("A");
-                	}
+                for (MFrag f2 : m.mfrags.keySet()) { 
+                	
                 	List<MNode> allNodes = f2.getAllNodes();
                 	
                     for (MNode mn : allNodes) {
-                    	
-                    	System.out.println("mn.name: "  + mn.getColumnName() + " 		n.name: "  + n.name);
-                    
-                    	
+                    	 
                     	if (!mn.getColumnName().equalsIgnoreCase(n.name)) continue;
                         
                     	String cps = mn.getILD();

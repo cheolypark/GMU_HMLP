@@ -407,22 +407,19 @@ public class BigDecimalUtils {
 			ret.add(bd);
 			sum = sum.add(bd);
 		}
-		
-		//System.out.println(sum);
+		 
 		
 		java.math.BigDecimal gap = new java.math.BigDecimal("0.0");
 		 
 		int i = 0; 
 		for (java.math.BigDecimal bd : ret){
 			bd = bd.divide(sum, scale, BigDecimal.ROUND_HALF_EVEN);
-			
-		//	System.out.println(bd);
+			 
 			ret.set(i++, bd);
 			gap = gap.add(bd);
 		}
 		
-		gap = gap.subtract(new java.math.BigDecimal("1.0"));
-		//System.out.println(gap);
+		gap = gap.subtract(new java.math.BigDecimal("1.0")); 
 		//gap = gap.subtract(sum);
 		java.math.BigDecimal bd = ret.get(0);
 		bd = bd.add(gap);
@@ -439,12 +436,9 @@ public class BigDecimalUtils {
 		BigDecimal d2 = new BigDecimal(-810);
 		BigDecimal r1 = new BigDecimalUtils().exp(d1, 1000);
 		BigDecimal r2 = new BigDecimalUtils().exp(d2, 1000);
-		BigDecimal r3 = r1.add(r2);
-		System.out.println(r2);
-		BigDecimal r4 = r1.divide(r3, 50, BigDecimal.ROUND_UP);
-		System.out.println(r4);
-		BigDecimal r5 = r2.divide(r3, 50, BigDecimal.ROUND_UP);
-		System.out.println(r5);
+		BigDecimal r3 = r1.add(r2); 
+		BigDecimal r4 = r1.divide(r3, 50, BigDecimal.ROUND_UP); 
+		BigDecimal r5 = r2.divide(r3, 50, BigDecimal.ROUND_UP); 
 		
 		double g10 = 1838.2147007563956;
 		double g11 = 7310.645978879972;
@@ -452,9 +446,7 @@ public class BigDecimalUtils {
 		double g21 = 1913.404852793049;
 		
 		
-		double ret = (1/Math.sqrt(2*Math.PI*(g11 + g21))) * r1.doubleValue();
-		System.out.println(r1.doubleValue());
-		System.out.println(ret);
+		double ret = (1/Math.sqrt(2*Math.PI*(g11 + g21))) * r1.doubleValue(); 
 		
 		
 		//double ret = (1/Math.sqrt(2*Math.PI*(g11 + g21))) *  

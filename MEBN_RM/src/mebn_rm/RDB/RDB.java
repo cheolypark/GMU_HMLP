@@ -33,11 +33,14 @@ import java.util.List;
 import java.util.Map;  
 import mebn_rm.RDB.Bin;
 import mebn_rm.RDB.MySQL_Interface;
+import network.Network;
+
 import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.log4j.Logger;
  
 /**
  * RDB is the class for a relational database. This class stores several information
@@ -50,6 +53,7 @@ import org.apache.commons.csv.CSVRecord;
  */
 
 public class RDB extends MySQL_Interface {
+	static Logger logger = Logger.getLogger(RDB.class);
 	
     public MultiMap mapTableAndKeys = new MultiHashMap();
     public MultiMap mapTableAndAttributes = new MultiHashMap();
@@ -135,19 +139,18 @@ public class RDB extends MySQL_Interface {
         
         if (priKeys.size() == 1 && importedColumns.isEmpty()) { // Case 1: only one original primary key without any foreign keys
         	addTableTypesAndTables("EntityTable", table);
-            System.out.println(index + ". Found an entity table [" + table + "]");
+            logger.debug(index + ". Found an entity table [" + table + "]");
             return;	
         } else if (priKeys.size() == 1 && !importedColumns.isEmpty()) { // Case 2: only one original primary key with foreign keys
         	if (!importedColumns.containsKey(priKeys.get(0))){
         		addTableTypesAndTables("EntityTable", table);
-                System.out.println(index + ". Found an entity table [" + table + "]");
+                logger.debug(index + ". Found an entity table [" + table + "]");
                 return;		
         	}
         }
         
         addTableTypesAndTables("RelationshipTable", table);
-        System.out.println(index + ". Found an relationship table [" + table + "]");
-        
+        logger.debug(index + ". Found an relationship table [" + table + "]"); 
     }
 
     public void initializePrimaryKeys() {
@@ -303,28 +306,41 @@ public class RDB extends MySQL_Interface {
     }
 
     public boolean isRealValueType(String s) {
-        if (s.equalsIgnoreCase("float") || s.equalsIgnoreCase("doulbe")) {
+        if (s.equalsIgnoreCase("float") || 
+    		s.equalsIgnoreCase("doulbe") ||
+    		s.equalsIgnoreCase("TINYINT") ||
+    		s.equalsIgnoreCase("SMALLINT") ||
+    		s.equalsIgnoreCase("MEDIUMINT") ||
+    		s.equalsIgnoreCase("INT") ||
+    		s.equalsIgnoreCase("BIGINT") ||
+    		s.equalsIgnoreCase("DECIMAL") || 
+    		s.equalsIgnoreCase("NUMERIC")) {
             return true;
         }
         return false;
     }
-
+ 
+    
     public void createBins(String attr, String table) throws SQLException {
         Double min = Double.MAX_VALUE;
         Double max = Double.MIN_VALUE;
         ResultSet rs = getDomain(attr, table);
         while (rs.next()) {
             String d = rs.getString(attr);
-            Double cur = Double.valueOf(d);
-            min = Math.min(cur, min);
-            max = Math.max(cur, max);
+            if (d != null) {
+	            Double cur = Double.valueOf(d);
+	            min = Math.min(cur, min);
+	            max = Math.max(cur, max);
+            }
         }
         rs.close();
         Bin bin = new Bin(min, max);
         mapAttributeBins.put(attr, bin);
-        for (String strBin : bin.getAllBins()) {
+        
+        // The following is commented out, since domain value is used for indication of discrete variables
+        /*for (String strBin : bin.getAllBins()) {
             setDomainVaule(attr, strBin);
-        }
+        }*/
     }
 
     public void setDomainVaule(String attr, String d) { 
@@ -387,7 +403,7 @@ public class RDB extends MySQL_Interface {
             }
             String key2 = String.valueOf(targetTable) + "_" + t;
             addChains(key2, chains, targetTable, t);
-            System.out.println("Chains: " + key2 + " " + chains);
+            logger.debug("Chains: " + key2 + " " + chains);
         }
     }
 
@@ -601,14 +617,14 @@ public class RDB extends MySQL_Interface {
 			int i = 0; 
 			for (CSVRecord record : records) {
 				
-				// System.out.println(record.size());
+				// logger.debug(record.size());
 				// Headers
 				if (!b) {
 					b = true;
 					for (int j = 0; j < record.size(); j++) {
 						String column = record.get(j);
 						if (!column.isEmpty()) {
-							// System.out.println(column);
+							// logger.debug(column);
 							mapHeader.put(j, column);
 						}
 					}
@@ -664,7 +680,7 @@ public class RDB extends MySQL_Interface {
 			for (int i = 0; i < removeList.size(); i++) {
 				array[i] = removeList.get(i);
 			}
-			System.out.println("Data have missing values!");
+			logger.debug("Data have missing values!");
 			dataset.removeRows(array);
 		}
           
@@ -714,8 +730,8 @@ public class RDB extends MySQL_Interface {
                     Map<String, String> importedColumnsC = getImportedColumn(strTableC_fillterd);
                     for (String importedColumnC : importedColumnsC.keySet()) {
                         String importedTC = importedColumnsC.get(importedColumnC);
-                        System.out.println(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
-                        System.out.println(String.valueOf(strTableC_fillterd) + "." + importedColumnC + "[" + importedTC + "]");
+                        logger.debug(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
+                        logger.debug(String.valueOf(strTableC_fillterd) + "." + importedColumnC + "[" + importedTC + "]");
                         if (!importedT.equals(importedTC)) continue;
                         if (j != 0) {
                             strOnArg = String.valueOf(strOnArg) + " && \n";
@@ -723,7 +739,7 @@ public class RDB extends MySQL_Interface {
                         ++j;
                         strOnArg = String.valueOf(strOnArg) + strTable + "." + importedColumn;
                         strOnArg = String.valueOf(strOnArg) + " = " + strTableC + "." + importedColumnC;
-                        System.out.println(strOnArg);
+                        logger.debug(strOnArg);
                     }
                 }
             }
@@ -762,8 +778,8 @@ public class RDB extends MySQL_Interface {
                     Map<String, String> importedColumnsC = getImportedColumn(strTableC_fillterd);
                     for (String importedColumnC : importedColumnsC.keySet()) {
                         String importedTC = importedColumnsC.get(importedColumnC);
-                        System.out.println(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
-                        System.out.println(String.valueOf(strTableC_fillterd) + "." + importedColumnC + "[" + importedTC + "]");
+                        logger.debug(String.valueOf(strTable) + "." + importedColumn + "[" + importedT + "]");
+                        logger.debug(String.valueOf(strTableC_fillterd) + "." + importedColumnC + "[" + importedTC + "]");
                         if (!importedT.equals(importedTC)) continue;
                         if (j != 0) {
                             strOnArg = String.valueOf(strOnArg) + " && \n";
@@ -771,7 +787,7 @@ public class RDB extends MySQL_Interface {
                         ++j;
                         strOnArg = String.valueOf(strOnArg) + strTable + "." + importedColumn;
                         strOnArg = String.valueOf(strOnArg) + " = " + strTableC + "." + importedColumnC;
-                        System.out.println(strOnArg);
+                        logger.debug(strOnArg);
                     }
                 }
             }
@@ -862,7 +878,7 @@ public class RDB extends MySQL_Interface {
             while (rs.next()) {
                 int j = 0;
                 for (String attr : attrs) {
-                    System.out.println(String.valueOf(attr) + " " + rs.getString(attr) + " " + " " + getDomainIndex(attr, rs.getString(attr)));
+                    logger.debug(String.valueOf(attr) + " " + rs.getString(attr) + " " + " " + getDomainIndex(attr, rs.getString(attr)));
                     dataset.setObject(i, j, (Object)getDomainIndex(attr, rs.getString(attr)));
                     ++j;
                 }
@@ -879,36 +895,36 @@ public class RDB extends MySQL_Interface {
 
     public void printClassInfo() {
         Object a;
-        System.out.println("Tables' Types");
+        logger.debug("Tables' Types");
         for (Object o22222 : mapTableTypesAndTables.keySet()) {
             a = (ArrayList)mapTableTypesAndTables.get(o22222);
-            System.out.println("\t" + o22222 + ":" + a);
+            logger.debug("\t" + o22222 + ":" + a);
         }
-        System.out.println("Tables' Keys");
+        logger.debug("Tables' Keys");
         for (Object o : mapTableAndKeys.keySet()) {
             a = (ArrayList)mapTableAndKeys.get(o);
-            System.out.println("\t" + o + ":" + a);
+            logger.debug("\t" + o + ":" + a);
         }
-        System.out.println("Tables' Attributes");
+        logger.debug("Tables' Attributes");
         for (Object o2 : mapTableAndAttributes.keySet()) {
             String attrType = mapAttributeTypes.get(o2);
             ArrayList a2 = (ArrayList)mapTableAndAttributes.get(o2);
-            System.out.println("\t" + o2 + ":" + a2 + "[" + attrType + "]");
+            logger.debug("\t" + o2 + ":" + a2 + "[" + attrType + "]");
         }
-        System.out.println("Tables' Chains");
+        logger.debug("Tables' Chains");
         for (Object o3 : mapChains.keySet()) {
             a = (ArrayList)mapChains.get(o3);
-            System.out.println("\t" + o3 + ":" + a);
+            logger.debug("\t" + o3 + ":" + a);
         }
-        System.out.println("Tables' Chains of Chains");
+        logger.debug("Tables' Chains of Chains");
         for (Object o4 : mapChainsOfChains.keySet()) {
             a = (ArrayList)mapChainsOfChains.get(o4);
-            System.out.println("\t" + o4 + ":" + a);
+            logger.debug("\t" + o4 + ":" + a);
         }
-        System.out.println("Keys' Origins");
+        logger.debug("Keys' Origins");
         for (Object o5 : mapKeysOrigins.keySet()) {
             a = mapKeysOrigins.get(o5);
-            System.out.println("\t" + o5 + ":" + (String)a);
+            logger.debug("\t" + o5 + ":" + (String)a);
         }
     }
 

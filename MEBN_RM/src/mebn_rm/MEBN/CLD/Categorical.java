@@ -29,9 +29,13 @@ import edu.cmu.tetrad.graph.Graph;
 import edu.cmu.tetrad.graph.Node; 
 import java.util.ArrayList; 
 import java.util.Iterator;
-import java.util.List;  
+import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import mebn_rm.MEBN.CLD.LPD_Discrete;
-import mebn_rm.MEBN.MNode.MNode; 
+import mebn_rm.MEBN.MNode.MNode;
+import mebn_rm.MEBN.MTheory.MTheory;
 import mebn_rm.RDB.RDB; 
 import mebn_rm.util.StringUtil;
 import mebn_rm.util.Tetrad_Util; 
@@ -50,6 +54,7 @@ import mebn_rm.util.Tetrad_Util;
  */
 
 public class Categorical extends LPD_Discrete {
+	static Logger logger = Logger.getLogger(Categorical.class);
  
     public Categorical() {
         super("", "Dirichlet");
@@ -123,7 +128,7 @@ public class Categorical extends LPD_Discrete {
         
         // create default distribution
         if (mNode.cvsFile != null) {	// contains a cvs for a default data
-        	System.out.println(mNode.cvsFile);
+        	logger.debug(mNode.cvsFile);
         	
             String strFile = mNode.cvsFile;
             defaultData = (DataSet)RDB.This().getTetDataSetFromCSV(strFile);

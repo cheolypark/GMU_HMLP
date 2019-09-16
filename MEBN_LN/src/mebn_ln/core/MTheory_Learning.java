@@ -18,6 +18,8 @@
  */
 package mebn_ln.core;
  
+import org.apache.log4j.Logger;
+
 import mebn_ln.core.Learning_Common;
 import mebn_ln.core.MFrag_Learning;
 import mebn_rm.MEBN.MFrag.MFrag;
@@ -35,12 +37,13 @@ import util.SortableValueMap;
  */
 
 public class MTheory_Learning extends Learning_Common {
+	static Logger logger = Logger.getLogger(MTheory_Learning.class);
     MFrag_Learning MFrag_learning = new MFrag_Learning();
     public static boolean structure_learning = true;
 
     public void run(MRoot mRoot) {
         getCandidateMTheories(mRoot.mtheoryCANs);
-        System.out.println("******************* Begin MTheory learning with an MRoot *******************");
+        logger.debug("******************* Begin MTheory learning with an MRoot *******************");
  
         run_operation(mRoot.mtheoryCANs);
     }
@@ -61,7 +64,7 @@ public class MTheory_Learning extends Learning_Common {
         }
         
         for (MTheory m : mtheoryCANs.keySet()) {
-            System.out.println("6 >>>>>>> " + m.name + " logMTheorySC : " + mtheoryCANs.get((Object)m));
+            logger.debug("6 >>>>>>> " + m.name + " logMTheorySC : " + mtheoryCANs.get((Object)m));
         }
     }
 

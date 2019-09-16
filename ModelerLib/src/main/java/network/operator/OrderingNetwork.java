@@ -20,6 +20,9 @@ package network.operator;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import network.Edge;
 import network.Network;
 import network.Node;
@@ -40,6 +43,8 @@ import util.SortableValueMap;
  */
 
 public class OrderingNetwork extends SearchingPath {
+	static Logger logger = Logger.getLogger(OrderingNetwork.class);
+	
 	public SortableValueMap<Integer, ArrayList<Node>> levels = new SortableValueMap<Integer, ArrayList<Node>>();
 
 	public OrderingNetwork() {
@@ -179,7 +184,7 @@ public class OrderingNetwork extends SearchingPath {
 	 * Used for printing out information for levels of nodes in a network.
 	 */
 	public void print() {
-		System.out.println("===== Ordered Network =====");
+		logger.debug("===== Ordered Network =====");
 		for (Integer key : levels.keySet()) {
 			String s = "Level " + key + " [ ";
 			for (Node n : levels.get(key)) {
@@ -187,7 +192,7 @@ public class OrderingNetwork extends SearchingPath {
 			}
 
 			s += "]";
-			System.out.println(s);
+			logger.debug(s);
 		}
 	}
 

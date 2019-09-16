@@ -135,9 +135,7 @@ public class StringUtil {
     
     public static void main(String[] args) {
     	StringUtil u = new StringUtil();
-    	String list = u.createAbbreviation("finishingmill");
-    //	String list = u.createAbbreviation("finishing");
-//    	System.out.println(list);
+    	String list = u.createAbbreviation("finishingmill"); 
     }
 }
 
